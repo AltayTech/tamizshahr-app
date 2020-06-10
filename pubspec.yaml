@@ -1,0 +1,89 @@
+name: tamizshahr
+description: Appliction of Tamiz Shahr
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^4.0.5+1
+  shared_preferences: ^0.5.6
+  http: ^0.12.0+2
+  intl: ^0.16.0
+  flutter_widget_from_html_core: ^0.3.2+1
+  share: ^0.6.3+5
+  image_picker: ^0.6.2+3
+  url_launcher: ^5.4.1
+  html: ^0.14.0
+  flutter_spinkit: "^4.1.1"
+  flutter_masked_text: ^0.8.0
+  shamsi_date: ^0.8.1
+  carousel_slider: ^2.1.0
+  google_map_location_picker: ^3.3.2
+  google_maps_flutter: ^0.5.28+1
+
+  cupertino_icons: ^0.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/splash_main.png
+    - assets/images/main_page_header.png
+    - assets/images/main_page_request_ic.png
+    - assets/images/main_page_paper_ic.png
+    - assets/images/main_page_shop_ic.png
+    - assets/images/main_page_wallet_ic.png
+    - assets/images/address_page_header.png
+    - assets/images/login_bg.png
+    - assets/images/logo.png
+    - assets/images/logo.jpg
+    - assets/images/phone_icon.png
+    - assets/images/cheque.jpg
+    - assets/images/instagram.png
+    - assets/images/telegram.png
+    - assets/images/circle.gif
+    - assets/images/circle2.gif
+    - assets/images/drawer_header.jpg
+    - assets/images/logo_splash.png
+    - assets/images/orders_list.png
+    - assets/images/message_icon.png
+    - assets/images/user_Icon.png
+    - assets/images/cash_pay_header.jpg
+
+  fonts:
+    #   - family: Schyler
+    #     fonts:
+    #       - asset: fonts/Schyler-Regular.ttf
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
+    - family: Iransans
+      fonts:
+        - asset: assets/fonts/IRANSansMobile.ttf
+        - asset: assets/fonts/IRANSansMobile_Bold.ttf
+        - asset: assets/fonts/IRANSansMobile_Light.ttf
+        - asset: assets/fonts/IRANSansMobile_UltraLight.ttf
+          weight: 700
+    - family: IransansNonEn
+      fonts:
+        - asset: assets/fonts/IRANSansMobileNoEnMedium.ttf
+          weight: 700
+    - family: BFarnaz
+      fonts:
+        - asset: assets/fonts/B_Farnaz.ttf
+          weight: 700
+
+
