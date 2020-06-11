@@ -202,12 +202,12 @@ class _AuthCardState extends State<AuthCard>
           _authData['phoneNumber'],
         );
         if (response) {
-          try {
-            Provider.of<Products>(context, listen: false)
-                .addShopCartAfterLogin(true);
-          } catch (error) {
-            print(error.toString());
-          }
+//          try {
+//            Provider.of<Products>(context, listen: false)
+//                .addShopCartAfterLogin(true);
+//          } catch (error) {
+//            print(error.toString());
+//          }
 
           Navigator.of(context)
               .pushReplacementNamed(NavigationBottomScreen.routeName);

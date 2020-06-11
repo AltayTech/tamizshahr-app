@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import '../models/shop.dart';
-import '../customer_info.dart';
+import '../provider/customer_info.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/app_theme.dart';

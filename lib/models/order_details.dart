@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/order_details_aghsat.dart';
 import 'orderItem.dart';
 
 class OrderDetails with ChangeNotifier {
@@ -18,7 +17,6 @@ class OrderDetails with ChangeNotifier {
   final String pay_status;
   final String pay_status_slug;
 
-  final OrderDetailsAghsat orderDetailsAghsat;
 
   OrderDetails(
       {this.id,
@@ -33,8 +31,7 @@ class OrderDetails with ChangeNotifier {
       this.pay_type_slug,
       this.pish,
       this.pay_status,
-      this.pay_status_slug,
-      this.orderDetailsAghsat});
+      this.pay_status_slug,});
 
   factory OrderDetails.fromJson(Map<String, dynamic> parsedJson) {
     var productList = parsedJson['products'] as List;
@@ -55,7 +52,6 @@ class OrderDetails with ChangeNotifier {
         pay_type_slug: parsedJson['pay_type_slug'],
         pish: parsedJson['pish'],
         pay_status: parsedJson['pay_status'],
-        pay_status_slug: parsedJson['pay_status_slug'],
-        orderDetailsAghsat: OrderDetailsAghsat.fromJson(parsedJson['aghsats']));
+        pay_status_slug: parsedJson['pay_status_slug'],);
   }
 }

@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/models/request/wasteCart.dart';
 
-import '../models/price_weight.dart';
-import '../models/wasteCart.dart';
+import '../models/request/price_weight.dart';
 import '../provider/app_theme.dart';
 import '../provider/wastes.dart';
-import '../screens/product_detail_screen.dart';
 import 'en_to_ar_number_convertor.dart';
 
 class WasteCartItem extends StatefulWidget {
@@ -84,7 +83,6 @@ class _WasteCartItemState extends State<WasteCartItem> {
     return Container(
       height: deviceWidth * 0.35,
       width: deviceWidth,
-
       child: LayoutBuilder(
         builder: (_, constraints) => Card(
           child: Stack(
@@ -99,8 +97,7 @@ class _WasteCartItemState extends State<WasteCartItem> {
                         placeholder: AssetImage('assets/images/logo.jpg'),
                         image: NetworkImage(
                             widget.wasteItem.featured_image != null
-                                ? widget
-                                    .wasteItem.featured_image.sizes.medium
+                                ? widget.wasteItem.featured_image.sizes.medium
                                 : ''),
                         fit: BoxFit.cover,
                       ),
@@ -114,14 +111,12 @@ class _WasteCartItemState extends State<WasteCartItem> {
                             SizedBox(
                               height: deviceWidth * 0.03,
                             ),
-
                             Expanded(
                               flex: 3,
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Expanded(
                                     flex: 5,
@@ -141,108 +136,98 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                     ),
                                   ),
                                   Spacer(),
-
                                   Container(
                                     height: constraints.maxHeight * 0.23,
                                     width: constraints.maxWidth * 0.23,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Expanded(
                                             child: InkWell(
-                                              onTap: () async {
-                                                productWeight =
-                                                    productWeight + 1;
+                                          onTap: () async {
+                                            productWeight = productWeight + 1;
 
-                                                await Provider.of<Wastes>(
-                                                    context,
+                                            await Provider.of<Wastes>(context,
                                                     listen: false)
-                                                    .updateWasteCart(
-                                                  widget.wasteItem,
-                                                  productWeight,
-                                                )
-                                                    .then((_) {
-                                                  widget.callFunction();
-                                                  setState(() {
-                                                    _isLoading = false;
-                                                    print(
-                                                        _isLoading.toString());
-                                                  });
-                                                });
-                                              },
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        2),
-                                                    color: AppTheme.secondary,
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: AppTheme.bg,
-                                                  )),
-                                            )),
+                                                .updateWasteCart(
+                                              widget.wasteItem,
+                                              productWeight,
+                                            )
+                                                .then((_) {
+                                              widget.callFunction();
+                                              setState(() {
+                                                _isLoading = false;
+                                                print(_isLoading.toString());
+                                              });
+                                            });
+                                          },
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(2),
+                                                color: AppTheme.secondary,
+                                              ),
+                                              child: Icon(
+                                                Icons.add,
+                                                color: AppTheme.bg,
+                                              )),
+                                        )),
                                         Expanded(
                                           child: Text(
                                             EnArConvertor()
                                                 .replaceArNumber(widget
-                                                .wasteItem.weight
-                                                .toString())
+                                                    .wasteItem.weight
+                                                    .toString())
                                                 .toString(),
                                             style: TextStyle(
                                               color: AppTheme.black,
                                               fontFamily: 'Iransans',
-                                              fontSize:
-                                              textScaleFactor * 14,
+                                              fontSize: textScaleFactor * 14,
                                             ),
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
                                         Expanded(
                                             child: InkWell(
-                                              onTap: () {
-                                                if (productWeight > 1) {
-                                                  productWeight =
-                                                      productWeight - 1;
-                                                  print('productCount' +
-                                                      productWeight.toString());
+                                          onTap: () {
+                                            if (productWeight > 1) {
+                                              productWeight = productWeight - 1;
+                                              print('productCount' +
+                                                  productWeight.toString());
 
-                                                  Provider.of<Wastes>(context,
+                                              Provider.of<Wastes>(context,
                                                       listen: false)
-                                                      .updateWasteCart(
-                                                    widget.wasteItem,
-                                                    productWeight,
-                                                  )
-                                                      .then((_) {
-                                                    widget.callFunction();
+                                                  .updateWasteCart(
+                                                widget.wasteItem,
+                                                productWeight,
+                                              )
+                                                  .then((_) {
+                                                widget.callFunction();
 
-                                                    setState(() {
-                                                      _isLoading = false;
-                                                      print(_isLoading
-                                                          .toString());
-                                                    });
-                                                  });
-                                                }
-                                              },
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        2),
-                                                    color: AppTheme.secondary,
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.remove,
-                                                    color: AppTheme.bg,
-                                                  )),
-                                            )),
+                                                setState(() {
+                                                  _isLoading = false;
+                                                  print(_isLoading.toString());
+                                                });
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(2),
+                                                color: AppTheme.secondary,
+                                              ),
+                                              child: Icon(
+                                                Icons.remove,
+                                                color: AppTheme.bg,
+                                              )),
+                                        )),
                                       ],
                                     ),
                                   ),
-
                                 ],
                               ),
                             ),
@@ -250,31 +235,25 @@ class _WasteCartItemState extends State<WasteCartItem> {
                               flex: 3,
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
                                       Text(
-                                        widget.wasteItem.prices
-                                            .length !=
-                                            0
+                                        widget.wasteItem.prices.length != 0
                                             ? EnArConvertor().replaceArNumber(
-                                            currencyFormat
-                                                .format(double
-                                                .parse(getPrice(
-                                                widget
-                                                    .wasteItem
-                                                    .prices,
-                                                widget
-                                                    .wasteItem
-                                                    .weight)))
-                                                .toString())
+                                                currencyFormat
+                                                    .format(double.parse(
+                                                        getPrice(
+                                                            widget.wasteItem
+                                                                .prices,
+                                                            widget.wasteItem
+                                                                .weight)))
+                                                    .toString())
                                             : EnArConvertor()
-                                            .replaceArNumber('0'),
+                                                .replaceArNumber('0'),
                                         style: TextStyle(
                                           color: AppTheme.primary,
                                           fontFamily: 'Iransans',
@@ -293,28 +272,22 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                   ),
                                   Spacer(),
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
                                       Text(
-                                        widget.wasteItem.prices
-                                            .length !=
-                                            0
+                                        widget.wasteItem.prices.length != 0
                                             ? EnArConvertor().replaceArNumber(
-                                            currencyFormat
-                                                .format(double
-                                                .parse(getPrice(
-                                                widget
-                                                    .wasteItem
-                                                    .prices,
-                                                widget
-                                                    .wasteItem
-                                                    .weight))* widget
-                                                .wasteItem
-                                                .weight)
-                                                .toString())
+                                                currencyFormat
+                                                    .format(double.parse(
+                                                            getPrice(
+                                                                widget.wasteItem
+                                                                    .prices,
+                                                                widget.wasteItem
+                                                                    .weight)) *
+                                                        widget.wasteItem.weight)
+                                                    .toString())
                                             : EnArConvertor()
-                                            .replaceArNumber('0'),
+                                                .replaceArNumber('0'),
                                         style: TextStyle(
                                           color: AppTheme.primary,
                                           fontFamily: 'Iransans',

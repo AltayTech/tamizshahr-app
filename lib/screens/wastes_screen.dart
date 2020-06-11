@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/waste.dart';
-import 'package:tamizshahr/models/wasteCart.dart';
+import 'package:tamizshahr/models/request/waste.dart';
+import 'package:tamizshahr/models/request/wasteCart.dart';
 import 'package:tamizshahr/provider/app_theme.dart';
 import 'package:tamizshahr/provider/wastes.dart';
 import 'package:tamizshahr/widgets/waste_item_wastes_screen.dart';
@@ -43,7 +43,7 @@ class _WastesScreenState extends State<WastesScreen>
     setState(() {
       _isLoading = true;
     });
-    await Provider.of<Wastes>(context, listen: false).searchItem();
+    await Provider.of<Wastes>(context, listen: false).searchWastesItem();
     loadedWastes.clear();
     loadedWastes = Provider.of<Wastes>(context, listen: false).wasteItems;
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;

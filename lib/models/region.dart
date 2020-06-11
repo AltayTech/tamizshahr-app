@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/models/collect_hour.dart';
+import 'file:///C:/AndroidStudioProjects/pasmand/tamiz_shahr/lib/models/request/collect_hour.dart';
 
 class Region with ChangeNotifier {
   final int term_id;

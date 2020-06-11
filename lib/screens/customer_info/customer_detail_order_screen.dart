@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
 import '../../models/order.dart';
-import '../../customer_info.dart';
+import '../../provider/customer_info.dart';
 import '../../widgets/en_to_ar_number_convertor.dart';
 import '../order_view_screen.dart';
 

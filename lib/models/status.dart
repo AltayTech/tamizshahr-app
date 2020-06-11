@@ -5,7 +5,6 @@ class Status with ChangeNotifier {
   final String name;
   final String slug;
 
-
   Status({this.term_id, this.name, this.slug});
 
   factory Status.fromJson(Map<String, dynamic> parsedJson) {
@@ -14,5 +13,13 @@ class Status with ChangeNotifier {
       name: parsedJson['name'],
       slug: parsedJson['slug'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'term_id': term_id,
+      'name': name,
+      'slug': slug,
+    };
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/models/personal_data.dart';
 import 'package:tamizshahr/widgets/info_edit_item.dart';
 
-import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
-import '../../customer_info.dart';
+import '../../provider/app_theme.dart';
+import '../../provider/customer_info.dart';
 import '../../widgets/main_drawer.dart';
 import 'customer_user_info_screen.dart';
 
@@ -25,6 +26,7 @@ class _CustomerDetailInfoEditScreenState
   final emailController = TextEditingController();
   final ostanController = TextEditingController();
   final cityController = TextEditingController();
+
 //  final addressController = TextEditingController();
   final postCodeController = TextEditingController();
 
@@ -61,7 +63,8 @@ class _CustomerDetailInfoEditScreenState
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-
+    Customer customerInfo =
+        Provider.of<CustomerInfo>(context, listen: false).customer;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -113,7 +116,7 @@ class _CustomerDetailInfoEditScreenState
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xffA67FEC),
                                   keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight*0.05,
+                                  fieldHeight: deviceHeight * 0.05,
                                 ),
                                 InfoEditItem(
                                   title: 'نام خانوادگی',
@@ -121,7 +124,7 @@ class _CustomerDetailInfoEditScreenState
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xffA67FEC),
                                   keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight*0.05,
+                                  fieldHeight: deviceHeight * 0.05,
                                 ),
                                 InfoEditItem(
                                   title: 'ایمیل',
@@ -129,7 +132,7 @@ class _CustomerDetailInfoEditScreenState
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xffA67FEC),
                                   keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight*0.05,
+                                  fieldHeight: deviceHeight * 0.05,
                                 ),
                               ],
                             ),
@@ -153,7 +156,7 @@ class _CustomerDetailInfoEditScreenState
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xff4392F1),
                                   keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight*0.05,
+                                  fieldHeight: deviceHeight * 0.05,
                                 ),
                                 InfoEditItem(
                                   title: 'شهر',
@@ -161,7 +164,7 @@ class _CustomerDetailInfoEditScreenState
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xff4392F1),
                                   keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight*0.05,
+                                  fieldHeight: deviceHeight * 0.05,
                                 ),
                                 InfoEditItem(
                                   title: 'کدپستی',
@@ -169,7 +172,7 @@ class _CustomerDetailInfoEditScreenState
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xff4392F1),
                                   keybordType: TextInputType.number,
-                                  fieldHeight: deviceHeight*0.05,
+                                  fieldHeight: deviceHeight * 0.05,
                                 ),
 //                                InfoEditItem(
 //                                  title: 'آدرس',
@@ -211,23 +214,33 @@ class _CustomerDetailInfoEditScreenState
                         ),
                       );
 
-                      Provider.of<CustomerInfo>(context, listen: false).firstName =
-                          nameController.text;
-                      Provider.of<CustomerInfo>(context, listen: false).lastName =
-                          familyController.text;
+                      Provider.of<CustomerInfo>(context, listen: false)
+                          .firstName = nameController.text;
+                      Provider.of<CustomerInfo>(context, listen: false)
+                          .lastName = familyController.text;
 
                       Provider.of<CustomerInfo>(context, listen: false).email =
                           emailController.text;
-                      Provider.of<CustomerInfo>(context, listen: false).province =
-                          ostanController.text;
+                      Provider.of<CustomerInfo>(context, listen: false)
+                          .province = ostanController.text;
                       Provider.of<CustomerInfo>(context, listen: false).city =
                           cityController.text;
 //                      Provider.of<CustomerInfo>(context, listen: false).address =
 //                          addressController.text;
-                      Provider.of<CustomerInfo>(context, listen: false).postcode =
-                          postCodeController.text;
                       Provider.of<CustomerInfo>(context, listen: false)
-                          .sendCustomer()
+                          .postcode = postCodeController.text;
+                      Customer customerSend = Customer(
+                          personalData: PersonalData(
+                        first_name: nameController.text,
+                        last_name: familyController.text,
+                        city: cityController.text,
+                        ostan: ostanController.text,
+                        email: emailController.text,
+                        postcode: postCodeController.text,
+                      ));
+
+                      Provider.of<CustomerInfo>(context, listen: false)
+                          .sendCustomer(customerSend)
                           .then((v) {
                         Scaffold.of(context).showSnackBar(addToCartSnackBar);
                         Navigator.of(context)
@@ -249,4 +262,3 @@ class _CustomerDetailInfoEditScreenState
     );
   }
 }
-

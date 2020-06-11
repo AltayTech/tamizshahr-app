@@ -3,17 +3,18 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:tamizshahr/models/address.dart';
-import 'package:tamizshahr/models/collect.dart';
-import 'package:tamizshahr/models/pasmand.dart';
 import 'package:tamizshahr/models/region.dart';
-import 'package:tamizshahr/models/request_address.dart';
-import 'package:tamizshahr/models/request_waste.dart';
+import 'package:tamizshahr/models/request/address.dart';
+import 'package:tamizshahr/models/request/collect.dart';
+import 'package:tamizshahr/models/request/pasmand.dart';
+import 'package:tamizshahr/models/request/request_address.dart';
+import 'package:tamizshahr/models/request/request_waste.dart';
+import 'package:tamizshahr/models/request/wasteCart.dart';
+import 'package:tamizshahr/widgets/custom_dialog_profile.dart';
 import 'package:tamizshahr/widgets/custom_dialog_send_request.dart';
 
 import '../models/customer.dart';
-import '../models/price_weight.dart';
-import '../models/wasteCart.dart';
+import '../models/request/price_weight.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';
@@ -72,13 +73,24 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
     );
   }
 
+  void _showCompletedialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => CustomDialogProfile(
+        title: 'اطلاعات کاربری',
+        buttonText: 'صفحه پروفایل ',
+        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+      ),
+    );
+  }
+
   void _showSenddialog() {
     showDialog(
       context: context,
       builder: (ctx) => CustomDialogSendRequest(
-        title: 'اطلاعات کاربری',
-        buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        title: 'تایید ثبت در خواست',
+        buttonText: 'خب',
+        description: 'درخواست شما با موفقیت ثبت شد',
       ),
     );
   }
@@ -110,6 +122,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
 
     await Provider.of<Auth>(context, listen: false)
         .retrieveRegion(selectedAddress.region.term_id);
+    await Provider.of<Auth>(context, listen: false).checkCompleted();
 
     selectedRegion = Provider.of<Auth>(context, listen: false).regionData;
     selectedHours = Provider.of<Wastes>(context, listen: false).selectedHours;
@@ -231,7 +244,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         total_weight: totalWeight.toString(),
         collect_hours: selectedHours,
         collect_day:
-            '${weekDays[selectedDay.weekDay]}  ${selectedDay.day} ${weekDays[selectedDay.weekDay]}',
+            '${weekDays[selectedDay.weekDay - 1]}  ${selectedDay.day} ${weekDays[selectedDay.weekDay - 1]}',
         address_data: RequestAddress(
           name: selectedAddress.name,
           address: selectedAddress.address,
@@ -266,6 +279,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
     bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
+    bool isCompleted = Provider.of<Auth>(context, listen: false).isCompleted;
 
     return Scaffold(
       appBar: AppBar(
@@ -644,9 +658,13 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                               } else if (!isLogin) {
                                 _showLogindialog();
                               } else {
-                                await createRequest(context);
-                                await sendRequest(context, isLogin)
-                                    .then((value) => _showSenddialog());
+                                if (isCompleted) {
+                                  await createRequest(context);
+                                  await sendRequest(context, isLogin)
+                                      .then((value) => _showSenddialog());
+                                } else {
+                                  _showCompletedialog();
+                                }
                               }
                             },
                             child: Container(

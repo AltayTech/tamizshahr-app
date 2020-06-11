@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/models/waste.dart';
+import 'package:tamizshahr/models/request/waste.dart';
 
 import '../provider/app_theme.dart';
 

@@ -3,13 +3,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:tamizshahr/models/address.dart';
 import 'package:tamizshahr/models/region.dart';
+import 'package:tamizshahr/models/request/address.dart';
+import 'package:tamizshahr/models/request/wasteCart.dart';
 import 'package:tamizshahr/screens/waste_request_send_screen.dart';
 
 import '../models/customer.dart';
-import '../models/price_weight.dart';
-import '../models/wasteCart.dart';
+import '../models/request/price_weight.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';

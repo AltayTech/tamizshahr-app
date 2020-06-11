@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../customer_info.dart';
+import '../provider/customer_info.dart';
 import '../provider/auth.dart';
 import '../screens/about_us_screen.dart';
 import '../screens/cart_screen.dart';

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../provider/app_theme.dart';
 import '../models/customer.dart';
 import '../provider/auth.dart';
-import '../customer_info.dart';
+import '../provider/customer_info.dart';
 import '../screens/customer_info/customer_orders_screen.dart';
 import '../screens/customer_info/customer_user_info_screen.dart';
 import '../screens/customer_info/login_screen.dart';

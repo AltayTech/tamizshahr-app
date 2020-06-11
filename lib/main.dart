@@ -24,8 +24,9 @@ import './screens/messages_create_screen.dart';
 import './screens/navigation_bottom_screen.dart';
 import './screens/waste_cart_screen.dart';
 import 'classes/strings.dart';
-import 'customer_info.dart';
 import 'provider/Products.dart';
+import 'provider/customer_info.dart';
+import 'screens/collect_list_screen.dart';
 import 'screens/customer_info/customer_detail_info_edit_screen.dart';
 import 'screens/customer_info/login_screen.dart';
 import 'screens/customer_info/profile_screen.dart';
@@ -127,6 +128,7 @@ class MyApp extends StatelessWidget {
           ArticleDetailScreen.routeName: (ctx) => ArticleDetailScreen(),
           WasteRequestDateScreen.routeName: (ctx) => WasteRequestDateScreen(),
           WasteRequestSendScreen.routeName: (ctx) => WasteRequestSendScreen(),
+          CollectListScreen.routeName: (ctx) => CollectListScreen(),
         },
       ),
     );

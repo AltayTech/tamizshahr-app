@@ -5,9 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamizshahr/models/address.dart';
-import 'package:tamizshahr/models/address_main.dart';
 import 'package:tamizshahr/models/region.dart';
+import 'package:tamizshahr/models/request/address.dart';
+import 'package:tamizshahr/models/request/address_main.dart';
 
 import 'urls.dart';
 
@@ -25,6 +25,8 @@ class Auth with ChangeNotifier {
   List<Region> _regionItems = [];
 
   Region _regionData;
+
+  bool _isCompleted = false;
 
   bool get isLoggedin => _isLoggedin;
 
@@ -123,6 +125,41 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> checkCompleted() async {
+    try {
+      if (isAuth) {
+        final prefs = await SharedPreferences.getInstance();
+        _token = prefs.getString('token');
+
+        final url = Urls.rootUrl + Urls.checkCompletedEndPoint;
+
+        final response = await get(
+          url,
+          headers: {
+            'Authorization': 'Bearer $_token',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+        );
+
+        final extractedData = json.decode(response.body) as dynamic;
+
+        print(extractedData.toString());
+        bool isCompleted = extractedData['complete'];
+
+        _isCompleted = isCompleted;
+      } else {
+        _isCompleted = false;
+      }
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+
+    notifyListeners();
+  }
+
   Future<void> removeToken() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
@@ -131,6 +168,9 @@ class Auth with ChangeNotifier {
     print(prefs.getString('token'));
     notifyListeners();
   }
+
+
+  bool get isCompleted => _isCompleted;
 
   bool get isFirstLogin => _isFirstLogin;
 
@@ -162,10 +202,10 @@ class Auth with ChangeNotifier {
         AddressMain addressMain = AddressMain.fromJson(extractedData);
         print(extractedData.toString());
 
-        List<Address> addresses = addressMain.addressData;
-        print('sssssssssssssssssssssssssss ${addresses.length}');
+        List<Address> addresseList = addressMain.addressData;
+        print('sssssssssssssssssssssssssss ${addresseList.length}');
 
-        _addressItems = addresses;
+        _addressItems = addresseList;
       } else {
         _addressItems = [];
       }
@@ -202,9 +242,13 @@ class Auth with ChangeNotifier {
 
         final extractedData = json.decode(response.body);
 
-        print('sdddddddddddddddddddddddddddddd' + extractedData.toString());
+        AddressMain addressMain = AddressMain.fromJson(extractedData);
+        print(extractedData.toString());
 
-        _addressItems = addressList;
+        List<Address> addresses = addressMain.addressData;
+        print('ییییییییییییییییییی  ${addresses.length}');
+
+        _addressItems = addresses;
       } else {
         print('qqqqqqqqqqqqqqggggggggq');
 
@@ -301,7 +345,7 @@ class Auth with ChangeNotifier {
   Future<void> retrieveRegion(int regionId) async {
     print('retrieveRegion');
 
-    final url = Urls.rootUrl + Urls.regionEndPoint+'/$regionId';
+    final url = Urls.rootUrl + Urls.regionEndPoint + '/$regionId';
     print(url);
 
     try {
@@ -313,8 +357,7 @@ class Auth with ChangeNotifier {
       final extractedData = json.decode(response.body);
       print(extractedData);
 
-       _regionData = Region.fromJson(extractedData);
-
+      _regionData = Region.fromJson(extractedData);
 
       notifyListeners();
     } catch (error) {

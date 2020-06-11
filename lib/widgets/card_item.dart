@@ -50,7 +50,7 @@ class _CardItemState extends State<CardItem> {
       _isLoading = true;
     });
     await Provider.of<Products>(context, listen: false).removeShopCart(
-        widget.shoppItem.id, widget.shoppItem.color_selected.id);
+        widget.shoppItem.id);
     widget.callFunction();
 
 
@@ -132,53 +132,53 @@ class _CardItemState extends State<CardItem> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Wrap(
-                                      alignment: WrapAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.all(10),
-                                          width: 15.0,
-                                          height: 15.0,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: Colors.black,
-                                                width: 0.2),
-                                            color: Color(
-                                              int.parse(
-                                                '0xff' +
-                                                    widget
-                                                        .shoppItem
-                                                        .color_selected
-                                                        .color_code
-                                                        .replaceRange(0, 1, ''),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: Text(
-                                            widget
-                                                .shoppItem.color_selected.title,
-                                            style: TextStyle(
-                                              color: AppTheme.black,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 12,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+//                                Align(
+//                                  alignment: Alignment.centerRight,
+//                                  child: Padding(
+//                                    padding: const EdgeInsets.all(4.0),
+//                                    child: Wrap(
+//                                      alignment: WrapAlignment.spaceBetween,
+//                                      crossAxisAlignment:
+//                                          WrapCrossAlignment.center,
+//                                      children: <Widget>[
+////                                        Container(
+////                                          alignment: Alignment.centerLeft,
+////                                          padding: EdgeInsets.all(10),
+////                                          width: 15.0,
+////                                          height: 15.0,
+////                                          decoration: BoxDecoration(
+////                                            shape: BoxShape.circle,
+////                                            border: Border.all(
+////                                                color: Colors.black,
+////                                                width: 0.2),
+////                                            color: Color(
+////                                              int.parse(
+////                                                '0xff' +
+////                                                    widget
+////                                                        .shoppItem
+////                                                        .color_selected
+////                                                        .color_code
+////                                                        .replaceRange(0, 1, ''),
+////                                              ),
+////                                            ),
+////                                          ),
+////                                        ),
+////                                        Padding(
+////                                          padding: const EdgeInsets.all(4.0),
+////                                          child: Text(
+////                                            widget
+////                                                .shoppItem.color_selected.title,
+////                                            style: TextStyle(
+////                                              color: AppTheme.black,
+////                                              fontFamily: 'Iransans',
+////                                              fontSize: textScaleFactor * 12,
+////                                            ),
+////                                          ),
+////                                        ),
+//                                      ],
+//                                    ),
+//                                  ),
+//                                ),
                                 Expanded(
                                   flex: 3,
                                   child: Row(

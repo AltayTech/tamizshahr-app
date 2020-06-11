@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/address.dart';
+import 'package:tamizshahr/models/request/address.dart';
 import 'package:tamizshahr/provider/auth.dart';
 
 import '../provider/app_theme.dart';

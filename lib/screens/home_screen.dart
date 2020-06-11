@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/screens/article_screen.dart';
+import 'package:tamizshahr/screens/collect_list_screen.dart';
 
 import '../models/product_cart.dart';
 import '../provider/Products.dart';
@@ -225,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     InkWell(
                       onTap: () {
                         Navigator.of(context)
-                            .pushNamed(CustomerUserInfoScreen.routeName);
+                            .pushNamed(CollectListScreen.routeName);
                       },
                       child: Padding(
                         padding: EdgeInsets.all(deviceWidth * itemPaddingF),

@@ -9,8 +9,8 @@ class ProductCart with ChangeNotifier {
   final String price;
   final String featured_media_url;
   final Brandc brand;
-
   int productCount;
+
   final ColorCodeCard color_selected;
 
   ProductCart(

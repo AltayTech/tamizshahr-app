@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../models/customer.dart';
 import '../models/message.dart';
 import '../provider/auth.dart';
-import '../customer_info.dart';
+import '../provider/customer_info.dart';
 import '../provider/messages.dart';
 import '../widgets/message_reply_item.dart';
 import 'package:provider/provider.dart';
@@ -127,7 +127,7 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
                             ),
                             child: MessageReplyItem(
                               message: message,
-                              isReply: customer.personalData.id !=
+                              isReply: customer.id !=
                                   int.parse(
                                     message.user_id,
                                   ),

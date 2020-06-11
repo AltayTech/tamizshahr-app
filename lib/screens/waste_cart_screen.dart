@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/models/request/wasteCart.dart';
 
 import '../models/customer.dart';
-import '../models/price_weight.dart';
-import '../models/wasteCart.dart';
+import '../models/request/price_weight.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';
@@ -79,6 +79,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     setState(() {
       _isLoading = true;
     });
+    await Provider.of<Auth>(context, listen: false).checkCompleted();
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
     totalPrice = 0;
     totalWeight = 0;
@@ -130,6 +131,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
     bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
+    bool isCompleted = Provider.of<Auth>(context, listen: false).isCompleted;
 
     return Scaffold(
       appBar: AppBar(
@@ -328,13 +330,12 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                               } else if (!isLogin) {
                                 _showLogindialog();
                               } else {
-//                                if (customer
-//                                    .personalData.personal_data_complete) {
-                                Navigator.of(context)
-                                    .pushNamed(AddressScreen.routeName);
-//                                } else {
-//                                  _showCompletedialog();
-//                                }
+                                if (isCompleted) {
+                                  Navigator.of(context)
+                                      .pushNamed(AddressScreen.routeName);
+                                } else {
+                                  _showCompletedialog();
+                                }
                               }
                             },
                             child: Container(

@@ -63,56 +63,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Future<void> addToShoppingCart(
-      Product loadedProduct, var _selectedColor, bool isLogin) async {
+      Product loadedProduct, var _selectedColor) async {
     setState(() {
       _isLoading = true;
     });
 
     await Provider.of<Products>(context, listen: false)
-        .addShopCart(loadedProduct, _selectedColor, 1, isLogin);
+        .addShopCart(loadedProduct, _selectedColor, 1);
 
     setState(() {
       _isLoading = false;
     });
     print(_isLoading.toString());
-  }
-
-  Future<void> addtoshopFromDialogBox(
-      ColorCodeProductDetail selectedColor) async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    _snackBarMessage = 'محصول با موفقیت به سبد اضافه گردید!';
-
-    _selectedColor = selectedColor;
-    setState(() {
-      _isLoading = true;
-    });
-
-    Provider.of<Products>(context, listen: false)
-        .addShopCart(loadedProduct, _selectedColor, 1, isLogin)
-        .then((_) {
-      setState(() {
-        _isLoading = false;
-        print(_isLoading.toString());
-      });
-    });
-
-    setState(() {
-      _isLoading = false;
-    });
-    print(_isLoading.toString());
-  }
-
-  Future<void> _showColorSelectiondialog(Function addToCart) {
-    return showDialog(
-      context: context,
-      builder: (ctx) => CustomDialogSelectColor(
-        product: loadedProduct,
-        function: addToCart,
-      ),
-    );
   }
 
   @override
@@ -385,8 +347,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Padding(
-                        padding:
-                            EdgeInsets.only(bottom: textScaleFactor * 5.0),
+                        padding: EdgeInsets.only(bottom: textScaleFactor * 5.0),
                         child: Text(
                           'تومان',
                           style: TextStyle(
@@ -396,7 +357,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                         ),
                       ),
-
                       priceWidget(),
                     ],
                   ),
@@ -407,9 +367,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
         drawer: Theme(
           data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
+            canvasColor: Colors.transparent,
           ),
           child: MainDrawer(),
         ),
@@ -438,7 +396,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 Scaffold.of(context).showSnackBar(addToCartSnackBar);
               } else {
                 _selectedColor = null;
-                await _showColorSelectiondialog(addtoshopFromDialogBox);
+                await addToShoppingCart(loadedProduct, null);
+//                await _showColorSelectiondialog(addtoshopFromDialogBox);
                 if (_selectedColor != null) {
                   _snackBarMessage = 'محصول با موفقیت به سبد اضافه گردید!';
                   SnackBar addToCartSnackBar = SnackBar(

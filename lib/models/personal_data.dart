@@ -1,41 +1,60 @@
 import 'package:flutter/foundation.dart';
 
+import 'request/address.dart';
+
 class PersonalData with ChangeNotifier {
-  final int id;
   final String phone;
   final String first_name;
   final String last_name;
   final String ostan;
   final String city;
-//  final String address;
+  final List<Address> addresses;
   final String postcode;
   final String email;
-  final bool personal_data_complete;
 
-  PersonalData(
-      {this.id,
-      this.phone,
-      this.first_name,
-      this.last_name,
-      this.email,
-      this.ostan,
-      this.city,
-//      this.address,
-      this.postcode,
-      this.personal_data_complete});
+  PersonalData({
+    this.phone,
+    this.first_name,
+    this.last_name,
+    this.email,
+    this.ostan,
+    this.city,
+    this.addresses,
+    this.postcode,
+  });
 
   factory PersonalData.fromJson(Map<String, dynamic> parsedJson) {
+    var addressList = parsedJson['address_data'] as List;
+    List<Address> addressRaw =
+        addressList.map((i) => Address.fromJson(i)).toList();
+
     return PersonalData(
-      id: parsedJson['id'],
       phone: parsedJson['phone'],
       first_name: parsedJson['fname'],
       last_name: parsedJson['lname'],
       email: parsedJson['email'],
       ostan: parsedJson['ostan'],
       city: parsedJson['city'],
-//      address: parsedJson['address'],
+      addresses: addressRaw,
       postcode: parsedJson['postcode'],
-      personal_data_complete: parsedJson['customer_data'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+
+    List<Map> addresses = this.addresses != null
+        ? this.addresses.map((i) => i.toJson()).toList()
+        : null;
+
+    return {
+      'phone': phone,
+      'fname': first_name,
+      'lname': last_name,
+      'email': email,
+      'ostan': ostan,
+      'city': city,
+      'address_data': addresses,
+      'postcode': postcode,
+    };
   }
 }

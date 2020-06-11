@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../customer_info.dart';
+import '../provider/customer_info.dart';
 import '../models/customer.dart';
 import '../models/product_cart.dart';
 import '../provider/Products.dart';
@@ -59,6 +59,8 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
+      await Provider.of<Auth>(context, listen: false).checkCompleted();
+
       getShopItems();
       customer = Provider.of<CustomerInfo>(context, listen: false).customer;
       _isLoading = true;
@@ -70,7 +72,8 @@ class _CartScreenState extends State<CartScreen> {
         try {
           Provider.of<CustomerInfo>(context, listen: false).getCustomer().then(
             (_) {
-              customer = Provider.of<CustomerInfo>(context, listen: false).customer;
+              customer =
+                  Provider.of<CustomerInfo>(context, listen: false).customer;
             },
           );
         } catch (error) {
@@ -125,6 +128,8 @@ class _CartScreenState extends State<CartScreen> {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
     bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
+    bool isCompleted = Provider.of<Auth>(context, listen: false).isCompleted;
+
     getShopItems();
 
     return Scaffold(
@@ -417,8 +422,7 @@ class _CartScreenState extends State<CartScreen> {
                               } else if (!isLogin) {
                                 _showLogindialog();
                               } else {
-                                if (customer
-                                    .personalData.personal_data_complete) {
+                                if (isCompleted) {
                                   Navigator.of(context)
                                       .pushNamed(CashPaymentScreen.routeName);
                                 } else {
@@ -427,7 +431,7 @@ class _CartScreenState extends State<CartScreen> {
                               }
                             },
                             child: Container(
-                              width: deviceWidth * 0.4,
+                              width: deviceWidth * 0.9,
                               height: deviceWidth * 0.13,
                               decoration: BoxDecoration(
                                 boxShadow: [
@@ -450,11 +454,11 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'پرداخت نقدی',
+                                  'انجام خرید',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 13.0,
+                                    fontSize: textScaleFactor * 16.0,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -462,7 +466,6 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ),

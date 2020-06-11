@@ -4,25 +4,24 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/models/category.dart';
+import 'package:tamizshahr/models/request/request_waste_item.dart';
+import 'package:tamizshahr/provider/wastes.dart';
+import 'package:tamizshahr/widgets/collect_item_collect_screen.dart';
 
-import '../models/product.dart';
 import '../models/search_detail.dart';
-import '../provider/Products.dart';
 import '../provider/app_theme.dart';
-import '../widgets/badge.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/product_item_product_screeen.dart';
-import 'cart_screen.dart';
 
-class ProductsScreen extends StatefulWidget {
-  static const routeName = '/productsScreen';
+class CollectListScreen extends StatefulWidget {
+  static const routeName = '/collectListScreen';
 
   @override
-  _ProductsScreenState createState() => _ProductsScreenState();
+  _CollectListScreenState createState() => _CollectListScreenState();
 }
 
-class _ProductsScreenState extends State<ProductsScreen>
+class _CollectListScreenState extends State<CollectListScreen>
     with SingleTickerProviderStateMixin {
   bool _isInit = true;
 
@@ -65,15 +64,15 @@ class _ProductsScreenState extends State<ProductsScreen>
 
   @override
   void initState() {
-    Provider.of<Products>(context, listen: false).sPage = 1;
+    Provider.of<Wastes>(context, listen: false).sPage = 1;
 
-    Provider.of<Products>(context, listen: false).searchBuilder();
+    Provider.of<Wastes>(context, listen: false).searchBuilder();
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         page = page + 1;
-        Provider.of<Products>(context, listen: false).sPage = page;
+        Provider.of<Wastes>(context, listen: false).sPage = page;
 
         searchItems();
       }
@@ -114,16 +113,16 @@ class _ProductsScreenState extends State<ProductsScreen>
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-      Provider.of<Products>(context, listen: false).retrieveCategory();
+//      Provider.of<Wastes>(context, listen: false).retrieveCategory();
+//
+//      categoryList =
+//          Provider.of<Wastes>(context, listen: false).categoryItems;
+//      print(_isLoading.toString());
 
-      categoryList =
-          Provider.of<Products>(context, listen: false).categoryItems;
+      Provider.of<Wastes>(context, listen: false).searchBuilder();
       print(_isLoading.toString());
 
-      Provider.of<Products>(context, listen: false).searchBuilder();
-      print(_isLoading.toString());
-
-//      Provider.of<Products>(context, listen: false).checkFiltered();
+//      Provider.of<Wastes>(context, listen: false).checkFiltered();
 //      print(_isLoading.toString());
 
 //      brandList = loadedHomePage.brands;
@@ -146,12 +145,12 @@ class _ProductsScreenState extends State<ProductsScreen>
     super.didChangeDependencies();
   }
 
-  List<Product> loadedProducts = [];
-  List<Product> loadedProductstolist = [];
+  List<RequestWasteItem> loadedProducts = [];
+  List<RequestWasteItem> loadedProductstolist = [];
 
   Future<void> _submit() async {
     loadedProducts.clear();
-    loadedProducts = await Provider.of<Products>(context, listen: false).items;
+    loadedProducts = await Provider.of<Wastes>(context, listen: false).CollectItems;
     loadedProductstolist.addAll(loadedProducts);
   }
 
@@ -166,11 +165,10 @@ class _ProductsScreenState extends State<ProductsScreen>
     });
     print(_isLoading.toString());
 
-    Provider.of<Products>(context, listen: false).searchBuilder();
-    await Provider.of<Products>(context, listen: false).searchItem();
-    productsDetail =
-        Provider.of<Products>(context, listen: false).searchDetails;
-//    filterList = Provider.of<Products>(context, listen: false).filterTitle;
+    Provider.of<Wastes>(context, listen: false).searchBuilder();
+    await Provider.of<Wastes>(context, listen: false).searchItem();
+    productsDetail = Provider.of<Wastes>(context, listen: false).searchDetails;
+//    filterList = Provider.of<Wastes>(context, listen: false).filterTitle;
 
     _submit();
 
@@ -190,27 +188,26 @@ class _ProductsScreenState extends State<ProductsScreen>
 //    String sellcaseEndpoint = '';
 //    String priceRange = '';
 
-//    Provider.of<Products>(context, listen: false).filterTitle.clear();
+//    Provider.of<Wastes>(context, listen: false).filterTitle.clear();
 
-//    Provider.of<Products>(context, listen: false).searchKey = '';
+//    Provider.of<Wastes>(context, listen: false).searchKey = '';
 
-//    Provider.of<Products>(context, listen: false).sBrand = brandsEndpoint;
-//    Provider.of<Products>(context, listen: false).sColor = colorsEndpoint;
-//    Provider.of<Products>(context, listen: false).sPriceRange = priceRange;
-    Provider.of<Products>(context, listen: false).sPage = 1;
-//    Provider.of<Products>(context, listen: false).sSellCase = sellcaseEndpoint;
+//    Provider.of<Wastes>(context, listen: false).sBrand = brandsEndpoint;
+//    Provider.of<Wastes>(context, listen: false).sColor = colorsEndpoint;
+//    Provider.of<Wastes>(context, listen: false).sPriceRange = priceRange;
+    Provider.of<Wastes>(context, listen: false).sPage = 1;
+//    Provider.of<Wastes>(context, listen: false).sSellCase = sellcaseEndpoint;
 
-    Provider.of<Products>(context, listen: false).searchBuilder();
+    Provider.of<Wastes>(context, listen: false).searchBuilder();
 
 //    addToFilterList(_selectedCategoryTitle);
 
     String categoriesEndpoint =
         _selectedCategoryId != 0 ? '$_selectedCategoryId' : '';
-    Provider.of<Products>(context, listen: false).sCategory =
-        categoriesEndpoint;
+    Provider.of<Wastes>(context, listen: false).sCategory = categoriesEndpoint;
 
-    Provider.of<Products>(context, listen: false).searchBuilder();
-//    Provider.of<Products>(context, listen: false).checkFiltered();
+    Provider.of<Wastes>(context, listen: false).searchBuilder();
+//    Provider.of<Wastes>(context, listen: false).checkFiltered();
     loadedProductstolist.clear();
 
     await searchItems();
@@ -266,24 +263,24 @@ class _ProductsScreenState extends State<ProductsScreen>
 //                Icons.search,
 //              ),
 //            ),
-            Consumer<Products>(
-              builder: (_, products, ch) => Badge(
-                color: products.cartItemsCount == 0
-                    ? AppTheme.accent
-                    : AppTheme.secondary,
-                value: products.cartItemsCount.toString(),
-                child: ch,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(CartScreen.routeName);
-                },
-                color: AppTheme.bg,
-                icon: Icon(
-                  Icons.shopping_cart,
-                ),
-              ),
-            ),
+//            Consumer<Wastes>(
+//              builder: (_, Wastes, ch) => Badge(
+//                color: Wastes.cartItemsCount == 0
+//                    ? AppTheme.accent
+//                    : AppTheme.secondary,
+//                value: Wastes.cartItemsCount.toString(),
+//                child: ch,
+//              ),
+//              child: IconButton(
+//                onPressed: () {
+//                  Navigator.of(context).pushNamed(CartScreen.routeName);
+//                },
+//                color: AppTheme.bg,
+//                icon: Icon(
+//                  Icons.shopping_cart,
+//                ),
+//              ),
+//            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -294,128 +291,128 @@ class _ProductsScreenState extends State<ProductsScreen>
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                      child: Container(
-                        height: deviceHeight * 0.05,
-                        width: deviceWidth,
-                        child: Row(
-                          children: <Widget>[
-                            InkWell(
-                              onTap: () {
-                                _selectedCategoryIndexs.clear();
-                                _selectedCategoryTitle.clear();
-
-                                _selectedCategoryIndexs.add(-1);
-                                _selectedCategoryId = 0;
-                                _selectedCategoryTitle.add('همه');
-
-                                changeCat(context);
-
-                                Provider.of<Products>(context, listen: false)
-                                    .checkFiltered();
-                              },
-                              child: Container(
-                                decoration: _selectedCategoryId == 0
-                                    ? BoxDecoration(
-                                        color: AppTheme.bg,
-                                        border: Border(
-                                          bottom: BorderSide(
-                                              color: AppTheme.primary,
-                                              width: 3),
-                                        ),
-                                      )
-                                    : BoxDecoration(
-                                        color: Colors.transparent,
-                                      ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      'همه',
-                                      style: TextStyle(
-                                        color: _selectedCategoryId == 0
-                                            ? AppTheme.primary
-                                            : AppTheme.h1,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 14.0,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: categoryList.length,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    child: InkWell(
-                                      onTap: () {
-                                        _selectedCategoryIndexs.clear();
-                                        _selectedCategoryTitle.clear();
-
-                                        _selectedCategoryIndexs.add(index);
-                                        _selectedCategoryId =
-                                            categoryList[index].term_id;
-                                        _selectedCategoryTitle
-                                            .add(categoryList[index].name);
-
-                                        changeCat(context);
-                                      },
-                                      child: Container(
-                                        decoration: _selectedCategoryIndexs
-                                                .contains(index)
-                                            ? BoxDecoration(
-                                                color: AppTheme.bg,
-                                                border: Border(
-                                                  bottom: BorderSide(
-                                                      color: AppTheme.primary,
-                                                      width: 3),
-                                                ),
-                                              )
-                                            : BoxDecoration(
-                                                color: Colors.transparent,
-                                              ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              categoryList[index].name != null
-                                                  ? categoryList[index].name
-                                                  : 'n',
-                                              style: TextStyle(
-                                                color: categoryList[index]
-                                                            .term_id ==
-                                                        _selectedCategoryId
-                                                    ? AppTheme.primary
-                                                    : AppTheme.h1,
-                                                fontFamily: 'Iransans',
-                                                fontSize:
-                                                    textScaleFactor * 14.0,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+//                    Padding(
+//                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+//                      child: Container(
+//                        height: deviceHeight * 0.05,
+//                        width: deviceWidth,
+//                        child: Row(
+//                          children: <Widget>[
+//                            InkWell(
+//                              onTap: () {
+//                                _selectedCategoryIndexs.clear();
+//                                _selectedCategoryTitle.clear();
+//
+//                                _selectedCategoryIndexs.add(-1);
+//                                _selectedCategoryId = 0;
+//                                _selectedCategoryTitle.add('همه');
+//
+//                                changeCat(context);
+//
+//                                Provider.of<Wastes>(context, listen: false)
+//                                    .checkFiltered();
+//                              },
+//                              child: Container(
+//                                decoration: _selectedCategoryId == 0
+//                                    ? BoxDecoration(
+//                                        color: AppTheme.bg,
+//                                        border: Border(
+//                                          bottom: BorderSide(
+//                                              color: AppTheme.primary,
+//                                              width: 3),
+//                                        ),
+//                                      )
+//                                    : BoxDecoration(
+//                                        color: Colors.transparent,
+//                                      ),
+//                                child: Padding(
+//                                  padding: const EdgeInsets.symmetric(
+//                                      horizontal: 20.0),
+//                                  child: Padding(
+//                                    padding: const EdgeInsets.only(top: 10),
+//                                    child: Text(
+//                                      'همه',
+//                                      style: TextStyle(
+//                                        color: _selectedCategoryId == 0
+//                                            ? AppTheme.primary
+//                                            : AppTheme.h1,
+//                                        fontFamily: 'Iransans',
+//                                        fontSize: textScaleFactor * 14.0,
+//                                      ),
+//                                      textAlign: TextAlign.center,
+//                                    ),
+//                                  ),
+//                                ),
+//                              ),
+//                            ),
+//                            Expanded(
+//                              child: ListView.builder(
+//                                scrollDirection: Axis.horizontal,
+//                                itemCount: categoryList.length,
+//                                shrinkWrap: true,
+//                                itemBuilder: (BuildContext context, int index) {
+//                                  return Container(
+//                                    child: InkWell(
+//                                      onTap: () {
+//                                        _selectedCategoryIndexs.clear();
+//                                        _selectedCategoryTitle.clear();
+//
+//                                        _selectedCategoryIndexs.add(index);
+//                                        _selectedCategoryId =
+//                                            categoryList[index].term_id;
+//                                        _selectedCategoryTitle
+//                                            .add(categoryList[index].name);
+//
+//                                        changeCat(context);
+//                                      },
+//                                      child: Container(
+//                                        decoration: _selectedCategoryIndexs
+//                                                .contains(index)
+//                                            ? BoxDecoration(
+//                                                color: AppTheme.bg,
+//                                                border: Border(
+//                                                  bottom: BorderSide(
+//                                                      color: AppTheme.primary,
+//                                                      width: 3),
+//                                                ),
+//                                              )
+//                                            : BoxDecoration(
+//                                                color: Colors.transparent,
+//                                              ),
+//                                        child: Padding(
+//                                          padding: const EdgeInsets.symmetric(
+//                                              horizontal: 20.0),
+//                                          child: Padding(
+//                                            padding:
+//                                                const EdgeInsets.only(top: 10),
+//                                            child: Text(
+//                                              categoryList[index].name != null
+//                                                  ? categoryList[index].name
+//                                                  : 'n',
+//                                              style: TextStyle(
+//                                                color: categoryList[index]
+//                                                            .term_id ==
+//                                                        _selectedCategoryId
+//                                                    ? AppTheme.primary
+//                                                    : AppTheme.h1,
+//                                                fontFamily: 'Iransans',
+//                                                fontSize:
+//                                                    textScaleFactor * 14.0,
+//                                              ),
+//                                              textAlign: TextAlign.center,
+//                                            ),
+//                                          ),
+//                                        ),
+//                                      ),
+//                                    ),
+//                                  );
+//                                },
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      ),
+//                    ),
                     Column(
                       children: <Widget>[
                         Row(
@@ -456,43 +453,43 @@ class _ProductsScreenState extends State<ProductsScreen>
                                           sortValue = newValue;
 
                                           if (sortValue == 'گرانترین') {
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sOrder = 'desc';
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sOrderBy = 'price';
                                             page = 1;
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sPage = page;
                                             loadedProductstolist.clear();
 
                                             searchItems();
                                           } else if (sortValue == 'ارزانترین') {
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sOrder = 'asc';
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sOrderBy = 'price';
 
                                             page = 1;
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sPage = page;
                                             loadedProductstolist.clear();
 
                                             searchItems();
                                           } else {
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sOrder = 'desc';
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sOrderBy = 'date';
                                             page = 1;
-                                            Provider.of<Products>(context,
+                                            Provider.of<Wastes>(context,
                                                     listen: false)
                                                 .sPage = page;
                                             loadedProductstolist.clear();
@@ -527,7 +524,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                               ),
                             ),
                             Spacer(),
-                            Consumer<Products>(builder: (_, products, ch) {
+                            Consumer<Wastes>(builder: (_, Wastes, ch) {
                               return Container(
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
@@ -620,18 +617,18 @@ class _ProductsScreenState extends State<ProductsScreen>
 //                                          String brandsEndpoint =
 //                                              '${selectedBrand.id}';
 //
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .sBrand = brandsEndpoint;
 //
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .sPage = 1;
 //
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .searchBuilder();
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .checkFiltered();
 //                                          loadedProductstolist.clear();
@@ -721,18 +718,18 @@ class _ProductsScreenState extends State<ProductsScreen>
 //                                          String colorsEndpoint =
 //                                              '${selectedColor.id}';
 //
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .sColor = colorsEndpoint;
 //
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .sPage = 1;
 //
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .searchBuilder();
-//                                          Provider.of<Products>(context,
+//                                          Provider.of<Wastes>(context,
 //                                                  listen: false)
 //                                              .checkFiltered();
 //                                          loadedProductstolist.clear();
@@ -778,7 +775,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                             itemBuilder: (ctx, i) =>
                                 ChangeNotifierProvider.value(
                               value: loadedProductstolist[i],
-                              child: ProductItemProductScreen(),
+                              child: CollectItemCollectsScreen(),
                             ),
                           ),
                         ),
@@ -861,42 +858,42 @@ class _ProductsScreenState extends State<ProductsScreen>
 //                                        String colorsEndpoint = '';
 //                                        String sellcaseEndpoint = '';
 //                                        String priceRange = '';
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .filterTitle
 //                                            .clear();
 //
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .searchKey =
 //                                            searchTextController.text;
 //
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .sBrand = brandsEndpoint;
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .sColor = colorsEndpoint;
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .sPriceRange = priceRange;
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .sPage = 1;
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .sSellCase = sellcaseEndpoint;
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .searchBuilder();
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .checkFiltered();
 //
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .searchBuilder();
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .checkFiltered();
 //                                        Navigator.of(context).pushReplacementNamed(
@@ -913,11 +910,11 @@ class _ProductsScreenState extends State<ProductsScreen>
 //                                    child: TextFormField(
 //                                      textInputAction: TextInputAction.search,
 //                                      onFieldSubmitted: (_) {
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .searchKey =
 //                                            searchTextController.text;
-//                                        Provider.of<Products>(context,
+//                                        Provider.of<Wastes>(context,
 //                                            listen: false)
 //                                            .searchBuilder();
 //

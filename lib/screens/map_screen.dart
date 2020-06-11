@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/address.dart';
 import 'package:tamizshahr/models/region.dart';
+import 'package:tamizshahr/models/request/address.dart';
 import 'package:tamizshahr/provider/app_theme.dart';
 import 'package:tamizshahr/provider/auth.dart';
 import 'package:tamizshahr/widgets/info_edit_item.dart';
@@ -141,10 +141,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       _isLoading = true;
     });
     await Provider.of<Auth>(context, listen: false).getAddresses();
-    print('addressList    ${addressList.length}');
 
     addressList = Provider.of<Auth>(context, listen: false).addressItems;
-    print('addressList    ${addressList.length}');
 
     addressList.add(Address(
       name: nameController.text,
@@ -333,7 +331,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await saveAddress().then((value) {
-            Navigator.of(context).pop();
+//            Navigator.of(context).pop();
           });
         },
         backgroundColor: AppTheme.primary,

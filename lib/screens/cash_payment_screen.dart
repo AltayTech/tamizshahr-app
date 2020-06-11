@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:tamizshahr/models/order_send_details.dart';
+import 'package:tamizshahr/models/product_order_send.dart';
 
-import '../provider/app_theme.dart';
 import '../models/customer.dart';
 import '../models/product_cart.dart';
 import '../provider/Products.dart';
-import '../customer_info.dart';
+import '../provider/app_theme.dart';
+import '../provider/customer_info.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 
@@ -23,45 +24,120 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
   var _isLoading = false;
   var _isInit = true;
 
+  OrderSendDetails orderRequest;
+
+  List<ProductCart> shoppItems;
+
+  int totalNumber = 0;
+
+  int totalPrice = 0;
+
+  List<ProductOrderSend> productsList = [];
+
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-//      await Provider.of<CustomerInfo>(context, listen: false).getCustomer();
+      await getRegionDate();
     }
     _isInit = false;
     super.didChangeDependencies();
   }
 
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      print(('adasd' + url));
+//  _launchURL(String url) async {
+//    if (await canLaunch(url)) {
+//      print(('adasd' + url));
+//
+//      await launch(url);
+//      Navigator.of(context).pushReplacementNamed('/');
+//    } else {
+//      print(('adasd2' + url));
+//      throw 'Could not launch $url';
+//    }
+//  }
 
-      await launch(url);
-      Navigator.of(context).pushReplacementNamed('/');
-    } else {
-      print(('adasd2' + url));
-      throw 'Could not launch $url';
-    }
-  }
+//  Future<void> submitCashPayment() async {
+//    setState(() {
+//      _isLoading = true;
+//    });
+//    await Provider.of<CustomerInfo>(context, listen: false).sendNaghdOrder();
+//    int orderId =
+//        await Provider.of<CustomerInfo>(context, listen: false).currentOrderId;
+//    print(orderId);
+//    await Provider.of<CustomerInfo>(context, listen: false)
+//        .payCashOrder(orderId);
+//    String _payUrl =
+//        await Provider.of<CustomerInfo>(context, listen: false).payUrl;
+//    print('1' + _payUrl);
+////    _launchURL(_payUrl);
+//
+//    setState(() {
+//      _isLoading = false;
+//      print(_isLoading.toString());
+//    });
+//    print(_isLoading.toString());
+//  }
 
-  Future<void> submitCashPayment() async {
+  Future<void> getRegionDate() async {
     setState(() {
       _isLoading = true;
     });
-    await Provider.of<CustomerInfo>(context, listen: false).sendNaghdOrder();
-    int orderId = await Provider.of<CustomerInfo>(context, listen: false).currentOrderId;
-    print(orderId);
-    await Provider.of<CustomerInfo>(context, listen: false)
-        .payCashOrder(orderId);
-    String _payUrl = await Provider.of<CustomerInfo>(context, listen: false).payUrl;
-    print('1' + _payUrl);
-    _launchURL(_payUrl);
+
+    shoppItems = Provider.of<Products>(context, listen: false).cartItems;
+    totalNumber = 0;
+    totalPrice = 0;
+
+    if (shoppItems.length > 0) {
+      totalNumber = shoppItems.length;
+
+      for (int i = 0; i < shoppItems.length; i++) {
+        shoppItems[i].price.isNotEmpty
+            ? totalPrice = totalPrice +
+                int.parse(shoppItems[i].price) * shoppItems[i].productCount
+            : totalPrice = totalPrice;
+        productsList.add(ProductOrderSend(
+          product: shoppItems[i].id,
+          number: shoppItems[i].productCount.toString(),
+          total_price:
+              (shoppItems[i].productCount * int.parse(shoppItems[i].price))
+                  .toString(),
+          price: shoppItems[i].price,
+        ));
+      }
+    }
 
     setState(() {
       _isLoading = false;
-      print(_isLoading.toString());
     });
-    print(_isLoading.toString());
+  }
+
+  Future<void> createRequest(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    orderRequest = OrderSendDetails(
+        total_number: totalNumber.toString(),
+        total_price: totalPrice.toString(),
+        products: productsList);
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> sendRequest(
+    BuildContext context,
+  ) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await Provider.of<Products>(context, listen: false)
+        .sendRequest(orderRequest);
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -71,8 +147,9 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    Customer customer = Provider.of<CustomerInfo>(context, listen: false).customer;
-    List<ProductCart> shoppItems = Provider.of<Products>(context, listen: false).cartItems;
+    Customer customer =
+        Provider.of<CustomerInfo>(context, listen: false).customer;
+
     double totalPrice = 0;
     if (shoppItems.isNotEmpty) {
       for (int i = 0; i < shoppItems.length; i++) {
@@ -107,7 +184,7 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
                 top: deviceHeight * 0.1,
                 left: deviceWidth * 0.1,
                 child: Text(
-                  'پرداخت نقدی',
+                  'پرداخت ',
                   style: TextStyle(
                       color: AppTheme.bg,
                       fontFamily: 'Iransans',
@@ -367,7 +444,7 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (totalPrice == 0) {
                             var _snackBarMessage = 'محصولی وجود ندارد!';
                             final addToCartSnackBar = SnackBar(
@@ -389,7 +466,8 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
                             Scaffold.of(context)
                                 .showSnackBar(addToCartSnackBar);
                           } else {
-                            submitCashPayment();
+                            await createRequest(context)
+                                .then((value) => sendRequest(context));
                           }
                         },
                         child: Row(

@@ -8,7 +8,7 @@ import '../provider/app_theme.dart';
 import '../models/color_code.dart';
 import '../models/gallery.dart';
 import '../models/order_details.dart';
-import '../customer_info.dart';
+import '../provider/customer_info.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import 'product_detail_screen.dart';
@@ -99,10 +99,7 @@ class _OrderViewScreenState extends State<OrderViewScreen> {
         _payIsActive = false;
       }
       if (oDt.order_status_slug == 'cheque_ok') {
-        if (oDt.orderDetailsAghsat.cheque_images.length <=
-            int.parse(oDt.orderDetailsAghsat.number_pay)) {
-          _uploadIsOk = true;
-        }
+
       } else {
         _uploadIsOk = false;
       }
@@ -128,7 +125,6 @@ class _OrderViewScreenState extends State<OrderViewScreen> {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     orderDetails = Provider.of<CustomerInfo>(context, listen: false).getOrder();
-    _imageList = orderDetails.orderDetailsAghsat.cheque_images;
     checkStatus(orderDetails);
 
     return Scaffold(

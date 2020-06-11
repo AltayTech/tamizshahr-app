@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/models/address.dart';
+import 'package:tamizshahr/models/request/address.dart';
 
 class AddressMain with ChangeNotifier {
   final List<Address> addressData;

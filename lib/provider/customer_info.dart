@@ -3,23 +3,19 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
-import 'models/color_code.dart';
-import 'models/price.dart';
-import 'models/shop.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'models/customer.dart';
-import 'models/order.dart';
-import 'models/orderItem.dart';
-import 'models/order_details.dart';
-import 'models/order_details_aghsat.dart';
-import 'models/personal_data.dart';
-import 'models/productFavorite.dart';
-import 'provider/urls.dart';
+import '../models/customer.dart';
+import '../models/order.dart';
+import '../models/orderItem.dart';
+import '../models/order_details.dart';
+import '../models/personal_data.dart';
+import '../models/shop.dart';
+import 'urls.dart';
 
 class CustomerInfo with ChangeNotifier {
   String _payUrl = '';
@@ -33,7 +29,6 @@ class CustomerInfo with ChangeNotifier {
 
   static Customer _customer_zero = Customer(
     personalData: PersonalData(
-      id: 0,
       first_name: '',
       last_name: '',
       email: '',
@@ -42,10 +37,7 @@ class CustomerInfo with ChangeNotifier {
 //      address: '',
       postcode: '',
       phone: '',
-      personal_data_complete: false,
     ),
-//    orders: [Order()],
-//      favorites: [ProductFavorite()],
   );
   Customer _customer = _customer_zero;
   String _token;
@@ -64,15 +56,7 @@ class CustomerInfo with ChangeNotifier {
         total_num: 1,
         pay_status: ''),
   ];
-  List<ProductFavorite> _favoriteProducts = [
-    ProductFavorite(
-      id: 0,
-      title: '',
-      price: Price(price: '', price_without_discount: ''),
-      colors: [ColorCode(title: '', price: '', color_code: '', id: 0)],
-      featured_image: '',
-    ),
-  ];
+
   OrderDetails _order = OrderDetails(
     id: 0,
     total_cost: '0',
@@ -83,14 +67,6 @@ class CustomerInfo with ChangeNotifier {
     number_of_products: 1,
     pay_status: '0',
     products: [OrderItem(id: 0, title: '0', price_low: '0')],
-    orderDetailsAghsat: OrderDetailsAghsat(
-      shenaseh: '0',
-      cheque_images: [],
-      owner: '0',
-      bank: '0',
-      number_pay: '0',
-      pay: '0',
-    ),
     pay_status_slug: '0',
     order_status_slug: '0',
     pay_type_slug: '0',
@@ -138,7 +114,6 @@ class CustomerInfo with ChangeNotifier {
 
       _customer = customers;
 
-
       notifyListeners();
     } catch (error) {
       print(error.toString());
@@ -146,7 +121,7 @@ class CustomerInfo with ChangeNotifier {
     }
   }
 
-  Future<void> sendCustomer() async {
+  Future<void> sendCustomer(Customer customer) async {
     print('sendCustomer');
 
     final url = Urls.rootUrl + Urls.customerEndPoint;
@@ -156,27 +131,15 @@ class CustomerInfo with ChangeNotifier {
     _token = prefs.getString('token');
 
     try {
-      final response = await post(url,
-          headers: {
-            'Authorization': 'Bearer $_token',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: jsonEncode({
-            "personal_data": {
-              "id": _customer.personalData.id,
-              "phone": _customer.personalData.phone,
-              "first_name": _firstName,
-              "last_name": _lastName,
-              "credit": _email,
-              "ostan": _province,
-              "city": _city,
-              "address": _address,
-              "postcode": _postcode
-            },
-            "orders": [],
-            "favorites": []
-          }));
+      final response = await post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $_token',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: jsonEncode(customer),
+      );
 
       final extractedData = json.decode(response.body);
       print(extractedData);
@@ -258,73 +221,6 @@ class CustomerInfo with ChangeNotifier {
     }
   }
 
-  Future<void> addFavorite(int productId, String action) async {
-    print('addFavorite');
-
-    final url = Urls.rootUrl +
-        Urls.favoriteEndPoint +
-        '?product_id=$productId&action=$action';
-
-    final prefs = await SharedPreferences.getInstance();
-
-    _token = prefs.getString('token');
-
-    try {
-      final response = await post(url, headers: {
-        'Authorization': 'Bearer $_token',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      });
-
-      final extractedData = json.decode(response.body);
-      print(extractedData);
-      if (action == 'remove') {
-        _favoriteProducts.remove(
-            _favoriteProducts.firstWhere((prod) => prod.id == productId));
-      }
-      notifyListeners();
-    } catch (error) {
-      print(error.toString());
-      throw (error);
-    }
-  }
-
-  Future<void> getFavorite() async {
-    print('getFavorite');
-
-    final url = Urls.rootUrl + Urls.favoriteEndPoint;
-    print(url);
-
-    final prefs = await SharedPreferences.getInstance();
-
-    _token = prefs.getString('token');
-
-    try {
-      final response = await get(url, headers: {
-        'Authorization': 'Bearer $_token',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      });
-
-      final extractedData = json.decode(response.body) as List;
-      print(extractedData);
-
-      List<ProductFavorite> productFavorite = new List<ProductFavorite>();
-
-      productFavorite =
-          extractedData.map((i) => ProductFavorite.fromJson(i)).toList();
-
-      _favoriteProducts = productFavorite;
-
-      print(extractedData);
-
-      notifyListeners();
-    } catch (error) {
-      print(error.toString());
-      throw (error);
-    }
-  }
-
   Future<void> sendNaghdOrder() async {
     print('sendNaghdOrder');
 
@@ -353,8 +249,6 @@ class CustomerInfo with ChangeNotifier {
       throw (error);
     }
   }
-
-
 
   Future<void> addPicture(int order_id) async {
     print('addPicture');
@@ -460,8 +354,6 @@ class CustomerInfo with ChangeNotifier {
     _postcode = value;
   }
 
-  List<ProductFavorite> get favoriteProducts => _favoriteProducts;
-
   int get currentOrderId => _currentOrderId;
 
   set customer(Customer value) {
@@ -472,11 +364,7 @@ class CustomerInfo with ChangeNotifier {
     _order = value;
   }
 
-
-
   Customer get customer_zero => _customer_zero;
 
   Shop get shop => _shop;
-
-
 }

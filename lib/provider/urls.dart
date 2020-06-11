@@ -8,6 +8,9 @@ class Urls {
   static const articlesEndPoint = '/articles';
   static const articlesCatEndPoint = '/articles/category';
   static const collectsEndPoint = '/collects';
+  static const checkCompletedEndPoint = '/customer/completed';
+  static const customerEndPoint = '/customer';
+  static const orderEndPoint = '/orders';
 
 
 
@@ -19,7 +22,6 @@ class Urls {
 
   static const loginEndPoint = '/login';
   static const tokenEndPoint = '/login/token';
-  static const customerEndPoint = '/customer';
   static const sendMessageEndPoint = '/customer/send_message';
   static const orderInfoEndPoint = '/order';
   static const cartEndPoint = '/cart';

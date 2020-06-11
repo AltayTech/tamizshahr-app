@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamizshahr/models/request_waste.dart';
+import 'package:tamizshahr/models/request/collect_main.dart';
+import 'package:tamizshahr/models/request/request_waste.dart';
+import 'package:tamizshahr/models/request/request_waste_item.dart';
+import 'package:tamizshahr/models/request/wasteCart.dart';
+import 'package:tamizshahr/models/search_detail.dart';
 
-import '../models/waste.dart';
-import '../models/wasteCart.dart';
+import '../models/request/waste.dart';
 import 'urls.dart';
 
 class Wastes with ChangeNotifier {
@@ -16,7 +19,13 @@ class Wastes with ChangeNotifier {
   List<int> _wasteCartItemsId = [];
   String _token;
 
-  Future<void> searchItem() async {
+  List<RequestWasteItem> _CollectItems=[];
+
+  SearchDetail _searchDetails;
+
+  RequestWasteItem _requestWasteItem;
+
+  Future<void> searchWastesItem() async {
     print('searchItem');
 
     final url = Urls.rootUrl + Urls.pasmandsEndPoint;
@@ -141,5 +150,131 @@ class Wastes with ChangeNotifier {
 
   set selectedDay(Jalali value) {
     _selectedDay = value;
+  }
+
+
+  String searchEndPoint = '';
+  String searchKey = '';
+  var _sPage = 1;
+  var _sPerPage = 10;
+  var _sOrder = 'desc';
+  var _sOrderBy = 'date';
+  var _sCategory;
+
+  void searchBuilder() {
+    if (!(searchKey == '')) {
+      searchEndPoint = '';
+
+      searchEndPoint = searchEndPoint + '?search=$searchKey';
+      searchEndPoint = searchEndPoint + '&page=$_sPage&per_page=$_sPerPage';
+    } else {
+      searchEndPoint = '';
+
+      searchEndPoint = searchEndPoint + '?page=$_sPage&per_page=$_sPerPage';
+    }
+    if (!(_sOrder == '')) {
+      searchEndPoint = searchEndPoint + '&order=$_sOrder';
+    }
+    if (!(_sOrderBy == '')) {
+      searchEndPoint = searchEndPoint + '&orderby=$_sOrderBy';
+    }
+
+    if (!(_sCategory == '' || _sCategory == null)) {
+      searchEndPoint = searchEndPoint + '&category=$_sCategory';
+    }
+    print(searchEndPoint);
+  }
+
+
+  Future<void> searchItem() async {
+    print('searchItem');
+
+    final url = Urls.rootUrl + Urls.collectsEndPoint+ '$searchEndPoint';
+    print(url);
+
+    try {
+      final response = await get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+        print(extractedData.toString());
+
+        CollectMain collectMain = CollectMain.fromJson(extractedData);
+        print(collectMain.searchDetail.max_page.toString());
+
+        _CollectItems = collectMain.requestWasteItem;
+        _searchDetails = collectMain.searchDetail;
+      } else {
+        _CollectItems = [];
+      }
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+  }
+
+  Future<void> retrieveItem(int collectId) async {
+    print('retrieveItem');
+
+    final url = Urls.rootUrl + Urls.collectsEndPoint + "/$collectId";
+    print(url);
+
+    try {
+      final response = await get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      final extractedData = json.decode(response.body) as dynamic;
+      print(extractedData);
+
+      RequestWasteItem requestWasteItem = RequestWasteItem.fromJson(extractedData);
+      print(requestWasteItem.id.toString());
+
+      _requestWasteItem = requestWasteItem;
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+    notifyListeners();
+  }
+
+  get sCategory => _sCategory;
+
+  get sOrderBy => _sOrderBy;
+
+  get sOrder => _sOrder;
+
+  get sPerPage => _sPerPage;
+
+  get sPage => _sPage;
+
+  RequestWasteItem get requestWasteItem => _requestWasteItem;
+
+  SearchDetail get searchDetails => _searchDetails;
+
+  List<RequestWasteItem> get CollectItems => _CollectItems;
+
+  set sCategory(value) {
+    _sCategory = value;
+  }
+
+  set sOrderBy(value) {
+    _sOrderBy = value;
+  }
+
+  set sOrder(value) {
+    _sOrder = value;
+  }
+
+  set sPerPage(value) {
+    _sPerPage = value;
+  }
+
+  set sPage(value) {
+    _sPage = value;
   }
 }

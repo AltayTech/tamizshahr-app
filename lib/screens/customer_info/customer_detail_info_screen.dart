@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
-import '../../customer_info.dart';
+import '../../provider/customer_info.dart';
 import 'customer_detail_info_edit_screen.dart';
 
 class CustomerDetailInfoScreen extends StatefulWidget {

@@ -4,7 +4,6 @@ import 'package:intl/intl.dart' as intl;
 
 import '../models/product.dart';
 import '../provider/app_theme.dart';
-import 'en_to_ar_number_convertor.dart';
 
 class CustomDialogSelectColor extends StatefulWidget {
   final Product product;
@@ -210,8 +209,7 @@ class _CustomDialogSelectColorState extends State<CustomDialogSelectColor> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Iransans',
-                                      fontSize:textScaleFactor *
-                                          16,
+                                      fontSize: textScaleFactor * 16,
                                     ),
                                   ),
                                 ),
