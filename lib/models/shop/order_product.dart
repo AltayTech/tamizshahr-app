@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/models/request/collect.dart';
-import 'package:tamizshahr/models/request/request_address.dart';
+import '../../models/request/collect.dart';
+import '../../models/request/request_address.dart';
 
 
 

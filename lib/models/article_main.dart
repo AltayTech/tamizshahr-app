@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:tamizshahr/models/article.dart';
+import '../models/article.dart';
 
 import '../models/product.dart';
 import '../models/search_detail.dart';

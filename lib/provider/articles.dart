@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:tamizshahr/models/article.dart';
-import 'package:tamizshahr/models/article_main.dart';
-import 'package:tamizshahr/models/category.dart';
-import 'package:tamizshahr/models/search_detail.dart';
+import '../models/article.dart';
+import '../models/article_main.dart';
+import '../models/category.dart';
+import '../models/search_detail.dart';
 
 import 'urls.dart';
 

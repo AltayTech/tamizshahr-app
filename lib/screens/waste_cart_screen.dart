@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/request/wasteCart.dart';
 
-import '../models/customer.dart';
 import '../models/request/price_weight.dart';
+import '../models/request/wasteCart.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';
@@ -29,11 +28,9 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
   bool _isInit = true;
 
   var _isLoading = true;
-  Customer customer;
   int totalPrice = 0;
   int totalWeight = 0;
-
-  int totalPricePure;
+  int totalPricePure = 0;
 
   void _showLogindialog() {
     showDialog(
@@ -60,22 +57,16 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-      _isLoading = true;
-
       await getWasteItems();
 
-      _isLoading = false;
       setState(() {});
     }
     _isInit = false;
-    await getWasteItems();
 
     super.didChangeDependencies();
   }
 
   Future<void> getWasteItems() async {
-    print(wasteCartItems.toString());
-
     setState(() {
       _isLoading = true;
     });
@@ -83,7 +74,6 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
     totalPrice = 0;
     totalWeight = 0;
-
     totalPricePure = 0;
     if (wasteCartItems.length > 0) {
       for (int i = 0; i < wasteCartItems.length; i++) {
@@ -120,10 +110,6 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     return price;
   }
 
-  void setStateFun() {
-    getWasteItems();
-  }
-
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -153,7 +139,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          height: deviceHeight * 0.13,
+                          height: deviceHeight * 0.15,
                           decoration: BoxDecoration(
                               color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
@@ -170,8 +156,8 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                       Expanded(
                                         child: Icon(
                                           Icons.restore_from_trash,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                          color: Colors.red,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -183,7 +169,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                         style: TextStyle(
                                           color: AppTheme.h1,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 18,
                                         ),
                                       ),
                                       Text(
@@ -204,7 +190,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                         child: Icon(
                                           Icons.monetization_on,
                                           color: AppTheme.primary,
-                                          size: 35,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -218,7 +204,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                         style: TextStyle(
                                           color: AppTheme.h1,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 18,
                                         ),
                                       ),
                                       Text(
@@ -237,9 +223,9 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Icon(
-                                          Icons.signal_wifi_4_bar_lock,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                          Icons.av_timer,
+                                          color: Colors.blue,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -250,7 +236,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                         style: TextStyle(
                                           color: AppTheme.h1,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 18,
                                         ),
                                       ),
                                       Text(
@@ -282,12 +268,11 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                       itemCount: value.wasteCartItems.length,
                                       itemBuilder: (ctx, i) => WasteCartItem(
                                         wasteItem: value.wasteCartItems[i],
-                                        callFunction: setStateFun,
                                       ),
                                     ),
                                   )
                                 : Center(
-                                    child: Text('محصولی اضافه نشده است'),
+                                    child: Text('پسماندی اضافه نشده است'),
                                   ),
                           ),
                         ),
@@ -310,7 +295,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                             onTap: () {
                               SnackBar addToCartSnackBar = SnackBar(
                                 content: Text(
-                                  'سبد خرید خالی می باشد!',
+                                  'پسماندی اضافه نشده است!',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Iransans',
@@ -378,27 +363,28 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                     ),
                   ),
                   Positioned(
-                      top: 0,
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: _isLoading
-                              ? SpinKitFadingCircle(
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: index.isEven
-                                            ? Colors.grey
-                                            : Colors.grey,
-                                      ),
-                                    );
-                                  },
-                                )
-                              : Container()))
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: _isLoading
+                          ? SpinKitFadingCircle(
+                              itemBuilder: (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: index.isEven
+                                        ? Colors.grey
+                                        : Colors.grey,
+                                  ),
+                                );
+                              },
+                            )
+                          : Container(),
+                    ),
+                  ),
                 ],
               ),
             ),

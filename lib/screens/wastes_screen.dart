@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/request/waste.dart';
-import 'package:tamizshahr/models/request/wasteCart.dart';
-import 'package:tamizshahr/provider/app_theme.dart';
-import 'package:tamizshahr/provider/wastes.dart';
-import 'package:tamizshahr/widgets/waste_item_wastes_screen.dart';
+import '../models/request/waste.dart';
+import '../models/request/wasteCart.dart';
+import '../provider/app_theme.dart';
+import '../provider/wastes.dart';
+import '../widgets/waste_item_wastes_screen.dart';
 
 import '../widgets/main_drawer.dart';
 

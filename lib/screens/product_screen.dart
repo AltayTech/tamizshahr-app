@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/category.dart';
 
+import '../models/category.dart';
 import '../models/product.dart';
 import '../models/search_detail.dart';
 import '../provider/Products.dart';
@@ -123,23 +123,6 @@ class _ProductsScreenState extends State<ProductsScreen>
       Provider.of<Products>(context, listen: false).searchBuilder();
       print(_isLoading.toString());
 
-//      Provider.of<Products>(context, listen: false).checkFiltered();
-//      print(_isLoading.toString());
-
-//      brandList = loadedHomePage.brands;
-//      for (int i = 0; i < brandList.length; i++) {
-//        print(i.toString());
-//        brandValueList.add(brandList[i].title);
-//      }
-//      print('brand');
-
-//      colorList = loadedHomePage.colors;
-//      for (int i = 0; i < colorList.length; i++) {
-//        print(i.toString());
-//        colorValueList.add(colorList[i].title);
-//      }
-//      print('color');
-
       searchItems();
     }
     _isInit = false;
@@ -170,7 +153,6 @@ class _ProductsScreenState extends State<ProductsScreen>
     await Provider.of<Products>(context, listen: false).searchItem();
     productsDetail =
         Provider.of<Products>(context, listen: false).searchDetails;
-//    filterList = Provider.of<Products>(context, listen: false).filterTitle;
 
     _submit();
 
@@ -185,24 +167,9 @@ class _ProductsScreenState extends State<ProductsScreen>
     });
     print(_isLoading.toString());
 
-//    String brandsEndpoint = '';
-//    String colorsEndpoint = '';
-//    String sellcaseEndpoint = '';
-//    String priceRange = '';
-
-//    Provider.of<Products>(context, listen: false).filterTitle.clear();
-
-//    Provider.of<Products>(context, listen: false).searchKey = '';
-
-//    Provider.of<Products>(context, listen: false).sBrand = brandsEndpoint;
-//    Provider.of<Products>(context, listen: false).sColor = colorsEndpoint;
-//    Provider.of<Products>(context, listen: false).sPriceRange = priceRange;
     Provider.of<Products>(context, listen: false).sPage = 1;
-//    Provider.of<Products>(context, listen: false).sSellCase = sellcaseEndpoint;
 
     Provider.of<Products>(context, listen: false).searchBuilder();
-
-//    addToFilterList(_selectedCategoryTitle);
 
     String categoriesEndpoint =
         _selectedCategoryId != 0 ? '$_selectedCategoryId' : '';
@@ -210,7 +177,6 @@ class _ProductsScreenState extends State<ProductsScreen>
         categoriesEndpoint;
 
     Provider.of<Products>(context, listen: false).searchBuilder();
-//    Provider.of<Products>(context, listen: false).checkFiltered();
     loadedProductstolist.clear();
 
     await searchItems();
@@ -236,7 +202,6 @@ class _ProductsScreenState extends State<ProductsScreen>
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Directionality(
@@ -256,24 +221,14 @@ class _ProductsScreenState extends State<ProductsScreen>
           elevation: 0,
           centerTitle: true,
           actions: <Widget>[
-//            IconButton(
-//              onPressed: () {
-//                _controller.forward();
-//                setState(() {});
-//              },
-//              color: AppTheme.bg,
-//              icon: Icon(
-//                Icons.search,
-//              ),
-//            ),
             Consumer<Products>(
-              builder: (_, products, ch) => Badge(
-                color: products.cartItemsCount == 0
-                    ? AppTheme.accent
-                    : AppTheme.secondary,
-                value: products.cartItemsCount.toString(),
-                child: ch,
-              ),
+              builder: (_, products, ch) => products.cartItemsCount != 0
+                  ? Badge(
+                      color: AppTheme.accent,
+                      value: products.cartItemsCount.toString(),
+                      child: ch,
+                    )
+                  : ch,
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartScreen.routeName);

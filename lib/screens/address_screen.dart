@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/request/address.dart';
-import 'package:tamizshahr/screens/waste_request_date_screen.dart';
-import 'package:tamizshahr/widgets/address_item.dart';
 
-import '../models/customer.dart';
+import '../models/request/address.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../screens/map_screen.dart';
+import '../screens/waste_request_date_screen.dart';
+import '../widgets/address_item.dart';
 import '../widgets/custom_dialog_enter.dart';
-import '../widgets/custom_dialog_profile.dart';
 import '../widgets/main_drawer.dart';
 
 class AddressScreen extends StatefulWidget {
@@ -26,11 +24,6 @@ class _AddressScreenState extends State<AddressScreen> {
   bool _isInit = true;
 
   var _isLoading = true;
-  Customer customer;
-  int totalPrice = 0;
-  int totalWeight = 0;
-
-  int totalPricePure;
 
   void _showLogindialog() {
     showDialog(
@@ -39,17 +32,6 @@ class _AddressScreenState extends State<AddressScreen> {
         title: 'ورود',
         buttonText: 'صفحه ورود ',
         description: 'برای ادامه باید وارد شوید',
-      ),
-    );
-  }
-
-  void _showCompletedialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => CustomDialogProfile(
-        title: 'اطلاعات کاربری',
-        buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
       ),
     );
   }
@@ -72,10 +54,6 @@ class _AddressScreenState extends State<AddressScreen> {
     setState(() {
       _isLoading = false;
     });
-  }
-
-  setStateFun() {
-    setState(() {});
   }
 
   @override
@@ -146,22 +124,27 @@ class _AddressScreenState extends State<AddressScreen> {
                                         },
                                         child: AddressItem(
                                           addressItem: products.addressItems[i],
-                                          isSelected:Provider.of<Auth>(context,
-                                              listen: false)
-                                              .selectedAddress!=null?
-                                              products.addressItems[i].name ==
+                                          isSelected: Provider.of<Auth>(context,
+                                                          listen: false)
+                                                      .selectedAddress !=
+                                                  null
+                                              ? products.addressItems[i].name ==
                                                   Provider.of<Auth>(context,
                                                           listen: false)
                                                       .selectedAddress
-                                                      .name:false,
+                                                      .name
+                                              : false,
                                         ),
                                       ),
                                     ),
                                   ),
                                 )
-                              : Center(
-                                  child: Text('محصولی اضافه نشده است'),
-                                ),
+                              : Container(
+                            height: deviceHeight*0.45,
+                                child: Center(
+                                    child: Text('آدرسی اضافه نشده است'),
+                                  ),
+                              ),
                         ),
                         SizedBox(
                           height: 50,
@@ -180,10 +163,9 @@ class _AddressScreenState extends State<AddressScreen> {
                           padding: const EdgeInsets.all(5.0),
                           child: InkWell(
                             onTap: () {
-
                               SnackBar addToCartSnackBar = SnackBar(
                                 content: Text(
-                                  'سبد خرید خالی می باشد!',
+                                  ' لیست آدرسها خالی می باشد!',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Iransans',
@@ -203,13 +185,8 @@ class _AddressScreenState extends State<AddressScreen> {
                               } else if (!isLogin) {
                                 _showLogindialog();
                               } else {
-//                                if (customer
-//                                    .personalData.personal_data_complete) {
-                                  Navigator.of(context)
-                                      .pushNamed(WasteRequestDateScreen.routeName);
-//                                } else {
-//                                  _showCompletedialog();
-//                                }
+                                Navigator.of(context).pushNamed(
+                                    WasteRequestDateScreen.routeName);
                               }
                             },
                             child: Container(

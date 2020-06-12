@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/article.dart';
-import 'package:tamizshahr/models/category.dart';
-import 'package:tamizshahr/provider/articles.dart';
-import 'package:tamizshahr/widgets/article_item_article_screen.dart';
 
+import '../models/article.dart';
+import '../models/category.dart';
 import '../models/search_detail.dart';
 import '../provider/app_theme.dart';
+import '../provider/articles.dart';
+import '../widgets/article_item_article_screen.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 
@@ -27,12 +27,11 @@ class _ArticlesScreenState extends State<ArticlesScreen>
 
   var _isLoading;
 
-  var scaffoldKey;
   int page = 1;
 
   SearchDetail productsDetail;
 
-  List<int> _selectedCategoryIndexs = [];
+  List<int> _selectedCategoryIndexes = [];
   int _selectedCategoryId = 0;
   List<String> _selectedCategoryTitle = [];
 
@@ -67,7 +66,6 @@ class _ArticlesScreenState extends State<ArticlesScreen>
   void didChangeDependencies() async {
     if (_isInit) {
       Provider.of<Articles>(context, listen: false).retrieveCategory();
-
       categoryList =
           Provider.of<Articles>(context, listen: false).categoryItems;
 
@@ -100,7 +98,6 @@ class _ArticlesScreenState extends State<ArticlesScreen>
     });
     print(_isLoading.toString());
 
-    Provider.of<Articles>(context, listen: false).searchBuilder();
     await Provider.of<Articles>(context, listen: false).searchItem();
     productsDetail =
         Provider.of<Articles>(context, listen: false).searchDetails;
@@ -153,11 +150,10 @@ class _ArticlesScreenState extends State<ArticlesScreen>
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        key: scaffoldKey,
         backgroundColor: Color(0xffF9F9F9),
         appBar: AppBar(
           title: Text(
-            '',
+            'مقالات',
             style: TextStyle(
               fontFamily: 'Iransans',
             ),
@@ -184,10 +180,10 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                           children: <Widget>[
                             InkWell(
                               onTap: () {
-                                _selectedCategoryIndexs.clear();
+                                _selectedCategoryIndexes.clear();
                                 _selectedCategoryTitle.clear();
 
-                                _selectedCategoryIndexs.add(-1);
+                                _selectedCategoryIndexes.add(-1);
                                 _selectedCategoryId = 0;
                                 _selectedCategoryTitle.add('همه');
 
@@ -236,10 +232,10 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                   return Container(
                                     child: InkWell(
                                       onTap: () {
-                                        _selectedCategoryIndexs.clear();
+                                        _selectedCategoryIndexes.clear();
                                         _selectedCategoryTitle.clear();
 
-                                        _selectedCategoryIndexs.add(index);
+                                        _selectedCategoryIndexes.add(index);
                                         _selectedCategoryId =
                                             data.categoryItems[index].term_id;
                                         _selectedCategoryTitle.add(
@@ -248,7 +244,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                         changeCat(context);
                                       },
                                       child: Container(
-                                        decoration: _selectedCategoryIndexs
+                                        decoration: _selectedCategoryIndexes
                                                 .contains(index)
                                             ? BoxDecoration(
                                                 color: AppTheme.bg,
@@ -297,74 +293,70 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                         ),
                       ),
                     ),
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Spacer(),
-                            Consumer<Articles>(builder: (_, Articles, ch) {
-                              return Container(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: deviceHeight * 0.0,
-                                      horizontal: 3),
-                                  child: Wrap(
-                                      alignment: WrapAlignment.start,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      direction: Axis.horizontal,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 3, vertical: 5),
-                                          child: Text(
-                                            'تعداد:',
-                                            style: TextStyle(
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 12.0,
-                                            ),
-                                          ),
+                        Spacer(),
+                        Consumer<Articles>(builder: (_, Articles, ch) {
+                          return Container(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: deviceHeight * 0.0,
+                                  horizontal: 3),
+                              child: Wrap(
+                                  alignment: WrapAlignment.start,
+                                  crossAxisAlignment:
+                                      WrapCrossAlignment.center,
+                                  direction: Axis.horizontal,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      child: Text(
+                                        'تعداد:',
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 12.0,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 4.0, left: 6),
-                                          child: Text(
-                                            productsDetail != null
-                                                ? EnArConvertor()
-                                                    .replaceArNumber(
-                                                        productsDetail.total
-                                                            .toString())
-                                                : EnArConvertor()
-                                                    .replaceArNumber('0'),
-                                            style: TextStyle(
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 13.0,
-                                            ),
-                                          ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 4.0, left: 6),
+                                      child: Text(
+                                        productsDetail != null
+                                            ? EnArConvertor()
+                                                .replaceArNumber(
+                                                    productsDetail.total
+                                                        .toString())
+                                            : EnArConvertor()
+                                                .replaceArNumber('0'),
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 13.0,
                                         ),
-                                      ]),
-                                ),
-                              );
-                            }),
-                          ],
-                        ),
-                        Divider(thickness: 1, color: AppTheme.h1),
-                        Container(
-                          width: double.infinity,
-                          height: deviceHeight * 0.75,
-                          child: ListView.builder(
-                            controller: _scrollController,
-                            scrollDirection: Axis.vertical,
-                            itemCount: loadedProductstolist.length,
-                            itemBuilder: (ctx, i) =>
-                                ChangeNotifierProvider.value(
-                              value: loadedProductstolist[i],
-                              child: ArticleItemArticlesScreen(),
+                                      ),
+                                    ),
+                                  ]),
                             ),
-                          ),
-                        ),
+                          );
+                        }),
                       ],
+                    ),
+                    Divider(thickness: 1, color: AppTheme.h1),
+                    Container(
+                      width: double.infinity,
+                      height: deviceHeight * 0.75,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        scrollDirection: Axis.vertical,
+                        itemCount: loadedProductstolist.length,
+                        itemBuilder: (ctx, i) =>
+                            ChangeNotifierProvider.value(
+                          value: loadedProductstolist[i],
+                          child: ArticleItemArticlesScreen(),
+                        ),
+                      ),
                     )
                   ],
                 ),

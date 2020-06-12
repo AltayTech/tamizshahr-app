@@ -4,10 +4,12 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/article.dart';
-import 'package:tamizshahr/provider/articles.dart';
+import 'package:shamsi_date/shamsi_date.dart';
+import 'package:tamizshahr/widgets/en_to_ar_number_convertor.dart';
 
+import '../models/article.dart';
 import '../provider/app_theme.dart';
+import '../provider/articles.dart';
 import '../widgets/main_drawer.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -44,7 +46,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     setState(() {
       _isLoading = false;
     });
-    print(_isLoading.toString());
   }
 
   @override
@@ -84,53 +85,110 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     },
                   )
                 : SingleChildScrollView(
-                  child: Column(
-
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        height: deviceHeight * 0.4,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5)),
-                        child: FadeInImage(
-                          placeholder:
-                              AssetImage('assets/images/circle.gif'),
-                          image: NetworkImage(loadedArticle.featured_image),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          loadedArticle.title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            height: 2,
-                            color: AppTheme.black,
-                            fontFamily: 'Iransans',
-                            fontSize: textScaleFactor * 16.0,
-                          ),
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: HtmlWidget(
-                          loadedArticle.content,
-                          onTapUrl: (url) => showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text('onTapUrl'),
-                              content: Text(url),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.verified_user,
+                                    color: AppTheme.grey,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      loadedArticle.category[0].name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        height: 2,
+                                        color: AppTheme.grey,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 14.0,
+                                      ),
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                     EnArConvertor().replaceArNumber( '${Jalali.fromDateTime(DateTime.parse(
+                                         loadedArticle.post_date_gmt)).year}/${Jalali.fromDateTime(DateTime.parse(
+                                         loadedArticle.post_date_gmt)).month}/${Jalali.fromDateTime(DateTime.parse(
+                                         loadedArticle.post_date_gmt)).day}')
+                                          ,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        height: 2,
+                                        color: AppTheme.grey,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 16.0,
+                                      ),
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                loadedArticle.title,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  height: 2,
+                                  color: AppTheme.black,
+                                  fontFamily: 'Iransans',
+                                  fontSize: textScaleFactor * 16.0,
+                                ),
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: deviceHeight * 0.4,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: FadeInImage(
+                                  placeholder:
+                                      AssetImage('assets/images/circle.gif'),
+                                  image:
+                                      NetworkImage(loadedArticle.featured_image),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: HtmlWidget(
+                                loadedArticle.content,
+                                onTapUrl: (url) => showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: Text('onTapUrl'),
+                                    content: Text(url),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
           ),
         ),
         drawer: Theme(

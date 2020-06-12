@@ -2,21 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import '../models/article.dart';
-import '../provider/articles.dart';
-import '../screens/article_detail_screen.dart';
+import 'package:tamizshahr/models/charity.dart';
+import 'package:tamizshahr/screens/charity_detail_screen.dart';
 
-import '../provider/Products.dart';
 import '../provider/app_theme.dart';
-import '../screens/product_detail_screen.dart';
 
-class ArticleItemArticlesScreen extends StatelessWidget {
+class CharityItemCahritiesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
     var widthDevice = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    final article = Provider.of<Article>(context, listen: false);
+    final charity = Provider.of<Charity>(context, listen: false);
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
@@ -25,9 +22,11 @@ class ArticleItemArticlesScreen extends StatelessWidget {
         builder: (ctx, constraints) {
           return InkWell(
             onTap: () {
+//              Provider.of<Articles>(context, listen: false).item =
+//                  Provider.of<Articles>(context, listen: false).itemZero;
               Navigator.of(context).pushNamed(
-                ArticleDetailScreen.routeName,
-                arguments: article.id,
+                CharityDetailScreen.routeName,
+                arguments: charity.id,
               );
             },
             child: Card(
@@ -47,7 +46,8 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                               child: FadeInImage(
                                 placeholder:
                                     AssetImage('assets/images/circle.gif'),
-                                image: NetworkImage(article.featured_image),
+                                image: NetworkImage(
+                                    charity.featured_image.sizes.medium),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -65,43 +65,17 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
-                              article.title,
+                              charity.charity_data.name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 color: AppTheme.black,
                                 fontFamily: 'Iransans',
+//                                fontWeight: FontWeight.w500,
                                 fontSize: textScaleFactor * 16.0,
                               ),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 10,
-                                ),
-                                child: Wrap(
-                                  direction: Axis.vertical,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      article.category[0].name,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppTheme.primary,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 13.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Spacer(),
-
-                            ],
                           ),
                         ],
                       ),

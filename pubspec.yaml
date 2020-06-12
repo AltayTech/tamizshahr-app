@@ -63,6 +63,8 @@ flutter:
     - assets/images/message_icon.png
     - assets/images/user_Icon.png
     - assets/images/cash_pay_header.jpg
+    - assets/images/wallet_money_bg.png
+    - assets/images/collect_list_header.png
 
   fonts:
     #   - family: Schyler

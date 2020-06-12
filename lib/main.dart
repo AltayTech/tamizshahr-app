@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/provider/articles.dart';
-import 'package:tamizshahr/screens/address_screen.dart';
-import 'package:tamizshahr/screens/article_detail_screen.dart';
-import 'package:tamizshahr/screens/article_screen.dart';
-import 'package:tamizshahr/screens/map_screen.dart';
-import 'package:tamizshahr/screens/waste_request_date_screen.dart';
-import 'package:tamizshahr/screens/waste_request_send_screen.dart';
-import 'package:tamizshahr/screens/wastes_screen.dart';
+import 'package:tamizshahr/provider/charities.dart';
+import 'package:tamizshahr/screens/charity_detail_screen.dart';
+import 'package:tamizshahr/screens/charity_screen.dart';
+import 'package:tamizshahr/screens/wallet_screen.dart';
 
+import './provider/articles.dart';
 import './provider/auth.dart';
 import './provider/messages.dart';
 import './provider/wastes.dart';
 import './screens/about_us_screen.dart';
+import './screens/address_screen.dart';
+import './screens/article_detail_screen.dart';
+import './screens/article_screen.dart';
 import './screens/cart_screen.dart';
-import './screens/cash_payment_screen.dart';
+import './screens/order_products_send_screen.dart';
 import './screens/contact_with_us_screen.dart';
 import './screens/customer_info/customer_notification_screen.dart';
 import './screens/customer_info/customer_orders_screen.dart';
 import './screens/customer_info/customer_user_info_screen.dart';
 import './screens/home_screen.dart';
+import './screens/map_screen.dart';
 import './screens/messages_create_screen.dart';
 import './screens/navigation_bottom_screen.dart';
 import './screens/waste_cart_screen.dart';
+import './screens/waste_request_date_screen.dart';
+import './screens/waste_request_send_screen.dart';
+import './screens/wastes_screen.dart';
 import 'classes/strings.dart';
 import 'provider/Products.dart';
 import 'provider/customer_info.dart';
@@ -66,6 +70,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => Articles(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => Charities(),
+        ),
       ],
       child: MaterialApp(
         title: Strings.appTitle,
@@ -106,7 +113,7 @@ class MyApp extends StatelessWidget {
           LoginScreen.routeName: (ctx) => LoginScreen(),
           ProductsScreen.routeName: (ctx) => ProductsScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
-          CashPaymentScreen.routeName: (ctx) => CashPaymentScreen(),
+          OrderProductsSendScreen.routeName: (ctx) => OrderProductsSendScreen(),
           OrderViewScreen.routeName: (ctx) => OrderViewScreen(),
           AboutUsScreen.routeName: (ctx) => AboutUsScreen(),
           ContactWithUs.routeName: (ctx) => ContactWithUs(),
@@ -129,6 +136,9 @@ class MyApp extends StatelessWidget {
           WasteRequestDateScreen.routeName: (ctx) => WasteRequestDateScreen(),
           WasteRequestSendScreen.routeName: (ctx) => WasteRequestSendScreen(),
           CollectListScreen.routeName: (ctx) => CollectListScreen(),
+          WalletScreen.routeName: (ctx) => WalletScreen(),
+          CharityScreen.routeName: (ctx) => CharityScreen(),
+          CharityDetailScreen.routeName: (ctx) => CharityDetailScreen(),
         },
       ),
     );

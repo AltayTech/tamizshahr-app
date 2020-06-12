@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:tamizshahr/models/product_order_send.dart';
+import '../models/product_order_send.dart';
 
 class OrderSendDetails with ChangeNotifier {
   final String total_price;

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamizshahr/models/request/collect_main.dart';
-import 'package:tamizshahr/models/request/request_waste.dart';
-import 'package:tamizshahr/models/request/request_waste_item.dart';
-import 'package:tamizshahr/models/request/wasteCart.dart';
-import 'package:tamizshahr/models/search_detail.dart';
+import '../models/request/collect_main.dart';
+import '../models/request/request_waste.dart';
+import '../models/request/request_waste_item.dart';
+import '../models/request/wasteCart.dart';
+import '../models/search_detail.dart';
 
 import '../models/request/waste.dart';
 import 'urls.dart';
@@ -19,7 +19,7 @@ class Wastes with ChangeNotifier {
   List<int> _wasteCartItemsId = [];
   String _token;
 
-  List<RequestWasteItem> _CollectItems=[];
+  List<RequestWasteItem> _collectItems = [];
 
   SearchDetail _searchDetails;
 
@@ -126,9 +126,6 @@ class Wastes with ChangeNotifier {
             body: jsonEncode(request));
 
         final extractedData = json.decode(response.body);
-        print('qqqqqqqqqqqqqqggggggggq11111111111');
-      } else {
-        print('qqqqqqqqqqqqqqggggggggq');
       }
       notifyListeners();
     } catch (error) {
@@ -151,7 +148,6 @@ class Wastes with ChangeNotifier {
   set selectedDay(Jalali value) {
     _selectedDay = value;
   }
-
 
   String searchEndPoint = '';
   String searchKey = '';
@@ -185,15 +181,20 @@ class Wastes with ChangeNotifier {
     print(searchEndPoint);
   }
 
+  Future<void> searchCollectItems() async {
+    print('searchCollectItems');
 
-  Future<void> searchItem() async {
-    print('searchItem');
-
-    final url = Urls.rootUrl + Urls.collectsEndPoint+ '$searchEndPoint';
+    final url = Urls.rootUrl + Urls.collectsEndPoint + '$searchEndPoint';
     print(url);
 
     try {
+      final prefs = await SharedPreferences.getInstance();
+      _token = prefs.getString('token');
+      print('tooookkkeeennnnnn  $_token');
+
       final response = await get(url, headers: {
+        'Authorization': 'Bearer $_token',
+
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -205,10 +206,10 @@ class Wastes with ChangeNotifier {
         CollectMain collectMain = CollectMain.fromJson(extractedData);
         print(collectMain.searchDetail.max_page.toString());
 
-        _CollectItems = collectMain.requestWasteItem;
+        _collectItems = collectMain.requestWasteItem;
         _searchDetails = collectMain.searchDetail;
       } else {
-        _CollectItems = [];
+        _collectItems = [];
       }
       notifyListeners();
     } catch (error) {
@@ -217,8 +218,8 @@ class Wastes with ChangeNotifier {
     }
   }
 
-  Future<void> retrieveItem(int collectId) async {
-    print('retrieveItem');
+  Future<void> retrieveCollectItem(int collectId) async {
+    print('retrieveCollectItem');
 
     final url = Urls.rootUrl + Urls.collectsEndPoint + "/$collectId";
     print(url);
@@ -231,7 +232,8 @@ class Wastes with ChangeNotifier {
       final extractedData = json.decode(response.body) as dynamic;
       print(extractedData);
 
-      RequestWasteItem requestWasteItem = RequestWasteItem.fromJson(extractedData);
+      RequestWasteItem requestWasteItem =
+          RequestWasteItem.fromJson(extractedData);
       print(requestWasteItem.id.toString());
 
       _requestWasteItem = requestWasteItem;
@@ -256,7 +258,7 @@ class Wastes with ChangeNotifier {
 
   SearchDetail get searchDetails => _searchDetails;
 
-  List<RequestWasteItem> get CollectItems => _CollectItems;
+  List<RequestWasteItem> get CollectItems => _collectItems;
 
   set sCategory(value) {
     _sCategory = value;

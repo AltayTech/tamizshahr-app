@@ -3,18 +3,17 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:tamizshahr/models/region.dart';
-import 'package:tamizshahr/models/request/address.dart';
-import 'package:tamizshahr/models/request/wasteCart.dart';
-import 'package:tamizshahr/screens/waste_request_send_screen.dart';
 
 import '../models/customer.dart';
+import '../models/region.dart';
+import '../models/request/address.dart';
 import '../models/request/price_weight.dart';
+import '../models/request/wasteCart.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';
+import '../screens/waste_request_send_screen.dart';
 import '../widgets/custom_dialog_enter.dart';
-import '../widgets/custom_dialog_profile.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 
@@ -63,17 +62,6 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
     );
   }
 
-  void _showCompletedialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => CustomDialogProfile(
-        title: 'اطلاعات کاربری',
-        buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
-      ),
-    );
-  }
-
   @override
   void didChangeDependencies() async {
     if (_isInit) {
@@ -96,7 +84,6 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
     getDate(3);
     getMonthAndWeek();
-
     selectedAddress = Provider.of<Auth>(context, listen: false).selectedAddress;
 
     await Provider.of<Auth>(context, listen: false)
@@ -146,9 +133,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
   String getHours(String start, String end) {
     String date = '';
-
     date = start.substring(0, 2) + '-' + end.substring(0, 2);
-
     return date;
   }
 
@@ -271,8 +256,8 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Icon(
                                           Icons.restore_from_trash,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                          color: Colors.red,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -284,16 +269,19 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         ),
                                       ),
                                       Spacer(),
-                                      Text(
-                                        EnArConvertor()
-                                            .replaceArNumber(wasteCartItems
-                                                .length
-                                                .toString())
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          EnArConvertor()
+                                              .replaceArNumber(wasteCartItems
+                                                  .length
+                                                  .toString())
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -315,30 +303,33 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        totalPrice.toString().isNotEmpty
-                                            ? EnArConvertor().replaceArNumber(
-                                                currencyFormat
-                                                    .format(totalPrice)
-                                                    .toString())
-                                            : EnArConvertor()
-                                                .replaceArNumber('0'),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 14,
                                         ),
                                       ),
                                       Text(
-                                        'تومان ',
+                                        '(تومان)',
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 12,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          totalPrice.toString().isNotEmpty
+                                              ? EnArConvertor().replaceArNumber(
+                                                  currencyFormat
+                                                      .format(totalPrice)
+                                                      .toString())
+                                              : EnArConvertor()
+                                                  .replaceArNumber('0'),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -350,9 +341,9 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Icon(
-                                          Icons.signal_wifi_4_bar_lock,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                          Icons.av_timer,
+                                          color: Colors.blue,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -360,27 +351,30 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        EnArConvertor()
-                                            .replaceArNumber(
-                                                totalWeight.toString())
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 14,
                                         ),
                                       ),
                                       Text(
-                                        'کیلوگرم ',
+                                        '(کیلوگرم)',
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 12,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          EnArConvertor()
+                                              .replaceArNumber(
+                                                  totalWeight.toString())
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -413,7 +407,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                   color: AppTheme.h1,
                                                   fontFamily: 'Iransans',
                                                   fontSize:
-                                                      textScaleFactor * 20.0,
+                                                      textScaleFactor * 15.0,
                                                 ),
                                               ),
                                             ),
@@ -547,7 +541,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         child: Row(
                                           children: <Widget>[
                                             Icon(
-                                              Icons.date_range,
+                                              Icons.access_time,
                                               color: AppTheme.grey,
                                             ),
                                             Expanded(

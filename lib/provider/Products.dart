@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamizshahr/models/category.dart';
-import 'package:tamizshahr/models/order_send_details.dart';
+import '../models/category.dart';
+import '../models/order_send_details.dart';
 
 import '../models/color_code_card.dart';
 import '../models/color_code_product_detail.dart';
@@ -100,60 +100,12 @@ class Products with ChangeNotifier {
   ) async {
     print('addShopCart');
     try {
-//      if (isLogin) {
-//        final prefs = await SharedPreferences.getInstance();
-//        print(product..toString());
-//
-//        _token = prefs.getString('token');
-//
-//        final url = Urls.rootUrl +
-//            Urls.cartEndPoint +
-//            '?product_id=${product.id}&action=add&color_id=${colorId.id}&how_many=${quantity}';
-//
-//        final response = await post(
-//          url,
-//          headers: {
-//            'Authorization': 'Bearer $_token',
-//            'Content-Type': 'application/json',
-//            'Accept': 'application/json'
-//          },
-//        );
-//
-//        final extractedData = json.decode(response.body);
-//
-//        print(extractedData.toString());
-//
-//        _cartItems.add(ProductCart(
-//          id: product.id,
-//          title: product.name,
-//          price: colorId.price,
-////          brand: Brandc(
-////              id: product.brand[0].id,
-////              title: product.brand[0].title,
-////              img_url: product.brand[0].brand_img_url),
-//          featured_media_url: product.featured_image.sizes.medium,
-//          color_selected: ColorCodeCard(
-//              id: colorId.id,
-//              color_code: colorId.colorCode,
-//              title: colorId.title),
-//          productCount: quantity,
-//        ));
-//      } else {
       _cartItems.add(ProductCart(
           id: product.id,
           title: product.name,
           price: product.price,
-//            brand: Brandc(
-//                id: product.brand[0].id,
-//                title: product.brand[0].title,
-//                img_url: product.brand[0].brand_img_url),
           featured_media_url: product.featured_image.sizes.medium,
-//          color_selected: ColorCodeCard(
-//              id: colorId.id,
-//              color_code: colorId.colorCode,
-//              title: colorId.title),
           productCount: quantity));
-//      }
       notifyListeners();
     } catch (error) {
       print(error.toString());
@@ -165,32 +117,8 @@ class Products with ChangeNotifier {
       int quantity, bool isLogin) async {
     print('updateShopCart');
     try {
-//      if (isLogin) {
-//        final prefs = await SharedPreferences.getInstance();
-//        print(product..toString());
-//
-//        _token = prefs.getString('token');
-//
-//        final url = Urls.rootUrl +
-//            Urls.cartEndPoint +
-//            '?product_id=${product.id}&action=update&color_id=${colorId.id}&how_many=${quantity}';
-//
-//        final response = await post(url, headers: {
-//          'Authorization': 'Bearer $_token',
-//          'Content-Type': 'application/json',
-//          'Accept': 'application/json'
-//        });
-//
-//        final extractedData = json.decode(response.body);
-//
-//        print(extractedData.toString());
-//
-//        _cartItems.firstWhere((prod) => prod.id == product.id).productCount =
-//            quantity;
-//      } else {
       _cartItems.firstWhere((prod) => prod.id == product.id).productCount =
           quantity;
-//      }
       notifyListeners();
     } catch (error) {
       print(error.toString());
@@ -198,96 +126,16 @@ class Products with ChangeNotifier {
     }
   }
 
-//  Future<void> addShopCartAfterLogin(bool isLogin) async {
-//    print('addShopCartAfterLogin');
-//    List<ProductCart> _shoppItems = _cartItems;
-//    try {
-//      if (isLogin) {
-//        final prefs = await SharedPreferences.getInstance();
-//        _token = prefs.getString('token');
-//
-//        for (int i = 0; i <= _shoppItems.length; i++) {
-//          final url = Urls.rootUrl +
-//              Urls.cartEndPoint +
-//              '?product_id=${_shoppItems[i].id}&action=add&color_id=${_shoppItems[i].color_selected.id}&how_many=${_shoppItems[i].productCount}';
-//
-//          final response = await post(url, headers: {
-//            'Authorization': 'Bearer $_token',
-//            'Content-Type': 'application/json',
-//            'Accept': 'application/json'
-//          });
-//
-//          final extractedData = json.decode(response.body);
-//        }
-//      }
-//      notifyListeners();
-//    } catch (error) {
-//      print(error.toString());
-//      throw (error);
-//    }
-//  }
-
-//  Future<void> retrieveShopCart() async {
-//    print('retrieveShopCart');
-//
-//    final url = Urls.rootUrl + Urls.cartEndPoint;
-//    final prefs = await SharedPreferences.getInstance();
-//
-//    _token = prefs.getString('token');
-//
-//    try {
-//      final response = await get(url, headers: {
-//        'Authorization': 'Bearer $_token',
-//        'Content-Type': 'application/json',
-//        'Accept': 'application/json'
-//      });
-//
-//      final extractedData = json.decode(response.body) as List;
-//      print(extractedData);
-//
-//      List<ProductCart> cartShop = new List<ProductCart>();
-//
-//      cartShop = extractedData.map((i) => ProductCart.fromJson(i)).toList();
-//      print(cartShop.length);
-//
-//      _cartItems = cartShop;
-//
-//      notifyListeners();
-//    } catch (error) {
-//      print(error.toString());
-//      throw (error);
-//    }
-//  }
-
   Future<void> removeShopCart(int productId) async {
     print('removeShopCart');
 
-//    final url = Urls.rootUrl +
-//        Urls.cartEndPoint +
-//        '?product_id=$productId&action=remove&color_id=$colorId';
-//    final prefs = await SharedPreferences.getInstance();
-//
-//    _token = prefs.getString('token');
-//    if (_token != '') {
     try {
-//        final response = await post(url, headers: {
-//          'Authorization': 'Bearer $_token',
-//          'Content-Type': 'application/json',
-//          'Accept': 'application/json'
-//        });
-//        final extractedData = json.decode(response.body);
-//
-//        print(extractedData.toString());
       _cartItems.remove(_cartItems.firstWhere((prod) => prod.id == productId));
       notifyListeners();
     } catch (error) {
       print(error.toString());
       throw (error);
     }
-//    } else {
-//      _cartItems.remove(_cartItems.firstWhere((prod) => prod.id == productId));
-//      notifyListeners();
-//    }
   }
 
   Product findById() {

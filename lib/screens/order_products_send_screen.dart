@@ -2,25 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/order_send_details.dart';
-import 'package:tamizshahr/models/product_order_send.dart';
+import 'package:tamizshahr/widgets/custom_dialog_send_request.dart';
 
 import '../models/customer.dart';
+import '../models/order_send_details.dart';
 import '../models/product_cart.dart';
+import '../models/product_order_send.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../provider/customer_info.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 
-class CashPaymentScreen extends StatefulWidget {
-  static const routeName = '/cash_payment_screen';
+class OrderProductsSendScreen extends StatefulWidget {
+  static const routeName = '/orderProductsSendScreen';
 
   @override
-  _CashPaymentScreenState createState() => _CashPaymentScreenState();
+  _OrderProductsSendScreenState createState() =>
+      _OrderProductsSendScreenState();
 }
 
-class _CashPaymentScreenState extends State<CashPaymentScreen> {
+class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
   var _isLoading = false;
   var _isInit = true;
 
@@ -42,40 +44,6 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
-//  _launchURL(String url) async {
-//    if (await canLaunch(url)) {
-//      print(('adasd' + url));
-//
-//      await launch(url);
-//      Navigator.of(context).pushReplacementNamed('/');
-//    } else {
-//      print(('adasd2' + url));
-//      throw 'Could not launch $url';
-//    }
-//  }
-
-//  Future<void> submitCashPayment() async {
-//    setState(() {
-//      _isLoading = true;
-//    });
-//    await Provider.of<CustomerInfo>(context, listen: false).sendNaghdOrder();
-//    int orderId =
-//        await Provider.of<CustomerInfo>(context, listen: false).currentOrderId;
-//    print(orderId);
-//    await Provider.of<CustomerInfo>(context, listen: false)
-//        .payCashOrder(orderId);
-//    String _payUrl =
-//        await Provider.of<CustomerInfo>(context, listen: false).payUrl;
-//    print('1' + _payUrl);
-////    _launchURL(_payUrl);
-//
-//    setState(() {
-//      _isLoading = false;
-//      print(_isLoading.toString());
-//    });
-//    print(_isLoading.toString());
-//  }
 
   Future<void> getRegionDate() async {
     setState(() {
@@ -140,6 +108,17 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
     });
   }
 
+  void _showSendOrderdialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => CustomDialogSendRequest(
+        title: '',
+        buttonText: 'خب',
+        description: 'سفارش شما با موفقیت ثبت شد',
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -149,16 +128,6 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
 
     Customer customer =
         Provider.of<CustomerInfo>(context, listen: false).customer;
-
-    double totalPrice = 0;
-    if (shoppItems.isNotEmpty) {
-      for (int i = 0; i < shoppItems.length; i++) {
-        shoppItems[i].price.isNotEmpty
-            ? totalPrice = totalPrice +
-                int.parse(shoppItems[i].price) * shoppItems[i].productCount
-            : totalPrice = totalPrice;
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -313,29 +282,6 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
                                   child: Wrap(
                                     children: <Widget>[
                                       Text(
-                                        'آدرس:    ',
-                                        style: TextStyle(
-                                          color: AppTheme.secondary,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 14,
-                                        ),
-                                      ),
-//                                      Text(
-//                                        customer.personalData.address,
-//                                        style: TextStyle(
-//                                          color: AppTheme.primary,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: textScaleFactor * 14,
-//                                        ),
-//                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Wrap(
-                                    children: <Widget>[
-                                      Text(
                                         'کدپستی:    ',
                                         style: TextStyle(
                                           color: AppTheme.secondary,
@@ -368,7 +314,7 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
                                       ),
                                       Text(
                                         EnArConvertor().replaceArNumber(
-                                            (customer.personalData.phone
+                                            (customer.personalData.mobile
                                                     .toString())
                                                 .toString()),
                                         style: TextStyle(
@@ -466,8 +412,9 @@ class _CashPaymentScreenState extends State<CashPaymentScreen> {
                             Scaffold.of(context)
                                 .showSnackBar(addToCartSnackBar);
                           } else {
-                            await createRequest(context)
-                                .then((value) => sendRequest(context));
+                            await createRequest(context).then((value) =>
+                                sendRequest(context)
+                                    .then((value) => _showSendOrderdialog()));
                           }
                         },
                         child: Row(

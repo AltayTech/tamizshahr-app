@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/provider/app_theme.dart';
+
+import '../provider/app_theme.dart';
 
 class InfoEditItem extends StatelessWidget {
   const InfoEditItem(
@@ -9,6 +10,8 @@ class InfoEditItem extends StatelessWidget {
       @required this.keybordType,
       @required this.bgColor,
       @required this.iconColor,
+      this.thisFocusNode,
+      this.newFocusNode,
       this.maxLine = 1,
       @required this.fieldHeight})
       : super(key: key);
@@ -20,6 +23,8 @@ class InfoEditItem extends StatelessWidget {
   final Color bgColor;
   final Color iconColor;
   final double fieldHeight;
+  final FocusNode newFocusNode;
+  final FocusNode thisFocusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +67,10 @@ class InfoEditItem extends StatelessWidget {
                       }
                       return null;
                     },
-                    textInputAction: TextInputAction.none,
+                    onFieldSubmitted: (_) =>
+                        FocusScope.of(context).requestFocus(newFocusNode),
+                    focusNode: thisFocusNode,
+                    textInputAction: TextInputAction.go,
                     controller: controller,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(

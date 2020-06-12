@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/personal_data.dart';
-import 'package:tamizshahr/widgets/info_edit_item.dart';
 
 import '../../models/customer.dart';
+import '../../models/personal_data.dart';
 import '../../provider/app_theme.dart';
 import '../../provider/customer_info.dart';
+import '../../widgets/info_edit_item.dart';
 import '../../widgets/main_drawer.dart';
 import 'customer_user_info_screen.dart';
 
@@ -214,21 +214,6 @@ class _CustomerDetailInfoEditScreenState
                         ),
                       );
 
-                      Provider.of<CustomerInfo>(context, listen: false)
-                          .firstName = nameController.text;
-                      Provider.of<CustomerInfo>(context, listen: false)
-                          .lastName = familyController.text;
-
-                      Provider.of<CustomerInfo>(context, listen: false).email =
-                          emailController.text;
-                      Provider.of<CustomerInfo>(context, listen: false)
-                          .province = ostanController.text;
-                      Provider.of<CustomerInfo>(context, listen: false).city =
-                          cityController.text;
-//                      Provider.of<CustomerInfo>(context, listen: false).address =
-//                          addressController.text;
-                      Provider.of<CustomerInfo>(context, listen: false)
-                          .postcode = postCodeController.text;
                       Customer customerSend = Customer(
                           personalData: PersonalData(
                         first_name: nameController.text,

@@ -11,23 +11,14 @@ class Urls {
   static const checkCompletedEndPoint = '/customer/completed';
   static const customerEndPoint = '/customer';
   static const orderEndPoint = '/orders';
+  static const transactionsEndPoint = '/transactions';
+  static const charitiesEndPoint = '/charities';
 
-
-
-
-
-  static const homeEndPoint = '/home';
   static const shopEndPoint = '/shop';
   static const messageEndPoint = '/messages';
 
   static const loginEndPoint = '/login';
-  static const tokenEndPoint = '/login/token';
   static const sendMessageEndPoint = '/customer/send_message';
   static const orderInfoEndPoint = '/order';
-  static const cartEndPoint = '/cart';
   static const payEndPoint = '/pay';
-  static const favoriteEndPoint = '/favorite';
-  static const rulesEndPoint = '/rules';
-  static const popularAppEndPoint = '/popular_apps';
-  static const imageUploadEndPoint = '/upload_images';
 }

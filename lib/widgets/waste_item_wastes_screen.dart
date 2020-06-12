@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/models/request/waste.dart';
+import '../models/request/waste.dart';
 
 import '../provider/app_theme.dart';
 
@@ -51,14 +51,13 @@ class WasteItemWastesScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         waste.name,
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           color: AppTheme.black,
                           fontFamily: 'Iransans',
-//                                fontWeight: FontWeight.w500,
-                          fontSize: textScaleFactor * 16.0,
+                          fontSize: textScaleFactor * 15.0,
                         ),
                       ),
                     ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/models/featured_image.dart';
-import 'package:tamizshahr/models/sizes.dart';
+import '../models/featured_image.dart';
+import '../models/sizes.dart';
 
 class Category with ChangeNotifier {
   final int term_id;

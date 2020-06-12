@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamizshahr/models/search_detail.dart';
+import 'package:tamizshahr/models/transaction.dart';
+import 'package:tamizshahr/models/transaction_main.dart';
 
 import '../models/customer.dart';
 import '../models/order.dart';
@@ -71,19 +70,6 @@ class CustomerInfo with ChangeNotifier {
     order_status_slug: '0',
     pay_type_slug: '0',
   );
-
-  int _id;
-  String _firstName;
-  String _lastName;
-  String _email;
-  String _province;
-  String _city;
-  String _address;
-  String _postcode;
-
-  set id(int value) {
-    _id = value;
-  }
 
   List<Order> get orders => _orders;
 
@@ -250,56 +236,6 @@ class CustomerInfo with ChangeNotifier {
     }
   }
 
-  Future<void> addPicture(int order_id) async {
-    print('addPicture');
-
-    File _image;
-
-    _image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (_image != null) {
-      chequeImageList.add(_image);
-      Upload(_image, order_id);
-    }
-  }
-
-  Future<void> Upload(File imageFile, int order_id) async {
-    print('Upload');
-
-    var stream =
-        new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
-    var length = await imageFile.length();
-
-    final url = Uri.parse(
-        Urls.rootUrl + Urls.imageUploadEndPoint + '?order_id=$order_id');
-
-    var request = new http.MultipartRequest(
-      "POST",
-      url,
-    );
-    final prefs = await SharedPreferences.getInstance();
-
-    _token = prefs.getString('token');
-    print(order_id.toString());
-
-    Map<String, String> header1 = {
-      'Authorization': 'Bearer $_token',
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    };
-    request.headers.addAll(header1);
-
-    var multipartFile = new http.MultipartFile('file', stream, length,
-        filename: basename(imageFile.path));
-
-    request.files.add(multipartFile);
-    var response = await request.send();
-    print(response.toString());
-    print(response.statusCode);
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
-  }
-
   Future<void> fetchShopData() async {
     print('fetchShopData');
 
@@ -326,34 +262,6 @@ class CustomerInfo with ChangeNotifier {
     }
   }
 
-  set firstName(String value) {
-    _firstName = value;
-  }
-
-  set lastName(String value) {
-    _lastName = value;
-  }
-
-  set email(String value) {
-    _email = value;
-  }
-
-  set province(String value) {
-    _province = value;
-  }
-
-  set city(String value) {
-    _city = value;
-  }
-
-  set address(String value) {
-    _address = value;
-  }
-
-  set postcode(String value) {
-    _postcode = value;
-  }
-
   int get currentOrderId => _currentOrderId;
 
   set customer(Customer value) {
@@ -367,4 +275,129 @@ class CustomerInfo with ChangeNotifier {
   Customer get customer_zero => _customer_zero;
 
   Shop get shop => _shop;
+
+  String searchEndPoint = '';
+  String searchKey = '';
+  var _sPage = 1;
+  var _sPerPage = 10;
+  var _sOrder = 'desc';
+  var _sOrderBy = 'date';
+
+  List<Transaction> _transactionItems = [];
+
+  SearchDetail _searchDetails;
+  Transaction _transactionItem;
+
+  void searchBuilder() {
+    if (!(searchKey == '')) {
+      searchEndPoint = '';
+
+      searchEndPoint = searchEndPoint + '?search=$searchKey';
+      searchEndPoint = searchEndPoint + '&page=$_sPage&per_page=$_sPerPage';
+    } else {
+      searchEndPoint = '';
+
+      searchEndPoint = searchEndPoint + '?page=$_sPage&per_page=$_sPerPage';
+    }
+    if (!(_sOrder == '')) {
+      searchEndPoint = searchEndPoint + '&order=$_sOrder';
+    }
+    if (!(_sOrderBy == '')) {
+      searchEndPoint = searchEndPoint + '&orderby=$_sOrderBy';
+    }
+
+    print(searchEndPoint);
+  }
+
+  Future<void> searchTransactionItems() async {
+    print('searchTransactionItems');
+
+    final url = Urls.rootUrl + Urls.transactionsEndPoint + '$searchEndPoint';
+    print(url);
+    final prefs = await SharedPreferences.getInstance();
+
+    _token = prefs.getString('token');
+
+    try {
+      final response = await get(url, headers: {
+        'Authorization': 'Bearer $_token',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+        print(extractedData.toString());
+
+        TransactionMain transactionMain =
+            TransactionMain.fromJson(extractedData);
+        print(transactionMain.searchDetail.max_page.toString());
+
+        _transactionItems = transactionMain.transactions;
+        _searchDetails = transactionMain.searchDetail;
+      } else {
+        _transactionItems = [];
+      }
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+  }
+
+  Future<void> retrieveItem(int collectId) async {
+    print('retrieveItem');
+
+    final url = Urls.rootUrl + Urls.collectsEndPoint + "/$collectId";
+    print(url);
+
+    try {
+      final response = await get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      final extractedData = json.decode(response.body) as dynamic;
+      print(extractedData);
+
+      Transaction transaction = Transaction.fromJson(extractedData);
+
+      _transactionItem = transaction;
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+    notifyListeners();
+  }
+
+  Transaction get transactionItem => _transactionItem;
+
+  SearchDetail get searchDetails => _searchDetails;
+
+  List<Transaction> get transactionItems => _transactionItems;
+
+  get sOrderBy => _sOrderBy;
+
+  get sOrder => _sOrder;
+
+  get sPerPage => _sPerPage;
+
+  get sPage => _sPage;
+
+  OrderDetails get order => _order;
+
+  set sOrderBy(value) {
+    _sOrderBy = value;
+  }
+
+  set sOrder(value) {
+    _sOrder = value;
+  }
+
+  set sPerPage(value) {
+    _sPerPage = value;
+  }
+
+  set sPage(value) {
+    _sPage = value;
+  }
 }

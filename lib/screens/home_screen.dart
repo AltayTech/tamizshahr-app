@@ -1,18 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/screens/article_screen.dart';
-import 'package:tamizshahr/screens/collect_list_screen.dart';
+import 'package:tamizshahr/screens/wallet_screen.dart';
 
-import '../models/product_cart.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
+import '../screens/article_screen.dart';
+import '../screens/collect_list_screen.dart';
 import '../screens/waste_cart_screen.dart';
 import '../widgets/custom_dialog.dart';
-import 'customer_info/customer_orders_screen.dart';
-import 'customer_info/customer_user_info_screen.dart';
-import 'messages_screen.dart';
 import 'product_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,15 +21,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isInit = true;
-  final searchTextController = TextEditingController();
-  int _current = 0;
-
-  List<ProductCart> shopItems;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() async {
@@ -60,12 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    searchTextController.dispose();
-    super.dispose();
-  }
-
   void _showLoginDialog(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await showDialog<String>(
@@ -91,12 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     });
-  }
-
-  Future<void> cleanFilters(BuildContext context) async {
-    Provider.of<Products>(context, listen: false).sPage = 1;
-    Provider.of<Products>(context, listen: false).searchBuilder();
-    Provider.of<Products>(context, listen: false).checkFiltered();
   }
 
   @override
@@ -160,8 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Iransans',
-                        fontWeight: FontWeight.w500,
-                        fontSize: textScaleFactor * 17.0,
+                        fontWeight: FontWeight.w600,
+                        fontSize: textScaleFactor * 18.0,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -179,8 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     InkWell(
                       onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(CustomerOrdersScreen.routeName);
+                        Navigator.of(context).pushNamed(WalletScreen.routeName);
                       },
                       child: Padding(
                         padding: EdgeInsets.all(deviceWidth * itemPaddingF),
@@ -202,9 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Image.asset(
-                                'assets/images/main_page_wallet_ic.png',
-                                fit: BoxFit.contain,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/images/main_page_wallet_ic.png',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -253,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 20, right: 20, bottom: 8),
+                                    left: 30, right: 30, bottom: 12, top: 5),
                                 child: Image.asset(
                                   'assets/images/main_page_request_ic.png',
                                   fit: BoxFit.contain,
@@ -292,14 +270,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               boxShadow: [
                                 BoxShadow(
                                   color: AppTheme.primary.withOpacity(0.08),
-
                                   blurRadius: 10.10,
-                                  // has the effect of softening the shadow
                                   spreadRadius: 10.510,
-                                  // has the effect of extending the shadow
                                   offset: Offset(
-                                    0, // horizontal, move right 10
-                                    0, // vertical, move down 10
+                                    0,
+                                    0,
                                   ),
                                 )
                               ],
@@ -307,9 +282,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Image.asset(
-                                'assets/images/main_page_paper_ic.png',
-                                fit: BoxFit.contain,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/images/main_page_paper_ic.png',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -343,12 +321,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: AppTheme.primary.withOpacity(0.08),
 
                                   blurRadius: 10.10,
-                                  // has the effect of softening the shadow
                                   spreadRadius: 10.510,
-                                  // has the effect of extending the shadow
                                   offset: Offset(
-                                    0, // horizontal, move right 10
-                                    0, // vertical, move down 10
+                                    0,
+                                    0,
                                   ),
                                 )
                               ],
@@ -356,10 +332,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(
-                                Icons.shopping_cart,
-                                color: AppTheme.primary,
-                                size: 45,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.shopping_cart,
+                                  color: AppTheme.primary,
+                                  size: 45,
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),

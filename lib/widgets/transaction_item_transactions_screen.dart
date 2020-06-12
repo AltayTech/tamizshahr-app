@@ -1,21 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import '../models/request/request_waste_item.dart';
+import 'package:tamizshahr/models/transaction.dart';
 
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../screens/product_detail_screen.dart';
 
-class CollectItemCollectsScreen extends StatelessWidget {
+class TransactionItemTransactionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
     var widthDevice = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    final collect = Provider.of<RequestWasteItem>(context, listen: false);
-    var currencyFormat = intl.NumberFormat.decimalPattern();
+    final transaction = Provider.of<Transaction>(context, listen: false);
 
     return Container(
       height: widthDevice * 0.45,
@@ -27,7 +25,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                   Provider.of<Products>(context, listen: false).itemZero;
               Navigator.of(context).pushNamed(
                 ProductDetailScreen.routeName,
-                arguments: collect.id,
+                arguments: transaction.id,
               );
             },
             child: Card(
@@ -105,7 +103,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
-                              collect.collect_day,
+                              transaction.user.post_title,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
@@ -151,7 +149,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                   children: <Widget>[
                                     FittedBox(
                                       child: Text(
-                                        collect.total_price,
+                                        transaction.money,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: AppTheme.grey,

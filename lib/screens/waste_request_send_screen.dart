@@ -3,22 +3,22 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
-import 'package:tamizshahr/models/region.dart';
-import 'package:tamizshahr/models/request/address.dart';
-import 'package:tamizshahr/models/request/collect.dart';
-import 'package:tamizshahr/models/request/pasmand.dart';
-import 'package:tamizshahr/models/request/request_address.dart';
-import 'package:tamizshahr/models/request/request_waste.dart';
-import 'package:tamizshahr/models/request/wasteCart.dart';
-import 'package:tamizshahr/widgets/custom_dialog_profile.dart';
-import 'package:tamizshahr/widgets/custom_dialog_send_request.dart';
 
 import '../models/customer.dart';
+import '../models/region.dart';
+import '../models/request/address.dart';
+import '../models/request/collect.dart';
+import '../models/request/pasmand.dart';
 import '../models/request/price_weight.dart';
+import '../models/request/request_address.dart';
+import '../models/request/request_waste.dart';
+import '../models/request/wasteCart.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';
 import '../widgets/custom_dialog_enter.dart';
+import '../widgets/custom_dialog_profile.dart';
+import '../widgets/custom_dialog_send_request.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 
@@ -88,7 +88,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
     showDialog(
       context: context,
       builder: (ctx) => CustomDialogSendRequest(
-        title: 'تایید ثبت در خواست',
+        title: '',
         buttonText: 'خب',
         description: 'درخواست شما با موفقیت ثبت شد',
       ),
@@ -341,8 +341,8 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Icon(
                                           Icons.restore_from_trash,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                          color: Colors.red,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -354,16 +354,19 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         ),
                                       ),
                                       Spacer(),
-                                      Text(
-                                        EnArConvertor()
-                                            .replaceArNumber(wasteCartItems
-                                                .length
-                                                .toString())
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          EnArConvertor()
+                                              .replaceArNumber(wasteCartItems
+                                                  .length
+                                                  .toString())
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -385,30 +388,33 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        totalPrice.toString().isNotEmpty
-                                            ? EnArConvertor().replaceArNumber(
-                                                currencyFormat
-                                                    .format(totalPrice)
-                                                    .toString())
-                                            : EnArConvertor()
-                                                .replaceArNumber('0'),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 14,
                                         ),
                                       ),
                                       Text(
-                                        'تومان ',
+                                        '(تومان)',
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 12,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          totalPrice.toString().isNotEmpty
+                                              ? EnArConvertor().replaceArNumber(
+                                                  currencyFormat
+                                                      .format(totalPrice)
+                                                      .toString())
+                                              : EnArConvertor()
+                                                  .replaceArNumber('0'),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -420,9 +426,9 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Icon(
-                                          Icons.signal_wifi_4_bar_lock,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                          Icons.av_timer,
+                                          color: Colors.blue,
+                                          size: 40,
                                         ),
                                       ),
                                       Text(
@@ -430,27 +436,30 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        EnArConvertor()
-                                            .replaceArNumber(
-                                                totalWeight.toString())
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
+                                          fontSize: textScaleFactor * 14,
                                         ),
                                       ),
                                       Text(
-                                        'کیلوگرم ',
+                                        '(کیلوگرم)',
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 12,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          EnArConvertor()
+                                              .replaceArNumber(
+                                                  totalWeight.toString())
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -482,7 +491,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                             style: TextStyle(
                                               color: AppTheme.h1,
                                               fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 20.0,
+                                              fontSize: textScaleFactor * 15.0,
                                             ),
                                           ),
                                         ),
@@ -491,7 +500,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                   ),
                                   Container(
                                     height: constraint.maxHeight * 0.6,
-                                    width: constraint.maxWidth,
+                                    width: constraint.maxWidth * 0.3,
                                     child: Padding(
                                       padding: const EdgeInsets.all(5.0),
                                       child: Container(
@@ -559,7 +568,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         child: Row(
                                           children: <Widget>[
                                             Icon(
-                                              Icons.date_range,
+                                              Icons.access_time,
                                               color: AppTheme.grey,
                                             ),
                                             Expanded(
@@ -579,7 +588,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                       ),
                                       Container(
                                         height: constraint.maxHeight * 0.6,
-                                        width: constraint.maxWidth,
+                                        width: constraint.maxWidth * 0.3,
                                         child: Consumer<Auth>(
                                           builder: (_, data, ch) => Padding(
                                             padding: const EdgeInsets.all(5.0),
@@ -668,7 +677,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                               }
                             },
                             child: Container(
-                              width: deviceWidth * 0.8,
+                              width: deviceWidth * 0.9,
                               height: deviceWidth * 0.1,
                               decoration: BoxDecoration(
                                 boxShadow: [
@@ -695,7 +704,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 13.0,
+                                    fontSize: textScaleFactor * 17.0,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),

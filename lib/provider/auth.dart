@@ -5,9 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tamizshahr/models/region.dart';
-import 'package:tamizshahr/models/request/address.dart';
-import 'package:tamizshahr/models/request/address_main.dart';
+import '../models/region.dart';
+import '../models/request/address.dart';
+import '../models/request/address_main.dart';
 
 import 'urls.dart';
 
@@ -168,7 +168,6 @@ class Auth with ChangeNotifier {
     print(prefs.getString('token'));
     notifyListeners();
   }
-
 
   bool get isCompleted => _isCompleted;
 

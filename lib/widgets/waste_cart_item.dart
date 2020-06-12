@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/request/wasteCart.dart';
 
 import '../models/request/price_weight.dart';
+import '../models/request/wasteCart.dart';
 import '../provider/app_theme.dart';
 import '../provider/wastes.dart';
 import 'en_to_ar_number_convertor.dart';
 
 class WasteCartItem extends StatefulWidget {
   final WasteCart wasteItem;
-  final Function callFunction;
 
   WasteCartItem({
     this.wasteItem,
-    this.callFunction,
   });
 
   @override
@@ -28,14 +26,12 @@ class _WasteCartItemState extends State<WasteCartItem> {
 
   var _isLoading = true;
 
-  bool isLogin;
-
   int productWeight = 0;
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _isLoading = false;
+      _isLoading=false;
 
       productWeight = widget.wasteItem.weight;
     }
@@ -50,13 +46,10 @@ class _WasteCartItemState extends State<WasteCartItem> {
     await Provider.of<Wastes>(context, listen: false).removeWasteCart(
       widget.wasteItem.id,
     );
-    widget.callFunction();
 
     setState(() {
       _isLoading = false;
-      print(_isLoading.toString());
     });
-    print(_isLoading.toString());
   }
 
   String getPrice(List<PriceWeight> prices, int weight) {
@@ -81,7 +74,7 @@ class _WasteCartItemState extends State<WasteCartItem> {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
-      height: deviceWidth * 0.35,
+      height: deviceWidth * 0.30,
       width: deviceWidth,
       child: LayoutBuilder(
         builder: (_, constraints) => Card(
@@ -93,13 +86,16 @@ class _WasteCartItemState extends State<WasteCartItem> {
                   children: <Widget>[
                     Expanded(
                       flex: 1,
-                      child: FadeInImage(
-                        placeholder: AssetImage('assets/images/logo.jpg'),
-                        image: NetworkImage(
-                            widget.wasteItem.featured_image != null
-                                ? widget.wasteItem.featured_image.sizes.medium
-                                : ''),
-                        fit: BoxFit.cover,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FadeInImage(
+                          placeholder: AssetImage('assets/images/logo.jpg'),
+                          image: NetworkImage(
+                              widget.wasteItem.featured_image != null
+                                  ? widget.wasteItem.featured_image.sizes.medium
+                                  : ''),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -109,7 +105,7 @@ class _WasteCartItemState extends State<WasteCartItem> {
                         child: Column(
                           children: <Widget>[
                             SizedBox(
-                              height: deviceWidth * 0.03,
+                              height: deviceWidth * 0.05,
                             ),
                             Expanded(
                               flex: 3,
@@ -139,6 +135,7 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                   Container(
                                     height: constraints.maxHeight * 0.23,
                                     width: constraints.maxWidth * 0.23,
+
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -155,20 +152,12 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                                 .updateWasteCart(
                                               widget.wasteItem,
                                               productWeight,
-                                            )
-                                                .then((_) {
-                                              widget.callFunction();
-                                              setState(() {
-                                                _isLoading = false;
-                                                print(_isLoading.toString());
-                                              });
-                                            });
+                                            );
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(2),
-                                                color: AppTheme.secondary,
+                                                shape: BoxShape.circle,
+                                                color: AppTheme.accent,
                                               ),
                                               child: Icon(
                                                 Icons.add,
@@ -176,18 +165,22 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                               )),
                                         )),
                                         Expanded(
-                                          child: Text(
-                                            EnArConvertor()
-                                                .replaceArNumber(widget
-                                                    .wasteItem.weight
-                                                    .toString())
-                                                .toString(),
-                                            style: TextStyle(
-                                              color: AppTheme.black,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 14,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top:3.0),
+                                            child: Text(
+                                              EnArConvertor()
+                                                  .replaceArNumber(widget
+                                                      .wasteItem.weight
+                                                      .toString())
+                                                  .toString(),
+
+                                              style: TextStyle(
+                                                color: AppTheme.black,
+                                                fontFamily: 'Iransans',
+                                                fontSize: textScaleFactor * 14,
+                                              ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                            textAlign: TextAlign.center,
                                           ),
                                         ),
                                         Expanded(
@@ -203,22 +196,13 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                                   .updateWasteCart(
                                                 widget.wasteItem,
                                                 productWeight,
-                                              )
-                                                  .then((_) {
-                                                widget.callFunction();
-
-                                                setState(() {
-                                                  _isLoading = false;
-                                                  print(_isLoading.toString());
-                                                });
-                                              });
+                                              );
                                             }
                                           },
                                           child: Container(
                                               decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(2),
-                                                color: AppTheme.secondary,
+                                                shape: BoxShape.circle,
+                                                color: AppTheme.accent,
                                               ),
                                               child: Icon(
                                                 Icons.remove,
@@ -241,6 +225,14 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
+                                      Text(
+                                        'هر کیلو: ',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 12,
+                                        ),
+                                      ),
                                       Text(
                                         widget.wasteItem.prices.length != 0
                                             ? EnArConvertor().replaceArNumber(
@@ -274,6 +266,14 @@ class _WasteCartItemState extends State<WasteCartItem> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
+                                      Text(
+                                        'قیمت کل: ',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 12,
+                                        ),
+                                      ),
                                       Text(
                                         widget.wasteItem.prices.length != 0
                                             ? EnArConvertor().replaceArNumber(
@@ -315,8 +315,8 @@ class _WasteCartItemState extends State<WasteCartItem> {
                 ),
               ),
               Positioned(
-                top: 2,
-                left: 2,
+                top: 0,
+                left: 0,
                 child: Container(
                   height: deviceWidth * 0.10,
                   width: deviceWidth * 0.1,

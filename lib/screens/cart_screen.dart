@@ -9,7 +9,7 @@ import '../models/product_cart.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
-import '../screens/cash_payment_screen.dart';
+import '../screens/order_products_send_screen.dart';
 import '../widgets/card_item.dart';
 import '../widgets/custom_dialog_enter.dart';
 import '../widgets/custom_dialog_profile.dart';
@@ -424,7 +424,7 @@ class _CartScreenState extends State<CartScreen> {
                               } else {
                                 if (isCompleted) {
                                   Navigator.of(context)
-                                      .pushNamed(CashPaymentScreen.routeName);
+                                      .pushNamed(OrderProductsSendScreen.routeName);
                                 } else {
                                   _showCompletedialog();
                                 }

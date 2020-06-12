@@ -3,16 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/category.dart';
-import 'package:tamizshahr/models/request/request_waste_item.dart';
-import 'package:tamizshahr/provider/wastes.dart';
-import 'package:tamizshahr/widgets/collect_item_collect_screen.dart';
 
+import '../models/request/request_waste_item.dart';
 import '../models/search_detail.dart';
 import '../provider/app_theme.dart';
+import '../provider/wastes.dart';
+import '../widgets/collect_item_collect_screen.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
-import '../widgets/product_item_product_screeen.dart';
 
 class CollectListScreen extends StatefulWidget {
   static const routeName = '/collectListScreen';
@@ -25,7 +23,6 @@ class _CollectListScreenState extends State<CollectListScreen>
     with SingleTickerProviderStateMixin {
   bool _isInit = true;
 
-//  final searchTextController = TextEditingController();
   ScrollController _scrollController = new ScrollController();
 
   var _isLoading;
@@ -35,32 +32,8 @@ class _CollectListScreenState extends State<CollectListScreen>
 
   SearchDetail productsDetail;
 
-//  List<String> filterList = [];
-
-//  HomePage loadedHomePage;
-
   var sortValue = 'جدیدترین';
   List<String> sortValueList = ['جدیدترین', 'گرانترین', 'ارزانترین'];
-
-  List<int> _selectedCategoryIndexs = [];
-  int _selectedCategoryId = 0;
-  List<String> _selectedCategoryTitle = [];
-
-  List<Category> categoryList = [];
-
-//  var colorValue;
-//  List<String> colorValueList = [];
-//  List<ColorCode> colorList = [];
-//  ColorCode selectedColor;
-
-//  var brandValue;
-//  List<String> brandValueList = [];
-//  List<Brand> brandList = [];
-//  Brand selectedBrand;
-
-//  AnimationController _controller;
-//  Animation<Offset> _slideAnimation;
-//  Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -77,35 +50,13 @@ class _CollectListScreenState extends State<CollectListScreen>
         searchItems();
       }
     });
-//    _controller = AnimationController(
-//      vsync: this,
-//      duration: Duration(
-//        milliseconds: 600,
-//      ),
-//    );
-//
-//    _slideAnimation = Tween<Offset>(
-//      begin: Offset(-0.9, -3),
-//      end: Offset(0, 0),
-//    ).animate(
-//      CurvedAnimation(
-//        parent: _controller,
-//        curve: Curves.ease,
-//      ),
-//    );
-//    _opacityAnimation = Tween(begin: 0.0, end: 1.0).animate(
-//      CurvedAnimation(
-//        parent: _controller,
-//        curve: Curves.ease,
-//      ),
-//    );
+
     super.initState();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-//    _controller.dispose();
 
     super.dispose();
   }
@@ -113,32 +64,6 @@ class _CollectListScreenState extends State<CollectListScreen>
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-//      Provider.of<Wastes>(context, listen: false).retrieveCategory();
-//
-//      categoryList =
-//          Provider.of<Wastes>(context, listen: false).categoryItems;
-//      print(_isLoading.toString());
-
-      Provider.of<Wastes>(context, listen: false).searchBuilder();
-      print(_isLoading.toString());
-
-//      Provider.of<Wastes>(context, listen: false).checkFiltered();
-//      print(_isLoading.toString());
-
-//      brandList = loadedHomePage.brands;
-//      for (int i = 0; i < brandList.length; i++) {
-//        print(i.toString());
-//        brandValueList.add(brandList[i].title);
-//      }
-//      print('brand');
-
-//      colorList = loadedHomePage.colors;
-//      for (int i = 0; i < colorList.length; i++) {
-//        print(i.toString());
-//        colorValueList.add(colorList[i].title);
-//      }
-//      print('color');
-
       searchItems();
     }
     _isInit = false;
@@ -150,7 +75,8 @@ class _CollectListScreenState extends State<CollectListScreen>
 
   Future<void> _submit() async {
     loadedProducts.clear();
-    loadedProducts = await Provider.of<Wastes>(context, listen: false).CollectItems;
+    loadedProducts =
+        await Provider.of<Wastes>(context, listen: false).CollectItems;
     loadedProductstolist.addAll(loadedProducts);
   }
 
@@ -163,13 +89,10 @@ class _CollectListScreenState extends State<CollectListScreen>
     setState(() {
       _isLoading = true;
     });
-    print(_isLoading.toString());
 
     Provider.of<Wastes>(context, listen: false).searchBuilder();
-    await Provider.of<Wastes>(context, listen: false).searchItem();
+    await Provider.of<Wastes>(context, listen: false).searchCollectItems();
     productsDetail = Provider.of<Wastes>(context, listen: false).searchDetails;
-//    filterList = Provider.of<Wastes>(context, listen: false).filterTitle;
-
     _submit();
 
     setState(() {
@@ -183,31 +106,10 @@ class _CollectListScreenState extends State<CollectListScreen>
     });
     print(_isLoading.toString());
 
-//    String brandsEndpoint = '';
-//    String colorsEndpoint = '';
-//    String sellcaseEndpoint = '';
-//    String priceRange = '';
-
-//    Provider.of<Wastes>(context, listen: false).filterTitle.clear();
-
-//    Provider.of<Wastes>(context, listen: false).searchKey = '';
-
-//    Provider.of<Wastes>(context, listen: false).sBrand = brandsEndpoint;
-//    Provider.of<Wastes>(context, listen: false).sColor = colorsEndpoint;
-//    Provider.of<Wastes>(context, listen: false).sPriceRange = priceRange;
     Provider.of<Wastes>(context, listen: false).sPage = 1;
-//    Provider.of<Wastes>(context, listen: false).sSellCase = sellcaseEndpoint;
 
     Provider.of<Wastes>(context, listen: false).searchBuilder();
 
-//    addToFilterList(_selectedCategoryTitle);
-
-    String categoriesEndpoint =
-        _selectedCategoryId != 0 ? '$_selectedCategoryId' : '';
-    Provider.of<Wastes>(context, listen: false).sCategory = categoriesEndpoint;
-
-    Provider.of<Wastes>(context, listen: false).searchBuilder();
-//    Provider.of<Wastes>(context, listen: false).checkFiltered();
     loadedProductstolist.clear();
 
     await searchItems();
@@ -216,16 +118,6 @@ class _CollectListScreenState extends State<CollectListScreen>
       _isLoading = false;
       print(_isLoading.toString());
     });
-  }
-
-  String endPointBuilder(List<dynamic> input) {
-    String outPutString = '';
-    for (int i = 0; i < input.length; i++) {
-      i == 0
-          ? outPutString = input[i].toString()
-          : outPutString = outPutString + ',' + input[i].toString();
-    }
-    return outPutString;
   }
 
   @override
@@ -243,7 +135,7 @@ class _CollectListScreenState extends State<CollectListScreen>
         backgroundColor: Color(0xffF9F9F9),
         appBar: AppBar(
           title: Text(
-            'محصولات',
+            'لیست درخواست ها',
             style: TextStyle(
               fontFamily: 'Iransans',
             ),
@@ -252,36 +144,6 @@ class _CollectListScreenState extends State<CollectListScreen>
           iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
           elevation: 0,
           centerTitle: true,
-          actions: <Widget>[
-//            IconButton(
-//              onPressed: () {
-//                _controller.forward();
-//                setState(() {});
-//              },
-//              color: AppTheme.bg,
-//              icon: Icon(
-//                Icons.search,
-//              ),
-//            ),
-//            Consumer<Wastes>(
-//              builder: (_, Wastes, ch) => Badge(
-//                color: Wastes.cartItemsCount == 0
-//                    ? AppTheme.accent
-//                    : AppTheme.secondary,
-//                value: Wastes.cartItemsCount.toString(),
-//                child: ch,
-//              ),
-//              child: IconButton(
-//                onPressed: () {
-//                  Navigator.of(context).pushNamed(CartScreen.routeName);
-//                },
-//                color: AppTheme.bg,
-//                icon: Icon(
-//                  Icons.shopping_cart,
-//                ),
-//              ),
-//            ),
-          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -291,128 +153,29 @@ class _CollectListScreenState extends State<CollectListScreen>
               children: <Widget>[
                 Column(
                   children: <Widget>[
-//                    Padding(
-//                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-//                      child: Container(
-//                        height: deviceHeight * 0.05,
-//                        width: deviceWidth,
-//                        child: Row(
-//                          children: <Widget>[
-//                            InkWell(
-//                              onTap: () {
-//                                _selectedCategoryIndexs.clear();
-//                                _selectedCategoryTitle.clear();
-//
-//                                _selectedCategoryIndexs.add(-1);
-//                                _selectedCategoryId = 0;
-//                                _selectedCategoryTitle.add('همه');
-//
-//                                changeCat(context);
-//
-//                                Provider.of<Wastes>(context, listen: false)
-//                                    .checkFiltered();
-//                              },
-//                              child: Container(
-//                                decoration: _selectedCategoryId == 0
-//                                    ? BoxDecoration(
-//                                        color: AppTheme.bg,
-//                                        border: Border(
-//                                          bottom: BorderSide(
-//                                              color: AppTheme.primary,
-//                                              width: 3),
-//                                        ),
-//                                      )
-//                                    : BoxDecoration(
-//                                        color: Colors.transparent,
-//                                      ),
-//                                child: Padding(
-//                                  padding: const EdgeInsets.symmetric(
-//                                      horizontal: 20.0),
-//                                  child: Padding(
-//                                    padding: const EdgeInsets.only(top: 10),
-//                                    child: Text(
-//                                      'همه',
-//                                      style: TextStyle(
-//                                        color: _selectedCategoryId == 0
-//                                            ? AppTheme.primary
-//                                            : AppTheme.h1,
-//                                        fontFamily: 'Iransans',
-//                                        fontSize: textScaleFactor * 14.0,
-//                                      ),
-//                                      textAlign: TextAlign.center,
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
-//                            Expanded(
-//                              child: ListView.builder(
-//                                scrollDirection: Axis.horizontal,
-//                                itemCount: categoryList.length,
-//                                shrinkWrap: true,
-//                                itemBuilder: (BuildContext context, int index) {
-//                                  return Container(
-//                                    child: InkWell(
-//                                      onTap: () {
-//                                        _selectedCategoryIndexs.clear();
-//                                        _selectedCategoryTitle.clear();
-//
-//                                        _selectedCategoryIndexs.add(index);
-//                                        _selectedCategoryId =
-//                                            categoryList[index].term_id;
-//                                        _selectedCategoryTitle
-//                                            .add(categoryList[index].name);
-//
-//                                        changeCat(context);
-//                                      },
-//                                      child: Container(
-//                                        decoration: _selectedCategoryIndexs
-//                                                .contains(index)
-//                                            ? BoxDecoration(
-//                                                color: AppTheme.bg,
-//                                                border: Border(
-//                                                  bottom: BorderSide(
-//                                                      color: AppTheme.primary,
-//                                                      width: 3),
-//                                                ),
-//                                              )
-//                                            : BoxDecoration(
-//                                                color: Colors.transparent,
-//                                              ),
-//                                        child: Padding(
-//                                          padding: const EdgeInsets.symmetric(
-//                                              horizontal: 20.0),
-//                                          child: Padding(
-//                                            padding:
-//                                                const EdgeInsets.only(top: 10),
-//                                            child: Text(
-//                                              categoryList[index].name != null
-//                                                  ? categoryList[index].name
-//                                                  : 'n',
-//                                              style: TextStyle(
-//                                                color: categoryList[index]
-//                                                            .term_id ==
-//                                                        _selectedCategoryId
-//                                                    ? AppTheme.primary
-//                                                    : AppTheme.h1,
-//                                                fontFamily: 'Iransans',
-//                                                fontSize:
-//                                                    textScaleFactor * 14.0,
-//                                              ),
-//                                              textAlign: TextAlign.center,
-//                                            ),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  );
-//                                },
-//                              ),
-//                            ),
-//                          ],
-//                        ),
-//                      ),
-//                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: deviceWidth * 0.2,
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Container(
+                                width: deviceWidth,
+                                child: FadeInImage(
+                                  placeholder:
+                                      AssetImage('assets/images/circle.gif'),
+                                  image: AssetImage(
+                                      'assets/images/collect_list_header.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                     Column(
                       children: <Widget>[
                         Row(
@@ -568,200 +331,6 @@ class _CollectListScreenState extends State<CollectListScreen>
                                 ),
                               );
                             }),
-//                            Directionality(
-//                              textDirection: TextDirection.ltr,
-//                              child: Padding(
-//                                padding: const EdgeInsets.all(4.0),
-//                                child: Container(
-//                                  alignment: Alignment.centerRight,
-//                                  decoration: BoxDecoration(
-//                                      color: AppTheme.white,
-//                                      border: Border.all(
-//                                          color: AppTheme.h1, width: 0.2)),
-//                                  child: Padding(
-//                                    padding: const EdgeInsets.only(
-//                                        right: 8.0, left: 8, top: 6),
-//                                    child: DropdownButton<String>(
-//                                      hint: Text(
-//                                        'برندها',
-//                                        style: TextStyle(
-//                                          color: AppTheme.black,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: textScaleFactor * 13.0,
-//                                        ),
-//                                      ),
-//                                      value: brandValue,
-//                                      icon: Padding(
-//                                        padding:
-//                                            const EdgeInsets.only(bottom: 10.0),
-//                                        child: Icon(
-//                                          Icons.arrow_drop_down,
-//                                          color: AppTheme.black,
-//                                          size: 20,
-//                                        ),
-//                                      ),
-//                                      dropdownColor: AppTheme.white,
-//                                      style: TextStyle(
-//                                        color: AppTheme.black,
-//                                        fontFamily: 'Iransans',
-//                                        fontSize: textScaleFactor * 13.0,
-//                                      ),
-//                                      isDense: true,
-//                                      onChanged: (newValue) {
-//                                        setState(() {
-//                                          brandValue = newValue;
-//                                          selectedBrand = brandList[
-//                                              brandValueList
-//                                                  .lastIndexOf(newValue)];
-//
-//                                          String brandsEndpoint =
-//                                              '${selectedBrand.id}';
-//
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .sBrand = brandsEndpoint;
-//
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .sPage = 1;
-//
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .searchBuilder();
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .checkFiltered();
-//                                          loadedProductstolist.clear();
-//
-//                                          searchItems();
-//                                        });
-//                                      },
-//                                      items: brandValueList
-//                                          .map<DropdownMenuItem<String>>(
-//                                              (String value) {
-//                                        return DropdownMenuItem<String>(
-//                                          value: value,
-//                                          child: Padding(
-//                                            padding: const EdgeInsets.only(
-//                                                right: 3.0),
-//                                            child: Text(
-//                                              value,
-//                                              style: TextStyle(
-//                                                color: AppTheme.black,
-//                                                fontFamily: 'Iransans',
-//                                                fontSize:
-//                                                    textScaleFactor * 13.0,
-//                                              ),
-//                                            ),
-//                                          ),
-//                                        );
-//                                      }).toList(),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
-//                            Directionality(
-//                              textDirection: TextDirection.ltr,
-//                              child: Padding(
-//                                padding: const EdgeInsets.all(4.0),
-//                                child: Container(
-//                                  alignment: Alignment.centerRight,
-//                                  decoration: BoxDecoration(
-//                                      color: AppTheme.white,
-//                                      border: Border.all(
-//                                          color: AppTheme.h1, width: 0.2)),
-//                                  child: Padding(
-//                                    padding: const EdgeInsets.only(
-//                                      right: 8.0,
-//                                      left: 8,
-//                                      top: 6,
-//                                    ),
-//                                    child: DropdownButton<String>(
-//                                      hint: Center(
-//                                        child: Text(
-//                                          'رنگها',
-//                                          textAlign: TextAlign.center,
-//                                          style: TextStyle(
-//                                            color: AppTheme.black,
-//                                            fontFamily: 'Iransans',
-//                                            fontSize: textScaleFactor * 13.0,
-//                                          ),
-//                                        ),
-//                                      ),
-//                                      value: colorValue,
-//                                      icon: Padding(
-//                                        padding:
-//                                            const EdgeInsets.only(bottom: 10.0),
-//                                        child: Icon(
-//                                          Icons.arrow_drop_down,
-//                                          color: AppTheme.black,
-//                                          size: 24,
-//                                        ),
-//                                      ),
-//                                      dropdownColor: AppTheme.white,
-//                                      iconSize: 24,
-//                                      style: TextStyle(
-//                                        color: AppTheme.black,
-//                                        fontFamily: 'Iransans',
-//                                        fontSize: textScaleFactor * 13.0,
-//                                      ),
-//                                      isDense: true,
-//                                      onChanged: (newValue) {
-//                                        setState(() {
-//                                          colorValue = newValue;
-//
-//                                          selectedColor = colorList[
-//                                              colorValueList
-//                                                  .lastIndexOf(newValue)];
-//
-//                                          String colorsEndpoint =
-//                                              '${selectedColor.id}';
-//
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .sColor = colorsEndpoint;
-//
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .sPage = 1;
-//
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .searchBuilder();
-//                                          Provider.of<Wastes>(context,
-//                                                  listen: false)
-//                                              .checkFiltered();
-//                                          loadedProductstolist.clear();
-//
-//                                          searchItems();
-//                                        });
-//                                      },
-//                                      items: colorValueList
-//                                          .map<DropdownMenuItem<String>>(
-//                                              (String value) {
-//                                        return DropdownMenuItem<String>(
-//                                          value: value,
-//                                          child: Padding(
-//                                            padding: const EdgeInsets.only(
-//                                                right: 3.0),
-//                                            child: Text(
-//                                              value,
-//                                              style: TextStyle(
-//                                                color: AppTheme.black,
-//                                                fontFamily: 'Iransans',
-//                                                fontSize:
-//                                                    textScaleFactor * 13.0,
-//                                              ),
-//                                            ),
-//                                          ),
-//                                        );
-//                                      }).toList(),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
                           ],
                         ),
                         Divider(thickness: 1, color: AppTheme.h1),
@@ -818,153 +387,6 @@ class _CollectListScreenState extends State<CollectListScreen>
             ),
           ),
         ),
-//            ),
-//            Positioned(
-//              top: 0,
-//              left: 0,
-//              right: 0,
-//              child: AnimatedContainer(
-//                duration: _controller.duration,
-//                curve: Curves.easeIn,
-//                child: ScaleTransition(
-//                  scale: _opacityAnimation,
-//                  child: FadeTransition(
-//                    opacity: _opacityAnimation,
-//                    child: SlideTransition(
-//                      position: _slideAnimation,
-//                      child: Padding(
-//                        padding: const EdgeInsets.only(bottom: 15.0),
-//                        child: Center(
-//                          child: Padding(
-//                            padding: const EdgeInsets.all(8.0),
-//                            child: Container(
-//                              width: MediaQuery.of(context).size.width * 0.9,
-//                              height: AppBar().preferredSize.height,
-//                              decoration: BoxDecoration(
-//                                color: Colors.white,
-//                                borderRadius: BorderRadius.circular(8),
-//                                border: Border.all(
-//                                  color: AppTheme.secondary,
-//                                  width: 0.6,
-//                                ),
-//                              ),
-//                              child: Row(
-//                                children: <Widget>[
-//                                  Padding(
-//                                    padding: const EdgeInsets.all(8.0),
-//                                    child: InkWell(
-//                                      onTap: () {
-//                                        String brandsEndpoint = '';
-//                                        String colorsEndpoint = '';
-//                                        String sellcaseEndpoint = '';
-//                                        String priceRange = '';
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .filterTitle
-//                                            .clear();
-//
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .searchKey =
-//                                            searchTextController.text;
-//
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .sBrand = brandsEndpoint;
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .sColor = colorsEndpoint;
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .sPriceRange = priceRange;
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .sPage = 1;
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .sSellCase = sellcaseEndpoint;
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .searchBuilder();
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .checkFiltered();
-//
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .searchBuilder();
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .checkFiltered();
-//                                        Navigator.of(context).pushReplacementNamed(
-//                                            ProductsScreen.routeName,
-//                                            arguments: 0);
-//                                      },
-//                                      child: Icon(
-//                                        Icons.search,
-//                                        color: AppTheme.primary,
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  Expanded(
-//                                    child: TextFormField(
-//                                      textInputAction: TextInputAction.search,
-//                                      onFieldSubmitted: (_) {
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .searchKey =
-//                                            searchTextController.text;
-//                                        Provider.of<Wastes>(context,
-//                                            listen: false)
-//                                            .searchBuilder();
-//
-//                                        return Navigator.of(context).pushNamed(
-//                                            ProductsScreen.routeName,
-//                                            arguments: 0);
-//                                      },
-//                                      controller: searchTextController,
-//                                      decoration: InputDecoration(
-//                                        border: InputBorder.none,
-//                                        hintStyle: TextStyle(
-//                                          color: AppTheme.secondary,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: MediaQuery.of(context)
-//                                              .textScaleFactor *
-//                                              12.0,
-//                                        ),
-//                                        hintText: 'جستجوی محصولات ...',
-//                                        labelStyle: TextStyle(
-//                                          color: AppTheme.secondary,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: MediaQuery.of(context)
-//                                              .textScaleFactor *
-//                                              10.0,
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.all(8.0),
-//                                    child: InkWell(
-//                                        onTap: () {
-//                                          _controller.reverse();
-//                                          setState(() {});
-//                                        },
-//                                        child: Icon(Icons.clear)),
-//                                  ),
-//                                ],
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//                ),
-//              ),
-//            ),
-//          ],
-//        ),
         drawer: Theme(
           data: Theme.of(context).copyWith(
             // Set the transparency here

@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/region.dart';
-import 'package:tamizshahr/models/request/address.dart';
-import 'package:tamizshahr/provider/app_theme.dart';
-import 'package:tamizshahr/provider/auth.dart';
-import 'package:tamizshahr/widgets/info_edit_item.dart';
+
+import '../models/region.dart';
+import '../models/request/address.dart';
+import '../provider/app_theme.dart';
+import '../provider/auth.dart';
+import '../widgets/info_edit_item.dart';
 
 class MapScreen extends StatefulWidget {
   static const routeName = '/mapScreen';
@@ -31,12 +32,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
 
   MapType _currentMapType = MapType.normal;
 
-  double speed;
-
-  BitmapDescriptor salonBitmapDescriptor = BitmapDescriptor.defaultMarker;
-  BitmapDescriptor gymBitmapDescriptor = BitmapDescriptor.defaultMarker;
-  BitmapDescriptor entBitmapDescriptor = BitmapDescriptor.defaultMarker;
-
   final nameController = TextEditingController();
   final addressController = TextEditingController();
 
@@ -48,6 +43,10 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   List<String> regionValueList = [];
   List<Region> regionList = [];
   Region selectedRegion;
+
+  FocusNode nameNode;
+  FocusNode regionNode;
+  FocusNode addressNode;
 
   @override
   void didChangeDependencies() async {
@@ -63,7 +62,6 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       _markers.clear();
       _markers.add(
         Marker(
-          // This marker id can be anything that uniquely identifies each marker.
           markerId: MarkerId(_lastMapPosition.toString()),
           position: latLng,
           infoWindow: InfoWindow(
@@ -109,6 +107,10 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    nameNode = FocusNode();
+    regionNode = FocusNode();
+    addressNode = FocusNode();
 
     _geolocator = Geolocator();
     LocationOptions locationOptions =
@@ -180,6 +182,11 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   void dispose() {
     nameController.dispose();
     addressController.dispose();
+
+    nameNode.dispose();
+    regionNode.dispose();
+    addressNode.dispose();
+
     super.dispose();
   }
 
@@ -195,7 +202,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
           preferredSize: Size.fromHeight(15),
         ),
         title: Text(
-          'تمیز شهر',
+          'ایجاد آدرس',
           style: TextStyle(
             fontFamily: 'Iransans',
           ),
@@ -247,16 +254,21 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 iconColor: Color(0xffA67FEC),
                 keybordType: TextInputType.text,
                 fieldHeight: deviceHeight * 0.05,
+                thisFocusNode: nameNode,
+                newFocusNode: regionNode,
               ),
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Container(
+                    width: deviceWidth * 0.78,
+                    height: deviceHeight * 0.05,
                     alignment: Alignment.centerRight,
                     decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
                         color: AppTheme.white,
-                        border: Border.all(color: AppTheme.h1, width: 0.2)),
+                        border: Border.all(color: AppTheme.h1, width: 0.6)),
                     child: Padding(
                       padding:
                           const EdgeInsets.only(right: 8.0, left: 8, top: 6),
@@ -270,6 +282,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                           ),
                         ),
                         value: regionValue,
+                        focusNode: regionNode,
                         icon: Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: Icon(
@@ -290,6 +303,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                             regionValue = newValue;
                             selectedRegion = regionList[
                                 regionValueList.lastIndexOf(newValue)];
+                            FocusScope.of(context).requestFocus(addressNode);
                           });
                         },
                         items: regionValueList
@@ -322,6 +336,8 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 keybordType: TextInputType.text,
                 fieldHeight: deviceHeight * 0.2,
                 maxLine: 10,
+                thisFocusNode: addressNode,
+                newFocusNode: new FocusNode(),
               ),
             ],
           ),
@@ -331,7 +347,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await saveAddress().then((value) {
-//            Navigator.of(context).pop();
+            Navigator.of(context).pop();
           });
         },
         backgroundColor: AppTheme.primary,

@@ -8,6 +8,7 @@ class PersonalData with ChangeNotifier {
   final String last_name;
   final String ostan;
   final String city;
+  final String mobile;
   final List<Address> addresses;
   final String postcode;
   final String email;
@@ -19,6 +20,7 @@ class PersonalData with ChangeNotifier {
     this.email,
     this.ostan,
     this.city,
+    this.mobile,
     this.addresses,
     this.postcode,
   });
@@ -35,6 +37,7 @@ class PersonalData with ChangeNotifier {
       email: parsedJson['email'],
       ostan: parsedJson['ostan'],
       city: parsedJson['city'],
+      mobile: parsedJson['mobile'],
       addresses: addressRaw,
       postcode: parsedJson['postcode'],
     );

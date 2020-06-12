@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/screens/home_screen.dart';
-import 'package:tamizshahr/screens/navigation_bottom_screen.dart';
+import '../screens/home_screen.dart';
+import '../screens/navigation_bottom_screen.dart';
 
 import '../provider/app_theme.dart';
 
@@ -30,7 +30,7 @@ class CustomDialogSendRequest extends StatelessWidget {
   dialogContent(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
+        Container(height: MediaQuery.of(context).size.height*0.4,
           padding: EdgeInsets.only(
             top: Consts.avatarRadius + Consts.padding,
             bottom: Consts.padding,
@@ -61,41 +61,44 @@ class CustomDialogSendRequest extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(height: 16.0),
+              Expanded(
+                child: Icon(Icons.check_box,
+                  color: AppTheme.primary,
+                  size: 80,
+                ),
+              ),
+
               Text(
                 description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.blueGrey,
-                  fontSize: MediaQuery.of(context).textScaleFactor * 14,
+                  color: AppTheme.h1,
+                  fontSize: MediaQuery.of(context).textScaleFactor * 18,
                 ),
               ),
               SizedBox(height: 24.0),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: InkWell(
-                    onTap: () {
-                      return Navigator.of(context)
-                          .popAndPushNamed(NavigationBottomScreen.routeName);
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                        color: AppTheme.secondary,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Center(
-                        child: Text(
-                          buttonText,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Iransans',
-                            fontSize:
-                                MediaQuery.of(context).textScaleFactor * 16,
-                          ),
+                child: InkWell(
+                  onTap: () {
+                    return Navigator.of(context)
+                        .popAndPushNamed(NavigationBottomScreen.routeName);
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        buttonText,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Iransans',
+                          fontSize:
+                              MediaQuery.of(context).textScaleFactor * 20,
                         ),
                       ),
                     ),
