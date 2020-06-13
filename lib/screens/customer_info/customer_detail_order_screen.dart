@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
 import '../../models/order.dart';
+import '../../provider/app_theme.dart';
 import '../../provider/customer_info.dart';
 import '../../widgets/en_to_ar_number_convertor.dart';
 import '../order_view_screen.dart';
@@ -26,16 +26,15 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
 
   final int rateAnimDuration = 1200;
 
-  String sellCaseValue = 'همه';
-  String statusValue = 'همه';
-  String orderValue = 'جدیدترین';
+
 
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    List<Order> orderList = Provider.of<CustomerInfo>(context, listen: false).orders;
+    List<Order> orderList =
+        Provider.of<CustomerInfo>(context, listen: false).orders;
 
     return Container(
       child: Padding(
@@ -68,7 +67,6 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
                             fontSize: textScaleFactor * 14.0,
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -94,7 +92,6 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
                   ),
                 ],
               ),
-
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: ListView.builder(
@@ -109,11 +106,11 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
                             arguments: orderList[index].id);
                       },
                       child: OrderItem(
-                        number: orderList[index].shenaseh.toString(),
-                        date: orderList[index].order_register_date.toString(),
-                        totalPrice: orderList[index].total_cost.toString(),
-                        status: orderList[index].pay_status.toString(),
-                        totalNumber: orderList[index].total_num.toString(),
+//                        number: orderList[index].shenaseh.toString(),
+//                        date: orderList[index].order_register_date.toString(),
+//                        totalPrice: orderList[index].total_cost.toString(),
+//                        status: orderList[index].pay_status.toString(),
+//                        totalNumber: orderList[index].total_num.toString(),
                       ),
                     );
                   },

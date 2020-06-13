@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../classes/top_bar.dart';
-import '../screens/messages_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/screens/collect_list_screen.dart';
+import 'package:tamizshahr/screens/orders_screen.dart';
 
+import '../classes/top_bar.dart';
 import '../provider/app_theme.dart';
-import '../models/customer.dart';
 import '../provider/auth.dart';
 import '../provider/customer_info.dart';
-import '../screens/customer_info/customer_orders_screen.dart';
 import '../screens/customer_info/customer_user_info_screen.dart';
 import '../screens/customer_info/login_screen.dart';
+import '../screens/messages_screen.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -136,7 +136,7 @@ class _ProfileViewState extends State<ProfileView> {
                                       InkWell(
                                         onTap: () {
                                           Navigator.of(context).pushNamed(
-                                              CustomerOrdersScreen.routeName);
+                                              OrdersScreen.routeName);
                                         },
                                         child: Padding(
                                           padding: EdgeInsets.all(
@@ -318,7 +318,7 @@ class _ProfileViewState extends State<ProfileView> {
                                       InkWell(
                                         onTap: () {
                                           Navigator.of(context).pushNamed(
-                                              MessageScreen.routeName);
+                                              CollectListScreen.routeName);
                                         },
                                         child: Container(
                                           child: Padding(
@@ -349,17 +349,25 @@ class _ProfileViewState extends State<ProfileView> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
-                                                  Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                    size: 35,
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 30,
+                                                            right: 30,
+                                                            bottom: 12,
+                                                            top: 5),
+                                                    child: Image.asset(
+                                                      'assets/images/main_page_request_ic.png',
+                                                      fit: BoxFit.contain,
+                                                      color: AppTheme.primary,
+                                                    ),
                                                   ),
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
                                                     child: Text(
-                                                      'علایق',
+                                                      'درخواست ها',
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(

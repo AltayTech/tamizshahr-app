@@ -2,34 +2,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/screens/collect_detail_screen.dart';
+import 'package:tamizshahr/models/order.dart';
 
 import '../models/request/request_waste_item.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
+import '../screens/product_detail_screen.dart';
 import 'en_to_ar_number_convertor.dart';
 
-class CollectItemCollectsScreen extends StatelessWidget {
+class OrderItemOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
     var widthDevice = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    final collect = Provider.of<RequestWasteItem>(context, listen: false);
+    final order = Provider.of<Order>(context, listen: false);
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
-      height: widthDevice * 0.45,
+      height: widthDevice * 0.35,
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           return InkWell(
             onTap: () {
-              Provider.of<Products>(context, listen: false).item =
-                  Provider.of<Products>(context, listen: false).itemZero;
-              Navigator.of(context).pushNamed(
-                CollectDetailScreen.routeName,
-                arguments: collect.id,
-              );
+//              Provider.of<Products>(context, listen: false).item =
+//                  Provider.of<Products>(context, listen: false).itemZero;
+//              Navigator.of(context).pushNamed(
+//                ProductDetailScreen.routeName,
+//                arguments: order.id,
+//              );
             },
             child: Card(
               child: Container(
@@ -53,7 +54,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    collect.collect_day,
+                                    order.send_date,
                                     maxLines: 1,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
@@ -72,7 +73,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    collect.collect_hours,
+                                    order.send_date,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,
@@ -93,24 +94,10 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                 children: <Widget>[
                                   Expanded(
                                     child: Text(
-                                      EnArConvertor().replaceArNumber(
-                                          collect.total_weight),
+                                      'تعداد:',
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppTheme.black,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 16.0,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      'کیلوگرم',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: AppTheme.grey,
                                         fontFamily: 'Iransans',
@@ -118,16 +105,30 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                  Expanded(
+                                    child: Text(
+                                      order.total_number,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        color: AppTheme.black,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 16.0,
+                                      ),
+                                    ),
+                                  ),
+
                                   Spacer(),
                                   Expanded(
                                     child: Text(
                                       EnArConvertor().replaceArNumber(
                                           currencyFormat
                                               .format(double.parse(
-                                                  collect.total_price))
-                                              .toString()),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                              order.total_price))
+                                              .toString())
+                                      ,
+                                      maxLines: 1,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: AppTheme.black,
@@ -141,7 +142,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                       'تومان',
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: AppTheme.grey,
                                         fontFamily: 'Iransans',
@@ -172,7 +173,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                           Spacer(),
                           Expanded(
                             child: Text(
-                              collect.status.name,
+                              order.status.name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,

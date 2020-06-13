@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/charities.dart';
+import 'package:tamizshahr/provider/orders.dart';
 import 'package:tamizshahr/screens/charity_detail_screen.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
+import 'package:tamizshahr/screens/collect_detail_screen.dart';
+import 'package:tamizshahr/screens/orders_screen.dart';
 import 'package:tamizshahr/screens/wallet_screen.dart';
 
 import './provider/articles.dart';
@@ -14,7 +17,6 @@ import './screens/address_screen.dart';
 import './screens/article_detail_screen.dart';
 import './screens/article_screen.dart';
 import './screens/cart_screen.dart';
-import './screens/order_products_send_screen.dart';
 import './screens/contact_with_us_screen.dart';
 import './screens/customer_info/customer_notification_screen.dart';
 import './screens/customer_info/customer_orders_screen.dart';
@@ -23,6 +25,7 @@ import './screens/home_screen.dart';
 import './screens/map_screen.dart';
 import './screens/messages_create_screen.dart';
 import './screens/navigation_bottom_screen.dart';
+import './screens/order_products_send_screen.dart';
 import './screens/waste_cart_screen.dart';
 import './screens/waste_request_date_screen.dart';
 import './screens/waste_request_send_screen.dart';
@@ -72,6 +75,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => Charities(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Orders(),
         ),
       ],
       child: MaterialApp(
@@ -139,6 +145,8 @@ class MyApp extends StatelessWidget {
           WalletScreen.routeName: (ctx) => WalletScreen(),
           CharityScreen.routeName: (ctx) => CharityScreen(),
           CharityDetailScreen.routeName: (ctx) => CharityDetailScreen(),
+          OrdersScreen.routeName: (ctx) => OrdersScreen(),
+          CollectDetailScreen.routeName: (ctx) => CollectDetailScreen(),
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamizshahr/models/driver.dart';
 
 import '../status.dart';
 import 'address.dart';
@@ -15,6 +16,7 @@ class RequestWasteItem with ChangeNotifier {
   final String collect_hour_exact;
   final Address address;
   final List<Collect> collect_list;
+  final Driver driver;
 
   RequestWasteItem({
     this.id,
@@ -27,6 +29,7 @@ class RequestWasteItem with ChangeNotifier {
     this.collect_hour_exact,
     this.address,
     this.collect_list,
+    this.driver,
   });
 
   factory RequestWasteItem.fromJson(Map<String, dynamic> parsedJson) {
@@ -42,15 +45,19 @@ class RequestWasteItem with ChangeNotifier {
       total_number: parsedJson['total_number'],
       collect_day: parsedJson['collect_day'],
       collect_hours: parsedJson['collect_hours'],
-      collect_hour_exact: parsedJson['collect_hour_exact']!=null?parsedJson['collect_hour_exact']:'',
+      collect_hour_exact: parsedJson['collect_hour_exact'] != null
+          ? parsedJson['collect_hour_exact']
+          : '',
       address: Address.fromJson(parsedJson['address']),
       collect_list: collectRaw,
+      driver: Driver.fromJson(parsedJson['driver']),
     );
   }
 
   Map<String, dynamic> toJson() {
     Map address = this.address != null ? this.address.toJson() : null;
     Map status = this.status != null ? this.status.toJson() : null;
+    Map driver = this.driver != null ? this.driver.toJson() : null;
 
     List<Map> collect_list = this.collect_list != null
         ? this.collect_list.map((i) => i.toJson()).toList()
@@ -67,6 +74,7 @@ class RequestWasteItem with ChangeNotifier {
       'collect_hour_exact': collect_hour_exact,
       'address_data': address,
       'collect_list': collect_list,
+      'driver': driver,
     };
   }
 }

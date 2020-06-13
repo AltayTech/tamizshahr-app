@@ -1,38 +1,45 @@
 import 'package:flutter/foundation.dart';
+import 'package:tamizshahr/models/product_order_receive.dart';
+import 'package:tamizshahr/models/status.dart';
 
 class Order with ChangeNotifier {
   final int id;
-  final String shenaseh;
-  final String total_cost;
-  final String order_register_date;
-  final int total_num;
-  final String order_status;
-  final String pay_type;
-  final String pish;
+  final Status status;
   final String pay_status;
+  final String pay_date;
+  final String pay_transaction;
+  final String send_date;
+  final String total_price;
+  final String total_number;
+  final List<ProductOrderReceive> products;
 
-  Order(
-      {this.id,
-      this.shenaseh,
-      this.total_cost,
-      this.order_register_date,
-      this.total_num,
-      this.order_status,
-      this.pay_type,
-      this.pish,
-      this.pay_status});
+  Order({
+    this.id,
+    this.status,
+    this.pay_status,
+    this.pay_date,
+    this.pay_transaction,
+    this.send_date,
+    this.total_price,
+    this.total_number,
+    this.products,
+  });
 
   factory Order.fromJson(Map<String, dynamic> parsedJson) {
+    var productList = parsedJson['products'] as List;
+    List<ProductOrderReceive> productRaw =
+        productList.map((i) => ProductOrderReceive.fromJson(i)).toList();
+
     return Order(
       id: parsedJson['id'],
-      shenaseh: parsedJson['shenaseh'],
-      total_cost: parsedJson['total_cost'],
-      order_register_date: parsedJson['order_register_date'],
-      total_num: parsedJson['total_num'],
-      order_status: parsedJson['order_status'],
-      pay_type: parsedJson['pay_type'],
-      pish: parsedJson['pish'],
-      pay_status: parsedJson['pay_status'],
+      status: Status.fromJson(parsedJson['status']),
+      pay_status: parsedJson['pay_status']!=null?parsedJson['pay_status']:'',
+      pay_date: parsedJson['pay_date']!=null?parsedJson['pay_date']:'',
+      pay_transaction: parsedJson['pay_transaction']!=null?parsedJson['pay_transaction']:'',
+      send_date: parsedJson['send_date']!=null?parsedJson['send_date']:'',
+      total_price: parsedJson['total_price'],
+      total_number: parsedJson['total_number'],
+      products: productRaw,
     );
   }
 }

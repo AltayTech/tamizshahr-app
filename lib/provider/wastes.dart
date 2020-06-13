@@ -225,7 +225,12 @@ class Wastes with ChangeNotifier {
     print(url);
 
     try {
+      final prefs = await SharedPreferences.getInstance();
+      _token = prefs.getString('token');
+      print('tooookkkeeennnnnn  $_token');
+
       final response = await get(url, headers: {
+        'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });

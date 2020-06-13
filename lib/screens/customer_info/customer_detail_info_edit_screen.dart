@@ -23,11 +23,10 @@ class _CustomerDetailInfoEditScreenState
   final nameController = TextEditingController();
   final familyController = TextEditingController();
 
-  final emailController = TextEditingController();
+  final typeController = TextEditingController();
   final ostanController = TextEditingController();
   final cityController = TextEditingController();
 
-//  final addressController = TextEditingController();
   final postCodeController = TextEditingController();
 
   @override
@@ -37,10 +36,9 @@ class _CustomerDetailInfoEditScreenState
     nameController.text = customer.personalData.first_name;
     familyController.text = customer.personalData.last_name;
 
-    emailController.text = customer.personalData.email;
+    typeController.text = customer.personalData.email;
     ostanController.text = customer.personalData.ostan;
     cityController.text = customer.personalData.city;
-//    addressController.text = customer.personalData.address;
     postCodeController.text = customer.personalData.postcode;
 
     super.initState();
@@ -52,9 +50,8 @@ class _CustomerDetailInfoEditScreenState
     familyController.dispose();
     cityController.dispose();
     ostanController.dispose();
-    emailController.dispose();
+    typeController.dispose();
     postCodeController.dispose();
-//    addressController.dispose();
     super.dispose();
   }
 
@@ -76,9 +73,7 @@ class _CustomerDetailInfoEditScreenState
 
         drawer: Theme(
           data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
+            canvasColor: Colors.transparent,
           ),
           child: MainDrawer(),
         ), // resizeToAvoidBottomInset: false,
@@ -127,8 +122,8 @@ class _CustomerDetailInfoEditScreenState
                                   fieldHeight: deviceHeight * 0.05,
                                 ),
                                 InfoEditItem(
-                                  title: 'ایمیل',
-                                  controller: emailController,
+                                  title: 'نوع کاربر',
+                                  controller: typeController,
                                   bgColor: AppTheme.bg,
                                   iconColor: Color(0xffA67FEC),
                                   keybordType: TextInputType.text,
@@ -174,14 +169,6 @@ class _CustomerDetailInfoEditScreenState
                                   keybordType: TextInputType.number,
                                   fieldHeight: deviceHeight * 0.05,
                                 ),
-//                                InfoEditItem(
-//                                  title: 'آدرس',
-//                                  controller: addressController,
-//                                  bgColor: AppTheme.bg,
-//                                  iconColor: Color(0xff4392F1),
-//                                  keybordType: TextInputType.text,
-//                                  fieldHeight: deviceHeight*0.1,
-//                                ),
                               ],
                             ),
                           ),
@@ -220,7 +207,6 @@ class _CustomerDetailInfoEditScreenState
                         last_name: familyController.text,
                         city: cityController.text,
                         ostan: ostanController.text,
-                        email: emailController.text,
                         postcode: postCodeController.text,
                       ));
 

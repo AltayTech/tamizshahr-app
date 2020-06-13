@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import '../models/shop.dart';
 import '../provider/customer_info.dart';
@@ -23,10 +24,12 @@ class _GuideScreenState extends State<GuideScreen> {
 
   List<String> aboutInfoContent = [];
 
+  bool _isLoading=false;
+
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-      await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
+      await searchItems();
 
       aboutInfoContent = [
         shopData.return_policy,
@@ -42,12 +45,25 @@ class _GuideScreenState extends State<GuideScreen> {
         'سوالات متداول',
         'شیوه پرداخت',
       ];
+
     }
     _isInit = false;
 
     super.didChangeDependencies();
   }
 
+  Future<void> searchItems() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
+    shopData = Provider.of<CustomerInfo>(context, listen: false).shop;
+
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -70,7 +86,17 @@ class _GuideScreenState extends State<GuideScreen> {
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
       ),
-      body: Directionality(
+      body:_isLoading
+          ? SpinKitFadingCircle(
+        itemBuilder: (BuildContext context, int index) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: index.isEven ? Colors.grey : Colors.grey,
+            ),
+          );
+        },
+      ):  Directionality(
         textDirection: TextDirection.rtl,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -85,14 +111,14 @@ class _GuideScreenState extends State<GuideScreen> {
                       color: AppTheme.bg,
                       child: FadeInImage(
                         placeholder: AssetImage('assets/images/circle.gif'),
-                        image: NetworkImage(shopData.logo),
+                        image: NetworkImage(shopData.logo.sizes.medium),
                         fit: BoxFit.contain,
                         height: deviceWidth * 0.5,
                       )),
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Text(
-                      shopData.shop_name,
+                      shopData.name,
                       style: TextStyle(
                         color: AppTheme.primary,
                         fontFamily: 'BFarnaz',
@@ -104,7 +130,7 @@ class _GuideScreenState extends State<GuideScreen> {
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Text(
-                      shopData.shop_type,
+                      shopData.subject,
                       style: TextStyle(
                         color: AppTheme.primary,
                         fontFamily: 'Iransans',

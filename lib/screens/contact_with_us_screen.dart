@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../provider/customer_info.dart';
-import '../models/shop.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../models/shop.dart';
 import '../provider/app_theme.dart';
+import '../provider/customer_info.dart';
 import '../widgets/main_drawer.dart';
 
 class ContactWithUs extends StatefulWidget {
@@ -15,6 +16,8 @@ class ContactWithUs extends StatefulWidget {
 }
 
 class _ContactWithUsState extends State<ContactWithUs> {
+  bool _isLoading = false;
+
   _launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -34,10 +37,10 @@ class _ContactWithUsState extends State<ContactWithUs> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-      await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
+      await searchItems();
 
       aboutInfoContent = [
-        shopData.about_shop,
+        shopData.about,
         shopData.return_policy,
         shopData.privacy,
         shopData.how_to_order,
@@ -56,6 +59,18 @@ class _ContactWithUsState extends State<ContactWithUs> {
     _isInit = false;
 
     super.didChangeDependencies();
+  }
+
+  Future<void> searchItems() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
+    shopData = Provider.of<CustomerInfo>(context, listen: false).shop;
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -80,170 +95,182 @@ class _ContactWithUsState extends State<ContactWithUs> {
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: deviceWidth * 0.3,
-                    height: deviceWidth * 0.3,
-                    color: AppTheme.bg,
-                    child: FadeInImage(
-                      placeholder: AssetImage('assets/images/circle.gif'),
-                      image: NetworkImage(shopData.logo),
-                      fit: BoxFit.contain,
-                      height: deviceWidth * 0.5,
-                    ),
+      body: _isLoading
+          ? SpinKitFadingCircle(
+              itemBuilder: (BuildContext context, int index) {
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index.isEven ? Colors.grey : Colors.grey,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Text(
-                      shopData.shop_name,
-                      style: TextStyle(
-                        color: AppTheme.primary,
-                        fontFamily: 'BFarnaz',
-                        fontSize: textScaleFactor * 24.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Divider(),
-                  Column(
-                    children: <Widget>[
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Icon(
-                                  Icons.location_on,
-                                  color: Colors.indigoAccent,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 8,
-                                child: Text(
-                                  shopData.address,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 18,
-                                  ),
-                                  overflow: TextOverflow.clip,
-                                ),
-                              ),
-                            ],
+                );
+              },
+            )
+          : Directionality(
+              textDirection: TextDirection.rtl,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: deviceWidth * 0.3,
+                          height: deviceWidth * 0.3,
+                          color: AppTheme.bg,
+                          child: FadeInImage(
+                            placeholder: AssetImage('assets/images/circle.gif'),
+                            image: NetworkImage(shopData.logo.sizes.medium),
+                            fit: BoxFit.contain,
+                            height: deviceWidth * 0.5,
                           ),
                         ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Icon(
-                                  Icons.call,
-                                  color: Colors.indigoAccent,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 8,
-                                child: Text(
-                                  shopData.support_phone,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 18,
-                                  ),
-                                  overflow: TextOverflow.clip,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Icon(
-                                  Icons.smartphone,
-                                  color: Colors.indigoAccent,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 8,
-                                child: Text(
-                                  shopData.shop_cellphone,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 18,
-                                  ),
-                                  overflow: TextOverflow.clip,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: deviceHeight * 0.10,
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 8,
-                                  child: InkWell(
-                                    onTap: () {
-                                      _launchURL(
-                                          shopData.social_media.instagram);
-                                    },
-                                    child: Image.asset(
-                                        'assets/images/instagram.png'),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 8,
-                                  child: InkWell(
-                                      onTap: () {
-                                        _launchURL(
-                                            shopData.social_media.telegram);
-                                      },
-                                      child: Image.asset(
-                                          'assets/images/telegram.png')),
-                                ),
-                              ],
+                        Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Text(
+                            shopData.name,
+                            style: TextStyle(
+                              color: AppTheme.primary,
+                              fontFamily: 'BFarnaz',
+                              fontSize: textScaleFactor * 24.0,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                      ),
-                    ],
+                        Divider(),
+                        Column(
+                          children: <Widget>[
+                            Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Icon(
+                                        Icons.location_on,
+                                        color: Colors.indigoAccent,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Text(
+                                        shopData.address,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 18,
+                                        ),
+                                        overflow: TextOverflow.clip,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Icon(
+                                        Icons.call,
+                                        color: Colors.indigoAccent,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Text(
+                                        shopData.support_phone,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 18,
+                                        ),
+                                        overflow: TextOverflow.clip,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Icon(
+                                        Icons.smartphone,
+                                        color: Colors.indigoAccent,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Text(
+                                        shopData.mobile,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 18,
+                                        ),
+                                        overflow: TextOverflow.clip,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: deviceHeight * 0.10,
+                              child: Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 8,
+                                        child: InkWell(
+                                          onTap: () {
+                                            _launchURL(shopData
+                                                .social_media.instagram);
+                                          },
+                                          child: Image.asset(
+                                              'assets/images/instagram.png'),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 8,
+                                        child: InkWell(
+                                            onTap: () {
+                                              _launchURL(shopData
+                                                  .social_media.telegram);
+                                            },
+                                            child: Image.asset(
+                                                'assets/images/telegram.png')),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
       endDrawer: Theme(
         data: Theme.of(context).copyWith(
           // Set the transparency here

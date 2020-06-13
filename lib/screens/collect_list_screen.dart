@@ -37,7 +37,9 @@ class _CollectListScreenState extends State<CollectListScreen>
 
   @override
   void initState() {
-    Provider.of<Wastes>(context, listen: false).sPage = 1;
+    Provider
+        .of<Wastes>(context, listen: false)
+        .sPage = 1;
 
     Provider.of<Wastes>(context, listen: false).searchBuilder();
 
@@ -45,7 +47,9 @@ class _CollectListScreenState extends State<CollectListScreen>
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         page = page + 1;
-        Provider.of<Wastes>(context, listen: false).sPage = page;
+        Provider
+            .of<Wastes>(context, listen: false)
+            .sPage = page;
 
         searchItems();
       }
@@ -76,7 +80,9 @@ class _CollectListScreenState extends State<CollectListScreen>
   Future<void> _submit() async {
     loadedProducts.clear();
     loadedProducts =
-        await Provider.of<Wastes>(context, listen: false).CollectItems;
+    await Provider
+        .of<Wastes>(context, listen: false)
+        .CollectItems;
     loadedProductstolist.addAll(loadedProducts);
   }
 
@@ -92,7 +98,9 @@ class _CollectListScreenState extends State<CollectListScreen>
 
     Provider.of<Wastes>(context, listen: false).searchBuilder();
     await Provider.of<Wastes>(context, listen: false).searchCollectItems();
-    productsDetail = Provider.of<Wastes>(context, listen: false).searchDetails;
+    productsDetail = Provider
+        .of<Wastes>(context, listen: false)
+        .searchDetails;
     _submit();
 
     setState(() {
@@ -106,7 +114,9 @@ class _CollectListScreenState extends State<CollectListScreen>
     });
     print(_isLoading.toString());
 
-    Provider.of<Wastes>(context, listen: false).sPage = 1;
+    Provider
+        .of<Wastes>(context, listen: false)
+        .sPage = 1;
 
     Provider.of<Wastes>(context, listen: false).searchBuilder();
 
@@ -122,9 +132,17 @@ class _CollectListScreenState extends State<CollectListScreen>
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double deviceWidth = MediaQuery.of(context).size.width;
-    var textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    double deviceHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double deviceWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var textScaleFactor = MediaQuery
+        .of(context)
+        .textScaleFactor;
 
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
@@ -165,7 +183,7 @@ class _CollectListScreenState extends State<CollectListScreen>
                                 width: deviceWidth,
                                 child: FadeInImage(
                                   placeholder:
-                                      AssetImage('assets/images/circle.gif'),
+                                  AssetImage('assets/images/circle.gif'),
                                   image: AssetImage(
                                       'assets/images/collect_list_header.png'),
                                   fit: BoxFit.contain,
@@ -198,7 +216,7 @@ class _CollectListScreenState extends State<CollectListScreen>
                                       value: sortValue,
                                       icon: Padding(
                                         padding:
-                                            const EdgeInsets.only(bottom: 10.0),
+                                        const EdgeInsets.only(bottom: 10.0),
                                         child: Icon(
                                           Icons.arrow_drop_down,
                                           color: AppTheme.black,
@@ -216,44 +234,53 @@ class _CollectListScreenState extends State<CollectListScreen>
                                           sortValue = newValue;
 
                                           if (sortValue == 'گرانترین') {
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sOrder = 'desc';
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sOrderBy = 'price';
                                             page = 1;
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sPage = page;
                                             loadedProductstolist.clear();
 
                                             searchItems();
                                           } else if (sortValue == 'ارزانترین') {
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sOrder = 'asc';
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sOrderBy = 'price';
 
                                             page = 1;
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sPage = page;
                                             loadedProductstolist.clear();
 
                                             searchItems();
                                           } else {
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sOrder = 'desc';
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sOrderBy = 'date';
                                             page = 1;
-                                            Provider.of<Wastes>(context,
-                                                    listen: false)
+                                            Provider
+                                                .of<Wastes>(context,
+                                                listen: false)
                                                 .sPage = page;
                                             loadedProductstolist.clear();
 
@@ -264,23 +291,23 @@ class _CollectListScreenState extends State<CollectListScreen>
                                       items: sortValueList
                                           .map<DropdownMenuItem<String>>(
                                               (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 3.0),
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(
-                                                color: AppTheme.black,
-                                                fontFamily: 'Iransans',
-                                                fontSize:
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 3.0),
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                    color: AppTheme.black,
+                                                    fontFamily: 'Iransans',
+                                                    fontSize:
                                                     textScaleFactor * 13.0,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
+                                            );
+                                          }).toList(),
                                     ),
                                   ),
                                 ),
@@ -296,7 +323,7 @@ class _CollectListScreenState extends State<CollectListScreen>
                                   child: Wrap(
                                       alignment: WrapAlignment.start,
                                       crossAxisAlignment:
-                                          WrapCrossAlignment.center,
+                                      WrapCrossAlignment.center,
                                       direction: Axis.horizontal,
                                       children: <Widget>[
                                         Padding(
@@ -316,11 +343,11 @@ class _CollectListScreenState extends State<CollectListScreen>
                                           child: Text(
                                             productsDetail != null
                                                 ? EnArConvertor()
-                                                    .replaceArNumber(
-                                                        productsDetail.total
-                                                            .toString())
+                                                .replaceArNumber(
+                                                productsDetail.total
+                                                    .toString())
                                                 : EnArConvertor()
-                                                    .replaceArNumber('0'),
+                                                .replaceArNumber('0'),
                                             style: TextStyle(
                                               fontFamily: 'Iransans',
                                               fontSize: textScaleFactor * 13.0,
@@ -343,9 +370,9 @@ class _CollectListScreenState extends State<CollectListScreen>
                             itemCount: loadedProductstolist.length,
                             itemBuilder: (ctx, i) =>
                                 ChangeNotifierProvider.value(
-                              value: loadedProductstolist[i],
-                              child: CollectItemCollectsScreen(),
-                            ),
+                                  value: loadedProductstolist[i],
+                                  child: CollectItemCollectsScreen(),
+                                ),
                           ),
                         ),
                       ],
@@ -361,28 +388,28 @@ class _CollectListScreenState extends State<CollectListScreen>
                         alignment: Alignment.center,
                         child: _isLoading
                             ? SpinKitFadingCircle(
-                                itemBuilder: (BuildContext context, int index) {
-                                  return DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: index.isEven
-                                          ? Colors.grey
-                                          : Colors.grey,
-                                    ),
-                                  );
-                                },
-                              )
+                          itemBuilder: (BuildContext context, int index) {
+                            return DecoratedBox(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: index.isEven
+                                    ? Colors.grey
+                                    : Colors.grey,
+                              ),
+                            );
+                          },
+                        )
                             : Container(
-                                child: loadedProductstolist.isEmpty
-                                    ? Center(
-                                        child: Text(
-                                        'محصولی وجود ندارد',
-                                        style: TextStyle(
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15.0,
-                                        ),
-                                      ))
-                                    : Container())))
+                            child: loadedProductstolist.isEmpty
+                                ? Center(
+                                child: Text(
+                                  'محصولی وجود ندارد',
+                                  style: TextStyle(
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 15.0,
+                                  ),
+                                ))
+                                : Container())))
               ],
             ),
           ),

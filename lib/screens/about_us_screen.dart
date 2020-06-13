@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../models/shop.dart';
 import '../provider/customer_info.dart';
 import 'package:provider/provider.dart';
@@ -18,23 +19,38 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 
   Shop shopData;
 
+  bool _isLoading=false;
+
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-      await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
+       await searchItems();
     }
     _isInit = false;
 
     super.didChangeDependencies();
   }
 
+
+  Future<void> searchItems() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
+    shopData = Provider.of<CustomerInfo>(context, listen: false).shop;
+
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    shopData = Provider.of<CustomerInfo>(context,
-    ).shop;
 
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +67,17 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
       ),
-      body: Directionality(
+      body:_isLoading
+          ? SpinKitFadingCircle(
+        itemBuilder: (BuildContext context, int index) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: index.isEven ? Colors.grey : Colors.grey,
+            ),
+          );
+        },
+      ): Directionality(
         textDirection: TextDirection.rtl,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -66,14 +92,14 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                       color: AppTheme.bg,
                       child: FadeInImage(
                         placeholder: AssetImage('assets/images/circle.gif'),
-                        image: NetworkImage(shopData.logo),
+                        image: NetworkImage(shopData!=null?shopData.logo.sizes.medium:''),
                         fit: BoxFit.contain,
                         height: deviceWidth * 0.5,
                       )),
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Text(
-                      shopData.shop_name,
+                      shopData.name,
                       style: TextStyle(
                         color: AppTheme.primary,
                         fontFamily: 'BFarnaz',
@@ -85,7 +111,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Text(
-                      shopData.shop_type,
+                      shopData.subject,
                       style: TextStyle(
                         color: AppTheme.primary,
                         fontFamily: 'Iransans',
@@ -99,7 +125,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        shopData.about_shop,
+                        shopData.about,
                         style: TextStyle(
                           color: AppTheme.black,
                           fontFamily: 'Iransans',
@@ -115,7 +141,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       primary: false,
-                      itemCount: shopData.shop_features.length,
+                      itemCount: shopData.features_list.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -123,7 +149,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                             children: <Widget>[
                               Icon(Icons.arrow_right,color: AppTheme.secondary,),
                               Text(
-                                shopData.shop_features[index],
+                                shopData.features_list[index].feature,
                                 style: TextStyle(
                                   color: AppTheme.primary,
                                   fontFamily: 'Iransans',

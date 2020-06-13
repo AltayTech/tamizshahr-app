@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 8.0, bottom: 2, left: 15, right: 15),
+                    top: 8.0, bottom: 2, left: 20, right: 20),
                 child: Container(
                   height: deviceHeight * 0.065,
                   decoration: BoxDecoration(
@@ -146,8 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              height: deviceHeight * 0.5,
-              width: deviceWidth * 0.9,
+              height: deviceHeight * 0.6,
+              width: deviceWidth ,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GridView(
@@ -319,7 +319,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               boxShadow: [
                                 BoxShadow(
                                   color: AppTheme.primary.withOpacity(0.08),
-
                                   blurRadius: 10.10,
                                   spreadRadius: 10.510,
                                   offset: Offset(

@@ -43,18 +43,7 @@ class CustomerInfo with ChangeNotifier {
 
   Customer get customer => _customer;
 
-  List<Order> _orders = [
-    Order(
-        id: 0,
-        shenaseh: '',
-        total_cost: '',
-        order_register_date: '',
-        pay_type: '',
-        order_status: '',
-        pish: '',
-        total_num: 1,
-        pay_status: ''),
-  ];
+  List<Order> _orders = [];
 
   OrderDetails _order = OrderDetails(
     id: 0,
@@ -252,7 +241,6 @@ class CustomerInfo with ChangeNotifier {
       print(extractedData);
 
       Shop shopData = Shop.fromJson(extractedData);
-      print(shopData.about_shop);
 
       _shop = shopData;
       notifyListeners();

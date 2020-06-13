@@ -101,11 +101,79 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
                       children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'اطلاعات شخص',
+                              style: TextStyle(
+                                color: AppTheme.primary,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 14.0,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            FittedBox(
+                              child: FlatButton(
+                                color: AppTheme.primary,
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacementNamed(
+                                      CustomerDetailInfoEditScreen.routeName);
+                                },
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Text(
+                                      ' ویرایش',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 14.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          child: ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              InfoItem(
+                                title: 'نام',
+                                text: customer.personalData.first_name,
+                                bgColor: Colors.white,
+                                iconColor: Color(0xffA67FEC),
+                              ),
+                              InfoItem(
+                                title: 'نام خانوادگی',
+                                text: customer.personalData.last_name,
+                                bgColor: Colors.white,
+                                iconColor: Color(0xffA67FEC),
+                              ),
+                              InfoItem(
+                                title: 'نوع کاربر',
+                                text: customer.type.name,
+                                bgColor: Colors.white,
+                                iconColor: Color(0xffA67FEC),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.white,
+                        ),
                         Text(
-                          'اطلاعات شخص',
+                          'اطلاعات تماس',
                           style: TextStyle(
                             color: AppTheme.primary,
                             fontFamily: 'Iransans',
@@ -113,141 +181,48 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                           ),
                           textAlign: TextAlign.right,
                         ),
-                        FittedBox(
-                          child: FlatButton(
-                            color: AppTheme.secondary,
-                            onPressed: () {
-                              Navigator.of(context).pushReplacementNamed(
-                                  CustomerDetailInfoEditScreen.routeName);
-                            },
-                            child: Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                                Text(
-                                  ' ویرایش',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 14.0,
-                                  ),
-                                ),
-                              ],
-                            ),
+                        Container(
+                          child: ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              InfoItem(
+                                title: 'ایمیل',
+                                text: customer.personalData.email,
+                                bgColor: Colors.white,
+                                iconColor: Color(0xffA67FEC),
+                              ),
+                              InfoItem(
+                                title: 'استان',
+                                text: customer.personalData.ostan != null
+                                    ? customer.personalData.ostan
+                                    : '',
+                                bgColor: Colors.white,
+                                iconColor: Color(0xff4392F1),
+                              ),
+                              InfoItem(
+                                title: 'شهر',
+                                text: customer.personalData.city != null
+                                    ? customer.personalData.city
+                                    : '',
+                                bgColor: Colors.white,
+                                iconColor: Color(0xff4392F1),
+                              ),
+                              InfoItem(
+                                title: 'کدپستی',
+                                text: customer.personalData.postcode != null
+                                    ? customer.personalData.postcode
+                                    : '',
+                                bgColor: Colors.white,
+                                iconColor: Color(0xff4392F1),
+                              ),
+
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    Container(
-                      child: ListView(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          InfoItem(
-                            title: 'نام',
-                            text: customer.personalData.first_name,
-                            bgColor: Colors.white,
-                            iconColor: Color(0xffA67FEC),
-                          ),
-                          InfoItem(
-                            title: 'نام خانوادگی',
-                            text: customer.personalData.last_name,
-                            bgColor: Colors.white,
-                            iconColor: Color(0xffA67FEC),
-                          ),
-                          InfoItem(
-                            title: 'ایمیل',
-                            text: customer.personalData.email,
-                            bgColor: Colors.white,
-                            iconColor: Color(0xffA67FEC),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.white,
-                    ),
-                    Text(
-                      'اطلاعات تماس',
-                      style: TextStyle(
-                        color: AppTheme.primary,
-                        fontFamily: 'Iransans',
-                        fontSize: textScaleFactor * 14.0,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                    Container(
-                      child: ListView(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          InfoItem(
-                            title: 'استان',
-                            text: customer.personalData.ostan != null
-                                ? customer.personalData.ostan
-                                : '',
-                            bgColor: Colors.white,
-                            iconColor: Color(0xff4392F1),
-                          ),
-                          InfoItem(
-                            title: 'شهر',
-                            text: customer.personalData.city != null
-                                ? customer.personalData.city
-                                : '',
-                            bgColor: Colors.white,
-                            iconColor: Color(0xff4392F1),
-                          ),
-                          InfoItem(
-                            title: 'کدپستی',
-                            text: customer.personalData.postcode != null
-                                ? customer.personalData.postcode
-                                : '',
-                            bgColor: Colors.white,
-                            iconColor: Color(0xff4392F1),
-                          ),
-//                          InfoItem2(
-//                            title: 'آدرس',
-//                            text: customer.personalData.address != null
-//                                ? customer.personalData.address
-//                                : '',
-//                            bgColor: Colors.white,
-//                            iconColor: Color(0xff4392F1),
-//                          ),
-                        ],
-                      ),
-                    ),
-//              Divider(
-//                color: Colors.white,
-//              ),
-//              Text(
-//                'اطلاعات بانکی',
-//                style: TextStyle(
-//                  color: Colors.blueGrey,
-//                  fontFamily: 'Iransans',
-//                  fontSize: textScaleFactor * 14.0,
-//                ),
-//                textAlign: TextAlign.right,
-//              ),
-//              Container(
-//                color: Colors.white,
-//                child: ListView(
-//                  physics: NeverScrollableScrollPhysics(),
-//                  shrinkWrap: true,
-//                  children: <Widget>[
-//                    InfoItem2(
-//                      title: 'شماره کارت بانکی',
-//                      text: customer.personal_data.credit != null
-//                          ? customer.personal_data.credit
-//                          : '',
-//                      bgColor: Colors.white,
-//                      iconColor: Color(0xffED8A19),
-//                    ),
-//                  ],
-//                ),
-//              ),
+
                     SizedBox(
                       height: deviceHeight * 0.02,
                     )
@@ -318,52 +293,3 @@ class InfoItem extends StatelessWidget {
   }
 }
 
-class InfoItem2 extends StatelessWidget {
-  const InfoItem2({
-    Key key,
-    @required this.title,
-    @required this.text,
-    @required this.bgColor,
-    @required this.iconColor,
-  }) : super(key: key);
-
-  final String title;
-  final String text;
-  final Color bgColor;
-  final Color iconColor;
-
-  @override
-  Widget build(BuildContext context) {
-    var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-
-    return Padding(
-      padding: const EdgeInsets.all(3.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            '$title : ',
-            style: TextStyle(
-              color: Colors.grey,
-              fontFamily: 'Iransans',
-              fontSize: textScaleFactor * 14.0,
-            ),
-          ),
-          Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: bgColor,
-                border: Border.all(color: Colors.grey.withOpacity(0.0)),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  text,
-                ),
-              ))
-        ],
-      ),
-    );
-  }
-}

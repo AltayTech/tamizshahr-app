@@ -14,7 +14,7 @@ class Urls {
   static const transactionsEndPoint = '/transactions';
   static const charitiesEndPoint = '/charities';
 
-  static const shopEndPoint = '/shop';
+  static const shopEndPoint = '/info';
   static const messageEndPoint = '/messages';
 
   static const loginEndPoint = '/login';
