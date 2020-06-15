@@ -131,7 +131,7 @@ class _MessageCreateScreenState extends State<MessageCreateScreen> {
                                 child: Text(
                                   'لطفا سوال خودتان را وارد کنید. همکاران ما سوال شما را بررسی کرده و جواب آن را برایتان ارسال می کنند. ',
                                   style: TextStyle(
-                                    color: AppTheme.primary,
+                                    color: AppTheme.black,
                                     fontFamily: 'Iransans',
                                     fontSize: textScaleFactor * 15.0,
                                   ),
@@ -234,24 +234,22 @@ class _MessageCreateScreenState extends State<MessageCreateScreen> {
                           )
                               : Container()),
                     ),
-                    Positioned(
-                      bottom: 18,
-                      right: 18,
-                      child: FloatingActionButton(
-                        onPressed: () async {
-                          createMessages();
-                        },
-                        backgroundColor: AppTheme.secondary,
-                        child: Icon(
-                          Icons.check,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+
                   ],
                 ),
               ),
             ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          createMessages();
+        },
+        backgroundColor: AppTheme.primary,
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+        ),
       ),
       endDrawer: Theme(
         data: Theme.of(context).copyWith(

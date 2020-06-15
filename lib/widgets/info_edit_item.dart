@@ -45,12 +45,15 @@ class InfoEditItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                '$title : ',
-                style: TextStyle(
-                  color: AppTheme.h1,
-                  fontFamily: 'Iransans',
-                  fontSize: textScaleFactor * 14.0,
+              Padding(
+                padding: const EdgeInsets.only(bottom:8.0),
+                child: Text(
+                  '$title : ',
+                  style: TextStyle(
+                    color: AppTheme.h1,
+                    fontFamily: 'Iransans',
+                    fontSize: textScaleFactor * 14.0,
+                  ),
                 ),
               ),
               Container(
@@ -67,6 +70,13 @@ class InfoEditItem extends StatelessWidget {
                       }
                       return null;
                     },
+                    style: TextStyle(
+                      color: AppTheme.h1,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+
+
                     onFieldSubmitted: (_) =>
                         FocusScope.of(context).requestFocus(newFocusNode),
                     focusNode: thisFocusNode,

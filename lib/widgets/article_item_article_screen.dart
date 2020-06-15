@@ -2,13 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import '../models/article.dart';
-import '../provider/articles.dart';
-import '../screens/article_detail_screen.dart';
 
-import '../provider/Products.dart';
+import '../models/article.dart';
 import '../provider/app_theme.dart';
-import '../screens/product_detail_screen.dart';
+import '../screens/article_detail_screen.dart';
 
 class ArticleItemArticlesScreen extends StatelessWidget {
   @override
@@ -100,7 +97,6 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                                 ),
                               ),
                               Spacer(),
-
                             ],
                           ),
                         ],

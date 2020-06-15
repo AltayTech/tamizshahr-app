@@ -11,7 +11,6 @@ import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
-import '../widgets/product_item_product_screeen.dart';
 
 class CharityScreen extends StatefulWidget {
   static const routeName = '/charitiesScreen';
@@ -161,7 +160,7 @@ class _CharityScreenState extends State<CharityScreen>
                         'لطفا یکی از موسسات زیر را انتخاب کنید',
                         style: TextStyle(
                           fontFamily: 'Iransans',
-                          color: AppTheme.h1,
+                          color: AppTheme.grey,
                           fontSize: textScaleFactor * 18.0,
                         ),
                       ),

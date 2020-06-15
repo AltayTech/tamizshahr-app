@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/models/transaction.dart';
-import 'package:intl/intl.dart' as intl;
+import 'package:tamizshahr/provider/app_theme.dart';
 
-import '../provider/Products.dart';
-import '../provider/app_theme.dart';
-import '../screens/product_detail_screen.dart';
 import 'en_to_ar_number_convertor.dart';
 
 class TransactionItemTransactionsScreen extends StatelessWidget {
@@ -44,7 +42,7 @@ class TransactionItemTransactionsScreen extends StatelessWidget {
                           transaction.operation,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: AppTheme.primary,
+                            color: AppTheme.black,
                             fontFamily: 'Iransans',
                             fontSize: textScaleFactor * 15.0,
                           ),
@@ -58,7 +56,7 @@ class TransactionItemTransactionsScreen extends StatelessWidget {
                           transaction.transaction_type.name,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: AppTheme.primary,
+                            color: AppTheme.black,
                             fontFamily: 'Iransans',
                             fontSize: textScaleFactor * 15.0,
                           ),
@@ -69,12 +67,9 @@ class TransactionItemTransactionsScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          EnArConvertor().replaceArNumber(
-                              currencyFormat
-                                  .format(double.parse(
-                                  transaction.money))
-                                  .toString())
-                          ,
+                          EnArConvertor().replaceArNumber(currencyFormat
+                              .format(double.parse(transaction.money))
+                              .toString()),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: AppTheme.accent,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../models/request/address.dart';
 import '../provider/app_theme.dart';
@@ -140,11 +141,11 @@ class _AddressScreenState extends State<AddressScreen> {
                                   ),
                                 )
                               : Container(
-                            height: deviceHeight*0.45,
-                                child: Center(
+                                  height: deviceHeight * 0.45,
+                                  child: Center(
                                     child: Text('آدرسی اضافه نشده است'),
                                   ),
-                              ),
+                                ),
                         ),
                         SizedBox(
                           height: 50,
@@ -156,76 +157,45 @@ class _AddressScreenState extends State<AddressScreen> {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: InkWell(
-                            onTap: () {
-                              SnackBar addToCartSnackBar = SnackBar(
-                                content: Text(
-                                  ' لیست آدرسها خالی می باشد!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 14.0,
-                                  ),
-                                ),
-                                action: SnackBarAction(
-                                  label: 'متوجه شدم',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
-                              if (addressList.isEmpty) {
-                                Scaffold.of(context)
-                                    .showSnackBar(addToCartSnackBar);
-                              } else if (!isLogin) {
-                                _showLogindialog();
-                              } else {
-                                Navigator.of(context).pushNamed(
-                                    WasteRequestDateScreen.routeName);
-                              }
-                            },
-                            child: Container(
-                              width: deviceWidth * 0.8,
-                              height: deviceWidth * 0.1,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 0.0,
-                                    // has the effect of softening the shadow
-                                    spreadRadius: 0,
-                                    // has the effect of extending the shadow
-                                    offset: Offset(
-                                      1.0, // horizontal, move right 10
-                                      1.0, // vertical, move down 10
-                                    ),
-                                  )
-                                ],
-                                color: addressList.isEmpty
-                                    ? AppTheme.grey
-                                    : AppTheme.primary,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'ادامه',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 13.0,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                    child: InkWell(
+                      onTap: () {
+                        SnackBar addToCartSnackBar = SnackBar(
+                          content: Text(
+                            'آدرسی انتخاب نشده است!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 14.0,
                             ),
                           ),
-                        ),
-                      ],
+                          action: SnackBarAction(
+                            label: 'متوجه شدم',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        if ( Provider.of<Auth>(context,
+                            listen: false)
+                            .selectedAddress ==
+                            null) {
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else if (!isLogin) {
+                          _showLogindialog();
+                        } else {
+                          Navigator.of(context)
+                              .pushNamed(WasteRequestDateScreen.routeName);
+                        }
+                      },
+                      child: ButtonBottom(
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.14,
+                        text: 'ادامه',
+                        isActive: Provider.of<Auth>(context,
+                            listen: false)
+                            .selectedAddress !=
+                            null,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -265,7 +235,7 @@ class _AddressScreenState extends State<AddressScreen> {
         child: MainDrawer(),
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: deviceWidth * 0.1 + 10),
+        padding: EdgeInsets.only(bottom: deviceWidth * 0.13 + 10),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).pushNamed(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../models/request/waste.dart';
 
+import '../models/request/waste.dart';
 import '../provider/app_theme.dart';
 
 class WasteItemWastesScreen extends StatelessWidget {
@@ -23,14 +23,14 @@ class WasteItemWastesScreen extends StatelessWidget {
           return Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isSelected?AppTheme.secondary:AppTheme.bg,
+              color: isSelected ? AppTheme.secondary : AppTheme.bg,
               border: isSelected
                   ? Border.all(width: 2, color: AppTheme.primary)
                   : Border.all(width: 0.3, color: AppTheme.grey),
             ),
             height: constraints.maxHeight,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -46,9 +46,9 @@ class WasteItemWastesScreen extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 8,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
                       child: Text(
                         waste.name,
                         maxLines: 1,
@@ -57,7 +57,7 @@ class WasteItemWastesScreen extends StatelessWidget {
                         style: TextStyle(
                           color: AppTheme.black,
                           fontFamily: 'Iransans',
-                          fontSize: textScaleFactor * 15.0,
+                          fontSize: textScaleFactor * 14.0,
                         ),
                       ),
                     ),

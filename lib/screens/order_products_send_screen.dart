@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 import 'package:tamizshahr/widgets/custom_dialog_send_request.dart';
 
 import '../models/customer.dart';
@@ -213,7 +214,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         'نام و نام خانوادگی:    ',
                                         style: TextStyle(
-                                          color: AppTheme.secondary,
+                                          color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -223,7 +224,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                             ' ' +
                                             customer.personalData.last_name,
                                         style: TextStyle(
-                                          color: AppTheme.primary,
+                                          color: AppTheme.black,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -238,7 +239,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         'استان:    ',
                                         style: TextStyle(
-                                          color: AppTheme.secondary,
+                                          color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -246,7 +247,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         customer.personalData.ostan,
                                         style: TextStyle(
-                                          color: AppTheme.primary,
+                                          color: AppTheme.black,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -261,7 +262,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         'شهر:   ',
                                         style: TextStyle(
-                                          color: AppTheme.secondary,
+                                          color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -269,7 +270,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         customer.personalData.city,
                                         style: TextStyle(
-                                          color: AppTheme.primary,
+                                          color: AppTheme.black,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -284,7 +285,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         'کدپستی:    ',
                                         style: TextStyle(
-                                          color: AppTheme.secondary,
+                                          color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -292,7 +293,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         customer.personalData.postcode,
                                         style: TextStyle(
-                                          color: AppTheme.primary,
+                                          color: AppTheme.black,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -307,7 +308,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                       Text(
                                         'همراه:    ',
                                         style: TextStyle(
-                                          color: AppTheme.secondary,
+                                          color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -318,7 +319,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                                     .toString())
                                                 .toString()),
                                         style: TextStyle(
-                                          color: AppTheme.primary,
+                                          color: AppTheme.black,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 14,
                                         ),
@@ -339,7 +340,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                               Text(
                                 'مبلغ قابل پرداخت (تومان): ',
                                 style: TextStyle(
-                                  color: AppTheme.secondary,
+                                  color: AppTheme.grey,
                                   fontFamily: 'Iransans',
                                   fontSize: textScaleFactor * 14,
                                 ),
@@ -351,7 +352,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                 style: TextStyle(
                                   color: AppTheme.primary,
                                   fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 18,
+                                  fontSize: textScaleFactor * 20,
                                 ),
                               ),
                             ],
@@ -366,74 +367,40 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: deviceHeight * 0.08,
-                    decoration: BoxDecoration(
-                      color: AppTheme.primary,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 2.0,
-                          // has the effect of softening the shadow
-                          spreadRadius: 1.50,
-                          // has the effect of extending the shadow
-                          offset: Offset(
-                            1.0, // horizontal, move right 10
-                            1.0, // vertical, move down 10
+                child: InkWell(
+                  onTap: () async {
+                    if (totalPrice == 0) {
+                      var _snackBarMessage = 'محصولی وجود ندارد!';
+                      final addToCartSnackBar = SnackBar(
+                        content: Text(
+                          _snackBarMessage,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Iransans',
+                            fontSize: textScaleFactor * 14.0,
                           ),
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: InkWell(
-                        onTap: () async {
-                          if (totalPrice == 0) {
-                            var _snackBarMessage = 'محصولی وجود ندارد!';
-                            final addToCartSnackBar = SnackBar(
-                              content: Text(
-                                _snackBarMessage,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 14.0,
-                                ),
-                              ),
-                              action: SnackBarAction(
-                                label: 'متوجه شدم',
-                                onPressed: () {
-                                  // Some code to undo the change.
-                                },
-                              ),
-                            );
-                            Scaffold.of(context)
-                                .showSnackBar(addToCartSnackBar);
-                          } else {
-                            await createRequest(context).then((value) =>
-                                sendRequest(context)
-                                    .then((value) => _showSendOrderdialog()));
-                          }
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Center(
-                              child: Text(
-                                'پرداخت نقدی',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 16.0,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
+                        action: SnackBarAction(
+                          label: 'متوجه شدم',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+                      Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                    } else {
+                      await createRequest(context).then((value) =>
+                          sendRequest(context)
+                              .then((value) => _showSendOrderdialog()));
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: ButtonBottom(
+                      width: deviceWidth * 0.9,
+                      height: deviceWidth * 0.14,
+                      text: 'انجام خرید',
+                      isActive: true,
                     ),
                   ),
                 ),

@@ -61,7 +61,6 @@ class _WalletScreenState extends State<WalletScreen>
   @override
   void didChangeDependencies() async {
     if (_isInit) {
-//      await getCustomerInfo();
       getCustomerInfo();
       searchItems();
     }
@@ -132,6 +131,7 @@ class _WalletScreenState extends State<WalletScreen>
                 vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
             child: !isLogin
                 ? Container(
+                    height: deviceHeight * 0.8,
                     child: Center(
                       child: Wrap(
                         direction: Axis.vertical,
@@ -150,7 +150,7 @@ class _WalletScreenState extends State<WalletScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Text(
-                                  'ورود به اکانت کاربری',
+                                  'ورود به حساب کاربری',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -192,7 +192,7 @@ class _WalletScreenState extends State<WalletScreen>
                                       Text(
                                         'امتیاز',
                                         style: TextStyle(
-                                          color: AppTheme.primary,
+                                          color: AppTheme.black,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,
                                         ),
@@ -212,7 +212,7 @@ class _WalletScreenState extends State<WalletScreen>
                                           style: TextStyle(
                                             color: AppTheme.primary,
                                             fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 13.0,
+                                            fontSize: textScaleFactor * 16.0,
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
@@ -236,14 +236,15 @@ class _WalletScreenState extends State<WalletScreen>
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding:
+                                    const EdgeInsets.only(top: 5.0, bottom: 5),
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.of(context)
                                         .pushNamed(ProductsScreen.routeName);
                                   },
                                   child: Container(
-                                    width: deviceWidth * 0.4,
+                                    width: deviceWidth * 0.42,
                                     height: deviceWidth * 0.10,
                                     decoration: BoxDecoration(
                                       boxShadow: [
@@ -259,18 +260,36 @@ class _WalletScreenState extends State<WalletScreen>
                                           ),
                                         )
                                       ],
-                                      color: AppTheme.primary,
+                                      color: Color(0xffFF595E),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        'خرید از فروشگاه',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 13.0,
-                                        ),
-                                        textAlign: TextAlign.center,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 12, top: 7, left: 3),
+                                            child: Icon(
+                                              Icons.shopping_cart,
+                                              color: AppTheme.white,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Text(
+                                              'خرید از فروشگاه',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 14.0,
+                                              ),
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -278,14 +297,15 @@ class _WalletScreenState extends State<WalletScreen>
                               ),
                               Spacer(),
                               Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding:
+                                    const EdgeInsets.only(top: 5.0, bottom: 5),
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.of(context)
                                         .pushNamed(CharityScreen.routeName);
                                   },
                                   child: Container(
-                                    width: deviceWidth * 0.4,
+                                    width: deviceWidth * 0.42,
                                     height: deviceWidth * 0.10,
                                     decoration: BoxDecoration(
                                       boxShadow: [
@@ -301,18 +321,34 @@ class _WalletScreenState extends State<WalletScreen>
                                           ),
                                         )
                                       ],
-                                      color: AppTheme.primary,
+                                      color: Color(0xff6A4C93),
                                       borderRadius: BorderRadius.circular(50),
                                     ),
                                     child: Center(
-                                      child: Text(
-                                        'کمک به خیریه',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 13.0,
-                                        ),
-                                        textAlign: TextAlign.center,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 12, top: 7, left: 3),
+                                            child: Image.asset(
+                                                'assets/images/donation_ic.png'),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Text(
+                                              'کمک به خیریه',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 14.0,
+                                              ),
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -320,132 +356,146 @@ class _WalletScreenState extends State<WalletScreen>
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top:8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'لیست تراکنش ها',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: AppTheme.black,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 15.0,
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          'لیست تراکنش ها',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 15.0,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Consumer<CustomerInfo>(
+                                            builder: (_, Wastes, ch) {
+                                          return Container(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: deviceHeight * 0.0,
+                                                  horizontal: 3),
+                                              child: Wrap(
+                                                  alignment: WrapAlignment.start,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.center,
+                                                  direction: Axis.horizontal,
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.symmetric(
+                                                              horizontal: 3,
+                                                              vertical: 5),
+                                                      child: Text(
+                                                        'تعداد:',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Iransans',
+                                                          fontSize:
+                                                              textScaleFactor * 12.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(
+                                                          right: 4.0, left: 6),
+                                                      child: Text(
+                                                        productsDetail != null
+                                                            ? EnArConvertor()
+                                                                .replaceArNumber(
+                                                                    loadedProductstolist
+                                                                        .length
+                                                                        .toString())
+                                                            : EnArConvertor()
+                                                                .replaceArNumber('0'),
+                                                        style: TextStyle(
+                                                          fontFamily: 'Iransans',
+                                                          fontSize:
+                                                              textScaleFactor * 13.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                            ),
+                                          );
+                                        }),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Spacer(),
-                                Consumer<CustomerInfo>(builder: (_, Wastes, ch) {
-                                  return Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: deviceHeight * 0.0,
-                                          horizontal: 3),
-                                      child: Wrap(
-                                          alignment: WrapAlignment.start,
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.center,
-                                          direction: Axis.horizontal,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 3, vertical: 5),
-                                              child: Text(
-                                                'تعداد:',
-                                                style: TextStyle(
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 12.0,
-                                                ),
+                                  Container(
+                                    height: deviceWidth * 0.10,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'نوع',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: AppTheme.grey,
+                                                fontFamily: 'Iransans',
+                                                fontSize: textScaleFactor * 15.0,
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 4.0, left: 6),
-                                              child: Text(
-                                                productsDetail != null
-                                                    ? EnArConvertor()
-                                                        .replaceArNumber(
-                                                            productsDetail.total
-                                                                .toString())
-                                                    : EnArConvertor()
-                                                        .replaceArNumber('0'),
-                                                style: TextStyle(
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 13.0,
-                                                ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'برای',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: AppTheme.grey,
+                                                fontFamily: 'Iransans',
+                                                fontSize: textScaleFactor * 15.0,
                                               ),
                                             ),
-                                          ]),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              'مبلغ(تومان)',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: AppTheme.grey,
+                                                fontFamily: 'Iransans',
+                                                fontSize: textScaleFactor * 15.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
-                          Divider(thickness: 1, color: AppTheme.h1),
-                          Container(
-                            height: deviceWidth * 0.10,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'نوع',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppTheme.black,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 15.0,
+                                  ),
+                                  Divider(height: 1,thickness: 1, color: AppTheme.h1),
+
+                                  Container(
+                                    width: double.infinity,
+                                    height: deviceHeight * 0.68,
+                                    child: ListView.builder(
+                                      controller: _scrollController,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: loadedProductstolist.length,
+                                      itemBuilder: (ctx, i) =>
+                                          ChangeNotifierProvider.value(
+                                        value: loadedProductstolist[i],
+                                        child: TransactionItemTransactionsScreen(),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'برای',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppTheme.black,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 15.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'مبلغ(تومان)',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppTheme.black,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 15.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: deviceHeight * 0.68,
-                            child: ListView.builder(
-                              controller: _scrollController,
-                              scrollDirection: Axis.vertical,
-                              itemCount: loadedProductstolist.length,
-                              itemBuilder: (ctx, i) =>
-                                  ChangeNotifierProvider.value(
-                                value: loadedProductstolist[i],
-                                child: TransactionItemTransactionsScreen(),
+                                ],
                               ),
                             ),
                           ),

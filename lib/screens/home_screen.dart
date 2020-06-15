@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/screens/wallet_screen.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
@@ -114,40 +115,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 8.0, bottom: 2, left: 20, right: 20),
-                child: Container(
-                  height: deviceHeight * 0.065,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 0.0,
-                        spreadRadius: 0.0,
-                        offset: Offset(
-                          1.0, // horizontal, move right 10
-                          1.0, // vertical, move down 10
-                        ),
-                      )
-                    ],
-                    color: AppTheme.primary,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'درخواست جمع آوری',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Iransans',
-                        fontWeight: FontWeight.w600,
-                        fontSize: textScaleFactor * 18.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                child:
+                ButtonBottom(
+                  width: deviceWidth * 0.9,
+                  height: deviceWidth * 0.14,
+                  text: 'درخواست جمع آوری',
+                  isActive: true,
                 ),
+
               ),
             ),
             Container(
               height: deviceHeight * 0.6,
-              width: deviceWidth ,
+              width: deviceWidth,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GridView(
@@ -231,9 +211,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 30, right: 30, bottom: 12, top: 5),
+                                    left: 30, right: 30, bottom: 12, top: 10),
                                 child: Image.asset(
                                   'assets/images/main_page_request_ic.png',
+
                                   fit: BoxFit.contain,
                                   color: AppTheme.primary,
                                 ),
@@ -334,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(
-                                  Icons.shopping_cart,
+                                  Icons.add_shopping_cart,
                                   color: AppTheme.primary,
                                   size: 45,
                                 ),

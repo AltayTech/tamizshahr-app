@@ -8,10 +8,7 @@ import 'package:tamizshahr/models/order.dart';
 import 'package:tamizshahr/provider/auth.dart';
 import 'package:tamizshahr/provider/customer_info.dart';
 import 'package:tamizshahr/provider/orders.dart';
-import 'package:tamizshahr/screens/charity_screen.dart';
-import 'package:tamizshahr/screens/product_screen.dart';
 import 'package:tamizshahr/widgets/order_item-orders_screen.dart';
-import 'package:tamizshahr/widgets/transaction_item_transactions_screen.dart';
 
 import '../models/search_detail.dart';
 import '../provider/app_theme.dart';
@@ -167,8 +164,6 @@ class _OrdersScreenState extends State<OrdersScreen>
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-
-
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Row(
@@ -193,7 +188,6 @@ class _OrdersScreenState extends State<OrdersScreen>
                                     textAlign: TextAlign.right,
                                   ),
                                 ),
-
                                 Spacer(),
                                 Consumer<CustomerInfo>(
                                     builder: (_, Wastes, ch) {
@@ -229,7 +223,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                                                 productsDetail != null
                                                     ? EnArConvertor()
                                                         .replaceArNumber(
-                                                            productsDetail.total
+                                                            loadedProductstolist.length
                                                                 .toString())
                                                     : EnArConvertor()
                                                         .replaceArNumber('0'),
@@ -248,7 +242,6 @@ class _OrdersScreenState extends State<OrdersScreen>
                             ),
                           ),
                           Divider(thickness: 1, color: AppTheme.h1),
-
                           Container(
                             width: double.infinity,
                             height: deviceHeight * 0.75,

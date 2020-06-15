@@ -13,6 +13,10 @@ class Urls {
   static const orderEndPoint = '/orders';
   static const transactionsEndPoint = '/transactions';
   static const charitiesEndPoint = '/charities';
+  static const provincesEndPoint = '/provinces';
+  static const typesEndPoint = '/customer/types';
+
+
 
   static const shopEndPoint = '/info';
   static const messageEndPoint = '/messages';

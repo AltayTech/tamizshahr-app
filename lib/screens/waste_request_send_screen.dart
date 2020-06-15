@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../models/customer.dart';
 import '../models/region.dart';
@@ -317,7 +318,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                             style: TextStyle(
                               color: AppTheme.h1,
                               fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 15.0,
+                              fontSize: textScaleFactor * 17.0,
                             ),
                           ),
                         ),
@@ -520,6 +521,10 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         ),
                                         child: Center(
                                           child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+
+
+
                                             children: <Widget>[
                                               Text(
                                                 weekDays[
@@ -528,7 +533,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                                   color: AppTheme.white,
                                                   fontFamily: 'Iransans',
                                                   fontSize:
-                                                      textScaleFactor * 20.0,
+                                                      textScaleFactor * 18.0,
                                                 ),
                                                 textAlign: TextAlign.center,
                                               ),
@@ -638,81 +643,44 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: InkWell(
-                            onTap: () async {
-                              SnackBar addToCartSnackBar = SnackBar(
-                                content: Text(
-                                  'سبد خرید خالی می باشد!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 14.0,
-                                  ),
-                                ),
-                                action: SnackBarAction(
-                                  label: 'متوجه شدم',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
-                              if (wasteCartItems.isEmpty) {
-                                Scaffold.of(context)
-                                    .showSnackBar(addToCartSnackBar);
-                              } else if (!isLogin) {
-                                _showLogindialog();
-                              } else {
-                                if (isCompleted) {
-                                  await createRequest(context);
-                                  await sendRequest(context, isLogin)
-                                      .then((value) => _showSenddialog());
-                                } else {
-                                  _showCompletedialog();
-                                }
-                              }
-                            },
-                            child: Container(
-                              width: deviceWidth * 0.9,
-                              height: deviceWidth * 0.1,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 0.0,
-                                    // has the effect of softening the shadow
-                                    spreadRadius: 0,
-                                    // has the effect of extending the shadow
-                                    offset: Offset(
-                                      1.0, // horizontal, move right 10
-                                      1.0, // vertical, move down 10
-                                    ),
-                                  )
-                                ],
-                                color: wasteCartItems.isEmpty
-                                    ? AppTheme.grey
-                                    : AppTheme.primary,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'ثبت نهایی',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 17.0,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                    child: InkWell(
+                      onTap: () async {
+                        SnackBar addToCartSnackBar = SnackBar(
+                          content: Text(
+                            'سبد خرید خالی می باشد!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 14.0,
                             ),
                           ),
-                        ),
-                      ],
+                          action: SnackBarAction(
+                            label: 'متوجه شدم',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        if (wasteCartItems.isEmpty) {
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else if (!isLogin) {
+                          _showLogindialog();
+                        } else {
+                          if (isCompleted) {
+                            await createRequest(context);
+                            await sendRequest(context, isLogin)
+                                .then((value) => _showSenddialog());
+                          } else {
+                            _showCompletedialog();
+                          }
+                        }
+                      },
+                      child: ButtonBottom(
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.14,
+                        text: 'تایید نهایی',
+                        isActive: wasteCartItems.isNotEmpty,
+                      ),
                     ),
                   ),
                   Positioned(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../models/request/price_weight.dart';
 import '../models/request/wasteCart.dart';
@@ -23,7 +24,8 @@ class WasteCartScreen extends StatefulWidget {
   _WasteCartScreenState createState() => _WasteCartScreenState();
 }
 
-class _WasteCartScreenState extends State<WasteCartScreen> {
+class _WasteCartScreenState extends State<WasteCartScreen>
+    with TickerProviderStateMixin {
   List<WasteCart> wasteCartItems = [];
   bool _isInit = true;
 
@@ -57,11 +59,14 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
+      await Provider.of<Auth>(context, listen: false).checkCompleted();
+
       await getWasteItems();
 
       setState(() {});
     }
     _isInit = false;
+    await getWasteItems();
 
     super.didChangeDependencies();
   }
@@ -70,7 +75,6 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     setState(() {
       _isLoading = true;
     });
-    await Provider.of<Auth>(context, listen: false).checkCompleted();
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
     totalPrice = 0;
     totalWeight = 0;
@@ -89,6 +93,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
             : totalWeight = totalWeight;
       }
     }
+    changeNumberAnimation(double.parse(totalPrice.toString()));
     totalPricePure = totalPrice;
 
     setState(() {
@@ -110,6 +115,38 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     return price;
   }
 
+  AnimationController _totalPriceController;
+  Animation<double> _totalPriceAnimation;
+
+  @override
+  initState() {
+    _totalPriceController = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    _totalPriceAnimation = _totalPriceController;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _totalPriceController.dispose();
+    super.dispose();
+  }
+
+  void changeNumberAnimation(double newValue) {
+    setState(() {
+      _totalPriceAnimation = new Tween<double>(
+        begin: _totalPriceAnimation.value,
+        end: newValue,
+      ).animate(new CurvedAnimation(
+        curve: Curves.ease,
+        parent: _totalPriceController,
+      ));
+    });
+    _totalPriceController.forward(from: 0.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -118,9 +155,16 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
     var currencyFormat = intl.NumberFormat.decimalPattern();
     bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
     bool isCompleted = Provider.of<Auth>(context, listen: false).isCompleted;
-
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          'انتخاب پسماند ',
+          style: TextStyle(
+            color: AppTheme.white,
+            fontFamily: 'Iransans',
+//            fontSize: textScaleFactor * 14,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
@@ -193,19 +237,32 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                           size: 40,
                                         ),
                                       ),
-                                      Text(
-                                        totalPrice.toString().isNotEmpty
-                                            ? EnArConvertor().replaceArNumber(
-                                                currencyFormat
-                                                    .format(totalPrice)
-                                                    .toString())
-                                            : EnArConvertor()
-                                                .replaceArNumber('0'),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 18,
-                                        ),
+                                      AnimatedBuilder(
+                                        animation: _totalPriceAnimation,
+                                        builder: (BuildContext context,
+                                            Widget child) {
+                                          return new Text(
+                                            totalPrice.toString().isNotEmpty
+                                                ? EnArConvertor()
+                                                    .replaceArNumber(
+                                                        currencyFormat
+                                                            .format(
+                                                                double.parse(
+                                                              _totalPriceAnimation
+                                                                  .value
+                                                                  .toStringAsFixed(
+                                                                      0),
+                                                            ))
+                                                            .toString())
+                                                : EnArConvertor()
+                                                    .replaceArNumber('0'),
+                                            style: TextStyle(
+                                              color: AppTheme.h1,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 18,
+                                            ),
+                                          );
+                                        },
                                       ),
                                       Text(
                                         'تومان ',
@@ -268,12 +325,16 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                                       itemCount: value.wasteCartItems.length,
                                       itemBuilder: (ctx, i) => WasteCartItem(
                                         wasteItem: value.wasteCartItems[i],
+                                        function: getWasteItems,
                                       ),
                                     ),
                                   )
-                                : Center(
-                                    child: Text('پسماندی اضافه نشده است'),
-                                  ),
+                                : Container(
+                              height: deviceHeight*0.6,
+                                  child: Center(
+                                      child: Text('پسماندی اضافه نشده است'),
+                                    ),
+                                ),
                           ),
                         ),
                         SizedBox(
@@ -286,80 +347,43 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: InkWell(
-                            onTap: () {
-                              SnackBar addToCartSnackBar = SnackBar(
-                                content: Text(
-                                  'پسماندی اضافه نشده است!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 14.0,
-                                  ),
-                                ),
-                                action: SnackBarAction(
-                                  label: 'متوجه شدم',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
-                              if (wasteCartItems.isEmpty) {
-                                Scaffold.of(context)
-                                    .showSnackBar(addToCartSnackBar);
-                              } else if (!isLogin) {
-                                _showLogindialog();
-                              } else {
-                                if (isCompleted) {
-                                  Navigator.of(context)
-                                      .pushNamed(AddressScreen.routeName);
-                                } else {
-                                  _showCompletedialog();
-                                }
-                              }
-                            },
-                            child: Container(
-                              width: deviceWidth * 0.8,
-                              height: deviceWidth * 0.1,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 0.0,
-                                    // has the effect of softening the shadow
-                                    spreadRadius: 0,
-                                    // has the effect of extending the shadow
-                                    offset: Offset(
-                                      1.0, // horizontal, move right 10
-                                      1.0, // vertical, move down 10
-                                    ),
-                                  )
-                                ],
-                                color: wasteCartItems.isEmpty
-                                    ? AppTheme.grey
-                                    : AppTheme.primary,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'ادامه',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 13.0,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                    child: InkWell(
+                      onTap: () {
+                        SnackBar addToCartSnackBar = SnackBar(
+                          content: Text(
+                            'پسماندی اضافه نشده است!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 14.0,
                             ),
                           ),
-                        ),
-                      ],
+                          action: SnackBarAction(
+                            label: 'متوجه شدم',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        if (wasteCartItems.isEmpty) {
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else if (!isLogin) {
+                          _showLogindialog();
+                        } else {
+                          if (isCompleted) {
+                            Navigator.of(context)
+                                .pushNamed(AddressScreen.routeName);
+                          } else {
+                            _showCompletedialog();
+                          }
+                        }
+                      },
+                      child: ButtonBottom(
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.14,
+                        text: 'ادامه',
+                        isActive: wasteCartItems.isNotEmpty,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -400,7 +424,7 @@ class _WasteCartScreenState extends State<WasteCartScreen> {
         child: MainDrawer(),
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: deviceWidth * 0.1 + 10),
+        padding: EdgeInsets.only(bottom: deviceWidth * 0.13 + 10),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).pushNamed(

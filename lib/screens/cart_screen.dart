@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
-import '../provider/customer_info.dart';
 import '../models/customer.dart';
 import '../models/product_cart.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
+import '../provider/customer_info.dart';
 import '../screens/order_products_send_screen.dart';
 import '../widgets/card_item.dart';
 import '../widgets/custom_dialog_enter.dart';
@@ -154,7 +155,7 @@ class _CartScreenState extends State<CartScreen> {
                         Container(
                           height: deviceHeight * 0.07,
                           decoration: BoxDecoration(
-                              color: AppTheme.primary,
+                              color: AppTheme.bg,
                               borderRadius: BorderRadius.circular(5),
                               border:
                                   Border.all(color: Colors.grey, width: 0.2)),
@@ -165,7 +166,8 @@ class _CartScreenState extends State<CartScreen> {
                               children: <Widget>[
                                 Icon(
                                   Icons.shopping_cart,
-                                  color: AppTheme.bg,
+                                  color: AppTheme.black,
+
                                 ),
                                 Text(
                                   'تعداد: ' +
@@ -174,13 +176,13 @@ class _CartScreenState extends State<CartScreen> {
                                               shoppItems.length.toString())
                                           .toString(),
                                   style: TextStyle(
-                                    color: AppTheme.bg,
+                                    color: AppTheme.black,
                                     fontFamily: 'Iransans',
                                     fontSize: textScaleFactor * 12,
                                   ),
                                 ),
                                 VerticalDivider(
-                                  color: AppTheme.bg,
+                                  color: AppTheme.grey,
                                   thickness: 1,
                                   indent: 4,
                                   endIndent: 4,
@@ -188,7 +190,7 @@ class _CartScreenState extends State<CartScreen> {
                                 Text(
                                   'مبلغ قابل پرداخت (تومان)',
                                   style: TextStyle(
-                                    color: AppTheme.bg,
+                                    color: AppTheme.grey,
                                     fontFamily: 'Iransans',
                                     fontSize: textScaleFactor * 12,
                                   ),
@@ -201,7 +203,7 @@ class _CartScreenState extends State<CartScreen> {
                                               .toString())
                                       : EnArConvertor().replaceArNumber('0'),
                                   style: TextStyle(
-                                    color: AppTheme.bg,
+                                    color: AppTheme.primary,
                                     fontFamily: 'Iransans',
                                     fontSize: textScaleFactor * 18,
                                   ),
@@ -227,162 +229,162 @@ class _CartScreenState extends State<CartScreen> {
                                 )
                               : Center(child: Text('محصولی اضافه نشده است')),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8.0, bottom: 4),
-                                    child: Text(
-                                      'فاکتور فروش ',
-                                      style: TextStyle(
-                                        color: AppTheme.black,
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 16,
-                                      ),
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    'مبلغ (تومان)',
-                                    style: TextStyle(
-                                      color: AppTheme.h1,
-                                      fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: Colors.grey, width: 0.2)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(
-                                              'هزینه محصولات ',
-                                              style: TextStyle(
-                                                color: AppTheme.h1,
-                                                fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 14,
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            Text(
-                                              totalPrice.toString().isNotEmpty
-                                                  ? EnArConvertor()
-                                                      .replaceArNumber(
-                                                          currencyFormat
-                                                              .format(
-                                                                  totalPrice)
-                                                              .toString())
-                                                  : EnArConvertor()
-                                                      .replaceArNumber('0'),
-                                              style: TextStyle(
-                                                color: AppTheme.h1,
-                                                fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(
-                                              'حمل و نقل ',
-                                              style: TextStyle(
-                                                color: AppTheme.h1,
-                                                fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 14,
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            Text(
-                                              transportCost
-                                                      .toString()
-                                                      .isNotEmpty
-                                                  ? EnArConvertor()
-                                                      .replaceArNumber(
-                                                          currencyFormat
-                                                              .format(
-                                                                  transportCost)
-                                                              .toString())
-                                                  : EnArConvertor()
-                                                      .replaceArNumber('0'),
-                                              style: TextStyle(
-                                                color: AppTheme.h1,
-                                                fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(
-                                              'هزینه کل ',
-                                              style: TextStyle(
-                                                color: AppTheme.h1,
-                                                fontFamily: 'Iransans',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: textScaleFactor * 14,
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            Text(
-                                              totalPricePure
-                                                      .toString()
-                                                      .isNotEmpty
-                                                  ? EnArConvertor()
-                                                      .replaceArNumber(
-                                                          currencyFormat
-                                                              .format(
-                                                                  totalPricePure)
-                                                              .toString())
-                                                  : EnArConvertor()
-                                                      .replaceArNumber('0'),
-                                              style: TextStyle(
-                                                color: AppTheme.primary,
-                                                fontFamily: 'Iransans',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: textScaleFactor * 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+//                        Padding(
+//                          padding: const EdgeInsets.all(8.0),
+//                          child: Column(
+//                            children: <Widget>[
+////                              Row(
+////                                mainAxisAlignment:
+////                                    MainAxisAlignment.spaceBetween,
+////                                children: <Widget>[
+////                                  Padding(
+////                                    padding: const EdgeInsets.only(
+////                                        top: 8.0, bottom: 4),
+////                                    child: Text(
+////                                      'فاکتور فروش ',
+////                                      style: TextStyle(
+////                                        color: AppTheme.black,
+////                                        fontFamily: 'Iransans',
+////                                        fontSize: textScaleFactor * 16,
+////                                      ),
+////                                    ),
+////                                  ),
+////                                  Spacer(),
+////                                  Text(
+////                                    'مبلغ (تومان)',
+////                                    style: TextStyle(
+////                                      color: AppTheme.h1,
+////                                      fontFamily: 'Iransans',
+////                                      fontSize: textScaleFactor * 12,
+////                                    ),
+////                                  ),
+////                                ],
+////                              ),
+////                              Container(
+////                                decoration: BoxDecoration(
+////                                    color: Colors.white,
+////                                    borderRadius: BorderRadius.circular(5),
+////                                    border: Border.all(
+////                                        color: Colors.grey, width: 0.2)),
+////                                child: Padding(
+////                                  padding: const EdgeInsets.all(4.0),
+////                                  child: Column(
+////                                    children: <Widget>[
+////                                      Padding(
+////                                        padding: const EdgeInsets.all(8.0),
+////                                        child: Row(
+////                                          mainAxisAlignment:
+////                                              MainAxisAlignment.spaceBetween,
+////                                          children: <Widget>[
+////                                            Text(
+////                                              'هزینه محصولات ',
+////                                              style: TextStyle(
+////                                                color: AppTheme.h1,
+////                                                fontFamily: 'Iransans',
+////                                                fontSize: textScaleFactor * 14,
+////                                              ),
+////                                            ),
+////                                            Spacer(),
+////                                            Text(
+////                                              totalPrice.toString().isNotEmpty
+////                                                  ? EnArConvertor()
+////                                                      .replaceArNumber(
+////                                                          currencyFormat
+////                                                              .format(
+////                                                                  totalPrice)
+////                                                              .toString())
+////                                                  : EnArConvertor()
+////                                                      .replaceArNumber('0'),
+////                                              style: TextStyle(
+////                                                color: AppTheme.h1,
+////                                                fontFamily: 'Iransans',
+////                                                fontSize: textScaleFactor * 18,
+////                                              ),
+////                                            ),
+////                                          ],
+////                                        ),
+////                                      ),
+////                                      Padding(
+////                                        padding: const EdgeInsets.all(8.0),
+////                                        child: Row(
+////                                          mainAxisAlignment:
+////                                              MainAxisAlignment.spaceBetween,
+////                                          children: <Widget>[
+////                                            Text(
+////                                              'حمل و نقل ',
+////                                              style: TextStyle(
+////                                                color: AppTheme.h1,
+////                                                fontFamily: 'Iransans',
+////                                                fontSize: textScaleFactor * 14,
+////                                              ),
+////                                            ),
+////                                            Spacer(),
+////                                            Text(
+////                                              transportCost
+////                                                      .toString()
+////                                                      .isNotEmpty
+////                                                  ? EnArConvertor()
+////                                                      .replaceArNumber(
+////                                                          currencyFormat
+////                                                              .format(
+////                                                                  transportCost)
+////                                                              .toString())
+////                                                  : EnArConvertor()
+////                                                      .replaceArNumber('0'),
+////                                              style: TextStyle(
+////                                                color: AppTheme.h1,
+////                                                fontFamily: 'Iransans',
+////                                                fontSize: textScaleFactor * 18,
+////                                              ),
+////                                            ),
+////                                          ],
+////                                        ),
+////                                      ),
+////                                      Padding(
+////                                        padding: const EdgeInsets.all(8.0),
+////                                        child: Row(
+////                                          mainAxisAlignment:
+////                                              MainAxisAlignment.spaceBetween,
+////                                          children: <Widget>[
+////                                            Text(
+////                                              'هزینه کل ',
+////                                              style: TextStyle(
+////                                                color: AppTheme.h1,
+////                                                fontFamily: 'Iransans',
+////                                                fontWeight: FontWeight.bold,
+////                                                fontSize: textScaleFactor * 14,
+////                                              ),
+////                                            ),
+////                                            Spacer(),
+////                                            Text(
+////                                              totalPricePure
+////                                                      .toString()
+////                                                      .isNotEmpty
+////                                                  ? EnArConvertor()
+////                                                      .replaceArNumber(
+////                                                          currencyFormat
+////                                                              .format(
+////                                                                  totalPricePure)
+////                                                              .toString())
+////                                                  : EnArConvertor()
+////                                                      .replaceArNumber('0'),
+////                                              style: TextStyle(
+////                                                color: AppTheme.primary,
+////                                                fontFamily: 'Iransans',
+////                                                fontWeight: FontWeight.bold,
+////                                                fontSize: textScaleFactor * 18,
+////                                              ),
+////                                            ),
+////                                          ],
+////                                        ),
+////                                      ),
+////                                    ],
+////                                  ),
+////                                ),
+////                              ),
+//                            ],
+//                          ),
+//                        ),
                         SizedBox(
                           height: 50,
                         )
@@ -393,80 +395,43 @@ class _CartScreenState extends State<CartScreen> {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: InkWell(
-                            onTap: () {
-                              SnackBar addToCartSnackBar = SnackBar(
-                                content: Text(
-                                  'سبد خرید خالی می باشد!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 14.0,
-                                  ),
-                                ),
-                                action: SnackBarAction(
-                                  label: 'متوجه شدم',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
-                              if (shoppItems.isEmpty) {
-                                Scaffold.of(context)
-                                    .showSnackBar(addToCartSnackBar);
-                              } else if (!isLogin) {
-                                _showLogindialog();
-                              } else {
-                                if (isCompleted) {
-                                  Navigator.of(context)
-                                      .pushNamed(OrderProductsSendScreen.routeName);
-                                } else {
-                                  _showCompletedialog();
-                                }
-                              }
-                            },
-                            child: Container(
-                              width: deviceWidth * 0.9,
-                              height: deviceWidth * 0.13,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 0.0,
-                                    // has the effect of softening the shadow
-                                    spreadRadius: 0,
-                                    // has the effect of extending the shadow
-                                    offset: Offset(
-                                      1.0, // horizontal, move right 10
-                                      1.0, // vertical, move down 10
-                                    ),
-                                  )
-                                ],
-                                color: shoppItems.isEmpty
-                                    ? AppTheme.grey
-                                    : AppTheme.primary,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'انجام خرید',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 16.0,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                    child: InkWell(
+                      onTap: () {
+                        SnackBar addToCartSnackBar = SnackBar(
+                          content: Text(
+                            'سبد خرید خالی می باشد!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 14.0,
                             ),
                           ),
-                        ),
-                      ],
+                          action: SnackBarAction(
+                            label: 'متوجه شدم',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        if (shoppItems.isEmpty) {
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else if (!isLogin) {
+                          _showLogindialog();
+                        } else {
+                          if (isCompleted) {
+                            Navigator.of(context)
+                                .pushNamed(OrderProductsSendScreen.routeName);
+                          } else {
+                            _showCompletedialog();
+                          }
+                        }
+                      },
+                      child: ButtonBottom(
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.14,
+                        text: 'انجام خرید',
+                        isActive: shoppItems.isNotEmpty,
+                      ),
                     ),
                   ),
                   Positioned(

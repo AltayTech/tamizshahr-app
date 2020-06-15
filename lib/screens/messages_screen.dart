@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+
 import '../models/message.dart';
+import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/messages.dart';
 import '../screens/message_detail_screen.dart';
 import '../screens/messages_create_screen.dart';
-import '../widgets/message_item.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/app_theme.dart';
 import '../widgets/main_drawer.dart';
+import '../widgets/message_item.dart';
 
 class MessageScreen extends StatefulWidget {
   static const routeName = '/messageScreen';
@@ -160,7 +160,7 @@ class _MessageScreenState extends State<MessageScreen> {
         child: MainDrawer(),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTheme.h1,
+        backgroundColor: AppTheme.accent,
         child: Icon(
           Icons.add,
           color: AppTheme.bg,

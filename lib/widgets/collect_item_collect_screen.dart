@@ -19,7 +19,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
-      height: widthDevice * 0.45,
+      height: widthDevice * 0.35,
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           return InkWell(
@@ -59,7 +59,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                     style: TextStyle(
                                       color: AppTheme.black,
                                       fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 16.0,
+                                      fontSize: textScaleFactor * 12.0,
                                     ),
                                   ),
                                 ),
@@ -73,13 +73,13 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     collect.collect_hours,
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                       color: AppTheme.black,
                                       fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 16.0,
+                                      fontSize: textScaleFactor * 14.0,
                                     ),
                                   ),
                                 ),
@@ -95,7 +95,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                     child: Text(
                                       EnArConvertor().replaceArNumber(
                                           collect.total_weight),
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
@@ -114,38 +114,39 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                       style: TextStyle(
                                         color: AppTheme.grey,
                                         fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 14.0,
+                                        fontSize: textScaleFactor * 11.0,
                                       ),
                                     ),
                                   ),
                                   Spacer(),
                                   Expanded(
+                                    flex: 2,
                                     child: Text(
                                       EnArConvertor().replaceArNumber(
                                           currencyFormat
                                               .format(double.parse(
                                                   collect.total_price))
                                               .toString()),
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: AppTheme.black,
                                         fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 18.0,
+                                        fontSize: textScaleFactor * 14.0,
                                       ),
                                     ),
                                   ),
                                   Expanded(
                                     child: Text(
-                                      'تومان',
-                                      maxLines: 2,
+                                      ' تومان',
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
+                                      textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: AppTheme.grey,
                                         fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 14.0,
+                                        fontSize: textScaleFactor * 11.0,
                                       ),
                                     ),
                                   ),
@@ -179,7 +180,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: AppTheme.black,
                                 fontFamily: 'Iransans',
-                                fontSize: textScaleFactor * 16.0,
+                                fontSize: textScaleFactor * 13.0,
                               ),
                             ),
                           )

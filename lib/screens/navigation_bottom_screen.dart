@@ -41,11 +41,11 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
     },
     {
       'page': HomeScreen(),
-      'title': Strings.navQest,
+      'title': Strings.navRequest,
     },
     {
       'page': HomeScreen(),
-      'title': Strings.naveFavorite,
+      'title': Strings.navShop,
     },
     {
       'page': ProfileView(),
@@ -98,21 +98,21 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
         textDirection: TextDirection.rtl,
         child: Scaffold(
           appBar: AppBar(
-            bottom: PreferredSize(
-              child: Container(),
-              preferredSize: Size.fromHeight(15),
-            ),
+//            bottom: PreferredSize(
+//              child: Container(),
+//              preferredSize: Size.fromHeight(15),
+//            ),
             title: Text(
               'تمیز شهر',
               style: TextStyle(
                 fontFamily: 'Iransans',
               ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.vertical(
-                  bottom: new Radius.elliptical(
-                      MediaQuery.of(context).size.width * 9, 200.0)),
-            ),
+//            shape: RoundedRectangleBorder(
+//              borderRadius: new BorderRadius.vertical(
+//                  bottom: new Radius.elliptical(
+//                      MediaQuery.of(context).size.width * 9, 200.0)),
+//            ),
             backgroundColor: AppTheme.appBarColor,
             iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
             centerTitle: true,
@@ -153,14 +153,14 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
                 backgroundColor: AppTheme.white,
                 icon: Icon(Icons.directions_car),
                 title: Text(
-                  Strings.navQest,
+                  Strings.navRequest,
                 ),
               ),
               BottomNavigationBarItem(
                 backgroundColor: AppTheme.white,
                 icon: Icon(Icons.add_shopping_cart),
                 title: Text(
-                  Strings.naveFavorite,
+                  Strings.navShop,
                 ),
               ),
               BottomNavigationBarItem(

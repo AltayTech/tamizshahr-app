@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+
 import '../models/customer.dart';
 import '../models/message.dart';
+import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/customer_info.dart';
 import '../provider/messages.dart';
-import '../widgets/message_reply_item.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/app_theme.dart';
 import '../widgets/main_drawer.dart';
+import '../widgets/message_reply_item.dart';
 
 class MessageCreateReplyScreen extends StatefulWidget {
   static const routeName = '/messageCreateReplyScreen';
@@ -133,7 +133,6 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
                                   ),
                             ),
                           ),
-
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
@@ -193,23 +192,19 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
                             )
                           : Container()),
                 ),
-                Positioned(
-                  bottom: 18,
-                  right: 18,
-                  child: FloatingActionButton(
-                    onPressed: () async {
-                      createMessageReply();
-                    },
-                    backgroundColor: AppTheme.secondary,
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          createMessageReply();
+        },
+        backgroundColor: AppTheme.primary,
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
         ),
       ),
       endDrawer: Theme(

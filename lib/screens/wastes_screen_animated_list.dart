@@ -10,14 +10,14 @@ import '../provider/wastes.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/waste_item_wastes_screen.dart';
 
-class WastesScreen extends StatefulWidget {
-  static const routeName = '/wastesScreen';
+class WastesScreenAnimatedList extends StatefulWidget {
+  static const routeName = '/wastesScreenAnimatedList';
 
   @override
-  _WastesScreenState createState() => _WastesScreenState();
+  _WastesScreenAnimatedListState createState() => _WastesScreenAnimatedListState();
 }
 
-class _WastesScreenState extends State<WastesScreen>
+class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
     with SingleTickerProviderStateMixin {
   bool _isInit = true;
   var _isLoading;

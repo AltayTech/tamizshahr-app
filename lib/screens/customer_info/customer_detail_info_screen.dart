@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
+import '../../provider/app_theme.dart';
 import '../../provider/customer_info.dart';
 import 'customer_detail_info_edit_screen.dart';
 
@@ -107,9 +107,9 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              'اطلاعات شخص',
+                              'مشخصات',
                               style: TextStyle(
-                                color: AppTheme.primary,
+                                color: AppTheme.black,
                                 fontFamily: 'Iransans',
                                 fontSize: textScaleFactor * 14.0,
                               ),
@@ -172,15 +172,7 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                         Divider(
                           color: Colors.white,
                         ),
-                        Text(
-                          'اطلاعات تماس',
-                          style: TextStyle(
-                            color: AppTheme.primary,
-                            fontFamily: 'Iransans',
-                            fontSize: textScaleFactor * 14.0,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
+
                         Container(
                           child: ListView(
                             physics: NeverScrollableScrollPhysics(),
@@ -216,13 +208,11 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                                 bgColor: Colors.white,
                                 iconColor: Color(0xff4392F1),
                               ),
-
                             ],
                           ),
                         ),
                       ],
                     ),
-
                     SizedBox(
                       height: deviceHeight * 0.02,
                     )
@@ -261,7 +251,7 @@ class InfoItem extends StatelessWidget {
           Text(
             '$title : ',
             style: TextStyle(
-              color: AppTheme.h1,
+              color: AppTheme.grey,
               fontFamily: 'Iransans',
               fontSize: textScaleFactor * 14.0,
             ),
@@ -281,7 +271,7 @@ class InfoItem extends StatelessWidget {
                 child: Text(
                   text,
                   style: TextStyle(
-                    color: AppTheme.primary,
+                    color: AppTheme.black,
                     fontFamily: 'Iransans',
                     fontSize: textScaleFactor * 14.0,
                   ),
@@ -292,4 +282,3 @@ class InfoItem extends StatelessWidget {
     );
   }
 }
-

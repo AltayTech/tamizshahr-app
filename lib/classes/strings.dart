@@ -3,8 +3,8 @@ class Strings {
 
   // NavigationBotton title
   static const navHome = 'خانه';
-  static const naveFavorite = 'محصولات مورد علاقه';
-  static const navQest= 'محاسبه اقساط';
+  static const navShop = 'فروشگاه';
+  static const navRequest= 'درخواست ها';
   static const navProfile = 'پروفایل';
   static const navReservse = 'رزروها';
 

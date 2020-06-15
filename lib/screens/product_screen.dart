@@ -26,7 +26,6 @@ class _ProductsScreenState extends State<ProductsScreen>
     with SingleTickerProviderStateMixin {
   bool _isInit = true;
 
-//  final searchTextController = TextEditingController();
   ScrollController _scrollController = new ScrollController();
 
   var _isLoading;
@@ -36,9 +35,6 @@ class _ProductsScreenState extends State<ProductsScreen>
 
   SearchDetail productsDetail;
 
-//  List<String> filterList = [];
-
-//  HomePage loadedHomePage;
 
   var sortValue = 'جدیدترین';
   List<String> sortValueList = ['جدیدترین', 'گرانترین', 'ارزانترین'];
@@ -49,19 +45,6 @@ class _ProductsScreenState extends State<ProductsScreen>
 
   List<Category> categoryList = [];
 
-//  var colorValue;
-//  List<String> colorValueList = [];
-//  List<ColorCode> colorList = [];
-//  ColorCode selectedColor;
-
-//  var brandValue;
-//  List<String> brandValueList = [];
-//  List<Brand> brandList = [];
-//  Brand selectedBrand;
-
-//  AnimationController _controller;
-//  Animation<Offset> _slideAnimation;
-//  Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -106,7 +89,6 @@ class _ProductsScreenState extends State<ProductsScreen>
   @override
   void dispose() {
     _scrollController.dispose();
-//    _controller.dispose();
 
     super.dispose();
   }
@@ -512,7 +494,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                                             productsDetail != null
                                                 ? EnArConvertor()
                                                     .replaceArNumber(
-                                                        productsDetail.total
+                                                       loadedProductstolist.length
                                                             .toString())
                                                 : EnArConvertor()
                                                     .replaceArNumber('0'),

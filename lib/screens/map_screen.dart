@@ -197,21 +197,21 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-          child: Container(),
-          preferredSize: Size.fromHeight(15),
-        ),
+//        bottom: PreferredSize(
+//          child: Container(),
+//          preferredSize: Size.fromHeight(15),
+//        ),
         title: Text(
-          'ایجاد آدرس',
+          'آدرس جدید',
           style: TextStyle(
             fontFamily: 'Iransans',
           ),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.vertical(
-              bottom: new Radius.elliptical(
-                  MediaQuery.of(context).size.width * 9, 200.0)),
-        ),
+//        shape: RoundedRectangleBorder(
+//          borderRadius: new BorderRadius.vertical(
+//              bottom: new Radius.elliptical(
+//                  MediaQuery.of(context).size.width * 9, 200.0)),
+//        ),
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
         centerTitle: true,
@@ -228,7 +228,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                     onMapCreated: _onMapCreated,
                     initialCameraPosition: CameraPosition(
                       target: _lastMapPosition,
-                      zoom: 11.0,
+                      zoom: 12.0,
                     ),
                     mapType: _currentMapType,
                     markers: _markers,
@@ -253,9 +253,23 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 bgColor: AppTheme.bg,
                 iconColor: Color(0xffA67FEC),
                 keybordType: TextInputType.text,
-                fieldHeight: deviceHeight * 0.05,
+                fieldHeight: deviceHeight * 0.06,
                 thisFocusNode: nameNode,
                 newFocusNode: regionNode,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Container(
+                  width: deviceWidth * 0.78,
+                  child: Text(
+                    'مناطق : ',
+                    style: TextStyle(
+                      color: AppTheme.h1,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                ),
               ),
               Directionality(
                 textDirection: TextDirection.ltr,
@@ -274,9 +288,9 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                           const EdgeInsets.only(right: 8.0, left: 8, top: 6),
                       child: DropdownButton<String>(
                         hint: Text(
-                          'مناطق',
+                          'منطقه مورد نظر را آنتخاب کنید.',
                           style: TextStyle(
-                            color: AppTheme.black,
+                            color: AppTheme.grey,
                             fontFamily: 'Iransans',
                             fontSize: textScaleFactor * 13.0,
                           ),
@@ -310,14 +324,18 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 3.0),
-                              child: Text(
-                                value,
-                                style: TextStyle(
-                                  color: AppTheme.black,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 13.0,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 3.0),
+                                child: Text(
+                                  value,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: AppTheme.black,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 13.0,
+                                  ),
                                 ),
                               ),
                             ),
@@ -344,16 +362,38 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await saveAddress().then((value) {
-            Navigator.of(context).pop();
-          });
-        },
-        backgroundColor: AppTheme.primary,
-        child: Icon(
-          Icons.check,
-          color: AppTheme.white,
+      floatingActionButton: Builder(
+        builder: (context) => FloatingActionButton(
+          onPressed: () async {
+            SnackBar addToCartSnackBar = SnackBar(
+              content: Text(
+                'منطقه انتخاب نشده است!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Iransans',
+                  fontSize: textScaleFactor * 14.0,
+                ),
+              ),
+              action: SnackBarAction(
+                label: 'متوجه شدم',
+                onPressed: () {
+                  // Some code to undo the change.
+                },
+              ),
+            );
+            if (selectedRegion == null) {
+              Scaffold.of(context).showSnackBar(addToCartSnackBar);
+            } else {
+              await saveAddress().then((value) {
+                Navigator.of(context).pop();
+              });
+            }
+          },
+          backgroundColor: AppTheme.primary,
+          child: Icon(
+            Icons.check,
+            color: AppTheme.white,
+          ),
         ),
       ),
     );

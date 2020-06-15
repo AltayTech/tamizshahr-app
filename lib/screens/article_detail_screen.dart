@@ -118,11 +118,8 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Text(
-                                     EnArConvertor().replaceArNumber( '${Jalali.fromDateTime(DateTime.parse(
-                                         loadedArticle.post_date_gmt)).year}/${Jalali.fromDateTime(DateTime.parse(
-                                         loadedArticle.post_date_gmt)).month}/${Jalali.fromDateTime(DateTime.parse(
-                                         loadedArticle.post_date_gmt)).day}')
-                                          ,
+                                      EnArConvertor().replaceArNumber(
+                                          '${Jalali.fromDateTime(DateTime.parse(loadedArticle.post_date_gmt)).year}/${Jalali.fromDateTime(DateTime.parse(loadedArticle.post_date_gmt)).month}/${Jalali.fromDateTime(DateTime.parse(loadedArticle.post_date_gmt)).day}'),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -142,7 +139,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               padding: const EdgeInsets.all(4.0),
                               child: Text(
                                 loadedArticle.title,
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   height: 2,
@@ -164,13 +161,12 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 child: FadeInImage(
                                   placeholder:
                                       AssetImage('assets/images/circle.gif'),
-                                  image:
-                                      NetworkImage(loadedArticle.featured_image),
+                                  image: NetworkImage(
+                                      loadedArticle.featured_image),
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: HtmlWidget(

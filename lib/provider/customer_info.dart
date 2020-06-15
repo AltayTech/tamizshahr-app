@@ -4,13 +4,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamizshahr/models/city.dart';
+import 'package:tamizshahr/models/province.dart';
 import 'package:tamizshahr/models/search_detail.dart';
+import 'package:tamizshahr/models/status.dart';
 import 'package:tamizshahr/models/transaction.dart';
 import 'package:tamizshahr/models/transaction_main.dart';
 
 import '../models/customer.dart';
 import '../models/order.dart';
-import '../models/orderItem.dart';
 import '../models/order_details.dart';
 import '../models/personal_data.dart';
 import '../models/shop.dart';
@@ -45,20 +47,7 @@ class CustomerInfo with ChangeNotifier {
 
   List<Order> _orders = [];
 
-  OrderDetails _order = OrderDetails(
-    id: 0,
-    total_cost: '0',
-    order_register_date: '0',
-    pay_type: '0',
-    order_status: '0',
-    pish: '0',
-    number_of_products: 1,
-    pay_status: '0',
-    products: [OrderItem(id: 0, title: '0', price_low: '0')],
-    pay_status_slug: '0',
-    order_status_slug: '0',
-    pay_type_slug: '0',
-  );
+  OrderDetails _order;
 
   List<Order> get orders => _orders;
 
@@ -388,4 +377,105 @@ class CustomerInfo with ChangeNotifier {
   set sPage(value) {
     _sPage = value;
   }
+
+  Future<void> getProvinces() async {
+    print('getProvinces');
+
+    final url = Urls.rootUrl + Urls.provincesEndPoint;
+    print(url);
+
+    try {
+      final response = await get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body) as List<dynamic>;
+        print(extractedData);
+
+        List<Province> wastes =
+            extractedData.map((i) => Province.fromJson(i)).toList();
+
+        _provincesItems = wastes;
+      } else {
+        _provincesItems = [];
+      }
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+  }
+
+  List<Province> _provincesItems = [];
+
+  List<Province> get provincesItems => _provincesItems;
+
+  Future<void> getCities(int provinceId) async {
+    print('getCities');
+
+    final url = Urls.rootUrl + Urls.provincesEndPoint + '$provinceId';
+    print(url);
+
+    try {
+      final response = await get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body) as List<dynamic>;
+        print(extractedData);
+
+        List<City> wastes = extractedData.map((i) => City.fromJson(i)).toList();
+
+        _citiesItems = wastes;
+      } else {
+        _citiesItems = [];
+      }
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+  }
+
+  List<City> _citiesItems = [];
+
+  List<City> get citiesItems => _citiesItems;
+
+  Future<void> getTypes() async {
+    print('getTypes');
+
+    final url = Urls.rootUrl + Urls.typesEndPoint;
+    print(url);
+
+    try {
+      final response = await get(url, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      });
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body) as List<dynamic>;
+        print(extractedData);
+
+        List<Status> wastes =
+            extractedData.map((i) => Status.fromJson(i)).toList();
+
+        _typesItems = wastes;
+      } else {
+        _typesItems = [];
+      }
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+  }
+
+  List<Status> _typesItems = [];
+
+  List<Status> get typesItems => _typesItems;
 }

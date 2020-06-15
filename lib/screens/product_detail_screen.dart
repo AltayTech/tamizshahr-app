@@ -69,6 +69,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     print(_isLoading.toString());
   }
 
+  Future<bool> isExistInCart(
+    Product loadedProduct,
+  ) async {
+    bool isExist = false;
+    setState(() {
+      _isLoading = true;
+    });
+    isExist = Provider.of<Products>(context, listen: false)
+        .cartItems
+        .any((prod) => prod.id == loadedProduct.id);
+
+    print(isExist.toString());
+
+    setState(() {
+      _isLoading = false;
+    });
+    return isExist;
+  }
+
   Widget priceWidget(
     BuildContext context,
   ) {
@@ -305,31 +324,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             padding: const EdgeInsets.all(20.0),
                             child: Container(
                               width: double.infinity,
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          loadedProduct.name,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.black,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 22.0,
-                                          ),
-                                          textAlign: TextAlign.right,
-                                          textDirection: TextDirection.rtl,
+                              color: AppTheme.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        loadedProduct.name,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          height: 2,
+                                          color: AppTheme.black,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 20.0,
                                         ),
+                                        textAlign: TextAlign.right,
+                                        textDirection: TextDirection.rtl,
                                       ),
-                                      Container(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                    ),
+                                    Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Directionality(
+                                          textDirection: TextDirection.rtl,
                                           child: HtmlWidget(
                                             loadedProduct.description,
                                             onTapUrl: (url) => showDialog(
@@ -342,8 +363,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -395,9 +416,29 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         floatingActionButton: Builder(
           builder: (context) => FloatingActionButton(
             onPressed: () async {
+              bool isExist = await isExistInCart(loadedProduct);
               setState(() {});
               if (loadedProduct.price.isEmpty) {
                 _snackBarMessage = 'قیمت محصول صفر میباشد';
+                SnackBar addToCartSnackBar = SnackBar(
+                  content: Text(
+                    _snackBarMessage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                  action: SnackBarAction(
+                    label: 'متوجه شدم',
+                    onPressed: () {
+                      // Some code to undo the change.
+                    },
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(addToCartSnackBar);
+              } else if (isExist) {
+                _snackBarMessage = 'محصول در سبد خرید موجود میباشد';
                 SnackBar addToCartSnackBar = SnackBar(
                   content: Text(
                     _snackBarMessage,

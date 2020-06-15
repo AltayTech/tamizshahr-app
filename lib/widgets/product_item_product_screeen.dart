@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../provider/app_theme.dart';
 import '../models/product.dart';
 import '../provider/Products.dart';
+import '../provider/app_theme.dart';
 import '../screens/product_detail_screen.dart';
 import 'en_to_ar_number_convertor.dart';
 
@@ -22,9 +22,8 @@ class ProductItemProductScreen extends StatelessWidget {
       if (product.price == product.price) {
         return Text(
           product.price.isNotEmpty
-              ? EnArConvertor().replaceArNumber(currencyFormat
-                  .format(double.parse(product.price))
-                  .toString())
+              ? EnArConvertor().replaceArNumber(
+                  currencyFormat.format(double.parse(product.price)).toString())
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
             fontFamily: 'Iransans',
@@ -36,9 +35,8 @@ class ProductItemProductScreen extends StatelessWidget {
       } else if (product.price == '0' || product.price.isEmpty) {
         return Text(
           product.price.isNotEmpty
-              ? EnArConvertor().replaceArNumber(currencyFormat
-                  .format(double.parse(product.price))
-                  .toString())
+              ? EnArConvertor().replaceArNumber(
+                  currencyFormat.format(double.parse(product.price)).toString())
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
             fontFamily: 'Iransans',
@@ -50,9 +48,8 @@ class ProductItemProductScreen extends StatelessWidget {
       } else if (product.price == '0' || product.price.isEmpty) {
         return Text(
           product.price.isNotEmpty
-              ? EnArConvertor().replaceArNumber(currencyFormat
-                  .format(double.parse(product.price))
-                  .toString())
+              ? EnArConvertor().replaceArNumber(
+                  currencyFormat.format(double.parse(product.price)).toString())
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
             fontFamily: 'Iransans',
@@ -97,13 +94,13 @@ class ProductItemProductScreen extends StatelessWidget {
     }
 
     return Container(
-      height: widthDevice * 0.45,
+      height: widthDevice * 0.4,
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           return InkWell(
             onTap: () {
-              Provider.of<Products>(context,listen: false).item =
-                  Provider.of<Products>(context,listen: false).itemZero;
+              Provider.of<Products>(context, listen: false).item =
+                  Provider.of<Products>(context, listen: false).itemZero;
               Navigator.of(context).pushNamed(
                 ProductDetailScreen.routeName,
                 arguments: product.id,
@@ -124,8 +121,10 @@ class ProductItemProductScreen extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: FadeInImage(
-                                placeholder: AssetImage('assets/images/circle.gif'),
-                                image: NetworkImage(product.featured_image.sizes.medium),
+                                placeholder:
+                                    AssetImage('assets/images/circle.gif'),
+                                image: NetworkImage(
+                                    product.featured_image.sizes.medium),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -219,7 +218,7 @@ class ProductItemProductScreen extends StatelessWidget {
 //                                ),
 //
 //                              ),
-                            Spacer(),
+                              Spacer(),
                               Padding(
                                 padding: const EdgeInsets.only(
                                   left: 20,

@@ -43,18 +43,26 @@ class MessageReplyItem extends StatelessWidget {
                       Text(
                         message.comment_author,
                         style: TextStyle(
-                          color: AppTheme.h1,
+                          color: AppTheme.h1.withOpacity(0.5),
                           fontFamily: 'Iransans',
                           fontSize: textScaleFactor * 15.0,
                         ),
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        EnArConvertor().replaceArNumber(Jalali.fromDateTime(
+                        EnArConvertor().replaceArNumber('${Jalali.fromDateTime(
                           DateTime.parse(
                             message.comment_date,
                           ),
-                        ).toString()),
+                        ).year}/${Jalali.fromDateTime(
+                          DateTime.parse(
+                            message.comment_date,
+                          ),
+                        ).month}/${Jalali.fromDateTime(
+                          DateTime.parse(
+                            message.comment_date,
+                          ),
+                        ).day}'),
                         style: TextStyle(
                           color: AppTheme.h1,
                           fontFamily: 'Iransans',
@@ -74,7 +82,7 @@ class MessageReplyItem extends StatelessWidget {
                   child: Text(
                     message.subject,
                     style: TextStyle(
-                      color: AppTheme.primary,
+                      color: AppTheme.black,
                       fontFamily: 'Iransans',
                       fontSize: textScaleFactor * 14.0,
                     ),

@@ -7,6 +7,7 @@ import 'package:tamizshahr/screens/charity_screen.dart';
 import 'package:tamizshahr/screens/collect_detail_screen.dart';
 import 'package:tamizshahr/screens/orders_screen.dart';
 import 'package:tamizshahr/screens/wallet_screen.dart';
+import 'package:tamizshahr/screens/wastes_screen_animated_list.dart';
 
 import './provider/articles.dart';
 import './provider/auth.dart';
@@ -147,6 +148,7 @@ class MyApp extends StatelessWidget {
           CharityDetailScreen.routeName: (ctx) => CharityDetailScreen(),
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           CollectDetailScreen.routeName: (ctx) => CollectDetailScreen(),
+          WastesScreenAnimatedList.routeName: (ctx) => WastesScreenAnimatedList(),
         },
       ),
     );

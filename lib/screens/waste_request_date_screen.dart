@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../models/customer.dart';
 import '../models/region.dart';
@@ -232,13 +233,13 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                             style: TextStyle(
                               color: AppTheme.h1,
                               fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 15.0,
+                              fontWeight: FontWeight.w500,
+                              fontSize: textScaleFactor * 16.0,
                             ),
                           ),
                         ),
                         Container(
                           height: deviceHeight * 0.25,
-                          width: deviceWidth * 0.9,
                           decoration: BoxDecoration(
                               color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
@@ -388,7 +389,6 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                             padding: const EdgeInsets.only(top: 10.0),
                             child: Container(
                                 height: deviceHeight * 0.15,
-                                width: deviceWidth,
                                 child: LayoutBuilder(
                                   builder: (_, constraint) => Column(
                                     children: <Widget>[
@@ -406,6 +406,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                 style: TextStyle(
                                                   color: AppTheme.h1,
                                                   fontFamily: 'Iransans',
+                                                  fontWeight: FontWeight.w700,
                                                   fontSize:
                                                       textScaleFactor * 15.0,
                                                 ),
@@ -415,7 +416,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         ),
                                       ),
                                       Container(
-                                        height: constraint.maxHeight * 0.6,
+                                        height: constraint.maxHeight * 0.7,
                                         width: constraint.maxWidth,
                                         child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
@@ -429,14 +430,17 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
                                                 changeCat(context);
                                               },
+//                                              highlightColor: Colors.red,
+//                                              hoverColor: Colors.red,
+                                              splashColor: AppTheme.grey,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5.0),
                                                 child: Container(
                                                   height: constraint.maxHeight *
                                                       0.55,
-                                                  width:
-                                                      constraint.maxWidth * 0.3,
+                                                  width: constraint.maxWidth *
+                                                      0.31,
                                                   decoration: _selectedDay ==
                                                           dateList[index]
                                                       ? BoxDecoration(
@@ -472,6 +476,9 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                         ),
                                                   child: Center(
                                                     child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: <Widget>[
                                                         Text(
                                                           weekDays[
@@ -488,7 +495,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                                 'Iransans',
                                                             fontSize:
                                                                 textScaleFactor *
-                                                                    20.0,
+                                                                    18.0,
                                                           ),
                                                           textAlign:
                                                               TextAlign.center,
@@ -551,6 +558,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                 style: TextStyle(
                                                   color: AppTheme.h1,
                                                   fontFamily: 'Iransans',
+                                                  fontWeight: FontWeight.w700,
                                                   fontSize:
                                                       textScaleFactor * 15.0,
                                                 ),
@@ -560,7 +568,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         ),
                                       ),
                                       Container(
-                                        height: constraint.maxHeight * 0.6,
+                                        height: constraint.maxHeight * 0.7,
                                         width: constraint.maxWidth,
                                         child: Consumer<Auth>(
                                           builder: (_, data, ch) =>
@@ -584,6 +592,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
                                                   changeCat(context);
                                                 },
+                                                splashColor: AppTheme.grey,
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(5.0),
@@ -592,7 +601,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                         constraint.maxHeight *
                                                             0.55,
                                                     width: constraint.maxWidth *
-                                                        0.3,
+                                                        0.31,
                                                     decoration:
                                                         _selectedHourStart ==
                                                                 data
@@ -664,7 +673,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                               'Iransans',
                                                           fontSize:
                                                               textScaleFactor *
-                                                                  20.0,
+                                                                  22.0,
                                                         ),
                                                         textAlign:
                                                             TextAlign.center,
@@ -690,77 +699,42 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: InkWell(
-                            onTap: () {
-                              SnackBar addToCartSnackBar = SnackBar(
-                                content: Text(
-                                  'سبد خرید خالی می باشد!',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 14.0,
-                                  ),
-                                ),
-                                action: SnackBarAction(
-                                  label: 'متوجه شدم',
-                                  onPressed: () {
-                                    // Some code to undo the change.
-                                  },
-                                ),
-                              );
-                              if (wasteCartItems.isEmpty) {
-                                Scaffold.of(context)
-                                    .showSnackBar(addToCartSnackBar);
-                              } else if (!isLogin) {
-                                _showLogindialog();
-                              } else {
-                                sendDate();
-                                Navigator.of(context).pushNamed(
-                                    WasteRequestSendScreen.routeName);
-                              }
-                            },
-                            child: Container(
-                              width: deviceWidth * 0.8,
-                              height: deviceWidth * 0.1,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 0.0,
-                                    // has the effect of softening the shadow
-                                    spreadRadius: 0,
-                                    // has the effect of extending the shadow
-                                    offset: Offset(
-                                      1.0, // horizontal, move right 10
-                                      1.0, // vertical, move down 10
-                                    ),
-                                  )
-                                ],
-                                color: wasteCartItems.isEmpty
-                                    ? AppTheme.grey
-                                    : AppTheme.primary,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'ادامه',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 13.0,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                    child: InkWell(
+                      onTap: () {
+                        SnackBar addToCartSnackBar = SnackBar(
+                          content: Text(
+                            'تاریخ و ساعت جمع آوری انتخاب شود',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 14.0,
                             ),
                           ),
-                        ),
-                      ],
+                          action: SnackBarAction(
+                            label: 'متوجه شدم',
+                            onPressed: () {
+                              // Some code to undo the change.
+                            },
+                          ),
+                        );
+                        if (_selectedHourStart == null ||
+                            _selectedDay == null) {
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else if (!isLogin) {
+                          _showLogindialog();
+                        } else {
+                          sendDate();
+                          Navigator.of(context)
+                              .pushNamed(WasteRequestSendScreen.routeName);
+                        }
+                      },
+                      child: ButtonBottom(
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.14,
+                        text: 'ادامه',
+                        isActive:
+                            _selectedHourStart != null || _selectedDay != null,
+                      ),
                     ),
                   ),
                   Positioned(

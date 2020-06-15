@@ -34,11 +34,19 @@ class MessageItem extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),
                   child: Text(
-                    EnArConvertor().replaceArNumber(Jalali.fromDateTime(
+                    EnArConvertor().replaceArNumber('${Jalali.fromDateTime(
                       DateTime.parse(
                         message.comment_date,
                       ),
-                    ).toString()),
+                    ).year}/${Jalali.fromDateTime(
+                      DateTime.parse(
+                        message.comment_date,
+                      ),
+                    ).month}/${Jalali.fromDateTime(
+                      DateTime.parse(
+                        message.comment_date,
+                      ),
+                    ).day}'),
                     style: TextStyle(
                       color: AppTheme.h1,
                       fontFamily: 'Iransans',
@@ -62,7 +70,7 @@ class MessageItem extends StatelessWidget {
                           child: Text(
                             message.subject,
                             style: TextStyle(
-                              color: AppTheme.primary,
+                              color: AppTheme.black,
                               fontFamily: 'Iransans',
                               fontSize: textScaleFactor * 14.0,
                             ),
