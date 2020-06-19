@@ -74,40 +74,45 @@ class _AddressScreenState extends State<AddressScreen> {
       body: Builder(builder: (context) {
         return Directionality(
           textDirection: TextDirection.rtl,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              child: Stack(
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              color: AppTheme.bg,
-                              border: Border.all(width: 5, color: AppTheme.bg)),
-                          height: deviceWidth * 0.4,
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                width: deviceWidth,
-                                child: FadeInImage(
-                                  placeholder:
-                                      AssetImage('assets/images/circle.gif'),
-                                  image: AssetImage(
-                                      'assets/images/address_page_header.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                              );
-                            },
-                          ),
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            color: AppTheme.white,
+                            border: Border.all(width: 5, color: AppTheme.bg)),
+                        height: deviceWidth * 0.4,
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: deviceWidth,
+                              child: FadeInImage(
+                                placeholder:
+                                    AssetImage('assets/images/circle.gif'),
+                                image: AssetImage(
+                                    'assets/images/address_page_header.png'),
+                                fit: BoxFit.contain,
+                              ),
+                            );
+                          },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: addressList.length != 0
-                              ? Container(
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: addressList.length != 0
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  color: AppTheme.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
                                   child: Consumer<Auth>(
                                     builder: (_, products, ch) =>
                                         ListView.builder(
@@ -139,89 +144,89 @@ class _AddressScreenState extends State<AddressScreen> {
                                       ),
                                     ),
                                   ),
-                                )
-                              : Container(
-                                  height: deviceHeight * 0.45,
-                                  child: Center(
-                                    child: Text('آدرسی اضافه نشده است'),
-                                  ),
                                 ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        )
-                      ],
-                    ),
+                              )
+                            : Container(
+                                height: deviceHeight * 0.45,
+                                child: Center(
+                                  child: Text('آدرسی اضافه نشده است'),
+                                ),
+                              ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      )
+                    ],
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () {
-                        SnackBar addToCartSnackBar = SnackBar(
-                          content: Text(
-                            'آدرسی انتخاب نشده است!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 14.0,
-                            ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: InkWell(
+                    onTap: () {
+                      SnackBar addToCartSnackBar = SnackBar(
+                        content: Text(
+                          'آدرسی انتخاب نشده است!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Iransans',
+                            fontSize: textScaleFactor * 14.0,
                           ),
-                          action: SnackBarAction(
-                            label: 'متوجه شدم',
-                            onPressed: () {
-                              // Some code to undo the change.
-                            },
-                          ),
-                        );
-                        if ( Provider.of<Auth>(context,
-                            listen: false)
-                            .selectedAddress ==
-                            null) {
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
-                        } else if (!isLogin) {
-                          _showLogindialog();
-                        } else {
-                          Navigator.of(context)
-                              .pushNamed(WasteRequestDateScreen.routeName);
-                        }
-                      },
+                        ),
+                        action: SnackBarAction(
+                          label: 'متوجه شدم',
+                          onPressed: () {
+                            // Some code to undo the change.
+                          },
+                        ),
+                      );
+                      if (Provider.of<Auth>(context, listen: false)
+                              .selectedAddress ==
+                          null) {
+                        Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                      } else if (!isLogin) {
+                        _showLogindialog();
+                      } else {
+                        Navigator.of(context)
+                            .pushNamed(WasteRequestDateScreen.routeName);
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
                       child: ButtonBottom(
                         width: deviceWidth * 0.9,
                         height: deviceWidth * 0.14,
                         text: 'ادامه',
-                        isActive: Provider.of<Auth>(context,
-                            listen: false)
-                            .selectedAddress !=
+                        isActive: Provider.of<Auth>(context, listen: false)
+                                .selectedAddress !=
                             null,
                       ),
                     ),
                   ),
-                  Positioned(
-                      top: 0,
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: _isLoading
-                              ? SpinKitFadingCircle(
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: index.isEven
-                                            ? Colors.grey
-                                            : Colors.grey,
-                                      ),
-                                    );
-                                  },
-                                )
-                              : Container()))
-                ],
-              ),
+                ),
+                Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: _isLoading
+                            ? SpinKitFadingCircle(
+                                itemBuilder: (BuildContext context, int index) {
+                                  return DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: index.isEven
+                                          ? Colors.grey
+                                          : Colors.grey,
+                                    ),
+                                  );
+                                },
+                              )
+                            : Container()))
+              ],
             ),
           ),
         );

@@ -66,20 +66,45 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
           context: context,
           builder: (context) => new AlertDialog(
             contentTextStyle: TextStyle(
-                color: AppTheme.bg,
+                color: AppTheme.grey,
                 fontFamily: 'Iransans',
                 fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
-            title: Text('خروج از اپلیکیشن'),
-            content: Text('آیا میخواهید از اپلیکیشن خارج شوید؟'),
+            title: Text(
+              'خروج از اپلیکیشن',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: AppTheme.black,
+                  fontFamily: 'Iransans',
+                  fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+            ),
+            content: Text(
+              'آیا میخواهید از اپلیکیشن خارج شوید؟',
+              style: TextStyle(
+                  color: AppTheme.grey,
+                  fontFamily: 'Iransans',
+                  fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+            ),
+            actionsPadding: EdgeInsets.all(10),
             actions: <Widget>[
-              GestureDetector(
-                onTap: () => Navigator.of(context).pop(false),
-                child: Text("نه"),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(false),
+                  child: Text(
+                    "نه",
+                    style: TextStyle(
+                        color: AppTheme.black,
+                        fontFamily: 'Iransans',
+                        fontSize:
+                            MediaQuery.of(context).textScaleFactor * 18.0),
+                  ),
+                ),
               ),
-              SizedBox(height: 16),
+              SizedBox(
+                height: 16,
+                width: MediaQuery.of(context).size.width * 0.3,
+              ),
               GestureDetector(
                 onTap: () {
-//                  Navigator.of(context).popUntil(ModalRoute.withName(LoginScreen.routeName));
                   Navigator.of(context).pop(true);
                 },
                 child: Text("بلی"),
@@ -125,53 +150,49 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
             ),
             child: MainDrawer(),
           ),
-          body: Stack(
-            children: <Widget>[
-              _pages[_selectedPageIndex]['page'],
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            elevation: 8,
-            selectedLabelStyle: TextStyle(
-                color: AppTheme.secondary,
-                fontFamily: 'Iransans',
-                fontSize: MediaQuery.of(context).textScaleFactor * 10.0),
-            onTap: _selectBNBItem,
-            backgroundColor: AppTheme.bg,
-            unselectedItemColor: Colors.grey,
-            selectedItemColor: AppTheme.primary,
-            currentIndex: _selectedPageIndex,
-            items: [
-              BottomNavigationBarItem(
-                backgroundColor: AppTheme.white,
-                icon: Icon(Icons.home),
-                title: Text(
-                  Strings.navHome,
-                ),
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: AppTheme.white,
-                icon: Icon(Icons.directions_car),
-                title: Text(
-                  Strings.navRequest,
-                ),
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: AppTheme.white,
-                icon: Icon(Icons.add_shopping_cart),
-                title: Text(
-                  Strings.navShop,
-                ),
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: AppTheme.white,
-                icon: Icon(Icons.account_circle),
-                title: Text(
-                  Strings.navProfile,
-                ),
-              ),
-            ],
-          ),
+          body: _pages[_selectedPageIndex]['page'],
+//          bottomNavigationBar: BottomNavigationBar(
+//            elevation: 8,
+//            selectedLabelStyle: TextStyle(
+//                color: AppTheme.secondary,
+//                fontFamily: 'Iransans',
+//                fontSize: MediaQuery.of(context).textScaleFactor * 10.0),
+//            onTap: _selectBNBItem,
+//            backgroundColor: AppTheme.bg,
+//            unselectedItemColor: Colors.grey,
+//            selectedItemColor: AppTheme.primary,
+//            currentIndex: _selectedPageIndex,
+//            items: [
+//              BottomNavigationBarItem(
+//                backgroundColor: AppTheme.white,
+//                icon: Icon(Icons.home),
+//                title: Text(
+//                  Strings.navHome,
+//                ),
+//              ),
+//              BottomNavigationBarItem(
+//                backgroundColor: AppTheme.white,
+//                icon: Icon(Icons.directions_car),
+//                title: Text(
+//                  Strings.navRequest,
+//                ),
+//              ),
+//              BottomNavigationBarItem(
+//                backgroundColor: AppTheme.white,
+//                icon: Icon(Icons.add_shopping_cart),
+//                title: Text(
+//                  Strings.navShop,
+//                ),
+//              ),
+//              BottomNavigationBarItem(
+//                backgroundColor: AppTheme.white,
+//                icon: Icon(Icons.account_circle),
+//                title: Text(
+//                  Strings.navProfile,
+//                ),
+//              ),
+//            ],
+//          ),
         ),
       ),
     );

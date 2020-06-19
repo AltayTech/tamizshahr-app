@@ -18,21 +18,23 @@ class CollectItemCollectsScreen extends StatelessWidget {
     final collect = Provider.of<RequestWasteItem>(context, listen: false);
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    return Container(
-      height: widthDevice * 0.35,
-      child: LayoutBuilder(
-        builder: (ctx, constraints) {
-          return InkWell(
-            onTap: () {
-              Provider.of<Products>(context, listen: false).item =
-                  Provider.of<Products>(context, listen: false).itemZero;
-              Navigator.of(context).pushNamed(
-                CollectDetailScreen.routeName,
-                arguments: collect.id,
-              );
-            },
-            child: Card(
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+        height: widthDevice * 0.29,
+        child: LayoutBuilder(
+          builder: (ctx, constraints) {
+            return InkWell(
+              onTap: () {
+                Provider.of<Products>(context, listen: false).item =
+                    Provider.of<Products>(context, listen: false).itemZero;
+                Navigator.of(context).pushNamed(
+                  CollectDetailScreen.routeName,
+                  arguments: collect.id,
+                );
+              },
               child: Container(
+                decoration: AppTheme.listItemBox,
                 height: constraints.maxHeight,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +76,6 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                   child: Text(
                                     collect.collect_hours,
                                     maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                       color: AppTheme.black,
@@ -96,7 +97,6 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                       EnArConvertor().replaceArNumber(
                                           collect.total_weight),
                                       maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: AppTheme.black,
@@ -108,8 +108,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       'کیلوگرم',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: AppTheme.grey,
@@ -128,7 +127,6 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                                   collect.total_price))
                                               .toString()),
                                       maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: AppTheme.black,
@@ -141,7 +139,6 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                     child: Text(
                                       ' تومان',
                                       maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: AppTheme.grey,
@@ -166,7 +163,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(15.0),
                             child: Icon(
                               Icons.timer,
-                              size: 50,
+                              size: 35,
                               color: AppTheme.primary,
                             ),
                           )),
@@ -190,9 +187,9 @@ class CollectItemCollectsScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

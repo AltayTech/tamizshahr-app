@@ -9,7 +9,6 @@ import 'package:tamizshahr/models/customer.dart';
 import 'package:tamizshahr/provider/auth.dart';
 import 'package:tamizshahr/provider/charities.dart';
 import 'package:tamizshahr/provider/customer_info.dart';
-import 'package:tamizshahr/widgets/buton_bottom.dart';
 import 'package:tamizshahr/widgets/custom_dialog_enter.dart';
 import 'package:tamizshahr/widgets/custom_dialog_pay_charity.dart';
 
@@ -164,31 +163,31 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
           buildContex = ctx;
           return Directionality(
             textDirection: TextDirection.rtl,
-            child: Align(
-                alignment: Alignment.center,
-                child: _isLoading
-                    ? SpinKitFadingCircle(
-                        itemBuilder: (BuildContext context, int index) {
-                          return DecoratedBox(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: index.isEven ? Colors.grey : Colors.grey,
-                            ),
-                          );
-                        },
-                      )
-                    : Stack(
-                  children: <Widget>[
-                    SingleChildScrollView(
+            child: _isLoading
+                ? Align(
+                    alignment: Alignment.center,
+                    child: SpinKitFadingCircle(
+                      itemBuilder: (BuildContext context, int index) {
+                        return DecoratedBox(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: index.isEven ? Colors.grey : Colors.grey,
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                : Container(
+                    height: deviceHeight * 0.9,
+                    child: SingleChildScrollView(
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Card(
                           child: Column(
                             children: <Widget>[
                               Container(
                                 width: double.infinity,
                                 height: deviceHeight * 0.3,
-
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Card(
@@ -213,10 +212,99 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
                                       color: AppTheme.black,
                                       fontFamily: 'Iransans',
                                       fontSize: textScaleFactor * 17.0,
-                                      fontWeight: FontWeight.w700
-                                  ),
+                                      fontWeight: FontWeight.w700),
                                   textAlign: TextAlign.right,
                                   textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        'مقدار کمک این ماه:',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            height: 2,
+                                            color: AppTheme.grey,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 13.0,
+                                            fontWeight: FontWeight.w700),
+                                        textAlign: TextAlign.right,
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        loadedCharity.money,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            height: 2,
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 14.0,
+                                            fontWeight: FontWeight.w700),
+                                        textAlign: TextAlign.right,
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          if (!isLogin) {
+                                            _showLogindialog();
+                                          } else {
+                                            _showPayCharitydialog(loadedCharity,
+                                                int.parse(customer.money));
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+//                                          boxShadow: [
+//                                            BoxShadow(
+//                                              color: Colors.grey,
+//                                              blurRadius: 1.0,
+//                                              // has the effect of softening the shadow
+//                                              spreadRadius: 1,
+//                                              // has the effect of extending the shadow
+//                                              offset: Offset(
+//                                                1.0, // horizontal, move right 10
+//                                                1.0, // vertical, move down 10
+//                                              ),
+//                                            )
+//                                          ],
+                                            color: AppTheme.primary,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
+                                              'کمک میکنم',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                height: 2,
+                                                color: AppTheme.white,
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
+                                              ),
+                                              textAlign: TextAlign.right,
+                                              textDirection: TextDirection.rtl,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                               Padding(
@@ -232,37 +320,15 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: deviceWidth * 0.1,)
+                              SizedBox(
+                                height: deviceWidth * 0.1,
+                              )
                             ],
                           ),
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 10,
-                      left: 10,
-                      right: 10,
-                      child: InkWell(
-                        onTap: () async {
-                          if (!isLogin) {
-                            _showLogindialog();
-                          } else {
-                            _showPayCharitydialog(loadedCharity,
-                                int.parse(customer.money));
-                          }
-                        },
-                        child:
-                        ButtonBottom(
-                          width: deviceWidth * 0.9,
-                          height: deviceWidth * 0.14,
-                          text: 'میخواهم کمک کنم',
-                          isActive:true,
-                        ),
-
-                      ),
-                    ),
-                  ],
-                )),
+                  ),
           );
         }),
         drawer: Theme(

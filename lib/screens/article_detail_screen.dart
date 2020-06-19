@@ -94,10 +94,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: <Widget>[
-                                  Icon(
-                                    Icons.verified_user,
-                                    color: AppTheme.grey,
-                                  ),
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Text(
@@ -145,6 +141,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   height: 2,
                                   color: AppTheme.black,
                                   fontFamily: 'Iransans',
+                                  fontWeight: FontWeight.w700,
                                   fontSize: textScaleFactor * 16.0,
                                 ),
                                 textAlign: TextAlign.right,

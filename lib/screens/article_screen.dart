@@ -46,9 +46,11 @@ class _ArticlesScreenState extends State<ArticlesScreen>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        page = page + 1;
-        Provider.of<Articles>(context, listen: false).sPage = page;
-        searchItems();
+        if (page < productsDetail.max_page) {
+          page = page + 1;
+          Provider.of<Articles>(context, listen: false).sPage = page;
+          searchItems();
+        }
       }
     });
 
@@ -174,6 +176,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                       child: Container(
+                        color: AppTheme.white,
                         height: deviceHeight * 0.05,
                         width: deviceWidth,
                         child: Row(
@@ -301,12 +304,10 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                           return Container(
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: deviceHeight * 0.0,
-                                  horizontal: 3),
+                                  vertical: deviceHeight * 0.0, horizontal: 3),
                               child: Wrap(
                                   alignment: WrapAlignment.start,
-                                  crossAxisAlignment:
-                                      WrapCrossAlignment.center,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
                                   direction: Axis.horizontal,
                                   children: <Widget>[
                                     Padding(
@@ -325,12 +326,36 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                           right: 4.0, left: 6),
                                       child: Text(
                                         productsDetail != null
-                                            ? EnArConvertor()
-                                                .replaceArNumber(
-                                                    productsDetail.total
-                                                        .toString())
+                                            ? EnArConvertor().replaceArNumber(
+                                                productsDetail.total.toString())
                                             : EnArConvertor()
                                                 .replaceArNumber('0'),
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 13.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      child: Text(
+                                        'از',
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 12.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 4.0, left: 6),
+                                      child: Text(
+                                        productsDetail != null
+                                            ? EnArConvertor().replaceArNumber(
+                                            productsDetail.total.toString())
+                                            : EnArConvertor()
+                                            .replaceArNumber('0'),
                                         style: TextStyle(
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,
@@ -351,8 +376,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                         controller: _scrollController,
                         scrollDirection: Axis.vertical,
                         itemCount: loadedProductstolist.length,
-                        itemBuilder: (ctx, i) =>
-                            ChangeNotifierProvider.value(
+                        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
                           value: loadedProductstolist[i],
                           child: ArticleItemArticlesScreen(),
                         ),

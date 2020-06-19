@@ -82,15 +82,15 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
     setState(() {
       _isLoading = true;
     });
-
-    getDate(3);
-    getMonthAndWeek();
     selectedAddress = Provider.of<Auth>(context, listen: false).selectedAddress;
 
     await Provider.of<Auth>(context, listen: false)
         .retrieveRegion(selectedAddress.region.term_id);
 
     selectedRegion = Provider.of<Auth>(context, listen: false).regionData;
+
+    getDate(3);
+    getMonthAndWeek();
 
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
     totalPrice = 0;
@@ -249,12 +249,15 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Expanded(
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 4, bottom: 8.0),
                                         child: Icon(
                                           Icons.restore_from_trash,
                                           color: Colors.red,
@@ -290,9 +293,11 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                 ),
                                 Expanded(
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 4, bottom: 2.0),
                                         child: Icon(
                                           Icons.monetization_on,
                                           color: AppTheme.primary,
@@ -338,9 +343,11 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                 ),
                                 Expanded(
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 4, bottom: 2.0),
                                         child: Icon(
                                           Icons.av_timer,
                                           color: Colors.blue,
@@ -404,9 +411,8 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                 'تاریخ جمع آوری',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  color: AppTheme.h1,
+                                                  color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
-                                                  fontWeight: FontWeight.w700,
                                                   fontSize:
                                                       textScaleFactor * 15.0,
                                                 ),
@@ -430,9 +436,6 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
                                                 changeCat(context);
                                               },
-//                                              highlightColor: Colors.red,
-//                                              hoverColor: Colors.red,
-                                              splashColor: AppTheme.grey,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(5.0),
@@ -556,9 +559,8 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                 'ساعت جمع آوری',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  color: AppTheme.h1,
+                                                  color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
-                                                  fontWeight: FontWeight.w700,
                                                   fontSize:
                                                       textScaleFactor * 15.0,
                                                 ),
@@ -570,121 +572,131 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                       Container(
                                         height: constraint.maxHeight * 0.7,
                                         width: constraint.maxWidth,
-                                        child: Consumer<Auth>(
-                                          builder: (_, data, ch) =>
-                                              ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: data
-                                                .regionData.collect_hour.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  _selectedHourStart = data
-                                                      .regionData
-                                                      .collect_hour[index]
-                                                      .start;
-                                                  _selectedHourend = data
-                                                      .regionData
-                                                      .collect_hour[index]
-                                                      .end;
+                                        child: _isLoading
+                                            ? Container()
+                                            : Consumer<Auth>(
+                                                builder: (_, data, ch) =>
+                                                    ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: data.regionData
+                                                      .collect_hour.length,
+                                                  shrinkWrap: true,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    return InkWell(
+                                                      onTap: () {
+                                                        _selectedHourStart =
+                                                            data
+                                                                .regionData
+                                                                .collect_hour[
+                                                                    index]
+                                                                .start;
+                                                        _selectedHourend = data
+                                                            .regionData
+                                                            .collect_hour[index]
+                                                            .end;
 
-                                                  changeCat(context);
-                                                },
-                                                splashColor: AppTheme.grey,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(5.0),
-                                                  child: Container(
-                                                    height:
-                                                        constraint.maxHeight *
-                                                            0.55,
-                                                    width: constraint.maxWidth *
-                                                        0.31,
-                                                    decoration:
-                                                        _selectedHourStart ==
-                                                                data
-                                                                    .regionData
-                                                                    .collect_hour[
-                                                                        index]
-                                                                    .start
-                                                            ? BoxDecoration(
-                                                                color: AppTheme
-                                                                    .primary,
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                      color:
-                                                                          AppTheme
-                                                                              .bg,
-                                                                      blurRadius:
-                                                                          4,
-                                                                      spreadRadius:
-                                                                          4)
-                                                                ],
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                  15,
-                                                                ),
-                                                              )
-                                                            : BoxDecoration(
-                                                                color: AppTheme
-                                                                    .white,
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                      color:
-                                                                          AppTheme
-                                                                              .bg,
-                                                                      blurRadius:
-                                                                          4,
-                                                                      spreadRadius:
-                                                                          4)
-                                                                ],
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                  15,
-                                                                ),
-                                                              ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        getHours(
-                                                            data
-                                                                .regionData
-                                                                .collect_hour[
-                                                                    index]
-                                                                .start,
-                                                            data
-                                                                .regionData
-                                                                .collect_hour[
-                                                                    index]
-                                                                .end),
-                                                        style: TextStyle(
-                                                          color: _selectedHourStart ==
+                                                        changeCat(context);
+                                                      },
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(5.0),
+                                                        child: Container(
+                                                          height: constraint
+                                                                  .maxHeight *
+                                                              0.55,
+                                                          width: constraint
+                                                                  .maxWidth *
+                                                              0.31,
+                                                          decoration: _selectedHourStart ==
                                                                   data
                                                                       .regionData
                                                                       .collect_hour[
                                                                           index]
                                                                       .start
-                                                              ? AppTheme.white
-                                                              : AppTheme.h1,
-                                                          fontFamily:
-                                                              'Iransans',
-                                                          fontSize:
-                                                              textScaleFactor *
-                                                                  22.0,
+                                                              ? BoxDecoration(
+                                                                  color: AppTheme
+                                                                      .primary,
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: AppTheme
+                                                                            .bg,
+                                                                        blurRadius:
+                                                                            4,
+                                                                        spreadRadius:
+                                                                            4)
+                                                                  ],
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                    15,
+                                                                  ),
+                                                                )
+                                                              : BoxDecoration(
+                                                                  color: AppTheme
+                                                                      .white,
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: AppTheme
+                                                                            .bg,
+                                                                        blurRadius:
+                                                                            4,
+                                                                        spreadRadius:
+                                                                            4)
+                                                                  ],
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                    15,
+                                                                  ),
+                                                                ),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only(top:8.0),
+                                                              child: Text(
+                                                                getHours(
+                                                                    data
+                                                                        .regionData
+                                                                        .collect_hour[
+                                                                            index]
+                                                                        .start,
+                                                                    data
+                                                                        .regionData
+                                                                        .collect_hour[
+                                                                            index]
+                                                                        .end),
+                                                                style: TextStyle(
+                                                                  color: _selectedHourStart ==
+                                                                          data
+                                                                              .regionData
+                                                                              .collect_hour[
+                                                                                  index]
+                                                                              .start
+                                                                      ? AppTheme
+                                                                          .white
+                                                                      : AppTheme
+                                                                          .h1,
+                                                                  fontFamily:
+                                                                      'Iransans',
+                                                                  fontSize:
+                                                                      textScaleFactor *
+                                                                          22.0,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
+                                                            ),
+                                                          ),
                                                         ),
-                                                        textAlign:
-                                                            TextAlign.center,
                                                       ),
-                                                    ),
-                                                  ),
+                                                    );
+                                                  },
                                                 ),
-                                              );
-                                            },
-                                          ),
-                                        ),
+                                              ),
                                       ),
                                     ],
                                   ),
@@ -733,7 +745,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                         height: deviceWidth * 0.14,
                         text: 'ادامه',
                         isActive:
-                            _selectedHourStart != null || _selectedDay != null,
+                            _selectedHourStart != null && _selectedDay != null,
                       ),
                     ),
                   ),

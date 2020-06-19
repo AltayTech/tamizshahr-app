@@ -48,7 +48,7 @@ class _ProfileViewState extends State<ProfileView> {
     double deviceSizeWidth = MediaQuery.of(context).size.width;
     double deviceSizeHeight = MediaQuery.of(context).size.height;
     double textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    double itemPaddingF = 0.05;
+    double itemPaddingF = 0.03;
     return !isLogin
         ? Container(
             child: Center(
@@ -352,20 +352,21 @@ class _ProfileViewState extends State<ProfileView> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                            left: 30,
-                                                            right: 30,
-                                                            bottom: 12,
+                                                            left: 40,
+                                                            right: 40,
+                                                            bottom: 0,
                                                             top: 5),
                                                     child: Image.asset(
                                                       'assets/images/main_page_request_ic.png',
                                                       fit: BoxFit.contain,
-                                                      color: AppTheme.primary,
                                                     ),
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    const EdgeInsets.only(
+
+                                                        bottom: 5,
+                                                        top: 0),
                                                     child: Text(
                                                       'درخواست ها',
                                                       textAlign:

@@ -63,39 +63,42 @@ class _AddressItemState extends State<AddressItem> {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
-      height: deviceWidth * 0.3,
-      width: deviceWidth,
-      decoration: BoxDecoration(
-        color: widget.isSelected ? AppTheme.accent : AppTheme.bg,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: LayoutBuilder(
-        builder: (_, constraints) => Card(
-          child: Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        flex: 1,
-                        child: Icon(
-                          Icons.place,
-                          color: Colors.purple,
-                          size: 40,
-                        )),
-                    Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+          height: deviceWidth * 0.24,
+          width: deviceWidth,
+          decoration: BoxDecoration(
+            color: widget.isSelected ? AppTheme.primary.withOpacity(0.1) : AppTheme.white,
+              border: Border.all(color: AppTheme.grey, width: 0.3),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: LayoutBuilder(
+            builder: (_, constraints) => Stack(
+              children: <Widget>[
+                Padding(
+                  padding:  EdgeInsets.only(top:deviceWidth * 0.05),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top:8.0),
+                            child: Icon(
+                              Icons.place,
+                              color: Colors.indigo,
+                              size: 30,
+                            ),
+                          )),
+                      Expanded(
+                        flex: 6,
                         child: Directionality(
                           textDirection: TextDirection.rtl,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(
-                                height: deviceWidth * 0.03,
-                              ),
+
                               Expanded(
                                 flex: 3,
                                 child: Align(
@@ -108,7 +111,6 @@ class _AddressItemState extends State<AddressItem> {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: AppTheme.black,
-                                      fontWeight: FontWeight.bold,
                                       fontFamily: 'Iransans',
                                       fontSize: textScaleFactor * 18,
                                     ),
@@ -123,7 +125,7 @@ class _AddressItemState extends State<AddressItem> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
-                                    color: AppTheme.primary,
+                                    color: AppTheme.grey,
                                     fontFamily: 'Iransans',
                                     fontSize: textScaleFactor * 15,
                                   ),
@@ -133,50 +135,50 @@ class _AddressItemState extends State<AddressItem> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Positioned(
-                top: 2,
-                left: 2,
-                child: Container(
-                  height: deviceWidth * 0.10,
-                  width: deviceWidth * 0.1,
-                  child: InkWell(
-                    onTap: () {
-                      return removeItem();
-                    },
-                    child: Icon(
-                      Icons.close,
-                      size: 20,
-                      color: Colors.black54,
+                Positioned(
+                  top: 2,
+                  left: 2,
+                  child: Container(
+                    height: deviceWidth * 0.10,
+                    width: deviceWidth * 0.1,
+                    child: InkWell(
+                      onTap: () {
+                        return removeItem();
+                      },
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.black54,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: _isLoading
-                          ? SpinKitFadingCircle(
-                              itemBuilder: (BuildContext context, int index) {
-                                return DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: index.isEven
-                                        ? Colors.grey
-                                        : Colors.grey,
-                                  ),
-                                );
-                              },
-                            )
-                          : Container()))
-            ],
+                Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: _isLoading
+                            ? SpinKitFadingCircle(
+                                itemBuilder: (BuildContext context, int index) {
+                                  return DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: index.isEven
+                                          ? Colors.grey
+                                          : Colors.grey,
+                                    ),
+                                  );
+                                },
+                              )
+                            : Container()))
+              ],
+            ),
           ),
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import '../models/shop.dart';
-import '../provider/customer_info.dart';
 import 'package:provider/provider.dart';
 
+import '../models/shop.dart';
 import '../provider/app_theme.dart';
+import '../provider/customer_info.dart';
 import '../widgets/main_drawer.dart';
 
 class GuideScreen extends StatefulWidget {
@@ -24,7 +24,8 @@ class _GuideScreenState extends State<GuideScreen> {
 
   List<String> aboutInfoContent = [];
 
-  bool _isLoading=false;
+  bool _isLoading = false;
+
 
   @override
   void didChangeDependencies() async {
@@ -45,7 +46,6 @@ class _GuideScreenState extends State<GuideScreen> {
         'سوالات متداول',
         'شیوه پرداخت',
       ];
-
     }
     _isInit = false;
 
@@ -59,11 +59,11 @@ class _GuideScreenState extends State<GuideScreen> {
     await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
     shopData = Provider.of<CustomerInfo>(context, listen: false).shop;
 
-
     setState(() {
       _isLoading = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
@@ -72,6 +72,7 @@ class _GuideScreenState extends State<GuideScreen> {
     shopData = Provider.of<CustomerInfo>(context).shop;
 
     return Scaffold(
+      backgroundColor: AppTheme.white,
       appBar: AppBar(
         title: Text(
           'راهنما',
@@ -86,89 +87,99 @@ class _GuideScreenState extends State<GuideScreen> {
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
       ),
-      body:_isLoading
+      body: _isLoading
           ? SpinKitFadingCircle(
-        itemBuilder: (BuildContext context, int index) {
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: index.isEven ? Colors.grey : Colors.grey,
-            ),
-          );
-        },
-      ):  Directionality(
-        textDirection: TextDirection.rtl,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      width: deviceWidth * 0.3,
-                      height: deviceWidth * 0.3,
-                      color: AppTheme.bg,
-                      child: FadeInImage(
-                        placeholder: AssetImage('assets/images/circle.gif'),
-                        image: NetworkImage(shopData.logo.sizes.medium),
-                        fit: BoxFit.contain,
-                        height: deviceWidth * 0.5,
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Text(
-                      shopData.name,
-                      style: TextStyle(
-                        color: AppTheme.primary,
-                        fontFamily: 'BFarnaz',
-                        fontSize: textScaleFactor * 24.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+              itemBuilder: (BuildContext context, int index) {
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index.isEven ? Colors.grey : Colors.grey,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(14.0),
-                    child: Text(
-                      shopData.subject,
-                      style: TextStyle(
-                        color: AppTheme.primary,
-                        fontFamily: 'Iransans',
-                        fontSize: textScaleFactor * 15.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Container(
-                    height: deviceHeight * 0.7,
-                    width: deviceWidth,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      primary: false,
-                      itemCount: aboutInfotitle.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(1.0),
-                          child: Card(
-                            child: ExpansionTile(
-                              title: Text(aboutInfotitle[index]),
-                              children: <Widget>[
-                                HtmlWidget(
-                                  aboutInfoContent[index],
-                                ),
-                              ],
+                );
+              },
+            )
+          : Directionality(
+              textDirection: TextDirection.rtl,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                            width: deviceWidth * 0.3,
+                            height: deviceWidth * 0.3,
+                            color: AppTheme.bg,
+                            child: FadeInImage(
+                              placeholder:
+                                  AssetImage('assets/images/circle.gif'),
+                              image: NetworkImage(shopData.logo.sizes.medium),
+                              fit: BoxFit.contain,
+                              height: deviceWidth * 0.5,
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Text(
+                            shopData.name,
+                            style: TextStyle(
+                              color: AppTheme.h1,
+                              fontFamily: 'BFarnaz',
+                              fontSize: textScaleFactor * 24.0,
                             ),
+                            textAlign: TextAlign.center,
                           ),
-                        );
-                      },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(14.0),
+                          child: Text(
+                            shopData.subject,
+                            style: TextStyle(
+                              color: AppTheme.grey,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 15.0,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Container(
+                          height: deviceHeight * 0.7,
+                          width: deviceWidth,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            primary: false,
+                            itemCount: aboutInfotitle.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Card(
+                                  child: ExpansionTile(
+
+                                    title: Text(
+                                      aboutInfotitle[index],
+                                      style: TextStyle(
+                                        color: AppTheme.black,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 15.0,
+                                      ),
+                                    ),
+                                    children: <Widget>[
+                                      HtmlWidget(
+                                        aboutInfoContent[index],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
       endDrawer: Theme(
         data: Theme.of(context).copyWith(
           // Set the transparency here

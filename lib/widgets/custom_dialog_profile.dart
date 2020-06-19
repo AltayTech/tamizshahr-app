@@ -82,7 +82,7 @@ class CustomDialogProfile extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width * 0.4,
                       decoration: BoxDecoration(
-                        color:AppTheme.secondary,
+                        color:AppTheme.primary,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Center(

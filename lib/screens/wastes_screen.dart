@@ -64,95 +64,99 @@ class _WastesScreenState extends State<WastesScreen>
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        backgroundColor: Color(0xffF9F9F9),
+        backgroundColor: AppTheme.bg,
         appBar: AppBar(
           backgroundColor: AppTheme.appBarColor,
           iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  height: deviceHeight * 0.9,
-                  child: GridView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: loadedWastes.length,
-                    itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                      value: loadedWastes[i],
-                      child: InkWell(
-                          onTap: () {
-                            wasteCartItems =
-                                Provider.of<Wastes>(context, listen: false)
-                                    .wasteCartItems;
-                            wasteCartItemsId =
-                                Provider.of<Wastes>(context, listen: false)
-                                    .wasteCartItemsId;
+        body: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Container(
+            color: AppTheme.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: deviceHeight * 0.03, horizontal: deviceWidth * 0.03),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    height: deviceHeight * 0.9,
+                    child: GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: loadedWastes.length,
+                      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                        value: loadedWastes[i],
+                        child: InkWell(
+                            onTap: () {
+                              wasteCartItems =
+                                  Provider.of<Wastes>(context, listen: false)
+                                      .wasteCartItems;
+                              wasteCartItemsId =
+                                  Provider.of<Wastes>(context, listen: false)
+                                      .wasteCartItemsId;
 
-                            if (wasteCartItemsId.contains(loadedWastes[i].id)) {
-                              Provider.of<Wastes>(context, listen: false)
-                                  .removeWasteCart(loadedWastes[i].id);
-                            } else {
-                              Provider.of<Wastes>(context, listen: false)
-                                  .addWasteCart(loadedWastes[i], 1);
-                            }
-                            wasteCartItemsId =
+                              if (wasteCartItemsId.contains(loadedWastes[i].id)) {
                                 Provider.of<Wastes>(context, listen: false)
-                                    .wasteCartItemsId;
+                                    .removeWasteCart(loadedWastes[i].id);
+                              } else {
+                                Provider.of<Wastes>(context, listen: false)
+                                    .addWasteCart(loadedWastes[i], 1);
+                              }
+                              wasteCartItemsId =
+                                  Provider.of<Wastes>(context, listen: false)
+                                      .wasteCartItemsId;
 
-                            setState(() {});
-                          },
-                          child: WasteItemWastesScreen(
-                            waste: loadedWastes[i],
-                            isSelected:
-                                wasteCartItemsId.contains(loadedWastes[i].id),
-                          )),
-                    ),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: _isLoading
-                        ? SpinKitFadingCircle(
-                            itemBuilder: (BuildContext context, int index) {
-                              return DecoratedBox(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:
-                                      index.isEven ? Colors.grey : Colors.grey,
-                                ),
-                              );
+                              setState(() {});
                             },
-                          )
-                        : Container(
-                            child: loadedWastes.isEmpty
-                                ? Center(
-                                    child: Text(
-                                    'پسماندی در دسترس نیست',
-                                    style: TextStyle(
-                                      fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 15.0,
-                                    ),
-                                  ))
-                                : Container(),
-                          ),
+                            child: WasteItemWastesScreen(
+                              waste: loadedWastes[i],
+                              isSelected:
+                                  wasteCartItemsId.contains(loadedWastes[i].id),
+                            )),
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 4,
+                        mainAxisSpacing: 4,
+                      ),
+                    ),
                   ),
-                )
-              ],
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: _isLoading
+                          ? SpinKitFadingCircle(
+                              itemBuilder: (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                        index.isEven ? Colors.grey : Colors.grey,
+                                  ),
+                                );
+                              },
+                            )
+                          : Container(
+                              child: loadedWastes.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                      'پسماندی در دسترس نیست',
+                                      style: TextStyle(
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 15.0,
+                                      ),
+                                    ))
+                                  : Container(),
+                            ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

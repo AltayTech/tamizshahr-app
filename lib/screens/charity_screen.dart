@@ -39,10 +39,12 @@ class _CharityScreenState extends State<CharityScreen>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        page = page + 1;
-        Provider.of<Charities>(context, listen: false).sPage = page;
+        if (page < productsDetail.max_page) {
+          page = page + 1;
+          Provider.of<Charities>(context, listen: false).sPage = page;
 
-        searchItems();
+          searchItems();
+        }
       }
     });
 
@@ -198,9 +200,35 @@ class _CharityScreenState extends State<CharityScreen>
                                       child: Text(
                                         productsDetail != null
                                             ? EnArConvertor().replaceArNumber(
-                                                productsDetail.total.toString())
+                                            loadedProductstolist.length.toString())
                                             : EnArConvertor()
-                                                .replaceArNumber('0'),
+                                            .replaceArNumber('0'),
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 13.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 3, vertical: 5),
+                                      child: Text(
+                                        'از',
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 12.0,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 4.0, left: 6),
+                                      child: Text(
+                                        productsDetail != null
+                                            ? EnArConvertor().replaceArNumber(
+                                            productsDetail.total.toString())
+                                            : EnArConvertor()
+                                            .replaceArNumber('0'),
                                         style: TextStyle(
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,

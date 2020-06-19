@@ -39,6 +39,7 @@ class CustomerInfo with ChangeNotifier {
       postcode: '',
       phone: '',
     ),
+    money: '0',
   );
   Customer _customer = _customer_zero;
   String _token;

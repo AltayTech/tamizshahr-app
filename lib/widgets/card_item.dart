@@ -4,9 +4,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../provider/app_theme.dart';
 import '../models/product_cart.dart';
 import '../provider/Products.dart';
+import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../screens/product_detail_screen.dart';
 import 'en_to_ar_number_convertor.dart';
@@ -49,10 +49,9 @@ class _CardItemState extends State<CardItem> {
     setState(() {
       _isLoading = true;
     });
-    await Provider.of<Products>(context, listen: false).removeShopCart(
-        widget.shoppItem.id);
+    await Provider.of<Products>(context, listen: false)
+        .removeShopCart(widget.shoppItem.id);
     widget.callFunction();
-
 
     setState(() {
       _isLoading = false;
@@ -69,13 +68,15 @@ class _CardItemState extends State<CardItem> {
     var currencyFormat = intl.NumberFormat.decimalPattern();
     isLogin = Provider.of<Auth>(context).isAuth;
 
-    return LayoutBuilder(
-      builder: (_, constraints) => Card(
-        child: Container(
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: LayoutBuilder(
+        builder: (_, constraints) => Container(
           decoration: BoxDecoration(
-              border:
-                  Border(bottom: BorderSide(width: 0.3, color: Colors.grey))),
-          height: deviceWidth * 0.45,
+            color: AppTheme.white,
+             border: Border.all(color: AppTheme.grey, width: 0.3)
+          ),
+          height: deviceWidth * 0.35,
           child: InkWell(
             onTap: () {
               Provider.of<Products>(context).item =
@@ -94,20 +95,24 @@ class _CardItemState extends State<CardItem> {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          flex: 3,
-                          child: Container(
-                            child: FadeInImage(
-                              placeholder: AssetImage('assets/images/logo.jpg'),
-                              image: NetworkImage(
-                                  widget.shoppItem.featured_media_url != null
-                                      ? widget.shoppItem.featured_media_url
-                                      : ''),
-                              fit: BoxFit.cover,
+                          flex: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: double.infinity,
+                              child: FadeInImage(
+                                placeholder: AssetImage('assets/images/logo.jpg'),
+                                image: NetworkImage(
+                                    widget.shoppItem.featured_media_url != null
+                                        ? widget.shoppItem.featured_media_url
+                                        : ''),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
                         Expanded(
-                          flex: 6,
+                          flex: 10,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -125,9 +130,9 @@ class _CardItemState extends State<CardItem> {
                                           : 'ندارد',
                                       style: TextStyle(
                                         color: AppTheme.black,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w600,
                                         fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 12,
+                                        fontSize: textScaleFactor * 15,
                                       ),
                                     ),
                                   ),
@@ -184,13 +189,11 @@ class _CardItemState extends State<CardItem> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Container(
                                         height: constraints.maxHeight * 0.23,
                                         width: constraints.maxWidth * 0.23,
-
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -200,8 +203,7 @@ class _CardItemState extends State<CardItem> {
                                             Expanded(
                                                 child: InkWell(
                                               onTap: () async {
-                                                productCount =
-                                                    productCount + 1;
+                                                productCount = productCount + 1;
 
                                                 await Provider.of<Products>(
                                                         context,
@@ -216,16 +218,14 @@ class _CardItemState extends State<CardItem> {
                                                   widget.callFunction();
                                                   setState(() {
                                                     _isLoading = false;
-                                                    print(_isLoading
-                                                        .toString());
+                                                    print(_isLoading.toString());
                                                   });
                                                 });
                                               },
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
+                                                        BorderRadius.circular(2),
                                                     color: AppTheme.secondary,
                                                   ),
                                                   child: Icon(
@@ -237,15 +237,13 @@ class _CardItemState extends State<CardItem> {
                                               child: Text(
                                                 EnArConvertor()
                                                     .replaceArNumber(widget
-                                                        .shoppItem
-                                                        .productCount
+                                                        .shoppItem.productCount
                                                         .toString())
                                                     .toString(),
                                                 style: TextStyle(
                                                   color: AppTheme.black,
                                                   fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 14,
+                                                  fontSize: textScaleFactor * 14,
                                                 ),
                                                 textAlign: TextAlign.center,
                                               ),
@@ -253,8 +251,7 @@ class _CardItemState extends State<CardItem> {
                                             Expanded(
                                                 child: InkWell(
                                               onTap: () {
-                                                productCount =
-                                                    productCount - 1;
+                                                productCount = productCount - 1;
                                                 print('productCount' +
                                                     productCount.toString());
 
@@ -271,16 +268,14 @@ class _CardItemState extends State<CardItem> {
 
                                                   setState(() {
                                                     _isLoading = false;
-                                                    print(_isLoading
-                                                        .toString());
+                                                    print(_isLoading.toString());
                                                   });
                                                 });
                                               },
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
+                                                        BorderRadius.circular(2),
                                                     color: AppTheme.secondary,
                                                   ),
                                                   child: Icon(
@@ -312,9 +307,9 @@ class _CardItemState extends State<CardItem> {
                                                   : EnArConvertor()
                                                       .replaceArNumber('0'),
                                               style: TextStyle(
-                                                color: AppTheme.primary,
+                                                color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 15,
+                                                fontSize: textScaleFactor * 17,
                                               ),
                                             ),
                                             Text(

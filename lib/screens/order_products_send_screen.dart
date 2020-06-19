@@ -14,6 +14,7 @@ import '../provider/app_theme.dart';
 import '../provider/customer_info.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
+import 'navigation_bottom_screen.dart';
 
 class OrderProductsSendScreen extends StatefulWidget {
   static const routeName = '/orderProductsSendScreen';
@@ -334,25 +335,32 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Container(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                'مبلغ قابل پرداخت (تومان): ',
-                                style: TextStyle(
-                                  color: AppTheme.grey,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 14,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'مبلغ قابل پرداخت (تومان): ',
+                                  style: TextStyle(
+                                    color: AppTheme.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 14,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                EnArConvertor().replaceArNumber(currencyFormat
-                                    .format(totalPrice)
-                                    .toString()),
-                                style: TextStyle(
-                                  color: AppTheme.primary,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 20,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  EnArConvertor().replaceArNumber(currencyFormat
+                                      .format(totalPrice)
+                                      .toString()),
+                                  style: TextStyle(
+                                    color: AppTheme.primary,
+                                    fontFamily: 'Iransans',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: textScaleFactor * 22,
+                                  ),
                                 ),
                               ),
                             ],
@@ -389,9 +397,16 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                       );
                       Scaffold.of(context).showSnackBar(addToCartSnackBar);
                     } else {
-                      await createRequest(context).then((value) =>
-                          sendRequest(context)
-                              .then((value) => _showSendOrderdialog()));
+                      await createRequest(context).then(
+                        (value) => sendRequest(context).then(
+                          (value) {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                NavigationBottomScreen.routeName,
+                                (Route<dynamic> route) => false);
+                            _showSendOrderdialog();
+                          },
+                        ),
+                      );
                     }
                   },
                   child: Padding(

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/home_screen.dart';
-import '../screens/navigation_bottom_screen.dart';
 
 import '../provider/app_theme.dart';
 
@@ -30,7 +28,8 @@ class CustomDialogSendRequest extends StatelessWidget {
   dialogContent(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(height: MediaQuery.of(context).size.height*0.4,
+        Container(
+          height: MediaQuery.of(context).size.height * 0.4,
           padding: EdgeInsets.only(
             top: Consts.avatarRadius + Consts.padding,
             bottom: Consts.padding,
@@ -62,18 +61,22 @@ class CustomDialogSendRequest extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Icon(Icons.check_box,
-                  color: AppTheme.primary,
-                  size: 80,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    child: Image.asset(
+                      'assets/images/send_popup_tick.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
               ),
-
               Text(
                 description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppTheme.h1,
-                  fontSize: MediaQuery.of(context).textScaleFactor * 18,
+                  fontSize: MediaQuery.of(context).textScaleFactor * 15,
                 ),
               ),
               SizedBox(height: 24.0),
@@ -81,8 +84,12 @@ class CustomDialogSendRequest extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: InkWell(
                   onTap: () {
-                    return Navigator.of(context)
-                        .popAndPushNamed(NavigationBottomScreen.routeName);
+                    return Navigator.of(context).pop();
+
+//                      Navigator.of(context)
+//                          .pushNamedAndRemoveUntil(NavigationBottomScreen.routeName, (Route<dynamic> route) => false);
+//                      Navigator.of(context)
+//                        .popAndPushNamed(NavigationBottomScreen.routeName);
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.06,
@@ -94,11 +101,11 @@ class CustomDialogSendRequest extends StatelessWidget {
                     child: Center(
                       child: Text(
                         buttonText,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Iransans',
-                          fontSize:
-                              MediaQuery.of(context).textScaleFactor * 20,
+                          fontSize: MediaQuery.of(context).textScaleFactor * 20,
                         ),
                       ),
                     ),

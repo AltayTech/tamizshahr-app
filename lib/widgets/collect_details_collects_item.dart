@@ -59,177 +59,139 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    return Container(
-      height: deviceWidth * 0.30,
-      width: deviceWidth,
-      child: LayoutBuilder(
-        builder: (_, constraints) => Card(
-          child: Stack(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: deviceWidth * 0.30,
+        width: deviceWidth,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: AppTheme.white,
+            border: Border.all(color: AppTheme.grey, width: 0.3)),
+        child: LayoutBuilder(
+          builder: (_, constraints) => Stack(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: <Widget>[
                     Expanded(
-                      flex: 6,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: deviceWidth * 0.05,
+                      flex: 3,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            widget.collectItem.pasmand.post_title != null
+                                ? widget.collectItem.pasmand.post_title
+                                : 'ندارد',
+                            style: TextStyle(
+                              color: AppTheme.black,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 16,
                             ),
-                            Expanded(
-                              flex: 3,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 5,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        widget.collectItem.pasmand.post_title !=
-                                                null
-                                            ? widget
-                                                .collectItem.pasmand.post_title
-                                            : 'ندارد',
-                                        style: TextStyle(
-                                          color: AppTheme.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 18,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Container(
-                                    height: constraints.maxHeight * 0.23,
-                                    width: constraints.maxWidth * 0.23,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(
-                                          'وزن کل: ',
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 12,
-                                          ),
-                                        ),
-                                        Text(
-                                          EnArConvertor()
-                                              .replaceArNumber(widget
-                                                  .collectItem.weight
-                                                  .toString())
-                                              .toString(),
-                                          style: TextStyle(
-                                            color: AppTheme.primary,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 15,
-                                          ),
-                                        ),
-                                        Text(
-                                          '  کیلوگرم ',
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 12,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                          ),
+                          Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                'وزن کل: ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'Iransans',
+                                  fontSize: textScaleFactor * 12,
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                        'هر کیلو: ',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                      Text(
-                                        widget.collectItem.price.length != null
-                                            ? EnArConvertor().replaceArNumber(
-                                                currencyFormat
-                                                    .format(double.parse(widget
-                                                        .collectItem.price))
-                                                    .toString())
-                                            : EnArConvertor()
-                                                .replaceArNumber('0'),
-                                        style: TextStyle(
-                                          color: AppTheme.primary,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
-                                        ),
-                                      ),
-                                      Text(
-                                        '  تومان ',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                        'قیمت کل: ',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                      Text(
-                                        widget.collectItem.price != null
-                                            ? EnArConvertor().replaceArNumber(
-                                                currencyFormat.format(
-                                                    double.parse(widget
-                                                        .collectItem.price)))
-                                            : EnArConvertor()
-                                                .replaceArNumber('0'),
-                                        style: TextStyle(
-                                          color: AppTheme.primary,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15,
-                                        ),
-                                      ),
-                                      Text(
-                                        '  تومان ',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              Text(
+                                EnArConvertor()
+                                    .replaceArNumber(
+                                        widget.collectItem.weight.toString())
+                                    .toString(),
+                                style: TextStyle(
+                                  color: AppTheme.black,
+                                  fontFamily: 'Iransans',
+                                  fontSize: textScaleFactor * 16,
+                                ),
                               ),
+                              Text(
+                                '  کیلوگرم ',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'Iransans',
+                                  fontSize: textScaleFactor * 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'هر کیلو: ',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 12,
                             ),
-                          ],
-                        ),
+                          ),
+                          Text(
+                            widget.collectItem.price.length != null
+                                ? EnArConvertor().replaceArNumber(currencyFormat
+                                    .format(
+                                        double.parse(widget.collectItem.price))
+                                    .toString())
+                                : EnArConvertor().replaceArNumber('0'),
+                            style: TextStyle(
+                              color: AppTheme.black,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 16,
+                            ),
+                          ),
+                          Text(
+                            '  تومان ',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 12,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            'قیمت کل: ',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 12,
+                            ),
+                          ),
+                          Text(
+                            widget.collectItem.price != null
+                                ? EnArConvertor().replaceArNumber(
+                                    currencyFormat.format(
+                                        double.parse(widget.collectItem.price)))
+                                : EnArConvertor().replaceArNumber('0'),
+                            style: TextStyle(
+                              color: AppTheme.black,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 18,
+                            ),
+                          ),
+                          Text(
+                            '  تومان ',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 12,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

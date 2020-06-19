@@ -22,6 +22,7 @@ import '../widgets/custom_dialog_profile.dart';
 import '../widgets/custom_dialog_send_request.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
+import 'navigation_bottom_screen.dart';
 
 class WasteRequestSendScreen extends StatefulWidget {
   static const routeName = '/waste_request_send_screen';
@@ -118,16 +119,15 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
 
     getDate(3);
     getMonthAndWeek();
+    selectedRegion = Provider.of<Auth>(context, listen: false).regionData;
+    selectedHours = Provider.of<Wastes>(context, listen: false).selectedHours;
+    selectedDay = Provider.of<Wastes>(context, listen: false).selectedDay;
 
     selectedAddress = Provider.of<Auth>(context, listen: false).selectedAddress;
 
     await Provider.of<Auth>(context, listen: false)
         .retrieveRegion(selectedAddress.region.term_id);
     await Provider.of<Auth>(context, listen: false).checkCompleted();
-
-    selectedRegion = Provider.of<Auth>(context, listen: false).regionData;
-    selectedHours = Provider.of<Wastes>(context, listen: false).selectedHours;
-    selectedDay = Provider.of<Wastes>(context, listen: false).selectedDay;
 
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
     totalPrice = 0;
@@ -470,169 +470,115 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: Container(
-                            height: deviceHeight * 0.15,
-                            width: deviceWidth,
-                            child: LayoutBuilder(
-                              builder: (_, constraint) => Column(
-                                children: <Widget>[
-                                  Expanded(
+                        Container(
+                          width: deviceWidth * 0.9,
+                          decoration: BoxDecoration(
+                              color: AppTheme.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border:
+                                  Border.all(color: Colors.grey, width: 0.2)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.date_range,
-                                          color: AppTheme.grey,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Icon(
+                                            Icons.date_range,
+                                            color: AppTheme.grey,
+                                            size: 30,
+                                          ),
                                         ),
-                                        Expanded(
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             'تاریخ جمع آوری',
                                             textAlign: TextAlign.center,
+                                            maxLines: 1,
                                             style: TextStyle(
-                                              color: AppTheme.h1,
+                                              color: AppTheme.grey,
                                               fontFamily: 'Iransans',
                                               fontSize: textScaleFactor * 15.0,
                                             ),
                                           ),
                                         ),
+                                        Spacer(),
+                                        Text(
+                                          weekDays[selectedDay.weekDay - 1],
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          selectedDay.day.toString() +
+                                              ' ' +
+                                              months[selectedDay.month - 1],
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 15.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    height: constraint.maxHeight * 0.6,
-                                    width: constraint.maxWidth * 0.3,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Container(
-                                        height: constraint.maxHeight * 0.55,
-                                        width: constraint.maxWidth * 0.3,
-                                        decoration: BoxDecoration(
-                                          color: AppTheme.primary,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppTheme.bg,
-                                                blurRadius: 4,
-                                                spreadRadius: 4)
-                                          ],
-                                          borderRadius: BorderRadius.circular(
-                                            15,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Icon(
+                                            Icons.access_time,
+                                            color: AppTheme.grey,
+                                            size: 30,
                                           ),
                                         ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-
-
-
-                                            children: <Widget>[
-                                              Text(
-                                                weekDays[
-                                                    selectedDay.weekDay - 1],
-                                                style: TextStyle(
-                                                  color: AppTheme.white,
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 18.0,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              Text(
-                                                selectedDay.day.toString() +
-                                                    ' ' +
-                                                    months[
-                                                        selectedDay.month - 1],
-                                                style: TextStyle(
-                                                  color: AppTheme.white,
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 15.0,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            'ساعت جمع آوری',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: AppTheme.grey,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 15.0,
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        Spacer(),
+                                        Center(
+                                          child: Text(
+                                            selectedHours,
+                                            style: TextStyle(
+                                              color: AppTheme.black,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 20.0,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Container(
-                                height: deviceHeight * 0.15,
-                                width: deviceWidth,
-                                child: LayoutBuilder(
-                                  builder: (_, constraint) => Column(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.access_time,
-                                              color: AppTheme.grey,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                'ساعت جمع آوری',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: AppTheme.h1,
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 15.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        height: constraint.maxHeight * 0.6,
-                                        width: constraint.maxWidth * 0.3,
-                                        child: Consumer<Auth>(
-                                          builder: (_, data, ch) => Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Container(
-                                              height:
-                                                  constraint.maxHeight * 0.55,
-                                              width: constraint.maxWidth * 0.3,
-                                              decoration: BoxDecoration(
-                                                color: AppTheme.primary,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: AppTheme.bg,
-                                                      blurRadius: 4,
-                                                      spreadRadius: 4)
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                  15,
-                                                ),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  selectedHours,
-                                                  style: TextStyle(
-                                                    color: AppTheme.white,
-                                                    fontFamily: 'Iransans',
-                                                    fontSize:
-                                                        textScaleFactor * 20.0,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ))),
                         SizedBox(
                           height: 50,
                         )
@@ -668,8 +614,13 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                         } else {
                           if (isCompleted) {
                             await createRequest(context);
-                            await sendRequest(context, isLogin)
-                                .then((value) => _showSenddialog());
+
+                            await sendRequest(context, isLogin).then((value) {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  NavigationBottomScreen.routeName,
+                                  (Route<dynamic> route) => false);
+                              _showSenddialog();
+                            });
                           } else {
                             _showCompletedialog();
                           }

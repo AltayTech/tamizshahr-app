@@ -17,15 +17,15 @@ class WasteItemWastesScreen extends StatelessWidget {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(1.0),
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           return Container(
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isSelected ? AppTheme.secondary : AppTheme.bg,
+              shape: BoxShape.rectangle,
+              color: isSelected ? AppTheme.white : AppTheme.white,
               border: isSelected
-                  ? Border.all(width: 2, color: AppTheme.primary)
+                  ? Border.all(width: 3, color: AppTheme.primary)
                   : Border.all(width: 0.3, color: AppTheme.grey),
             ),
             height: constraints.maxHeight,

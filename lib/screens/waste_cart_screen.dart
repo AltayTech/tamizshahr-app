@@ -156,6 +156,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
     bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
     bool isCompleted = Provider.of<Auth>(context, listen: false).isCompleted;
     return Scaffold(
+      backgroundColor: AppTheme.bg,
       appBar: AppBar(
         title: Text(
           'انتخاب پسماند ',
@@ -318,23 +319,30 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                                         .wasteCartItems.length !=
                                     0
                                 ? Container(
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: value.wasteCartItems.length,
-                                      itemBuilder: (ctx, i) => WasteCartItem(
-                                        wasteItem: value.wasteCartItems[i],
-                                        function: getWasteItems,
+                                    decoration: BoxDecoration(
+                                        color: AppTheme.white,
+                                        borderRadius: BorderRadius.circular(2),
+                                     ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: value.wasteCartItems.length,
+                                        itemBuilder: (ctx, i) => WasteCartItem(
+                                          wasteItem: value.wasteCartItems[i],
+                                          function: getWasteItems,
+                                        ),
                                       ),
                                     ),
                                   )
                                 : Container(
-                              height: deviceHeight*0.6,
-                                  child: Center(
+                                    height: deviceHeight * 0.6,
+                                    child: Center(
                                       child: Text('پسماندی اضافه نشده است'),
                                     ),
-                                ),
+                                  ),
                           ),
                         ),
                         SizedBox(

@@ -17,7 +17,7 @@ class ArticleItemArticlesScreen extends StatelessWidget {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
-      height: widthDevice * 0.45,
+      height: widthDevice * 0.31,
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           return InkWell(
@@ -39,14 +39,11 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: FadeInImage(
-                                placeholder:
-                                    AssetImage('assets/images/circle.gif'),
-                                image: NetworkImage(article.featured_image),
-                                fit: BoxFit.cover,
-                              ),
+                            child: FadeInImage(
+                              placeholder:
+                                  AssetImage('assets/images/circle.gif'),
+                              image: NetworkImage(article.featured_image),
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ],
@@ -69,17 +66,17 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: AppTheme.black,
                                 fontFamily: 'Iransans',
-                                fontSize: textScaleFactor * 16.0,
+                                fontSize: textScaleFactor * 15.0,
                               ),
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
+                              Spacer(),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 10,
-                                ),
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 10),
                                 child: Wrap(
                                   direction: Axis.vertical,
                                   crossAxisAlignment: WrapCrossAlignment.center,
@@ -88,7 +85,7 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                                       article.category[0].name,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: AppTheme.primary,
+                                        color: AppTheme.black.withOpacity(0.5),
                                         fontFamily: 'Iransans',
                                         fontSize: textScaleFactor * 13.0,
                                       ),
@@ -96,7 +93,6 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Spacer(),
                             ],
                           ),
                         ],

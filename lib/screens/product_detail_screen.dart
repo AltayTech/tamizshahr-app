@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../models/product.dart';
 import '../provider/Products.dart';
@@ -88,9 +89,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return isExist;
   }
 
-  Widget priceWidget(
-    BuildContext context,
-  ) {
+  Widget priceWidget(BuildContext context) {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
@@ -103,10 +102,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   .toString())
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
-            color: AppTheme.primary,
+            color: AppTheme.black,
             fontFamily: 'Iransans',
             fontWeight: FontWeight.bold,
-            fontSize: textScaleFactor * 25,
+            fontSize: textScaleFactor * 20,
           ),
           textAlign: TextAlign.center,
         );
@@ -119,10 +118,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   .toString())
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
-            color: AppTheme.primary,
+            color: AppTheme.black,
             fontFamily: 'Iransans',
             fontWeight: FontWeight.bold,
-            fontSize: textScaleFactor * 25,
+            fontSize: textScaleFactor * 20,
           ),
         );
       } else if (loadedProduct.price == '0' || loadedProduct.price.isEmpty) {
@@ -133,10 +132,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   .toString())
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
-            color: AppTheme.primary,
+            color: AppTheme.black,
             fontFamily: 'Iransans',
             fontWeight: FontWeight.bold,
-            fontSize: textScaleFactor * 25,
+            fontSize: textScaleFactor * 20,
           ),
         );
       } else {
@@ -153,9 +152,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               style: TextStyle(
                 decoration: TextDecoration.lineThrough,
                 decorationThickness: 2,
-                color: AppTheme.accent,
+                color: AppTheme.grey,
                 fontFamily: 'Iransans',
-                fontSize: textScaleFactor * 20,
+                fontSize: textScaleFactor * 16,
               ),
             ),
             Text(
@@ -165,10 +164,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       .toString())
                   : EnArConvertor().replaceArNumber('0'),
               style: TextStyle(
-                color: AppTheme.primary,
+                color: AppTheme.black,
                 fontFamily: 'Iransans',
                 fontWeight: FontWeight.bold,
-                fontSize: textScaleFactor * 25,
+                fontSize: textScaleFactor * 20,
               ),
             ),
           ],
@@ -187,6 +186,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: AppTheme.white,
         appBar: AppBar(
           title: Text(
             '',
@@ -202,7 +202,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             Consumer<Products>(
               builder: (_, products, ch) => products.cartItemsCount != 0
                   ? Badge(
-                      color: AppTheme.accent,
+                      color: Color(0xff06623B),
                       value: products.cartItemsCount.toString(),
                       child: ch,
                     )
@@ -244,6 +244,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             width: double.infinity,
                             height: deviceHeight * 0.4,
                             decoration: BoxDecoration(
+                                color: AppTheme.white,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Stack(
                               children: [
@@ -321,7 +322,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Container(
                               width: double.infinity,
                               color: AppTheme.white,
@@ -344,6 +345,47 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                         ),
                                         textAlign: TextAlign.right,
                                         textDirection: TextDirection.rtl,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: <Widget>[
+
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: textScaleFactor * 15.0),
+                                            child: Text(
+                                              'تومان',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 15.0,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: priceWidget(context),
+                                          ),
+//                                          Padding(
+//                                            padding: const EdgeInsets.all(8.0),
+//                                            child: Text(
+//                                              'قیمت',
+//                                              textAlign: TextAlign.center,
+//                                              style: TextStyle(
+//                                                color: Colors.grey,
+//                                                fontFamily: 'Iransans',
+//                                                fontSize:
+//                                                textScaleFactor * 15.0,
+//                                              ),
+//                                            ),
+//                                          ),
+                                        ],
                                       ),
                                     ),
                                     Container(
@@ -375,36 +417,86 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
             Positioned(
-              bottom: 25,
-              right: 25,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: priceWidget(context),
+                bottom: 10,
+                left: 10,
+                right: 10,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    return InkWell(
+                      onTap: () async {
+                        bool isExist = await isExistInCart(loadedProduct);
+                        setState(() {});
+                        if (loadedProduct.price.isEmpty) {
+                          _snackBarMessage = 'قیمت محصول صفر میباشد';
+                          SnackBar addToCartSnackBar = SnackBar(
+                            content: Text(
+                              _snackBarMessage,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 14.0,
+                              ),
+                            ),
+                            action: SnackBarAction(
+                              label: 'متوجه شدم',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else if (isExist) {
+                          _snackBarMessage = 'محصول در سبد خرید موجود میباشد';
+                          SnackBar addToCartSnackBar = SnackBar(
+                            content: Text(
+                              _snackBarMessage,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 14.0,
+                              ),
+                            ),
+                            action: SnackBarAction(
+                              label: 'متوجه شدم',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        } else {
+                          await addToShoppingCart(loadedProduct, null);
+
+                          _snackBarMessage =
+                              'محصول با موفقیت به سبد اضافه گردید!';
+                          SnackBar addToCartSnackBar = SnackBar(
+                            content: Text(
+                              _snackBarMessage,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 14.0,
+                              ),
+                            ),
+                            action: SnackBarAction(
+                              label: 'متوجه شدم',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        }
+                      },
+                      child: ButtonBottom(
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.14,
+                        text: 'اضافه به سبد خرید',
+                        isActive: true,
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(bottom: textScaleFactor * 15.0),
-                        child: Text(
-                          'تومان',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: 'Iransans',
-                            fontSize: textScaleFactor * 15.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
+                    );
+                  },
+                )),
           ],
         ),
         drawer: Theme(
@@ -412,79 +504,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             canvasColor: Colors.transparent,
           ),
           child: MainDrawer(),
-        ),
-        floatingActionButton: Builder(
-          builder: (context) => FloatingActionButton(
-            onPressed: () async {
-              bool isExist = await isExistInCart(loadedProduct);
-              setState(() {});
-              if (loadedProduct.price.isEmpty) {
-                _snackBarMessage = 'قیمت محصول صفر میباشد';
-                SnackBar addToCartSnackBar = SnackBar(
-                  content: Text(
-                    _snackBarMessage,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Iransans',
-                      fontSize: textScaleFactor * 14.0,
-                    ),
-                  ),
-                  action: SnackBarAction(
-                    label: 'متوجه شدم',
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                );
-                Scaffold.of(context).showSnackBar(addToCartSnackBar);
-              } else if (isExist) {
-                _snackBarMessage = 'محصول در سبد خرید موجود میباشد';
-                SnackBar addToCartSnackBar = SnackBar(
-                  content: Text(
-                    _snackBarMessage,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Iransans',
-                      fontSize: textScaleFactor * 14.0,
-                    ),
-                  ),
-                  action: SnackBarAction(
-                    label: 'متوجه شدم',
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                );
-                Scaffold.of(context).showSnackBar(addToCartSnackBar);
-              } else {
-                await addToShoppingCart(loadedProduct, null);
-
-                _snackBarMessage = 'محصول با موفقیت به سبد اضافه گردید!';
-                SnackBar addToCartSnackBar = SnackBar(
-                  content: Text(
-                    _snackBarMessage,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Iransans',
-                      fontSize: textScaleFactor * 14.0,
-                    ),
-                  ),
-                  action: SnackBarAction(
-                    label: 'متوجه شدم',
-                    onPressed: () {
-                      // Some code to undo the change.
-                    },
-                  ),
-                );
-                Scaffold.of(context).showSnackBar(addToCartSnackBar);
-              }
-            },
-            backgroundColor: AppTheme.primary,
-            child: Icon(
-              Icons.add_shopping_cart,
-              color: AppTheme.bg,
-            ),
-          ),
         ),
       ),
     );

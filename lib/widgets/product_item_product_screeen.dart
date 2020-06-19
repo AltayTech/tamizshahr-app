@@ -107,6 +107,7 @@ class ProductItemProductScreen extends StatelessWidget {
               );
             },
             child: Card(
+              elevation: 0.4,
               child: Container(
                 height: constraints.maxHeight,
                 child: Row(
@@ -129,47 +130,6 @@ class ProductItemProductScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-//                          Container(
-//                            height: constraints.maxHeight * 0.08,
-//                            alignment: Alignment.centerLeft,
-//                            decoration: BoxDecoration(
-//                              borderRadius: BorderRadius.circular(3),
-//                              color: Colors.white70,
-//                            ),
-//                            child: Center(
-//                              child: Padding(
-//                                padding: const EdgeInsets.all(3.0),
-//                                child: ListView.builder(
-//                                  shrinkWrap: true,
-//                                  scrollDirection: Axis.horizontal,
-//                                  itemCount: product.color.length,
-//                                  itemBuilder:
-//                                      (BuildContext context, int index) {
-//                                    return Padding(
-//                                      padding: const EdgeInsets.all(1.0),
-//                                      child: Container(
-//                                        width: 10.0,
-//                                        height: 10.0,
-//                                        decoration: BoxDecoration(
-//                                          shape: BoxShape.circle,
-//                                          border: Border.all(
-//                                              color: Colors.black, width: 0.2),
-//                                          color: Color(
-//                                            int.parse(
-//                                              '0xff' +
-//                                                  product
-//                                                      .color[index].colorCode
-//                                                      .replaceRange(0, 1, ''),
-//                                            ),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    );
-//                                  },
-//                                ),
-//                              ),
-//                            ),
-//                          )
                         ],
                       ),
                     ),
@@ -191,7 +151,7 @@ class ProductItemProductScreen extends StatelessWidget {
                                 color: AppTheme.black,
                                 fontFamily: 'Iransans',
 //                                fontWeight: FontWeight.w500,
-                                fontSize: textScaleFactor * 16.0,
+                                fontSize: textScaleFactor * 15.0,
                               ),
                             ),
                           ),

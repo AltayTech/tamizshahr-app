@@ -45,7 +45,9 @@ class ButtonBottom extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'Iransans',
-            fontSize: textScaleFactor * 16.0,
+            fontSize: textScaleFactor * 18.0,
+            fontWeight: FontWeight.w600,
+
           ),
           textAlign: TextAlign.center,
         ),

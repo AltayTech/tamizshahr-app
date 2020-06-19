@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/widgets/en_to_ar_number_convertor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/shop.dart';
@@ -81,6 +82,7 @@ class _ContactWithUsState extends State<ContactWithUs> {
     shopData = Provider.of<CustomerInfo>(context).shop;
 
     return Scaffold(
+      backgroundColor: AppTheme.white,
       appBar: AppBar(
         title: Text(
           'تماس با ما',
@@ -131,7 +133,7 @@ class _ContactWithUsState extends State<ContactWithUs> {
                           child: Text(
                             shopData.name,
                             style: TextStyle(
-                              color: AppTheme.primary,
+                              color: AppTheme.h1,
                               fontFamily: 'BFarnaz',
                               fontSize: textScaleFactor * 24.0,
                             ),
@@ -145,10 +147,10 @@ class _ContactWithUsState extends State<ContactWithUs> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Icon(
                                         Icons.location_on,
                                         color: Colors.indigoAccent,
@@ -174,10 +176,10 @@ class _ContactWithUsState extends State<ContactWithUs> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Icon(
                                         Icons.call,
                                         color: Colors.indigoAccent,
@@ -186,7 +188,9 @@ class _ContactWithUsState extends State<ContactWithUs> {
                                     Expanded(
                                       flex: 8,
                                       child: Text(
-                                        shopData.support_phone,
+                                        EnArConvertor()
+                                            .replaceArNumber(shopData.support_phone,),
+
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'Iransans',
@@ -203,10 +207,10 @@ class _ContactWithUsState extends State<ContactWithUs> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: Icon(
                                         Icons.smartphone,
                                         color: Colors.indigoAccent,
@@ -215,7 +219,8 @@ class _ContactWithUsState extends State<ContactWithUs> {
                                     Expanded(
                                       flex: 8,
                                       child: Text(
-                                        shopData.mobile,
+                                        EnArConvertor()
+                                            .replaceArNumber(shopData.mobile),
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontFamily: 'Iransans',

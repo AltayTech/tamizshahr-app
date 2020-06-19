@@ -35,7 +35,6 @@ class _ProductsScreenState extends State<ProductsScreen>
 
   SearchDetail productsDetail;
 
-
   var sortValue = 'جدیدترین';
   List<String> sortValueList = ['جدیدترین', 'گرانترین', 'ارزانترین'];
 
@@ -44,7 +43,6 @@ class _ProductsScreenState extends State<ProductsScreen>
   List<String> _selectedCategoryTitle = [];
 
   List<Category> categoryList = [];
-
 
   @override
   void initState() {
@@ -55,10 +53,12 @@ class _ProductsScreenState extends State<ProductsScreen>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        page = page + 1;
-        Provider.of<Products>(context, listen: false).sPage = page;
+        if (page < productsDetail.max_page) {
+          page = page + 1;
+          Provider.of<Products>(context, listen: false).sPage = page;
 
-        searchItems();
+          searchItems();
+        }
       }
     });
 //    _controller = AnimationController(
@@ -206,9 +206,10 @@ class _ProductsScreenState extends State<ProductsScreen>
             Consumer<Products>(
               builder: (_, products, ch) => products.cartItemsCount != 0
                   ? Badge(
-                      color: AppTheme.accent,
+                      color: Color(0xff06623B),
                       value: products.cartItemsCount.toString(),
                       child: ch,
+                      textColor: AppTheme.white,
                     )
                   : ch,
               child: IconButton(
@@ -224,14 +225,13 @@ class _ProductsScreenState extends State<ProductsScreen>
           ],
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
-            child: Stack(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Padding(
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Container(
+                    color: AppTheme.white,
+                    child: Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                       child: Container(
                         height: deviceHeight * 0.05,
@@ -267,7 +267,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                                       ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
+                                      horizontal: 15.0),
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Text(
@@ -321,7 +321,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                                               ),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 20.0),
+                                              horizontal: 15.0),
                                           child: Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 10),
@@ -353,7 +353,10 @@ class _ProductsScreenState extends State<ProductsScreen>
                         ),
                       ),
                     ),
-                    Column(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -440,24 +443,25 @@ class _ProductsScreenState extends State<ProductsScreen>
                                       },
                                       items: sortValueList
                                           .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 3.0),
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(
-                                                color: AppTheme.black,
-                                                fontFamily: 'Iransans',
-                                                fontSize:
-                                                    textScaleFactor * 13.0,
+                                        (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 3.0),
+                                              child: Text(
+                                                value,
+                                                style: TextStyle(
+                                                  color: AppTheme.black,
+                                                  fontFamily: 'Iransans',
+                                                  fontSize:
+                                                      textScaleFactor * 13.0,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      }).toList(),
+                                          );
+                                        },
+                                      ).toList(),
                                     ),
                                   ),
                                 ),
@@ -471,243 +475,78 @@ class _ProductsScreenState extends State<ProductsScreen>
                                       vertical: deviceHeight * 0.0,
                                       horizontal: 3),
                                   child: Wrap(
-                                      alignment: WrapAlignment.start,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      direction: Axis.horizontal,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 3, vertical: 5),
-                                          child: Text(
-                                            'تعداد:',
-                                            style: TextStyle(
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 12.0,
-                                            ),
+                                    alignment: WrapAlignment.start,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    direction: Axis.horizontal,
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3, vertical: 5),
+                                        child: Text(
+                                          'تعداد:',
+                                          style: TextStyle(
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 12.0,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 4.0, left: 6),
-                                          child: Text(
-                                            productsDetail != null
-                                                ? EnArConvertor()
-                                                    .replaceArNumber(
-                                                       loadedProductstolist.length
-                                                            .toString())
-                                                : EnArConvertor()
-                                                    .replaceArNumber('0'),
-                                            style: TextStyle(
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 13.0,
-                                            ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 4.0, left: 6),
+                                        child: Text(
+                                          productsDetail != null
+                                              ? EnArConvertor().replaceArNumber(
+                                                  loadedProductstolist.length
+                                                      .toString())
+                                              : EnArConvertor()
+                                                  .replaceArNumber('0'),
+                                          style: TextStyle(
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 13.0,
                                           ),
                                         ),
-                                      ]),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 3, vertical: 5),
+                                        child: Text(
+                                          'از',
+                                          style: TextStyle(
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 12.0,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            right: 4.0, left: 6),
+                                        child: Text(
+                                          productsDetail != null
+                                              ? EnArConvertor().replaceArNumber(
+                                                  productsDetail.total
+                                                      .toString())
+                                              : EnArConvertor()
+                                                  .replaceArNumber('0'),
+                                          style: TextStyle(
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 13.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             }),
-//                            Directionality(
-//                              textDirection: TextDirection.ltr,
-//                              child: Padding(
-//                                padding: const EdgeInsets.all(4.0),
-//                                child: Container(
-//                                  alignment: Alignment.centerRight,
-//                                  decoration: BoxDecoration(
-//                                      color: AppTheme.white,
-//                                      border: Border.all(
-//                                          color: AppTheme.h1, width: 0.2)),
-//                                  child: Padding(
-//                                    padding: const EdgeInsets.only(
-//                                        right: 8.0, left: 8, top: 6),
-//                                    child: DropdownButton<String>(
-//                                      hint: Text(
-//                                        'برندها',
-//                                        style: TextStyle(
-//                                          color: AppTheme.black,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: textScaleFactor * 13.0,
-//                                        ),
-//                                      ),
-//                                      value: brandValue,
-//                                      icon: Padding(
-//                                        padding:
-//                                            const EdgeInsets.only(bottom: 10.0),
-//                                        child: Icon(
-//                                          Icons.arrow_drop_down,
-//                                          color: AppTheme.black,
-//                                          size: 20,
-//                                        ),
-//                                      ),
-//                                      dropdownColor: AppTheme.white,
-//                                      style: TextStyle(
-//                                        color: AppTheme.black,
-//                                        fontFamily: 'Iransans',
-//                                        fontSize: textScaleFactor * 13.0,
-//                                      ),
-//                                      isDense: true,
-//                                      onChanged: (newValue) {
-//                                        setState(() {
-//                                          brandValue = newValue;
-//                                          selectedBrand = brandList[
-//                                              brandValueList
-//                                                  .lastIndexOf(newValue)];
-//
-//                                          String brandsEndpoint =
-//                                              '${selectedBrand.id}';
-//
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .sBrand = brandsEndpoint;
-//
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .sPage = 1;
-//
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .searchBuilder();
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .checkFiltered();
-//                                          loadedProductstolist.clear();
-//
-//                                          searchItems();
-//                                        });
-//                                      },
-//                                      items: brandValueList
-//                                          .map<DropdownMenuItem<String>>(
-//                                              (String value) {
-//                                        return DropdownMenuItem<String>(
-//                                          value: value,
-//                                          child: Padding(
-//                                            padding: const EdgeInsets.only(
-//                                                right: 3.0),
-//                                            child: Text(
-//                                              value,
-//                                              style: TextStyle(
-//                                                color: AppTheme.black,
-//                                                fontFamily: 'Iransans',
-//                                                fontSize:
-//                                                    textScaleFactor * 13.0,
-//                                              ),
-//                                            ),
-//                                          ),
-//                                        );
-//                                      }).toList(),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
-//                            Directionality(
-//                              textDirection: TextDirection.ltr,
-//                              child: Padding(
-//                                padding: const EdgeInsets.all(4.0),
-//                                child: Container(
-//                                  alignment: Alignment.centerRight,
-//                                  decoration: BoxDecoration(
-//                                      color: AppTheme.white,
-//                                      border: Border.all(
-//                                          color: AppTheme.h1, width: 0.2)),
-//                                  child: Padding(
-//                                    padding: const EdgeInsets.only(
-//                                      right: 8.0,
-//                                      left: 8,
-//                                      top: 6,
-//                                    ),
-//                                    child: DropdownButton<String>(
-//                                      hint: Center(
-//                                        child: Text(
-//                                          'رنگها',
-//                                          textAlign: TextAlign.center,
-//                                          style: TextStyle(
-//                                            color: AppTheme.black,
-//                                            fontFamily: 'Iransans',
-//                                            fontSize: textScaleFactor * 13.0,
-//                                          ),
-//                                        ),
-//                                      ),
-//                                      value: colorValue,
-//                                      icon: Padding(
-//                                        padding:
-//                                            const EdgeInsets.only(bottom: 10.0),
-//                                        child: Icon(
-//                                          Icons.arrow_drop_down,
-//                                          color: AppTheme.black,
-//                                          size: 24,
-//                                        ),
-//                                      ),
-//                                      dropdownColor: AppTheme.white,
-//                                      iconSize: 24,
-//                                      style: TextStyle(
-//                                        color: AppTheme.black,
-//                                        fontFamily: 'Iransans',
-//                                        fontSize: textScaleFactor * 13.0,
-//                                      ),
-//                                      isDense: true,
-//                                      onChanged: (newValue) {
-//                                        setState(() {
-//                                          colorValue = newValue;
-//
-//                                          selectedColor = colorList[
-//                                              colorValueList
-//                                                  .lastIndexOf(newValue)];
-//
-//                                          String colorsEndpoint =
-//                                              '${selectedColor.id}';
-//
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .sColor = colorsEndpoint;
-//
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .sPage = 1;
-//
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .searchBuilder();
-//                                          Provider.of<Products>(context,
-//                                                  listen: false)
-//                                              .checkFiltered();
-//                                          loadedProductstolist.clear();
-//
-//                                          searchItems();
-//                                        });
-//                                      },
-//                                      items: colorValueList
-//                                          .map<DropdownMenuItem<String>>(
-//                                              (String value) {
-//                                        return DropdownMenuItem<String>(
-//                                          value: value,
-//                                          child: Padding(
-//                                            padding: const EdgeInsets.only(
-//                                                right: 3.0),
-//                                            child: Text(
-//                                              value,
-//                                              style: TextStyle(
-//                                                color: AppTheme.black,
-//                                                fontFamily: 'Iransans',
-//                                                fontSize:
-//                                                    textScaleFactor * 13.0,
-//                                              ),
-//                                            ),
-//                                          ),
-//                                        );
-//                                      }).toList(),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                            ),
                           ],
                         ),
-                        Divider(thickness: 1, color: AppTheme.h1),
+                        Divider(
+                            thickness: 1,
+                            color: AppTheme.grey.withOpacity(0.4)),
                         Container(
                           width: double.infinity,
-                          height: deviceHeight * 0.68,
+                          height: deviceHeight * 0.75,
                           child: ListView.builder(
                             controller: _scrollController,
                             scrollDirection: Axis.vertical,
@@ -720,42 +559,42 @@ class _ProductsScreenState extends State<ProductsScreen>
                           ),
                         ),
                       ],
-                    )
-                  ],
-                ),
-                Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: _isLoading
-                            ? SpinKitFadingCircle(
-                                itemBuilder: (BuildContext context, int index) {
-                                  return DecoratedBox(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: index.isEven
-                                          ? Colors.grey
-                                          : Colors.grey,
-                                    ),
-                                  );
-                                },
-                              )
-                            : Container(
-                                child: loadedProductstolist.isEmpty
-                                    ? Center(
-                                        child: Text(
-                                        'محصولی وجود ندارد',
-                                        style: TextStyle(
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 15.0,
-                                        ),
-                                      ))
-                                    : Container())))
-              ],
-            ),
+                    ),
+                  )
+                ],
+              ),
+              Positioned(
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: _isLoading
+                          ? SpinKitFadingCircle(
+                              itemBuilder: (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: index.isEven
+                                        ? Colors.grey
+                                        : Colors.grey,
+                                  ),
+                                );
+                              },
+                            )
+                          : Container(
+                              child: loadedProductstolist.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                      'محصولی وجود ندارد',
+                                      style: TextStyle(
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 15.0,
+                                      ),
+                                    ))
+                                  : Container())))
+            ],
           ),
         ),
 //            ),

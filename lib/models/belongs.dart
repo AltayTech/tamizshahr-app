@@ -6,8 +6,8 @@ class Belongs {
 
   factory Belongs.fromJson(Map<String, dynamic> parsedJson) {
     return Belongs(
-      id: parsedJson['id'],
-      name: parsedJson['name'],
+      id: parsedJson['id']!=null?parsedJson['id']:0,
+      name: parsedJson['name']!=null? parsedJson['name']:'',
     );
   }
 

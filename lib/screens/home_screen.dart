@@ -81,29 +81,32 @@ class _HomeScreenState extends State<HomeScreen> {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    double itemPaddingF = 0.03;
+    double itemPaddingF = 0.025;
 
     return SingleChildScrollView(
       child: Container(
         color: AppTheme.bg,
         child: Column(
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  color: AppTheme.bg,
-                  border: Border.all(width: 5, color: AppTheme.bg)),
-              height: deviceWidth * 0.35,
-              child: Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                    width: deviceWidth,
-                    child: FadeInImage(
-                      placeholder: AssetImage('assets/images/circle.gif'),
-                      image: AssetImage('assets/images/main_page_header.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
+            Padding(
+              padding: const EdgeInsets.only(top: 15, bottom: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppTheme.bg,
+                    border: Border.all(width: 5, color: AppTheme.bg)),
+                height: deviceWidth * 0.35,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: deviceWidth,
+                      child: FadeInImage(
+                        placeholder: AssetImage('assets/images/circle.gif'),
+                        image: AssetImage('assets/images/main_page_header.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             InkWell(
@@ -115,14 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 8.0, bottom: 2, left: 20, right: 20),
-                child:
-                ButtonBottom(
+                child: ButtonBottom(
                   width: deviceWidth * 0.9,
                   height: deviceWidth * 0.14,
                   text: 'درخواست جمع آوری',
                   isActive: true,
                 ),
-
               ),
             ),
             Container(
@@ -135,105 +136,113 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed(WalletScreen.routeName);
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.all(deviceWidth * itemPaddingF),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppTheme.primary.withOpacity(0.08),
-                                  blurRadius: 10.10,
-                                  spreadRadius: 10.510,
-                                  offset: Offset(
-                                    0, // horizontal, move right 10
-                                    0, // vertical, move down 10
-                                  ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(
-                                  'assets/images/main_page_wallet_ic.png',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'کیف پول',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: AppTheme.h1,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 18.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
                         Navigator.of(context)
                             .pushNamed(CollectListScreen.routeName);
                       },
-                      child: Padding(
-                        padding: EdgeInsets.all(deviceWidth * itemPaddingF),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppTheme.primary.withOpacity(0.08),
+                      child: LayoutBuilder(
+                        builder: (_, constraint) => Padding(
+                          padding: EdgeInsets.all(deviceWidth * itemPaddingF),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppTheme.primary.withOpacity(0.08),
 
-                                  blurRadius: 10.10,
-                                  // has the effect of softening the shadow
-                                  spreadRadius: 10.510,
-                                  // has the effect of extending the shadow
-                                  offset: Offset(
-                                    0, // horizontal, move right 10
-                                    0, // vertical, move down 10
+                                    blurRadius: 10.10,
+                                    // has the effect of softening the shadow
+                                    spreadRadius: 10.510,
+                                    // has the effect of extending the shadow
+                                    offset: Offset(
+                                      0, // horizontal, move right 10
+                                      0, // vertical, move down 10
+                                    ),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30, right: 30, bottom: 10, top: 16),
+                                    child: Container(
+                                      height: constraint.maxHeight * 0.7,
+                                      child: Image.asset(
+                                        'assets/images/main_page_request_ic.png',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
                                   ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 30, right: 30, bottom: 12, top: 10),
-                                child: Image.asset(
-                                  'assets/images/main_page_request_ic.png',
-
-                                  fit: BoxFit.contain,
-                                  color: AppTheme.primary,
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: FittedBox(
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
                                   child: Text(
                                     'درخواست ها',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: AppTheme.h1,
                                       fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 16.0,
+                                      fontSize: textScaleFactor * 18.0,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(WalletScreen.routeName);
+                      },
+                      child: LayoutBuilder(
+                        builder: (_, constraint) => Padding(
+                          padding: EdgeInsets.all(deviceWidth * itemPaddingF),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppTheme.primary.withOpacity(0.08),
+                                    blurRadius: 10.10,
+                                    spreadRadius: 10.510,
+                                    offset: Offset(
+                                      0, // horizontal, move right 10
+                                      0, // vertical, move down 10
+                                    ),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30, right: 30, bottom: 10, top: 16),                                  child: Container(
+                                    height: constraint.maxHeight * 0.30,
+                                    child: Image.asset(
+                                        'assets/images/main_page_wallet_ic.png',
+                                        fit: BoxFit.contain,
+                                        color: AppTheme.primary),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'کیف پول',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: AppTheme.h1,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 18.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -243,46 +252,51 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context)
                             .pushNamed(ArticlesScreen.routeName);
                       },
-                      child: Padding(
-                        padding: EdgeInsets.all(deviceWidth * itemPaddingF),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppTheme.primary.withOpacity(0.08),
-                                  blurRadius: 10.10,
-                                  spreadRadius: 10.510,
-                                  offset: Offset(
-                                    0,
-                                    0,
+                      child: LayoutBuilder(
+                        builder: (_, constraint) => Padding(
+                          padding: EdgeInsets.all(deviceWidth * itemPaddingF),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppTheme.primary.withOpacity(0.08),
+                                    blurRadius: 10.10,
+                                    spreadRadius: 10.510,
+                                    offset: Offset(
+                                      0,
+                                      0,
+                                    ),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30, right: 30, bottom: 10, top: 16),                                  child: Container(
+                                    height: constraint.maxHeight * 0.30,
+                                    child: Image.asset(
+                                      'assets/images/main_page_article_ic.png',
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
-                                )
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'مقالات آموزشی',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: AppTheme.h1,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 18.0,
+                                    ),
+                                  ),
+                                ),
                               ],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(
-                                  'assets/images/main_page_paper_ic.png',
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'مقالات آموزشی',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: AppTheme.h1,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 18.0,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -292,47 +306,51 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context)
                             .pushNamed(ProductsScreen.routeName);
                       },
-                      child: Padding(
-                        padding: EdgeInsets.all(deviceWidth * itemPaddingF),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppTheme.primary.withOpacity(0.08),
-                                  blurRadius: 10.10,
-                                  spreadRadius: 10.510,
-                                  offset: Offset(
-                                    0,
-                                    0,
+                      child: LayoutBuilder(
+                        builder: (_, constraint) => Padding(
+                          padding: EdgeInsets.all(deviceWidth * itemPaddingF),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppTheme.primary.withOpacity(0.08),
+                                    blurRadius: 10.10,
+                                    spreadRadius: 10.510,
+                                    offset: Offset(
+                                      0,
+                                      0,
+                                    ),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: constraint.maxHeight * 0.30,
+                                    child: Image.asset(
+                                      'assets/images/main_page_shop_ic.png',
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
-                                )
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'فروشگاه',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: AppTheme.h1,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 18.0,
+                                    ),
+                                  ),
+                                ),
                               ],
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.add_shopping_cart,
-                                  color: AppTheme.primary,
-                                  size: 45,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'فروشگاه',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: AppTheme.h1,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 18.0,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),

@@ -3,9 +3,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/screens/wastes_screen_animated_list.dart';
 
-import '../provider/customer_info.dart';
 import '../provider/auth.dart';
+import '../provider/customer_info.dart';
 import '../screens/about_us_screen.dart';
 import '../screens/cart_screen.dart';
 import '../screens/contact_with_us_screen.dart';
@@ -144,9 +145,11 @@ class MainDrawer extends StatelessWidget {
                             ),
                             onTap: () {
                               Navigator.of(context).pop();
-
-                              Navigator.of(context)
-                                  .pushNamed(NavigationBottomScreen.routeName);
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  NavigationBottomScreen.routeName,
+                                  (Route<dynamic> route) => false);
+//                              Navigator.of(context)
+//                                  .pushNamed(NavigationBottomScreen.routeName);
                             },
                           ),
                           ListTile(
@@ -172,6 +175,29 @@ class MainDrawer extends StatelessWidget {
                                   arguments: 0);
                             },
                           ),
+//                          ListTile(
+//                            title: Text(
+//                              'لیست پسماندها',
+//                              style: TextStyle(
+//                                fontFamily: "Iransans",
+//                                fontWeight: FontWeight.w500,
+//                                fontSize: 16,
+//                                color: textColor,
+//                              ),
+//                              textAlign: TextAlign.right,
+//                            ),
+//                            trailing: Icon(
+//                              Icons.phonelink,
+//                              color: iconColor,
+//                            ),
+//                            onTap: () {
+//                              Navigator.of(context).pop();
+//
+//                              Navigator.of(context).pushNamed(
+//                                WastesScreenAnimatedList.routeName,
+//                              );
+//                            },
+//                          ),
                           ListTile(
                             title: Text(
                               'سبد خرید',
@@ -279,10 +305,12 @@ class MainDrawer extends StatelessWidget {
                               color: Colors.red,
                             ),
                             onTap: () async {
-                              Provider.of<CustomerInfo>(context, listen: false).customer =
-                                  Provider.of<CustomerInfo>(context, listen: false)
-                                      .customer_zero;
-                              await Provider.of<Auth>(context, listen: false).removeToken();
+                              Provider.of<CustomerInfo>(context, listen: false)
+                                  .customer = Provider.of<CustomerInfo>(context,
+                                      listen: false)
+                                  .customer_zero;
+                              await Provider.of<Auth>(context, listen: false)
+                                  .removeToken();
                               Provider.of<Auth>(context, listen: false)
                                   .isFirstLogout = true;
                               Navigator.of(context).pop();

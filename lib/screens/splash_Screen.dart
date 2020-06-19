@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../provider/Products.dart';
 import '../provider/app_theme.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/splashscreen.dart';
@@ -33,7 +31,6 @@ class _SplashScreensState extends State<SplashScreens> {
       title: new Text(
         ' سامانه مدیرت پسماند',
         textAlign: TextAlign.center,
-
         style: new TextStyle(
           fontFamily: 'BFarnaz',
           fontSize: MediaQuery.of(context).textScaleFactor * 30,
@@ -41,10 +38,9 @@ class _SplashScreensState extends State<SplashScreens> {
           shadows: <Shadow>[
             Shadow(
               offset: Offset(0.0, 0.0),
-              blurRadius: 3.0,
+              blurRadius: 0.0,
               color: Color.fromARGB(255, 0, 0, 0),
             ),
-
           ],
         ),
       ),
@@ -57,13 +53,12 @@ class _SplashScreensState extends State<SplashScreens> {
           color: Colors.black,
         ),
       ),
-      image:  Image.asset(
-
+      image: Image.asset(
         'assets/images/splash_main.png',
 //        color: AppTheme.primary,
         fit: BoxFit.contain,
-        height: MediaQuery.of(context).size.width*0.7,
-        width: MediaQuery.of(context).size.width*0.7,
+        height: MediaQuery.of(context).size.width * 0.7,
+        width: MediaQuery.of(context).size.width * 0.7,
       ),
       gradientBackground: LinearGradient(
         begin: Alignment.topRight,
@@ -75,7 +70,7 @@ class _SplashScreensState extends State<SplashScreens> {
         ],
       ),
       styleTextUnderTheLoader: new TextStyle(),
-      photoSize: MediaQuery.of(context).size.width*0.7,
+      photoSize: MediaQuery.of(context).size.width * 0.7,
       onClick: () => print("Flutter Egypt"),
     );
   }

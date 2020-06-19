@@ -62,7 +62,7 @@ class _CartScreenState extends State<CartScreen> {
     if (_isInit) {
       await Provider.of<Auth>(context, listen: false).checkCompleted();
 
-      getShopItems();
+      await getShopItems();
       customer = Provider.of<CustomerInfo>(context, listen: false).customer;
       _isLoading = true;
 
@@ -71,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
 
       if (isLogin) {
         try {
-          Provider.of<CustomerInfo>(context, listen: false).getCustomer().then(
+          await  Provider.of<CustomerInfo>(context, listen: false).getCustomer().then(
             (_) {
               customer =
                   Provider.of<CustomerInfo>(context, listen: false).customer;
@@ -155,7 +155,7 @@ class _CartScreenState extends State<CartScreen> {
                         Container(
                           height: deviceHeight * 0.07,
                           decoration: BoxDecoration(
-                              color: AppTheme.bg,
+                              color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
                               border:
                                   Border.all(color: Colors.grey, width: 0.2)),
@@ -164,11 +164,6 @@ class _CartScreenState extends State<CartScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Icon(
-                                  Icons.shopping_cart,
-                                  color: AppTheme.black,
-
-                                ),
                                 Text(
                                   'تعداد: ' +
                                       EnArConvertor()
@@ -216,6 +211,10 @@ class _CartScreenState extends State<CartScreen> {
                           padding: const EdgeInsets.only(top: 10.0),
                           child: shoppItems.length != 0
                               ? Container(
+                                  decoration: BoxDecoration(
+                                      color: AppTheme.white,
+                                      borderRadius: BorderRadius.circular(5),
+                                     ),
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     physics:
@@ -229,162 +228,6 @@ class _CartScreenState extends State<CartScreen> {
                                 )
                               : Center(child: Text('محصولی اضافه نشده است')),
                         ),
-//                        Padding(
-//                          padding: const EdgeInsets.all(8.0),
-//                          child: Column(
-//                            children: <Widget>[
-////                              Row(
-////                                mainAxisAlignment:
-////                                    MainAxisAlignment.spaceBetween,
-////                                children: <Widget>[
-////                                  Padding(
-////                                    padding: const EdgeInsets.only(
-////                                        top: 8.0, bottom: 4),
-////                                    child: Text(
-////                                      'فاکتور فروش ',
-////                                      style: TextStyle(
-////                                        color: AppTheme.black,
-////                                        fontFamily: 'Iransans',
-////                                        fontSize: textScaleFactor * 16,
-////                                      ),
-////                                    ),
-////                                  ),
-////                                  Spacer(),
-////                                  Text(
-////                                    'مبلغ (تومان)',
-////                                    style: TextStyle(
-////                                      color: AppTheme.h1,
-////                                      fontFamily: 'Iransans',
-////                                      fontSize: textScaleFactor * 12,
-////                                    ),
-////                                  ),
-////                                ],
-////                              ),
-////                              Container(
-////                                decoration: BoxDecoration(
-////                                    color: Colors.white,
-////                                    borderRadius: BorderRadius.circular(5),
-////                                    border: Border.all(
-////                                        color: Colors.grey, width: 0.2)),
-////                                child: Padding(
-////                                  padding: const EdgeInsets.all(4.0),
-////                                  child: Column(
-////                                    children: <Widget>[
-////                                      Padding(
-////                                        padding: const EdgeInsets.all(8.0),
-////                                        child: Row(
-////                                          mainAxisAlignment:
-////                                              MainAxisAlignment.spaceBetween,
-////                                          children: <Widget>[
-////                                            Text(
-////                                              'هزینه محصولات ',
-////                                              style: TextStyle(
-////                                                color: AppTheme.h1,
-////                                                fontFamily: 'Iransans',
-////                                                fontSize: textScaleFactor * 14,
-////                                              ),
-////                                            ),
-////                                            Spacer(),
-////                                            Text(
-////                                              totalPrice.toString().isNotEmpty
-////                                                  ? EnArConvertor()
-////                                                      .replaceArNumber(
-////                                                          currencyFormat
-////                                                              .format(
-////                                                                  totalPrice)
-////                                                              .toString())
-////                                                  : EnArConvertor()
-////                                                      .replaceArNumber('0'),
-////                                              style: TextStyle(
-////                                                color: AppTheme.h1,
-////                                                fontFamily: 'Iransans',
-////                                                fontSize: textScaleFactor * 18,
-////                                              ),
-////                                            ),
-////                                          ],
-////                                        ),
-////                                      ),
-////                                      Padding(
-////                                        padding: const EdgeInsets.all(8.0),
-////                                        child: Row(
-////                                          mainAxisAlignment:
-////                                              MainAxisAlignment.spaceBetween,
-////                                          children: <Widget>[
-////                                            Text(
-////                                              'حمل و نقل ',
-////                                              style: TextStyle(
-////                                                color: AppTheme.h1,
-////                                                fontFamily: 'Iransans',
-////                                                fontSize: textScaleFactor * 14,
-////                                              ),
-////                                            ),
-////                                            Spacer(),
-////                                            Text(
-////                                              transportCost
-////                                                      .toString()
-////                                                      .isNotEmpty
-////                                                  ? EnArConvertor()
-////                                                      .replaceArNumber(
-////                                                          currencyFormat
-////                                                              .format(
-////                                                                  transportCost)
-////                                                              .toString())
-////                                                  : EnArConvertor()
-////                                                      .replaceArNumber('0'),
-////                                              style: TextStyle(
-////                                                color: AppTheme.h1,
-////                                                fontFamily: 'Iransans',
-////                                                fontSize: textScaleFactor * 18,
-////                                              ),
-////                                            ),
-////                                          ],
-////                                        ),
-////                                      ),
-////                                      Padding(
-////                                        padding: const EdgeInsets.all(8.0),
-////                                        child: Row(
-////                                          mainAxisAlignment:
-////                                              MainAxisAlignment.spaceBetween,
-////                                          children: <Widget>[
-////                                            Text(
-////                                              'هزینه کل ',
-////                                              style: TextStyle(
-////                                                color: AppTheme.h1,
-////                                                fontFamily: 'Iransans',
-////                                                fontWeight: FontWeight.bold,
-////                                                fontSize: textScaleFactor * 14,
-////                                              ),
-////                                            ),
-////                                            Spacer(),
-////                                            Text(
-////                                              totalPricePure
-////                                                      .toString()
-////                                                      .isNotEmpty
-////                                                  ? EnArConvertor()
-////                                                      .replaceArNumber(
-////                                                          currencyFormat
-////                                                              .format(
-////                                                                  totalPricePure)
-////                                                              .toString())
-////                                                  : EnArConvertor()
-////                                                      .replaceArNumber('0'),
-////                                              style: TextStyle(
-////                                                color: AppTheme.primary,
-////                                                fontFamily: 'Iransans',
-////                                                fontWeight: FontWeight.bold,
-////                                                fontSize: textScaleFactor * 18,
-////                                              ),
-////                                            ),
-////                                          ],
-////                                        ),
-////                                      ),
-////                                    ],
-////                                  ),
-////                                ),
-////                              ),
-//                            ],
-//                          ),
-//                        ),
                         SizedBox(
                           height: 50,
                         )

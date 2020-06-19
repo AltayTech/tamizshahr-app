@@ -31,20 +31,19 @@ class PersonalData with ChangeNotifier {
         addressList.map((i) => Address.fromJson(i)).toList();
 
     return PersonalData(
-      phone: parsedJson['phone'],
-      first_name: parsedJson['fname'],
-      last_name: parsedJson['lname'],
-      email: parsedJson['email'],
-      ostan: parsedJson['ostan'],
-      city: parsedJson['city'],
-      mobile: parsedJson['mobile'],
+      phone: parsedJson['phone'] != null ? parsedJson['phone'] : '',
+      first_name: parsedJson['fname'] != null ? parsedJson['fname'] : '',
+      last_name: parsedJson['lname'] != null ? parsedJson['lname'] : '',
+      email: parsedJson['email'] != null ? parsedJson['email'] : '',
+      ostan: parsedJson['ostan'] != null ? parsedJson['ostan'] : '',
+      city: parsedJson['city'] != null ? parsedJson['city'] : '',
+      mobile: parsedJson['mobile'] != null ? parsedJson['mobile'] : '',
       addresses: addressRaw,
-      postcode: parsedJson['postcode'],
+      postcode: parsedJson['postcode'] != null ? parsedJson['postcode'] : '',
     );
   }
 
   Map<String, dynamic> toJson() {
-
     List<Map> addresses = this.addresses != null
         ? this.addresses.map((i) => i.toJson()).toList()
         : null;

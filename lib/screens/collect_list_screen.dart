@@ -46,10 +46,12 @@ class _CollectListScreenState extends State<CollectListScreen>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        page = page + 1;
-        Provider.of<Wastes>(context, listen: false).sPage = page;
+        if (page < productsDetail.max_page) {
+          page = page + 1;
+          Provider.of<Wastes>(context, listen: false).sPage = page;
 
-        searchItems();
+          searchItems();
+        }
       }
     });
 
@@ -223,117 +225,9 @@ class _CollectListScreenState extends State<CollectListScreen>
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-//                                  Directionality(
-//                                    textDirection: TextDirection.ltr,
-//                                    child: Padding(
-//                                      padding: const EdgeInsets.all(4.0),
-//                                      child: Container(
-//                                        alignment: Alignment.centerRight,
-//                                        decoration: BoxDecoration(
-//                                            color: AppTheme.white,
-//                                            border: Border.all(
-//                                                color: AppTheme.h1,
-//                                                width: 0.2)),
-//                                        child: Padding(
-//                                          padding: const EdgeInsets.only(
-//                                              right: 8.0, left: 8, top: 6),
-//                                          child: DropdownButton<String>(
-//                                            value: sortValue,
-//                                            icon: Padding(
-//                                              padding: const EdgeInsets.only(
-//                                                  bottom: 10.0),
-//                                              child: Icon(
-//                                                Icons.arrow_drop_down,
-//                                                color: AppTheme.black,
-//                                                size: 20,
-//                                              ),
-//                                            ),
-//                                            style: TextStyle(
-//                                              color: AppTheme.black,
-//                                              fontFamily: 'Iransans',
-//                                              fontSize: textScaleFactor * 13.0,
-//                                            ),
-//                                            isDense: true,
-//                                            onChanged: (newValue) {
-//                                              setState(() {
-//                                                sortValue = newValue;
-//
-//                                                if (sortValue == 'گرانترین') {
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sOrder = 'desc';
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sOrderBy = 'price';
-//                                                  page = 1;
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sPage = page;
-//                                                  loadedProductstolist.clear();
-//
-//                                                  searchItems();
-//                                                } else if (sortValue ==
-//                                                    'ارزانترین') {
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sOrder = 'asc';
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sOrderBy = 'price';
-//
-//                                                  page = 1;
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sPage = page;
-//                                                  loadedProductstolist.clear();
-//
-//                                                  searchItems();
-//                                                } else {
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sOrder = 'desc';
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sOrderBy = 'date';
-//                                                  page = 1;
-//                                                  Provider.of<Wastes>(context,
-//                                                          listen: false)
-//                                                      .sPage = page;
-//                                                  loadedProductstolist.clear();
-//
-//                                                  searchItems();
-//                                                }
-//                                              });
-//                                            },
-//                                            items: sortValueList
-//                                                .map<DropdownMenuItem<String>>(
-//                                                    (String value) {
-//                                              return DropdownMenuItem<String>(
-//                                                value: value,
-//                                                child: Padding(
-//                                                  padding:
-//                                                      const EdgeInsets.only(
-//                                                          right: 3.0),
-//                                                  child: Text(
-//                                                    value,
-//                                                    style: TextStyle(
-//                                                      color: AppTheme.black,
-//                                                      fontFamily: 'Iransans',
-//                                                      fontSize:
-//                                                          textScaleFactor *
-//                                                              13.0,
-//                                                    ),
-//                                                  ),
-//                                                ),
-//                                              );
-//                                            }).toList(),
-//                                          ),
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
                                       Spacer(),
-                                      Consumer<Wastes>(builder: (_, Wastes, ch) {
+                                      Consumer<Wastes>(
+                                          builder: (_, Wastes, ch) {
                                         return Container(
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
@@ -346,33 +240,77 @@ class _CollectListScreenState extends State<CollectListScreen>
                                                 direction: Axis.horizontal,
                                                 children: <Widget>[
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            horizontal: 3,
-                                                            vertical: 5),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 3,
+                                                        vertical: 5),
                                                     child: Text(
                                                       'تعداد:',
                                                       style: TextStyle(
                                                         fontFamily: 'Iransans',
                                                         fontSize:
-                                                            textScaleFactor * 12.0,
+                                                            textScaleFactor *
+                                                                12.0,
                                                       ),
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        right: 4.0, left: 6),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 4.0,
+                                                            left: 6),
                                                     child: Text(
                                                       productsDetail != null
                                                           ? EnArConvertor()
                                                               .replaceArNumber(
-                                                                  loadedProductstolist.length.toString())
+                                                                  loadedProductstolist
+                                                                      .length
+                                                                      .toString())
                                                           : EnArConvertor()
-                                                              .replaceArNumber('0'),
+                                                              .replaceArNumber(
+                                                                  '0'),
                                                       style: TextStyle(
                                                         fontFamily: 'Iransans',
                                                         fontSize:
-                                                            textScaleFactor * 13.0,
+                                                            textScaleFactor *
+                                                                13.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 3,
+                                                        vertical: 5),
+                                                    child: Text(
+                                                      'از',
+                                                      style: TextStyle(
+                                                        fontFamily: 'Iransans',
+                                                        fontSize:
+                                                        textScaleFactor *
+                                                            12.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                        right: 4.0,
+                                                        left: 6),
+                                                    child: Text(
+                                                      productsDetail != null
+                                                          ? EnArConvertor()
+                                                          .replaceArNumber(
+                                                         productsDetail.total.toString()
+                                                              .toString())
+                                                          : EnArConvertor()
+                                                          .replaceArNumber(
+                                                          '0'),
+                                                      style: TextStyle(
+                                                        fontFamily: 'Iransans',
+                                                        fontSize:
+                                                        textScaleFactor *
+                                                            13.0,
                                                       ),
                                                     ),
                                                   ),
@@ -382,7 +320,6 @@ class _CollectListScreenState extends State<CollectListScreen>
                                       }),
                                     ],
                                   ),
-                                  Divider(thickness: 1, color: AppTheme.h1),
                                   Container(
                                     width: double.infinity,
                                     height: deviceHeight * 0.68,

@@ -53,6 +53,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
     return Scaffold(
+      backgroundColor: AppTheme.white,
       appBar: AppBar(
         title: Text(
           'درباره ما',
@@ -82,6 +83,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
+
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,7 +103,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     child: Text(
                       shopData.name,
                       style: TextStyle(
-                        color: AppTheme.primary,
+                        color: AppTheme.h1,
                         fontFamily: 'BFarnaz',
                         fontSize: textScaleFactor * 24.0,
                       ),
@@ -113,7 +115,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     child: Text(
                       shopData.subject,
                       style: TextStyle(
-                        color: AppTheme.primary,
+                        color: AppTheme.grey,
                         fontFamily: 'Iransans',
                         fontSize: textScaleFactor * 15.0,
                       ),
@@ -151,7 +153,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               Text(
                                 shopData.features_list[index].feature,
                                 style: TextStyle(
-                                  color: AppTheme.primary,
+                                  color: AppTheme.h1,
                                   fontFamily: 'Iransans',
                                   fontStyle: FontStyle.italic,
                                   fontSize: textScaleFactor * 15.0,
