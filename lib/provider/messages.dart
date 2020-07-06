@@ -74,6 +74,8 @@ class Messages with ChangeNotifier {
         });
 
         final extractedData = json.decode(response.body) as List<dynamic>;
+        print(extractedData);
+
         List<Message> messageList =
             extractedData.map((i) => Message.fromJson(i)).toList();
         print(extractedData.toString());

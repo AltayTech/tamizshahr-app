@@ -162,7 +162,7 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                               ),
                               InfoItem(
                                 title: 'نوع کاربر',
-                                text: customer.type.name,
+                                text: customer.customer_type.name,
                                 bgColor: Colors.white,
                                 iconColor: Color(0xffA67FEC),
                               ),

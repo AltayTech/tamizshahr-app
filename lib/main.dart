@@ -4,7 +4,9 @@ import 'package:tamizshahr/provider/charities.dart';
 import 'package:tamizshahr/provider/orders.dart';
 import 'package:tamizshahr/screens/charity_detail_screen.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
+import 'package:tamizshahr/screens/clear_screen.dart';
 import 'package:tamizshahr/screens/collect_detail_screen.dart';
+import 'package:tamizshahr/screens/donation_screen.dart';
 import 'package:tamizshahr/screens/orders_screen.dart';
 import 'package:tamizshahr/screens/wallet_screen.dart';
 import 'package:tamizshahr/screens/wastes_screen_animated_list.dart';
@@ -148,7 +150,10 @@ class MyApp extends StatelessWidget {
           CharityDetailScreen.routeName: (ctx) => CharityDetailScreen(),
           OrdersScreen.routeName: (ctx) => OrdersScreen(),
           CollectDetailScreen.routeName: (ctx) => CollectDetailScreen(),
-          WastesScreenAnimatedList.routeName: (ctx) => WastesScreenAnimatedList(),
+          DonationScreen.routeName: (ctx) => DonationScreen(),
+          WastesScreenAnimatedList.routeName: (ctx) =>
+              WastesScreenAnimatedList(),
+          ClearScreen.routeName: (ctx) => ClearScreen(),
         },
       ),
     );

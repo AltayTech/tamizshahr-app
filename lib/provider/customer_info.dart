@@ -94,6 +94,7 @@ class CustomerInfo with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     _token = prefs.getString('token');
+    print(jsonEncode(customer));
 
     try {
       final response = await post(
@@ -308,7 +309,7 @@ class CustomerInfo with ChangeNotifier {
         print(extractedData.toString());
 
         TransactionMain transactionMain =
-            TransactionMain.fromJson(extractedData);
+        TransactionMain.fromJson(extractedData);
         print(transactionMain.searchDetail.max_page.toString());
 
         _transactionItems = transactionMain.transactions;
@@ -396,7 +397,7 @@ class CustomerInfo with ChangeNotifier {
         print(extractedData);
 
         List<Province> wastes =
-            extractedData.map((i) => Province.fromJson(i)).toList();
+        extractedData.map((i) => Province.fromJson(i)).toList();
 
         _provincesItems = wastes;
       } else {
@@ -463,7 +464,7 @@ class CustomerInfo with ChangeNotifier {
         print(extractedData);
 
         List<Status> wastes =
-            extractedData.map((i) => Status.fromJson(i)).toList();
+        extractedData.map((i) => Status.fromJson(i)).toList();
 
         _typesItems = wastes;
       } else {
@@ -479,4 +480,43 @@ class CustomerInfo with ChangeNotifier {
   List<Status> _typesItems = [];
 
   List<Status> get typesItems => _typesItems;
+
+
+  Future<void> sendClearingRequest(String money,String shaba) async {
+    print('sendCharityRequest');
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _token = prefs.getString('token');
+      print('tooookkkeeennnnnn  $_token');
+
+      final url = Urls.rootUrl + Urls.clearingEndPoint;
+      print('url  $url');
+      print(jsonEncode({
+        "money": money,
+      }));
+
+      final response = await post(url,
+          headers: {
+            'Authorization': 'Bearer $_token',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: jsonEncode({
+            "money": money,
+            'shaba':shaba
+          }));
+
+      final extractedData = json.decode(response.body);
+      print(extractedData);
+
+      print('qqqqqqqqqqqqqqggggggggq11111111111');
+
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+  }
 }
+
+

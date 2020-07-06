@@ -32,7 +32,7 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
     if (_isInit) {
       _isLoading = false;
 
-      productWeight = int.parse(widget.collectItem.weight);
+      productWeight = int.parse(widget.collectItem.estimated_weight);
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -107,7 +107,7 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
                               Text(
                                 EnArConvertor()
                                     .replaceArNumber(
-                                        widget.collectItem.weight.toString())
+                                        widget.collectItem.estimated_weight.toString())
                                     .toString(),
                                 style: TextStyle(
                                   color: AppTheme.black,
@@ -142,10 +142,10 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
                             ),
                           ),
                           Text(
-                            widget.collectItem.price.length != null
+                            widget.collectItem.estimated_price.length != null
                                 ? EnArConvertor().replaceArNumber(currencyFormat
                                     .format(
-                                        double.parse(widget.collectItem.price))
+                                        double.parse(widget.collectItem.estimated_price))
                                     .toString())
                                 : EnArConvertor().replaceArNumber('0'),
                             style: TextStyle(
@@ -172,10 +172,10 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
                             ),
                           ),
                           Text(
-                            widget.collectItem.price != null
+                            widget.collectItem.estimated_price != null
                                 ? EnArConvertor().replaceArNumber(
                                     currencyFormat.format(
-                                        double.parse(widget.collectItem.price)))
+                                        double.parse(widget.collectItem.estimated_price)))
                                 : EnArConvertor().replaceArNumber('0'),
                             style: TextStyle(
                               color: AppTheme.black,

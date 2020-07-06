@@ -8,6 +8,7 @@ import 'package:tamizshahr/models/transaction.dart';
 import 'package:tamizshahr/provider/auth.dart';
 import 'package:tamizshahr/provider/customer_info.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
+import 'package:tamizshahr/screens/clear_screen.dart';
 import 'package:tamizshahr/screens/product_screen.dart';
 import 'package:tamizshahr/widgets/transaction_item_transactions_screen.dart';
 
@@ -110,24 +111,30 @@ class _WalletScreenState extends State<WalletScreen>
 
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Color(0xffF9F9F9),
-        appBar: AppBar(
-          title: Text(
-            'کیف پول',
-            style: TextStyle(
-              fontFamily: 'Iransans',
-            ),
-          ),
-          backgroundColor: AppTheme.appBarColor,
-          iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
-          elevation: 0,
-          centerTitle: true,
-          actions: <Widget>[],
+    return Scaffold(
+      backgroundColor: Color(0xffF9F9F9),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: SingleChildScrollView(
+
+        title: Text(
+          'کیف پول',
+          style: TextStyle(
+            fontFamily: 'Iransans',
+          ),
+        ),
+        backgroundColor: AppTheme.appBarColor,
+        iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
+        elevation: 0,
+        centerTitle: true,
+        actions: <Widget>[],
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
@@ -255,7 +262,7 @@ class _WalletScreenState extends State<WalletScreen>
                                   child: InkWell(
                                     onTap: () {
                                       Navigator.of(context)
-                                          .pushNamed(ProductsScreen.routeName);
+                                          .pushNamed(ClearScreen.routeName);
                                     },
                                     child: Container(
                                       width: deviceWidth * 0.42,
@@ -520,7 +527,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
                                                   fontSize:
-                                                      textScaleFactor * 15.0,
+                                                      textScaleFactor * 14.0,
                                                 ),
                                               ),
                                             ),
@@ -536,7 +543,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
                                                   fontSize:
-                                                      textScaleFactor * 15.0,
+                                                      textScaleFactor * 14.0,
                                                 ),
                                               ),
                                             ),
@@ -552,7 +559,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
                                                   fontSize:
-                                                      textScaleFactor * 15.0,
+                                                      textScaleFactor * 14.0,
                                                 ),
                                               ),
                                             ),
@@ -607,7 +614,7 @@ class _WalletScreenState extends State<WalletScreen>
                                       child: loadedProductstolist.isEmpty
                                           ? Center(
                                               child: Text(
-                                              'محصولی وجود ندارد',
+                                              'تراکنشی وجود ندارد',
                                               style: TextStyle(
                                                 fontFamily: 'Iransans',
                                                 fontSize:
@@ -619,14 +626,14 @@ class _WalletScreenState extends State<WalletScreen>
                   ),
           ),
         ),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
-          ),
-          child: MainDrawer(),
+      ),
+      endDrawer: Theme(
+        data: Theme.of(context).copyWith(
+          // Set the transparency here
+          canvasColor: Colors
+              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
+        child: MainDrawer(),
       ),
     );
   }

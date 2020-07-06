@@ -26,10 +26,14 @@ class PersonalData with ChangeNotifier {
   });
 
   factory PersonalData.fromJson(Map<String, dynamic> parsedJson) {
-    var addressList = parsedJson['address_data'] as List;
-    List<Address> addressRaw =
-        addressList.map((i) => Address.fromJson(i)).toList();
-
+    List<Address> addressRaw=[];
+    if( parsedJson['address_data']!=null) {
+      var addressList = parsedJson['address_data'] as List;
+      addressRaw=
+      addressList.map((i) => Address.fromJson(i)).toList();
+    }else{
+      addressRaw=[];
+    }
     return PersonalData(
       phone: parsedJson['phone'] != null ? parsedJson['phone'] : '',
       first_name: parsedJson['fname'] != null ? parsedJson['fname'] : '',

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../provider/app_theme.dart';
-import '../models/message.dart';
-import '../widgets/en_to_ar_number_convertor.dart';
 import 'package:shamsi_date/shamsi_date.dart';
+
+import '../models/message.dart';
+import '../provider/app_theme.dart';
+import '../widgets/en_to_ar_number_convertor.dart';
 
 class MessageReplyItem extends StatelessWidget {
   const MessageReplyItem({
@@ -22,13 +23,13 @@ class MessageReplyItem extends StatelessWidget {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     return Padding(
       padding: isReply
-          ? const EdgeInsets.only(left: 10)
-          : const EdgeInsets.only(right: 10),
+          ? const EdgeInsets.only(left: 15)
+          : const EdgeInsets.only(right: 15),
       child: Container(
 //        height: deviceHeight * 0.25,
         width: deviceWidth * 0.8,
         child: Card(
-          color: isReply ? AppTheme.accent : AppTheme.bg,
+          color: isReply ? AppTheme.white : AppTheme.bg,
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Column(
@@ -64,7 +65,7 @@ class MessageReplyItem extends StatelessWidget {
                           ),
                         ).day}'),
                         style: TextStyle(
-                          color: AppTheme.h1,
+                          color: AppTheme.grey,
                           fontFamily: 'Iransans',
                           fontSize: textScaleFactor * 15.0,
                         ),
@@ -84,12 +85,11 @@ class MessageReplyItem extends StatelessWidget {
                     style: TextStyle(
                       color: AppTheme.black,
                       fontFamily: 'Iransans',
-                      fontSize: textScaleFactor * 14.0,
+                      fontSize: textScaleFactor * 15.0,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Padding(
@@ -98,9 +98,9 @@ class MessageReplyItem extends StatelessWidget {
                       message.comment_content,
                       overflow: TextOverflow.fade,
                       style: TextStyle(
-                        color: AppTheme.h1,
+                        color: AppTheme.grey,
                         fontFamily: 'Iransans',
-                        fontSize: textScaleFactor * 13.0,
+                        fontSize: textScaleFactor * 12.0,
                       ),
                       textAlign: TextAlign.right,
                     ),

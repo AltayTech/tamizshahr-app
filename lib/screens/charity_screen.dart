@@ -132,23 +132,28 @@ class _CharityScreenState extends State<CharityScreen>
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Color(0xffF9F9F9),
-        appBar: AppBar(
-          title: Text(
-            'لیست موسسات خیریه',
-            style: TextStyle(
-              fontFamily: 'Iransans',
-            ),
-          ),
-          backgroundColor: AppTheme.appBarColor,
-          iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
-          elevation: 0,
-          centerTitle: true,
+    return Scaffold(
+      backgroundColor: Color(0xffF9F9F9),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: SingleChildScrollView(
+        title: Text(
+          'لیست موسسات خیریه',
+          style: TextStyle(
+            fontFamily: 'Iransans',
+          ),
+        ),
+        backgroundColor: AppTheme.appBarColor,
+        iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
@@ -252,7 +257,7 @@ class _CharityScreenState extends State<CharityScreen>
                         itemCount: loadedProductstolist.length,
                         itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
                           value: loadedProductstolist[i],
-                          child: CharityItemCahritiesScreen(),
+                          child: CharityItemCharitiesScreen(),
                         ),
                       ),
                     ),
@@ -295,14 +300,14 @@ class _CharityScreenState extends State<CharityScreen>
             ),
           ),
         ),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
-          ),
-          child: MainDrawer(),
+      ),
+      endDrawer: Theme(
+        data: Theme.of(context).copyWith(
+          // Set the transparency here
+          canvasColor: Colors
+              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
+        child: MainDrawer(),
       ),
     );
   }

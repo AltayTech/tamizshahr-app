@@ -133,24 +133,29 @@ class _CollectListScreenState extends State<CollectListScreen>
 
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Color(0xffF9F9F9),
-        appBar: AppBar(
-          title: Text(
-            'لیست درخواست ها',
-            style: TextStyle(
-              fontFamily: 'Iransans',
-            ),
-          ),
-          backgroundColor: AppTheme.appBarColor,
-          iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
-          elevation: 0,
-          centerTitle: true,
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: Color(0xffF9F9F9),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: SingleChildScrollView(
+        title: Text(
+          'لیست درخواست ها',
+          style: TextStyle(
+            fontFamily: 'Iransans',
+          ),
+        ),
+        backgroundColor: AppTheme.appBarColor,
+        iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+
+        child: SingleChildScrollView(
           child: !isLogin
               ? Container(
                   height: deviceHeight * 0.8,
@@ -365,10 +370,10 @@ class _CollectListScreenState extends State<CollectListScreen>
                                   child: loadedProductstolist.isEmpty
                                       ? Center(
                                           child: Text(
-                                            'محصولی وجود ندارد',
+                                            'درخواستی ثبت نشده است',
                                             style: TextStyle(
                                               fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 15.0,
+                                              fontSize: textScaleFactor * 14.0,
                                             ),
                                           ),
                                         )
@@ -380,14 +385,14 @@ class _CollectListScreenState extends State<CollectListScreen>
                   ),
                 ),
         ),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
-          ),
-          child: MainDrawer(),
+      ),
+      endDrawer: Theme(
+        data: Theme.of(context).copyWith(
+          // Set the transparency here
+          canvasColor: Colors
+              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
+        child: MainDrawer(),
       ),
     );
   }

@@ -30,6 +30,10 @@ class Products with ChangeNotifier {
 
   var _sCategory;
 
+  set cartItems(List<ProductCart> value) {
+    _cartItems = value;
+  }
+
   bool _isFiltered = false;
 
   SearchDetail _searchDetails = SearchDetail(max_page: 1, total: 10);

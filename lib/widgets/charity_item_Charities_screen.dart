@@ -7,7 +7,7 @@ import 'package:tamizshahr/screens/charity_detail_screen.dart';
 
 import '../provider/app_theme.dart';
 
-class CharityItemCahritiesScreen extends StatelessWidget {
+class CharityItemCharitiesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
@@ -81,10 +81,10 @@ class CharityItemCahritiesScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.right,
                               style: TextStyle(
-                                color: AppTheme.black,
+                                color: AppTheme.grey,
                                 fontFamily: 'Iransans',
 //                                fontWeight: FontWeight.w500,
-                                fontSize: textScaleFactor * 16.0,
+                                fontSize: textScaleFactor * 13.0,
                               ),
                             ),
                           ),

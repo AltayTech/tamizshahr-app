@@ -11,8 +11,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="tamizshahr"
-        android:icon="@mipmap/ic_launcher">
+        android:label="تمیزشهر"
+        android:icon="@drawable/tamizshahr_ic">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCRlaVGOEihxi7V69rWNNF_37i6z4wRZDM"/>
         <activity

@@ -6,14 +6,14 @@ import 'status.dart';
 class Customer with ChangeNotifier {
   final int id;
   final Status status;
-  final Status type;
+  final Status customer_type;
   final PersonalData personalData;
   final String money;
 
   Customer({
     this.id,
     this.status,
-    this.type,
+    this.customer_type,
     this.personalData,
     this.money,
   });
@@ -21,21 +21,21 @@ class Customer with ChangeNotifier {
   factory Customer.fromJson(Map<String, dynamic> parsedJson) {
     return Customer(
       id: parsedJson['id']!=null?parsedJson['id']:0,
-      status: Status.fromJson(parsedJson['status']),
-      type: Status.fromJson(parsedJson['type']),
+      status: parsedJson['status']!=null?Status.fromJson(parsedJson['status']):Status(term_id: 0,name:'',slug: ''),
+      customer_type: parsedJson['customer_type']!=null?Status.fromJson(parsedJson['customer_type']):Status(term_id: 0,name:'',slug: ''),
       personalData: PersonalData.fromJson(parsedJson['customer_data']),
-      money: parsedJson['money'] != null ? parsedJson['money'] : '',
+      money: parsedJson['money'] != null ? parsedJson['money'] : '0',
     );
   }
 
   Map<String, dynamic> toJson() {
     Map personalData =
         this.personalData != null ? this.personalData.toJson() : null;
-    Map type = this.type != null ? this.type.toJson() : null;
+    Map customer_type = this.customer_type != null ? this.customer_type.toJson() : null;
 
     return {
       'customer_data': personalData,
-      'type': type,
+      'customer_type': customer_type,
       'id': id,
       'money': money,
     };

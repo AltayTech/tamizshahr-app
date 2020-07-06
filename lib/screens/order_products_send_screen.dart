@@ -400,9 +400,11 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                       await createRequest(context).then(
                         (value) => sendRequest(context).then(
                           (value) {
+                            Provider.of<Products>(context,listen: false).cartItems=[];
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 NavigationBottomScreen.routeName,
                                 (Route<dynamic> route) => false);
+
                             _showSendOrderdialog();
                           },
                         ),

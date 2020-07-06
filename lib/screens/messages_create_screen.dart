@@ -73,9 +73,7 @@ class _MessageCreateScreenState extends State<MessageCreateScreen> {
     });
     setState(() {
       _isLoading = false;
-      print(_isLoading.toString());
     });
-    print(_isLoading.toString());
   }
 
   @override

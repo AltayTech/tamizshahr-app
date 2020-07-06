@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/screens/wastes_screen_animated_list.dart';
+import 'package:tamizshahr/provider/app_theme.dart';
+import 'package:tamizshahr/screens/article_screen.dart';
+import 'package:tamizshahr/screens/charity_screen.dart';
+import 'package:tamizshahr/screens/messages_screen.dart';
 
 import '../provider/auth.dart';
 import '../provider/customer_info.dart';
@@ -154,7 +157,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'محصولات',
+                              'فروشگاه',
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -175,29 +178,7 @@ class MainDrawer extends StatelessWidget {
                                   arguments: 0);
                             },
                           ),
-//                          ListTile(
-//                            title: Text(
-//                              'لیست پسماندها',
-//                              style: TextStyle(
-//                                fontFamily: "Iransans",
-//                                fontWeight: FontWeight.w500,
-//                                fontSize: 16,
-//                                color: textColor,
-//                              ),
-//                              textAlign: TextAlign.right,
-//                            ),
-//                            trailing: Icon(
-//                              Icons.phonelink,
-//                              color: iconColor,
-//                            ),
-//                            onTap: () {
-//                              Navigator.of(context).pop();
-//
-//                              Navigator.of(context).pushNamed(
-//                                WastesScreenAnimatedList.routeName,
-//                              );
-//                            },
-//                          ),
+
                           ListTile(
                             title: Text(
                               'سبد خرید',
@@ -218,6 +199,75 @@ class MainDrawer extends StatelessWidget {
 
                               Navigator.of(context)
                                   .pushNamed(CartScreen.routeName);
+                            },
+                          ),
+                          ListTile(
+                            title: Text(
+                              'خیریه ها',
+                              style: TextStyle(
+                                fontFamily: "Iransans",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: textColor,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            trailing: Container(
+                                height: deviceHeight * 0.03,
+                                width: deviceHeight * 0.03,
+                                child: Image.asset(
+                                  'assets/images/donation_ic.png',
+                                  color: AppTheme.grey,
+                                )),
+                            onTap: () {
+                              Navigator.of(context).pop();
+
+                              Navigator.of(context)
+                                  .pushNamed(CharityScreen.routeName);
+                            },
+                          ),
+                          ListTile(
+                            title: Text(
+                              'آموزشها',
+                              style: TextStyle(
+                                fontFamily: "Iransans",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: textColor,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            trailing: Icon(
+                              Icons.description,
+                              color: iconColor,
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pop();
+
+                              Navigator.of(context)
+                                  .pushNamed(MessageScreen.routeName);
+                            },
+                          ),
+                          ListTile(
+                            title: Text(
+                              'پشتیبانی',
+                              style: TextStyle(
+                                fontFamily: "Iransans",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: textColor,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            trailing: Icon(
+                              Icons.description,
+                              color: iconColor,
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pop();
+
+                              Navigator.of(context)
+                                  .pushNamed(MessageScreen.routeName);
                             },
                           ),
                           ListTile(
@@ -318,33 +368,33 @@ class MainDrawer extends StatelessWidget {
                                   .pushNamed(NavigationBottomScreen.routeName);
                             },
                           ),
-                          Container(
-                            height: 20,
-                            color: Colors.black54,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  'تبریزاپس',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Iransans',
-                                    color: Colors.green,
-                                    fontSize: textScaleFactor * 11.0,
-                                  ),
-                                ),
-                                Text(
-                                  'طراحی شده توسط',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'Iransans',
-                                    color: textColor,
-                                    fontSize: textScaleFactor * 11.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+//                          Container(
+//                            height: 20,
+//                            color: Colors.black54,
+//                            child: Row(
+//                              mainAxisAlignment: MainAxisAlignment.center,
+//                              children: <Widget>[
+//                                Text(
+//                                  'تبریزاپس',
+//                                  textAlign: TextAlign.center,
+//                                  style: TextStyle(
+//                                    fontFamily: 'Iransans',
+//                                    color: Colors.green,
+//                                    fontSize: textScaleFactor * 11.0,
+//                                  ),
+//                                ),
+//                                Text(
+//                                  'طراحی شده توسط',
+//                                  textAlign: TextAlign.center,
+//                                  style: TextStyle(
+//                                    fontFamily: 'Iransans',
+//                                    color: textColor,
+//                                    fontSize: textScaleFactor * 11.0,
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
+//                          ),
                         ],
                       ),
                     ),

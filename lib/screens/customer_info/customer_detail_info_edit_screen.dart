@@ -49,7 +49,7 @@ class _CustomerDetailInfoEditScreenState
     ostanController.text = customer.personalData.ostan;
     cityController.text = customer.personalData.city;
     postCodeController.text = customer.personalData.postcode;
-    selectedType = customer.type;
+    selectedType = customer.customer_type;
 
     super.initState();
   }
@@ -72,7 +72,8 @@ class _CustomerDetailInfoEditScreenState
       _isLoading = true;
     });
     await Provider.of<CustomerInfo>(context, listen: false).getTypes();
-
+    typesList.clear();
+    typeValueList.clear();
     typesList = Provider.of<CustomerInfo>(context, listen: false).typesItems;
     for (int i = 0; i < typesList.length; i++) {
       typeValueList.add(typesList[i].name);
@@ -313,7 +314,7 @@ class _CustomerDetailInfoEditScreenState
               );
 
               Customer customerSend = Customer(
-                  type: selectedType,
+                  customer_type: selectedType,
                   personalData: PersonalData(
                     first_name: nameController.text,
                     last_name: familyController.text,

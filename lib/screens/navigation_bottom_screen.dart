@@ -86,17 +86,15 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
             ),
             actionsPadding: EdgeInsets.all(10),
             actions: <Widget>[
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(false),
-                  child: Text(
-                    "نه",
-                    style: TextStyle(
-                        color: AppTheme.black,
-                        fontFamily: 'Iransans',
-                        fontSize:
-                            MediaQuery.of(context).textScaleFactor * 18.0),
-                  ),
+              GestureDetector(
+                onTap: () => Navigator.of(context).pop(false),
+                child: Text(
+                  "نه",
+                  style: TextStyle(
+                      color: AppTheme.black,
+                      fontFamily: 'Iransans',
+                      fontSize:
+                          MediaQuery.of(context).textScaleFactor * 18.0),
                 ),
               ),
               SizedBox(

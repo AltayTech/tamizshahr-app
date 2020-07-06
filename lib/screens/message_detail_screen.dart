@@ -152,7 +152,7 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
         child: MainDrawer(),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppTheme.accent,
+        backgroundColor: AppTheme.primary,
         child: Icon(
           Icons.reply,
           color: AppTheme.bg,

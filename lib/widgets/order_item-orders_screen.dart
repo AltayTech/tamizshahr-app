@@ -95,7 +95,7 @@ class OrderItemOrdersScreen extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    order.total_number,
+                                    EnArConvertor().replaceArNumber(order.total_number),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,

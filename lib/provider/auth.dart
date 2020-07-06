@@ -114,7 +114,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> getVerCode(String verificationCode, String phoneNumber) async {
-    return _authenticate('/verify?mobile=$phoneNumber&code=$verificationCode');
+    return _authenticate('/verify?type=customer&mobile=$phoneNumber&sms=$verificationCode');
   }
 
   Future<void> getToken() async {

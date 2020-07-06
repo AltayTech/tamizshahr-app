@@ -130,7 +130,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 height: deviceSizeHeight * 0.7,
                                 width: deviceSizeWidth * 0.9,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: GridView(
                                     children: <Widget>[
                                       InkWell(
@@ -160,7 +160,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                   )
                                                 ],
                                                 borderRadius:
-                                                    BorderRadius.circular(25)),
+                                                    BorderRadius.circular(15)),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -176,7 +176,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                     'سفارش',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                      color: AppTheme.primary,
+                                                      color: AppTheme.black,
                                                       fontFamily: 'Iransans',
                                                       fontSize:
                                                           textScaleFactor *
@@ -218,7 +218,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          25)),
+                                                          15)),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -238,7 +238,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                             TextAlign.center,
                                                         style: TextStyle(
                                                           color:
-                                                              AppTheme.primary,
+                                                              AppTheme.black,
                                                           fontFamily:
                                                               'Iransans',
                                                           fontSize:
@@ -283,7 +283,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          25)),
+                                                          15)),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -301,7 +301,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                        color: AppTheme.primary,
+                                                        color: AppTheme.black,
                                                         fontFamily: 'Iransans',
                                                         fontSize:
                                                             textScaleFactor *
@@ -344,7 +344,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          25)),
+                                                          15)),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -372,7 +372,7 @@ class _ProfileViewState extends State<ProfileView> {
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                        color: AppTheme.primary,
+                                                        color: AppTheme.black,
                                                         fontFamily: 'Iransans',
                                                         fontSize:
                                                             textScaleFactor *

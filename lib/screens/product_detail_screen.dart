@@ -253,7 +253,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     aspectRatio: 1,
                                     viewportFraction: 1.0,
                                     initialPage: 0,
-                                    enableInfiniteScroll: true,
+                                    enableInfiniteScroll: false,
                                     reverse: false,
                                     autoPlay: false,
                                     height: deviceHeight * 0.7,
@@ -321,93 +321,73 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              width: double.infinity,
-                              color: AppTheme.white,
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        loadedProduct.name,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          height: 2,
-                                          color: AppTheme.black,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 20.0,
-                                        ),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
+                          Container(
+                            width: double.infinity,
+                            color: AppTheme.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      loadedProduct.name,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        height: 2,
+                                        color: AppTheme.black,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 18,
                                       ),
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: <Widget>[
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: <Widget>[
 
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                bottom: textScaleFactor * 15.0),
-                                            child: Text(
-                                              'تومان',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontFamily: 'Iransans',
-                                                fontSize:
-                                                    textScaleFactor * 15.0,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: priceWidget(context),
-                                          ),
-//                                          Padding(
-//                                            padding: const EdgeInsets.all(8.0),
-//                                            child: Text(
-//                                              'قیمت',
-//                                              textAlign: TextAlign.center,
-//                                              style: TextStyle(
-//                                                color: Colors.grey,
-//                                                fontFamily: 'Iransans',
-//                                                fontSize:
-//                                                textScaleFactor * 15.0,
-//                                              ),
-//                                            ),
-//                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: HtmlWidget(
-                                            loadedProduct.description,
-                                            onTapUrl: (url) => showDialog(
-                                              context: context,
-                                              builder: (_) => AlertDialog(
-                                                title: Text('onTapUrl'),
-                                                content: Text(url),
-                                              ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: textScaleFactor * 15.0),
+                                          child: Text(
+                                            'تومان',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontFamily: 'Iransans',
+                                              fontSize:
+                                                  textScaleFactor * 15.0,
                                             ),
                                           ),
                                         ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: priceWidget(context),
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                  Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: HtmlWidget(
+                                      loadedProduct.description,
+                                      onTapUrl: (url) => showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title: Text('onTapUrl'),
+                                          content: Text(url),
+                                        ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -417,9 +397,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
             Positioned(
-                bottom: 10,
-                left: 10,
-                right: 10,
+                bottom: 15,
+                left: 15,
+                right: 15,
                 child: Builder(
                   builder: (BuildContext context) {
                     return InkWell(

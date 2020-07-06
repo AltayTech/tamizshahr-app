@@ -29,7 +29,7 @@ class _SplashScreensState extends State<SplashScreens> {
       seconds: 3,
       navigateAfterSeconds: new NavigationBottomScreen(),
       title: new Text(
-        ' سامانه مدیرت پسماند',
+        'تمیزشهر',
         textAlign: TextAlign.center,
         style: new TextStyle(
           fontFamily: 'BFarnaz',

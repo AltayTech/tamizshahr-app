@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'collect.dart';
+import 'collect_time.dart';
 import 'request_address.dart';
 
 class RequestWaste with ChangeNotifier {
-  final String total_price;
-  final String total_weight;
-  final String total_number;
-  final String collect_day;
-  final String collect_hours;
+  final CollectTime collect_date;
   final RequestAddress address_data;
   final List<Collect> collect_list;
 
   RequestWaste({
-    this.total_price,
-    this.total_weight,
-    this.total_number,
-    this.collect_day,
-    this.collect_hours,
+    this.collect_date,
     this.address_data,
     this.collect_list,
   });
@@ -28,17 +21,15 @@ class RequestWaste with ChangeNotifier {
         collectList.map((i) => Collect.fromJson(i)).toList();
 
     return RequestWaste(
-      total_price: parsedJson['total_price'],
-      total_weight: parsedJson['total_weight'],
-      total_number: parsedJson['total_number'],
-      collect_day: parsedJson['collect_day'],
-      collect_hours: parsedJson['collect_hours'],
+      collect_date: CollectTime.fromJson(parsedJson['collect_date']),
       address_data: RequestAddress.fromJson(parsedJson['address_data']),
       collect_list: collectRaw,
     );
   }
 
   Map<String, dynamic> toJson() {
+    Map collect_date =
+        this.collect_date != null ? this.collect_date.toJson() : null;
     Map address_data =
         this.address_data != null ? this.address_data.toJson() : null;
 
@@ -47,11 +38,7 @@ class RequestWaste with ChangeNotifier {
         : null;
 
     return {
-      'total_price': total_price,
-      'total_weight': total_weight,
-      'total_number': total_number,
-      'collect_day': collect_day,
-      'collect_hours': collect_hours,
+      'collect_date': collect_date,
       'address_data': address_data,
       'collect_list': collect_list,
     };

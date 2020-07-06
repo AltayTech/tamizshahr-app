@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 
 import '../models/article.dart';
 import '../provider/app_theme.dart';
 import '../screens/article_detail_screen.dart';
+import 'en_to_ar_number_convertor.dart';
 
 class ArticleItemArticlesScreen extends StatelessWidget {
   @override
@@ -57,7 +59,7 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
+                                const EdgeInsets.only(left: 10,right:10,top:10),
                             child: Text(
                               article.title,
                               maxLines: 2,
@@ -66,13 +68,31 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: AppTheme.black,
                                 fontFamily: 'Iransans',
-                                fontSize: textScaleFactor * 15.0,
+                                fontSize: textScaleFactor * 14.0,
                               ),
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  EnArConvertor().replaceArNumber(
+                                    '${Jalali.fromDateTime(DateTime.parse(article.post_date_gmt)).year}/${Jalali.fromDateTime(DateTime.parse(article.post_date_gmt)).month}/${Jalali.fromDateTime(DateTime.parse(article.post_date_gmt)).day}',
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    height: 2,
+                                    color: AppTheme.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 16.0,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
                               Spacer(),
                               Padding(
                                 padding:

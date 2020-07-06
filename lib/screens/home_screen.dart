@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     color: AppTheme.bg,
                     border: Border.all(width: 5, color: AppTheme.bg)),
-                height: deviceWidth * 0.35,
+                height: deviceWidth * 0.4,
                 child: Builder(
                   builder: (BuildContext context) {
                     return Container(
@@ -166,7 +166,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 30, right: 30, bottom: 10, top: 16),
+                                        left: 30,
+                                        right: 30,
+                                        bottom: 10,
+                                        top: 16),
                                     child: Container(
                                       height: constraint.maxHeight * 0.7,
                                       child: Image.asset(
@@ -221,7 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 30, right: 30, bottom: 10, top: 16),                                  child: Container(
+                                      left: 30, right: 30, bottom: 10, top: 16),
+                                  child: Container(
                                     height: constraint.maxHeight * 0.30,
                                     child: Image.asset(
                                         'assets/images/main_page_wallet_ic.png',
@@ -275,7 +279,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 30, right: 30, bottom: 10, top: 16),                                  child: Container(
+                                      left: 30, right: 30, bottom: 10, top: 16),
+                                  child: Container(
                                     height: constraint.maxHeight * 0.30,
                                     child: Image.asset(
                                       'assets/images/main_page_article_ic.png',

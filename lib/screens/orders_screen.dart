@@ -106,24 +106,28 @@ class _OrdersScreenState extends State<OrdersScreen>
 
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Color(0xffF9F9F9),
-        appBar: AppBar(
-          title: Text(
-            'سفارش ها',
-            style: TextStyle(
-              fontFamily: 'Iransans',
-            ),
-          ),
-          backgroundColor: AppTheme.appBarColor,
-          iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
-          elevation: 0,
-          centerTitle: true,
-          actions: <Widget>[],
+    return Scaffold(
+      backgroundColor: Color(0xffF9F9F9),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: SingleChildScrollView(
+        title: Text(
+          'سفارش ها',
+          style: TextStyle(
+            fontFamily: 'Iransans',
+          ),
+        ),
+        backgroundColor: AppTheme.appBarColor,
+        iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
+        elevation: 0,
+        centerTitle: true,
+        actions: <Widget>[],
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
@@ -241,7 +245,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                               ],
                             ),
                           ),
-                          Divider(thickness: 1, color: AppTheme.h1),
+                          Divider(thickness: 0.5, color: AppTheme.grey),
                           Container(
                             width: double.infinity,
                             height: deviceHeight * 0.75,
@@ -283,7 +287,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                                       child: loadedProductstolist.isEmpty
                                           ? Center(
                                               child: Text(
-                                              'محصولی وجود ندارد',
+                                              'سفارشی وجود ندارد',
                                               style: TextStyle(
                                                 fontFamily: 'Iransans',
                                                 fontSize:
@@ -295,14 +299,14 @@ class _OrdersScreenState extends State<OrdersScreen>
                   ),
           ),
         ),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
-          ),
-          child: MainDrawer(),
+      ),
+      endDrawer: Theme(
+        data: Theme.of(context).copyWith(
+          // Set the transparency here
+          canvasColor: Colors
+              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
+        child: MainDrawer(),
       ),
     );
   }

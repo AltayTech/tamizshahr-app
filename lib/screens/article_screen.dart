@@ -149,23 +149,27 @@ class _ArticlesScreenState extends State<ArticlesScreen>
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: Color(0xffF9F9F9),
-        appBar: AppBar(
-          title: Text(
-            'مقالات',
-            style: TextStyle(
-              fontFamily: 'Iransans',
-            ),
-          ),
-          backgroundColor: AppTheme.appBarColor,
-          iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
-          elevation: 0,
-          centerTitle: true,
+    return Scaffold(
+      backgroundColor: Color(0xffF9F9F9),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        body: SingleChildScrollView(
+        title: Text(
+          'مقالات',
+          style: TextStyle(
+            fontFamily: 'Iransans',
+          ),
+        ),
+        backgroundColor: AppTheme.appBarColor,
+        iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
@@ -353,9 +357,9 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                       child: Text(
                                         productsDetail != null
                                             ? EnArConvertor().replaceArNumber(
-                                            productsDetail.total.toString())
+                                                productsDetail.total.toString())
                                             : EnArConvertor()
-                                            .replaceArNumber('0'),
+                                                .replaceArNumber('0'),
                                         style: TextStyle(
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,
@@ -368,7 +372,6 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                         }),
                       ],
                     ),
-                    Divider(thickness: 1, color: AppTheme.h1),
                     Container(
                       width: double.infinity,
                       height: deviceHeight * 0.75,
@@ -419,161 +422,14 @@ class _ArticlesScreenState extends State<ArticlesScreen>
             ),
           ),
         ),
-//            ),
-//            Positioned(
-//              top: 0,
-//              left: 0,
-//              right: 0,
-//              child: AnimatedContainer(
-//                duration: _controller.duration,
-//                curve: Curves.easeIn,
-//                child: ScaleTransition(
-//                  scale: _opacityAnimation,
-//                  child: FadeTransition(
-//                    opacity: _opacityAnimation,
-//                    child: SlideTransition(
-//                      position: _slideAnimation,
-//                      child: Padding(
-//                        padding: const EdgeInsets.only(bottom: 15.0),
-//                        child: Center(
-//                          child: Padding(
-//                            padding: const EdgeInsets.all(8.0),
-//                            child: Container(
-//                              width: MediaQuery.of(context).size.width * 0.9,
-//                              height: AppBar().preferredSize.height,
-//                              decoration: BoxDecoration(
-//                                color: Colors.white,
-//                                borderRadius: BorderRadius.circular(8),
-//                                border: Border.all(
-//                                  color: AppTheme.secondary,
-//                                  width: 0.6,
-//                                ),
-//                              ),
-//                              child: Row(
-//                                children: <Widget>[
-//                                  Padding(
-//                                    padding: const EdgeInsets.all(8.0),
-//                                    child: InkWell(
-//                                      onTap: () {
-//                                        String brandsEndpoint = '';
-//                                        String colorsEndpoint = '';
-//                                        String sellcaseEndpoint = '';
-//                                        String priceRange = '';
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .filterTitle
-//                                            .clear();
-//
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .searchKey =
-//                                            searchTextController.text;
-//
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .sBrand = brandsEndpoint;
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .sColor = colorsEndpoint;
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .sPriceRange = priceRange;
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .sPage = 1;
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .sSellCase = sellcaseEndpoint;
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .searchBuilder();
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .checkFiltered();
-//
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .searchBuilder();
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .checkFiltered();
-//                                        Navigator.of(context).pushReplacementNamed(
-//                                            ProductsScreen.routeName,
-//                                            arguments: 0);
-//                                      },
-//                                      child: Icon(
-//                                        Icons.search,
-//                                        color: AppTheme.primary,
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  Expanded(
-//                                    child: TextFormField(
-//                                      textInputAction: TextInputAction.search,
-//                                      onFieldSubmitted: (_) {
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .searchKey =
-//                                            searchTextController.text;
-//                                        Provider.of<Articles>(context,
-//                                            listen: false)
-//                                            .searchBuilder();
-//
-//                                        return Navigator.of(context).pushNamed(
-//                                            ProductsScreen.routeName,
-//                                            arguments: 0);
-//                                      },
-//                                      controller: searchTextController,
-//                                      decoration: InputDecoration(
-//                                        border: InputBorder.none,
-//                                        hintStyle: TextStyle(
-//                                          color: AppTheme.secondary,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: MediaQuery.of(context)
-//                                              .textScaleFactor *
-//                                              12.0,
-//                                        ),
-//                                        hintText: 'جستجوی محصولات ...',
-//                                        labelStyle: TextStyle(
-//                                          color: AppTheme.secondary,
-//                                          fontFamily: 'Iransans',
-//                                          fontSize: MediaQuery.of(context)
-//                                              .textScaleFactor *
-//                                              10.0,
-//                                        ),
-//                                      ),
-//                                    ),
-//                                  ),
-//                                  Padding(
-//                                    padding: const EdgeInsets.all(8.0),
-//                                    child: InkWell(
-//                                        onTap: () {
-//                                          _controller.reverse();
-//                                          setState(() {});
-//                                        },
-//                                        child: Icon(Icons.clear)),
-//                                  ),
-//                                ],
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//                ),
-//              ),
-//            ),
-//          ],
-//        ),
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            // Set the transparency here
-            canvasColor: Colors
-                .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
-          ),
-          child: MainDrawer(),
+      ),
+      endDrawer: Theme(
+        data: Theme.of(context).copyWith(
+          // Set the transparency here
+          canvasColor: Colors
+              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
+        child: MainDrawer(),
       ),
     );
   }

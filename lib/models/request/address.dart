@@ -15,9 +15,10 @@ class Address with ChangeNotifier {
     return Address(
       name: parsedJson['name'],
       address: parsedJson['address'],
-      region: Region.fromJson(parsedJson['region']),
-      latitude: parsedJson['latitude'],
-      longitude: parsedJson['longitude'],
+      region:parsedJson['region']!=null ?Region.fromJson(parsedJson['region']):Region(term_id: 0,
+      name: '',collect_hour: []),
+      latitude: parsedJson['latitude']!=null? parsedJson['latitude']:0.0,
+      longitude: parsedJson['longitude']!=null? parsedJson['longitude']:0.0,
     );
   }
 
