@@ -61,28 +61,7 @@ class _ProductsScreenState extends State<ProductsScreen>
         }
       }
     });
-//    _controller = AnimationController(
-//      vsync: this,
-//      duration: Duration(
-//        milliseconds: 600,
-//      ),
-//    );
-//
-//    _slideAnimation = Tween<Offset>(
-//      begin: Offset(-0.9, -3),
-//      end: Offset(0, 0),
-//    ).animate(
-//      CurvedAnimation(
-//        parent: _controller,
-//        curve: Curves.ease,
-//      ),
-//    );
-//    _opacityAnimation = Tween(begin: 0.0, end: 1.0).animate(
-//      CurvedAnimation(
-//        parent: _controller,
-//        curve: Curves.ease,
-//      ),
-//    );
+
     super.initState();
   }
 
@@ -355,7 +334,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -541,9 +520,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                             }),
                           ],
                         ),
-                        Divider(
-                            thickness: 1,
-                            color: AppTheme.grey.withOpacity(0.4)),
+
                         Container(
                           width: double.infinity,
                           height: deviceHeight * 0.75,

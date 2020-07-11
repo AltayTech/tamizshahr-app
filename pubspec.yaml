@@ -16,22 +16,25 @@ dependencies:
   http: ^0.12.0+2
   intl: ^0.16.0
   flutter_widget_from_html_core: ^0.4.1
-  share: ^0.6.3+5
-  image_picker: ^0.6.2+3
+  #  share: ^0.6.3+5
+  #  image_picker: ^0.6.2+3
   url_launcher: ^5.4.1
   html: ^0.14.0
   flutter_spinkit: "^4.1.1"
-  flutter_masked_text: ^0.8.0
+  #  flutter_masked_text: ^0.8.0
   shamsi_date: ^0.8.1
   carousel_slider: ^2.1.0
   google_map_location_picker: ^3.3.2
   google_maps_flutter: ^0.5.28+1
+  #  font_awesome_flutter: ^8.8.1
 
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  font_awesome_flutter: ^8.8.1
+#  material_design_icons_flutter: 4.0.5345
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -45,6 +48,7 @@ flutter:
     - assets/images/main_page_header.png
     - assets/images/main_page_request_ic.png
     - assets/images/main_page_article_ic.png
+    - assets/images/main_page_paper_ic.png
     - assets/images/main_page_shop_ic.png
     - assets/images/main_page_wallet_ic.png
     - assets/images/address_page_header.png
@@ -64,6 +68,8 @@ flutter:
     - assets/images/donation_ic.png
     - assets/images/messages_screen_mail_ic.png
     - assets/images/send_popup_tick.png
+    - assets/images/waste_cart_weight_ic.png
+    - assets/images/waste_cart_price_ic.png
 
   fonts:
     #   - family: Schyler

@@ -41,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه باید وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید',
       ),
     );
   }
@@ -142,11 +142,12 @@ class _CartScreenState extends State<CartScreen> {
       body: Builder(builder: (context) {
         return Directionality(
           textDirection: TextDirection.rtl,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
+          child: Container(
+            color: AppTheme.bg,
+            height: double.infinity,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
               child: Stack(
                 children: <Widget>[
                   SingleChildScrollView(
@@ -173,7 +174,7 @@ class _CartScreenState extends State<CartScreen> {
                                   style: TextStyle(
                                     color: AppTheme.black,
                                     fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 12,
+                                    fontSize: textScaleFactor * 14,
                                   ),
                                 ),
                                 VerticalDivider(
@@ -198,7 +199,7 @@ class _CartScreenState extends State<CartScreen> {
                                               .toString())
                                       : EnArConvertor().replaceArNumber('0'),
                                   style: TextStyle(
-                                    color: AppTheme.primary,
+                                    color: AppTheme.black,
                                     fontFamily: 'Iransans',
                                     fontSize: textScaleFactor * 18,
                                   ),
@@ -212,7 +213,7 @@ class _CartScreenState extends State<CartScreen> {
                           child: shoppItems.length != 0
                               ? Container(
                                   decoration: BoxDecoration(
-                                      color: AppTheme.white,
+                                      color: AppTheme.bg,
                                       borderRadius: BorderRadius.circular(5),
                                      ),
                                   child: ListView.builder(

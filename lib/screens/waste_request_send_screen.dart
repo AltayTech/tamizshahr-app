@@ -68,36 +68,33 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
   void _showLogindialog() {
     showDialog(
       context: context,
-      builder: (ctx) =>
-          CustomDialogEnter(
-            title: 'ورود',
-            buttonText: 'صفحه ورود ',
-            description: 'برای ادامه باید وارد شوید',
-          ),
+      builder: (ctx) => CustomDialogEnter(
+        title: 'ورود',
+        buttonText: 'صفحه ورود ',
+        description: 'برای ادامه لطفا وارد شوید',
+      ),
     );
   }
 
   void _showCompletedialog() {
     showDialog(
       context: context,
-      builder: (ctx) =>
-          CustomDialogProfile(
-            title: 'اطلاعات کاربری',
-            buttonText: 'صفحه پروفایل ',
-            description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
-          ),
+      builder: (ctx) => CustomDialogProfile(
+        title: 'اطلاعات کاربری',
+        buttonText: 'صفحه پروفایل ',
+        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+      ),
     );
   }
 
   void _showSenddialog() {
     showDialog(
       context: context,
-      builder: (ctx) =>
-          CustomDialogSendRequest(
-            title: '',
-            buttonText: 'خب',
-            description: 'درخواست شما با موفقیت ثبت شد',
-          ),
+      builder: (ctx) => CustomDialogSendRequest(
+        title: '',
+        buttonText: 'خب',
+        description: 'درخواست شما با موفقیت ثبت شد',
+      ),
     );
   }
 
@@ -123,27 +120,17 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
 
     getDate(3);
     getMonthAndWeek();
-    selectedRegion = Provider
-        .of<Auth>(context, listen: false)
-        .regionData;
-    selectedHours = Provider
-        .of<Wastes>(context, listen: false)
-        .selectedHours;
-    selectedDay = Provider
-        .of<Wastes>(context, listen: false)
-        .selectedDay;
+    selectedRegion = Provider.of<Auth>(context, listen: false).regionData;
+    selectedHours = Provider.of<Wastes>(context, listen: false).selectedHours;
+    selectedDay = Provider.of<Wastes>(context, listen: false).selectedDay;
 
-    selectedAddress = Provider
-        .of<Auth>(context, listen: false)
-        .selectedAddress;
+    selectedAddress = Provider.of<Auth>(context, listen: false).selectedAddress;
 
     await Provider.of<Auth>(context, listen: false)
         .retrieveRegion(selectedAddress.region.term_id);
     await Provider.of<Auth>(context, listen: false).checkCompleted();
 
-    wasteCartItems = Provider
-        .of<Wastes>(context, listen: false)
-        .wasteCartItems;
+    wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
     totalPrice = 0;
     totalWeight = 0;
 
@@ -153,9 +140,9 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         print(wasteCartItems[i].featured_image.sizes.medium);
         wasteCartItems[i].prices.length > 0
             ? totalPrice = totalPrice +
-            int.parse(getPrice(
-                wasteCartItems[i].prices, wasteCartItems[i].weight)) *
-                wasteCartItems[i].weight
+                int.parse(getPrice(
+                        wasteCartItems[i].prices, wasteCartItems[i].weight)) *
+                    wasteCartItems[i].weight
             : totalPrice = totalPrice;
         wasteCartItems[i].prices.length > 0
             ? totalWeight = totalWeight + wasteCartItems[i].weight
@@ -247,7 +234,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         Collect(
           estimated_weight: wasteCartItems[i].weight.toString(),
           estimated_price:
-          getPrice(wasteCartItems[i].prices, wasteCartItems[i].weight),
+              getPrice(wasteCartItems[i].prices, wasteCartItems[i].weight),
           pasmand: Pasmand(
               id: wasteCartItems[i].id, post_title: wasteCartItems[i].name),
         ),
@@ -258,8 +245,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         collect_date: CollectTime(
             time: selectedHours,
             day:
-            '${weekDays[selectedDay.weekDay - 1]}  ${selectedDay
-                .day} ${weekDays[selectedDay.weekDay - 1]}'),
+                '${weekDays[selectedDay.weekDay - 1]}  ${selectedDay.day} ${months[selectedDay.month]}'),
         address_data: RequestAddress(
           name: selectedAddress.name,
           address: selectedAddress.address,
@@ -289,24 +275,12 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    var textScaleFactor = MediaQuery
-        .of(context)
-        .textScaleFactor;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+    var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
-    bool isLogin = Provider
-        .of<Auth>(context, listen: false)
-        .isAuth;
-    bool isCompleted = Provider
-        .of<Auth>(context, listen: false)
-        .isCompleted;
+    bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
+    bool isCompleted = Provider.of<Auth>(context, listen: false).isCompleted;
 
     return Scaffold(
       appBar: AppBar(
@@ -355,7 +329,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                               color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
                               border:
-                              Border.all(color: Colors.grey, width: 0.2)),
+                                  Border.all(color: Colors.grey, width: 0.2)),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
@@ -366,10 +340,11 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Icon(
-                                          Icons.restore_from_trash,
-                                          color: Colors.red,
-                                          size: 40,
+                                        child: Image.asset(
+                                          'assets/images/main_page_request_ic.png',
+                                          height: deviceWidth * 0.06,
+                                          width: deviceWidth * 0.06,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       Text(
@@ -386,8 +361,8 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         child: Text(
                                           EnArConvertor()
                                               .replaceArNumber(wasteCartItems
-                                              .length
-                                              .toString())
+                                                  .length
+                                                  .toString())
                                               .toString(),
                                           style: TextStyle(
                                             color: AppTheme.h1,
@@ -404,10 +379,11 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Icon(
-                                          Icons.monetization_on,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                        child: Image.asset(
+                                          'assets/images/waste_cart_price_ic.png',
+                                          height: deviceWidth * 0.06,
+                                          width: deviceWidth * 0.06,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       Text(
@@ -430,15 +406,13 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          totalPrice
-                                              .toString()
-                                              .isNotEmpty
+                                          totalPrice.toString().isNotEmpty
                                               ? EnArConvertor().replaceArNumber(
-                                              currencyFormat
-                                                  .format(totalPrice)
-                                                  .toString())
+                                                  currencyFormat
+                                                      .format(totalPrice)
+                                                      .toString())
                                               : EnArConvertor()
-                                              .replaceArNumber('0'),
+                                                  .replaceArNumber('0'),
                                           style: TextStyle(
                                             color: AppTheme.h1,
                                             fontFamily: 'Iransans',
@@ -454,10 +428,11 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Icon(
-                                          Icons.av_timer,
-                                          color: Colors.blue,
-                                          size: 40,
+                                        child: Image.asset(
+                                          'assets/images/waste_cart_weight_ic.png',
+                                          height: deviceWidth * 0.06,
+                                          width: deviceWidth * 0.06,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       Text(
@@ -482,7 +457,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         child: Text(
                                           EnArConvertor()
                                               .replaceArNumber(
-                                              totalWeight.toString())
+                                                  totalWeight.toString())
                                               .toString(),
                                           style: TextStyle(
                                             color: AppTheme.h1,
@@ -504,40 +479,40 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                               color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
                               border:
-                              Border.all(color: Colors.grey, width: 0.2)),
+                                  Border.all(color: Colors.grey, width: 0.2)),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            Icons.date_range,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.date_range,
+                                          color: AppTheme.grey,
+                                          size: 30,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'تاریخ جمع آوری',
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          style: TextStyle(
                                             color: AppTheme.grey,
-                                            size: 30,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 15.0,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'تاریخ جمع آوری',
-                                            textAlign: TextAlign.center,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                              color: AppTheme.grey,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 15.0,
-                                            ),
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Text(
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Text(
                                           weekDays[selectedDay.weekDay - 1],
                                           style: TextStyle(
                                             color: AppTheme.black,
@@ -546,61 +521,98 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
-                                        Text(
-                                          selectedDay.day.toString() +
-                                              ' ' +
-                                              months[selectedDay.month - 1],
-                                          style: TextStyle(
-                                            color: AppTheme.black,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 15.0,
-                                          ),
-                                          textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        EnArConvertor().replaceArNumber(
+                                            selectedDay.day.toString() +
+                                                ' ' +
+                                                months[selectedDay.month - 1]),
+                                        style: TextStyle(
+                                          color: AppTheme.black,
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 18.0,
                                         ),
-                                      ],
-                                    ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            Icons.access_time,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.access_time,
+                                          color: AppTheme.grey,
+                                          size: 30,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'ساعت جمع آوری',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             color: AppTheme.grey,
-                                            size: 30,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 15.0,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'ساعت جمع آوری',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: AppTheme.grey,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 15.0,
-                                            ),
+                                      ),
+                                      Spacer(),
+                                      Center(
+                                        child: Text(
+                                          selectedHours,
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.location_on,
+                                          color: AppTheme.grey,
+                                          size: 30,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'منطقه:',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: AppTheme.grey,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 15.0,
                                           ),
                                         ),
-                                        Spacer(),
-                                        Center(
-                                          child: Text(
-                                            selectedHours,
-                                            style: TextStyle(
-                                              color: AppTheme.black,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 20.0,
-                                            ),
-                                            textAlign: TextAlign.center,
+                                      ),
+                                      Spacer(),
+                                      Center(
+                                        child: Text(
+                                          selectedRegion.name,
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18.0,
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -646,7 +658,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                             await sendRequest(context, isLogin).then((value) {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   NavigationBottomScreen.routeName,
-                                      (Route<dynamic> route) => false);
+                                  (Route<dynamic> route) => false);
                               _showSenddialog();
                             });
                           } else {
@@ -671,17 +683,17 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                       alignment: Alignment.center,
                       child: _isLoading
                           ? SpinKitFadingCircle(
-                        itemBuilder: (BuildContext context, int index) {
-                          return DecoratedBox(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: index.isEven
-                                  ? Colors.grey
-                                  : Colors.grey,
-                            ),
-                          );
-                        },
-                      )
+                              itemBuilder: (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: index.isEven
+                                        ? Colors.grey
+                                        : Colors.grey,
+                                  ),
+                                );
+                              },
+                            )
                           : Container(),
                     ),
                   )

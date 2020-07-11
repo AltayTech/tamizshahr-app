@@ -20,6 +20,8 @@ class AppTheme {
   static Color colorTwo = Colors.red[300];
   static Color colorThree = Colors.red[100];
   static BoxDecoration listItemBox = BoxDecoration(
-      borderRadius: BorderRadius.circular(5),
-      border: Border.all(color: AppTheme.grey, width: 0.3));
+    borderRadius: BorderRadius.circular(5),
+    border: Border.all(color: AppTheme.white),
+    color: AppTheme.white,
+  );
 }

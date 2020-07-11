@@ -58,7 +58,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه باید وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید',
       ),
     );
   }
@@ -169,7 +169,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
     dateList.clear();
 
     for (int i = 0; i < numberFutureDate; i++) {
-      dateList.add(dateTime.addDays(i));
+      dateList.add(dateTime.addDays(i + 1));
     }
   }
 
@@ -257,11 +257,12 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 4, bottom: 8.0),
-                                        child: Icon(
-                                          Icons.restore_from_trash,
-                                          color: Colors.red,
-                                          size: 40,
+                                            left: 8, bottom: 8.0),
+                                        child: Image.asset(
+                                          'assets/images/main_page_request_ic.png',
+                                          height: deviceWidth * 0.06,
+                                          width: deviceWidth * 0.06,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       Text(
@@ -297,11 +298,12 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 4, bottom: 2.0),
-                                        child: Icon(
-                                          Icons.monetization_on,
-                                          color: AppTheme.primary,
-                                          size: 35,
+                                            left:8, bottom: 2.0),
+                                        child: Image.asset(
+                                          'assets/images/waste_cart_price_ic.png',
+                                          height: deviceWidth * 0.06,
+                                          width: deviceWidth * 0.06,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       Text(
@@ -347,11 +349,12 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 4, bottom: 2.0),
-                                        child: Icon(
-                                          Icons.av_timer,
-                                          color: Colors.blue,
-                                          size: 40,
+                                            left: 8, bottom: 2.0),
+                                        child: Image.asset(
+                                          'assets/images/waste_cart_weight_ic.png',
+                                          height: deviceWidth * 0.06,
+                                          width: deviceWidth * 0.06,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                       Text(
@@ -401,21 +404,23 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Row(
+mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Icon(
-                                              Icons.date_range,
-                                              color: AppTheme.grey,
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:8.0),
+                                              child: Icon(
+                                                Icons.date_range,
+                                                color: AppTheme.grey,
+                                              ),
                                             ),
-                                            Expanded(
-                                              child: Text(
-                                                'تاریخ جمع آوری',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: AppTheme.grey,
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 15.0,
-                                                ),
+                                            Text(
+                                              'تاریخ جمع آوری',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: AppTheme.grey,
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 15.0,
                                               ),
                                             ),
                                           ],
@@ -484,10 +489,11 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                               .center,
                                                       children: <Widget>[
                                                         Text(
-                                                          weekDays[
-                                                              dateList[index]
+                                                          EnArConvertor().replaceArNumber(
+                                                              weekDays[dateList[
+                                                                          index]
                                                                       .weekDay -
-                                                                  1],
+                                                                  1]),
                                                           style: TextStyle(
                                                             color: _selectedDay ==
                                                                     dateList[
@@ -504,14 +510,15 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                               TextAlign.center,
                                                         ),
                                                         Text(
-                                                          dateList[index]
+                                                          EnArConvertor().replaceArNumber(dateList[
+                                                                      index]
                                                                   .day
                                                                   .toString() +
                                                               ' ' +
                                                               months[dateList[
                                                                           index]
                                                                       .month -
-                                                                  1],
+                                                                  1]),
                                                           style: TextStyle(
                                                             color: _selectedDay ==
                                                                     dateList[
@@ -549,21 +556,24 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+
                                           children: <Widget>[
-                                            Icon(
-                                              Icons.access_time,
-                                              color: AppTheme.grey,
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:8.0),
+                                              child: Icon(
+                                                Icons.access_time,
+                                                color: AppTheme.grey,
+                                              ),
                                             ),
-                                            Expanded(
-                                              child: Text(
-                                                'ساعت جمع آوری',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: AppTheme.grey,
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 15.0,
-                                                ),
+                                            Text(
+                                              'ساعت جمع آوری',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: AppTheme.grey,
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 15.0,
                                               ),
                                             ),
                                           ],
@@ -655,7 +665,10 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                                 ),
                                                           child: Center(
                                                             child: Padding(
-                                                              padding: const EdgeInsets.only(top:8.0),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top: 8.0),
                                                               child: Text(
                                                                 getHours(
                                                                     data
@@ -668,7 +681,8 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                                                         .collect_hour[
                                                                             index]
                                                                         .end),
-                                                                style: TextStyle(
+                                                                style:
+                                                                    TextStyle(
                                                                   color: _selectedHourStart ==
                                                                           data
                                                                               .regionData

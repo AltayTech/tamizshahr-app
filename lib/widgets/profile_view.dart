@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/screens/collect_list_screen.dart';
+import 'package:tamizshahr/screens/navigation_bottom_screen.dart';
 import 'package:tamizshahr/screens/orders_screen.dart';
 
 import '../classes/top_bar.dart';
@@ -11,6 +12,7 @@ import '../provider/customer_info.dart';
 import '../screens/customer_info/customer_user_info_screen.dart';
 import '../screens/customer_info/login_screen.dart';
 import '../screens/messages_screen.dart';
+import 'main_item_button.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -109,16 +111,64 @@ class _ProfileViewState extends State<ProfileView> {
 
                           Positioned(
                             top: deviceSizeHeight * 0.070,
-                            width: deviceSizeWidth * 0.4,
                             right: 20,
-                            child: Text(
-                              'پروفایل کاربری',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: AppTheme.bg,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 24.0,
-                                  fontWeight: FontWeight.w600),
+                            left: 20,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () async {
+                                    Provider.of<CustomerInfo>(context,
+                                            listen: false)
+                                        .customer = Provider.of<CustomerInfo>(
+                                            context,
+                                            listen: false)
+                                        .customer_zero;
+                                    await Provider.of<Auth>(context,
+                                            listen: false)
+                                        .removeToken();
+                                    Provider.of<Auth>(context, listen: false)
+                                        .isFirstLogout = true;
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil(
+                                            NavigationBottomScreen.routeName,
+                                            (Route<dynamic> route) => false);
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+//                                Padding(
+//                                  padding: const EdgeInsets.all(8),
+//                                  child: Icon(FontAwesomeIcons.signOutAlt,color: AppTheme.white,),
+//                                ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          'خروج از حساب کاربری',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: AppTheme.bg,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 14,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Spacer(),
+                                Text(
+                                  'پروفایل کاربری',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      color: AppTheme.bg,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 24.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
                             ),
                           ),
 
@@ -138,55 +188,13 @@ class _ProfileViewState extends State<ProfileView> {
                                           Navigator.of(context).pushNamed(
                                               OrdersScreen.routeName);
                                         },
-                                        child: Padding(
-                                          padding: EdgeInsets.all(
-                                              deviceSizeWidth * itemPaddingF),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: AppTheme.primary
-                                                        .withOpacity(0.08),
-
-                                                    blurRadius: 10.10,
-                                                    // has the effect of softening the shadow
-                                                    spreadRadius: 10.510,
-                                                    // has the effect of extending the shadow
-                                                    offset: Offset(
-                                                      0, // horizontal, move right 10
-                                                      0, // vertical, move down 10
-                                                    ),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(15)),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                Image.asset(
-                                                  'assets/images/orders_list.png',
-                                                  fit: BoxFit.contain,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    'سفارش',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: AppTheme.black,
-                                                      fontFamily: 'Iransans',
-                                                      fontSize:
-                                                          textScaleFactor *
-                                                              18.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                        child: MainItemButton(
+                                          title: 'سفارش',
+                                          itemPaddingF: itemPaddingF,
+                                          imageUrl:
+                                              'assets/images/orders_list.png',
+                                          isMonoColor: false,
+                                          imageSizeFactor: 0.25,
                                         ),
                                       ),
                                       InkWell(
@@ -194,125 +202,29 @@ class _ProfileViewState extends State<ProfileView> {
                                           Navigator.of(context).pushNamed(
                                               CustomerUserInfoScreen.routeName);
                                         },
-                                        child: Container(
-                                          child: Padding(
-                                            padding: EdgeInsets.all(
-                                                deviceSizeWidth * itemPaddingF),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppTheme.primary
-                                                          .withOpacity(0.08),
-
-                                                      blurRadius: 10.10,
-                                                      // has the effect of softening the shadow
-                                                      spreadRadius: 10.510,
-                                                      // has the effect of extending the shadow
-                                                      offset: Offset(
-                                                        0, // horizontal, move right 10
-                                                        0, // vertical, move down 10
-                                                      ),
-                                                    )
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15)),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Image.asset(
-                                                    'assets/images/user_Icon.png',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: FittedBox(
-                                                      child: Text(
-                                                        'اطلاعات شخصی',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                          color:
-                                                              AppTheme.black,
-                                                          fontFamily:
-                                                              'Iransans',
-                                                          fontSize:
-                                                              textScaleFactor *
-                                                                  16.0,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
+                                        child: MainItemButton(
+                                          title: 'اطلاعات شخصی',
+                                          itemPaddingF: itemPaddingF,
+                                          imageUrl:
+                                              'assets/images/user_Icon.png',
+                                          isMonoColor: false,
+                                          imageSizeFactor: 0.30,
                                         ),
+
+//
                                       ),
                                       InkWell(
                                         onTap: () {
                                           Navigator.of(context).pushNamed(
                                               MessageScreen.routeName);
                                         },
-                                        child: Container(
-                                          child: Padding(
-                                            padding: EdgeInsets.all(
-                                                deviceSizeWidth * itemPaddingF),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppTheme.primary
-                                                          .withOpacity(0.08),
-
-                                                      blurRadius: 10.10,
-                                                      // has the effect of softening the shadow
-                                                      spreadRadius: 10.510,
-                                                      // has the effect of extending the shadow
-                                                      offset: Offset(
-                                                        0, // horizontal, move right 10
-                                                        0, // vertical, move down 10
-                                                      ),
-                                                    )
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15)),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Image.asset(
-                                                    'assets/images/message_icon.png',
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                      'پیام ها',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: AppTheme.black,
-                                                        fontFamily: 'Iransans',
-                                                        fontSize:
-                                                            textScaleFactor *
-                                                                18.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
+                                        child: MainItemButton(
+                                          title: 'پیام ها',
+                                          itemPaddingF: itemPaddingF,
+                                          imageUrl:
+                                              'assets/images/message_icon.png',
+                                          isMonoColor: false,
+                                          imageSizeFactor: 0.25,
                                         ),
                                       ),
                                       InkWell(
@@ -320,70 +232,13 @@ class _ProfileViewState extends State<ProfileView> {
                                           Navigator.of(context).pushNamed(
                                               CollectListScreen.routeName);
                                         },
-                                        child: Container(
-                                          child: Padding(
-                                            padding: EdgeInsets.all(
-                                                deviceSizeWidth * itemPaddingF),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: AppTheme.primary
-                                                          .withOpacity(0.08),
-
-                                                      blurRadius: 10.10,
-                                                      // has the effect of softening the shadow
-                                                      spreadRadius: 10.510,
-                                                      // has the effect of extending the shadow
-                                                      offset: Offset(
-                                                        0, // horizontal, move right 10
-                                                        0, // vertical, move down 10
-                                                      ),
-                                                    )
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15)),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 40,
-                                                            right: 40,
-                                                            bottom: 0,
-                                                            top: 5),
-                                                    child: Image.asset(
-                                                      'assets/images/main_page_request_ic.png',
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-
-                                                        bottom: 5,
-                                                        top: 0),
-                                                    child: Text(
-                                                      'درخواست ها',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: AppTheme.black,
-                                                        fontFamily: 'Iransans',
-                                                        fontSize:
-                                                            textScaleFactor *
-                                                                18.0,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
+                                        child: MainItemButton(
+                                          title: 'درخواست ها',
+                                          itemPaddingF: itemPaddingF,
+                                          imageUrl:
+                                              'assets/images/main_page_request_ic.png',
+                                          isMonoColor: false,
+                                          imageSizeFactor: 0.35,
                                         ),
                                       ),
                                     ],

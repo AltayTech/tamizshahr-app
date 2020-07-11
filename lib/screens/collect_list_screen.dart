@@ -221,126 +221,124 @@ class _CollectListScreenState extends State<CollectListScreen>
                               ),
                             ),
                           ),
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Spacer(),
-                                      Consumer<Wastes>(
-                                          builder: (_, Wastes, ch) {
-                                        return Container(
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: deviceHeight * 0.0,
-                                                horizontal: 3),
-                                            child: Wrap(
-                                                alignment: WrapAlignment.start,
-                                                crossAxisAlignment:
-                                                    WrapCrossAlignment.center,
-                                                direction: Axis.horizontal,
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 3,
-                                                        vertical: 5),
-                                                    child: Text(
-                                                      'تعداد:',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Iransans',
-                                                        fontSize:
-                                                            textScaleFactor *
-                                                                12.0,
-                                                      ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Spacer(),
+                                    Consumer<Wastes>(
+                                        builder: (_, Wastes, ch) {
+                                      return Container(
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: deviceHeight * 0.0,
+                                              horizontal: 3),
+                                          child: Wrap(
+                                              alignment: WrapAlignment.start,
+                                              crossAxisAlignment:
+                                                  WrapCrossAlignment.center,
+                                              direction: Axis.horizontal,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 3,
+                                                      vertical: 5),
+                                                  child: Text(
+                                                    'تعداد:',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Iransans',
+                                                      fontSize:
+                                                          textScaleFactor *
+                                                              12.0,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 4.0,
-                                                            left: 6),
-                                                    child: Text(
-                                                      productsDetail != null
-                                                          ? EnArConvertor()
-                                                              .replaceArNumber(
-                                                                  loadedProductstolist
-                                                                      .length
-                                                                      .toString())
-                                                          : EnArConvertor()
-                                                              .replaceArNumber(
-                                                                  '0'),
-                                                      style: TextStyle(
-                                                        fontFamily: 'Iransans',
-                                                        fontSize:
-                                                            textScaleFactor *
-                                                                13.0,
-                                                      ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 4.0,
+                                                          left: 6),
+                                                  child: Text(
+                                                    productsDetail != null
+                                                        ? EnArConvertor()
+                                                            .replaceArNumber(
+                                                                loadedProductstolist
+                                                                    .length
+                                                                    .toString())
+                                                        : EnArConvertor()
+                                                            .replaceArNumber(
+                                                                '0'),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Iransans',
+                                                      fontSize:
+                                                          textScaleFactor *
+                                                              13.0,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 3,
-                                                        vertical: 5),
-                                                    child: Text(
-                                                      'از',
-                                                      style: TextStyle(
-                                                        fontFamily: 'Iransans',
-                                                        fontSize:
-                                                        textScaleFactor *
-                                                            12.0,
-                                                      ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 3,
+                                                      vertical: 5),
+                                                  child: Text(
+                                                    'از',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Iransans',
+                                                      fontSize:
+                                                      textScaleFactor *
+                                                          12.0,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        right: 4.0,
-                                                        left: 6),
-                                                    child: Text(
-                                                      productsDetail != null
-                                                          ? EnArConvertor()
-                                                          .replaceArNumber(
-                                                         productsDetail.total.toString()
-                                                              .toString())
-                                                          : EnArConvertor()
-                                                          .replaceArNumber(
-                                                          '0'),
-                                                      style: TextStyle(
-                                                        fontFamily: 'Iransans',
-                                                        fontSize:
-                                                        textScaleFactor *
-                                                            13.0,
-                                                      ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                  const EdgeInsets.only(
+                                                      right: 4.0,
+                                                      left: 6),
+                                                  child: Text(
+                                                    productsDetail != null
+                                                        ? EnArConvertor()
+                                                        .replaceArNumber(
+                                                       productsDetail.total.toString()
+                                                            .toString())
+                                                        : EnArConvertor()
+                                                        .replaceArNumber(
+                                                        '0'),
+                                                    style: TextStyle(
+                                                      fontFamily: 'Iransans',
+                                                      fontSize:
+                                                      textScaleFactor *
+                                                          13.0,
                                                     ),
                                                   ),
-                                                ]),
-                                          ),
-                                        );
-                                      }),
-                                    ],
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: deviceHeight * 0.68,
-                                    child: ListView.builder(
-                                      controller: _scrollController,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: loadedProductstolist.length,
-                                      itemBuilder: (ctx, i) =>
-                                          ChangeNotifierProvider.value(
-                                        value: loadedProductstolist[i],
-                                        child: CollectItemCollectsScreen(),
-                                      ),
+                                                ),
+                                              ]),
+                                        ),
+                                      );
+                                    }),
+                                  ],
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: deviceHeight * 0.68,
+                                  child: ListView.builder(
+                                    controller: _scrollController,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: loadedProductstolist.length,
+                                    itemBuilder: (ctx, i) =>
+                                        ChangeNotifierProvider.value(
+                                      value: loadedProductstolist[i],
+                                      child: CollectItemCollectsScreen(),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           )
                         ],

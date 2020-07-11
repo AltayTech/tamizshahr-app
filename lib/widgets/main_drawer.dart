@@ -4,12 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/app_theme.dart';
-import 'package:tamizshahr/screens/article_screen.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
 import 'package:tamizshahr/screens/messages_screen.dart';
 
 import '../provider/auth.dart';
-import '../provider/customer_info.dart';
 import '../screens/about_us_screen.dart';
 import '../screens/cart_screen.dart';
 import '../screens/contact_with_us_screen.dart';
@@ -59,7 +57,6 @@ class MainDrawer extends StatelessWidget {
                   child: Container(color: Colors.black.withOpacity(0.3)),
                 ),
               ),
-
               Wrap(
                 children: <Widget>[
                   Stack(
@@ -72,26 +69,6 @@ class MainDrawer extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
-//                      Container(
-//                        width: double.infinity,
-//                        height: deviceHeight * 0.25,
-//                        padding: EdgeInsets.all(20),
-//                        alignment: Alignment.center,
-//                        color: Colors.purpleAccent.withOpacity(0.1),
-//                        child: Padding(
-//                          padding: const EdgeInsets.only(top: 20.0),
-//                          child: Text(
-//                            'نسخه آزمایشی فروشگاه \n همراه ساتل',
-//                            style: TextStyle(
-//                                fontWeight: FontWeight.w400,
-//                                fontSize: 24,
-//                                height: 2,
-//                                fontFamily: 'BFarnaz',
-//                                color: AppTheme.bg),
-//                            textAlign: TextAlign.center,
-//                          ),
-//                        ),
-//                      ),
                     ],
                   ),
                   SizedBox(
@@ -151,8 +128,6 @@ class MainDrawer extends StatelessWidget {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                   NavigationBottomScreen.routeName,
                                   (Route<dynamic> route) => false);
-//                              Navigator.of(context)
-//                                  .pushNamed(NavigationBottomScreen.routeName);
                             },
                           ),
                           ListTile(
@@ -178,7 +153,6 @@ class MainDrawer extends StatelessWidget {
                                   arguments: 0);
                             },
                           ),
-
                           ListTile(
                             title: Text(
                               'سبد خرید',
@@ -336,72 +310,12 @@ class MainDrawer extends StatelessWidget {
                                   .pushNamed(AboutUsScreen.routeName);
                             },
                           ),
-                          Divider(
-                            height: 1,
-                            color: Colors.grey.withOpacity(0.6),
-                          ),
-                          ListTile(
-                            title: Text(
-                              'خروج',
-                              style: TextStyle(
-                                fontFamily: 'Iransans',
-                                fontSize: textScaleFactor * 13.0,
-                                color: textColor,
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                            trailing: Icon(
-                              Icons.power_settings_new,
-                              color: Colors.red,
-                            ),
-                            onTap: () async {
-                              Provider.of<CustomerInfo>(context, listen: false)
-                                  .customer = Provider.of<CustomerInfo>(context,
-                                      listen: false)
-                                  .customer_zero;
-                              await Provider.of<Auth>(context, listen: false)
-                                  .removeToken();
-                              Provider.of<Auth>(context, listen: false)
-                                  .isFirstLogout = true;
-                              Navigator.of(context).pop();
-                              Navigator.of(context)
-                                  .pushNamed(NavigationBottomScreen.routeName);
-                            },
-                          ),
-//                          Container(
-//                            height: 20,
-//                            color: Colors.black54,
-//                            child: Row(
-//                              mainAxisAlignment: MainAxisAlignment.center,
-//                              children: <Widget>[
-//                                Text(
-//                                  'تبریزاپس',
-//                                  textAlign: TextAlign.center,
-//                                  style: TextStyle(
-//                                    fontFamily: 'Iransans',
-//                                    color: Colors.green,
-//                                    fontSize: textScaleFactor * 11.0,
-//                                  ),
-//                                ),
-//                                Text(
-//                                  'طراحی شده توسط',
-//                                  textAlign: TextAlign.center,
-//                                  style: TextStyle(
-//                                    fontFamily: 'Iransans',
-//                                    color: textColor,
-//                                    fontSize: textScaleFactor * 11.0,
-//                                  ),
-//                                ),
-//                              ],
-//                            ),
-//                          ),
                         ],
                       ),
                     ),
                   ),
                 ],
               ),
-//        ),
             ],
           ),
         ),

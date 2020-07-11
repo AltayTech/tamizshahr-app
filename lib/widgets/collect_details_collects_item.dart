@@ -60,23 +60,19 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Container(
-        height: deviceWidth * 0.30,
+        height: deviceWidth * 0.5,
         width: deviceWidth,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: AppTheme.white,
-            border: Border.all(color: AppTheme.grey, width: 0.3)),
+        decoration: AppTheme.listItemBox,
         child: LayoutBuilder(
           builder: (_, constraints) => Stack(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      flex: 3,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,102 +89,163 @@ class _CollectDetailsCollectItemState extends State<CollectDetailsCollectItem> {
                             ),
                           ),
                           Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Text(
-                                'وزن کل: ',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 12,
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text(
+                            'وزن کل (کیلوگرم): ',
+                            style: TextStyle(
+                              color: AppTheme.black.withOpacity(0.7),
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 14,
+                            ),
+                          ),
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'درخواست: ',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 12,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                EnArConvertor()
-                                    .replaceArNumber(
-                                        widget.collectItem.estimated_weight.toString())
-                                    .toString(),
-                                style: TextStyle(
-                                  color: AppTheme.black,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 16,
+                                Text(
+                                  EnArConvertor()
+                                      .replaceArNumber(widget
+                                          .collectItem.estimated_weight
+                                          .toString())
+                                      .toString(),
+                                  style: TextStyle(
+                                    color: AppTheme.black,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 16,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                '  کیلوگرم ',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: 'Iransans',
-                                  fontSize: textScaleFactor * 12,
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'تحویل: ',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 12,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  EnArConvertor()
+                                      .replaceArNumber(widget
+                                          .collectItem.exact_weight
+                                          .toString())
+                                      .toString(),
+                                  style: TextStyle(
+                                    color: AppTheme.black,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 16,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
                     Expanded(
-                      flex: 3,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'هر کیلو: ',
+                            'قیمت کل (تومان): ',
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: AppTheme.black.withOpacity(0.7),
+                              fontWeight: FontWeight.w500,
                               fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 12,
-                            ),
-                          ),
-                          Text(
-                            widget.collectItem.estimated_price.length != null
-                                ? EnArConvertor().replaceArNumber(currencyFormat
-                                    .format(
-                                        double.parse(widget.collectItem.estimated_price))
-                                    .toString())
-                                : EnArConvertor().replaceArNumber('0'),
-                            style: TextStyle(
-                              color: AppTheme.black,
-                              fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 16,
-                            ),
-                          ),
-                          Text(
-                            '  تومان ',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 12,
+                              fontSize: textScaleFactor * 14,
                             ),
                           ),
                           Spacer(),
-                          Text(
-                            'قیمت کل: ',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 12,
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'درخواست: ',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 12,
+                                  ),
+                                ),
+                                Text(
+                                  widget.collectItem.estimated_price != null
+                                      ? EnArConvertor().replaceArNumber(
+                                          currencyFormat.format(double.parse(
+                                              widget.collectItem
+                                                  .estimated_price)))
+                                      : EnArConvertor().replaceArNumber('0'),
+                                  style: TextStyle(
+                                    color: AppTheme.black,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 18,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            widget.collectItem.estimated_price != null
-                                ? EnArConvertor().replaceArNumber(
-                                    currencyFormat.format(
-                                        double.parse(widget.collectItem.estimated_price)))
-                                : EnArConvertor().replaceArNumber('0'),
-                            style: TextStyle(
-                              color: AppTheme.black,
-                              fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 18,
-                            ),
-                          ),
-                          Text(
-                            '  تومان ',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Iransans',
-                              fontSize: textScaleFactor * 12,
+                          Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'تحویل: ',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 12,
+                                  ),
+                                ),
+                                Text(
+                                  widget.collectItem.exact_price != null
+                                      ? EnArConvertor().replaceArNumber(
+                                          currencyFormat.format(double.parse(
+                                              widget.collectItem.exact_price)))
+                                      : EnArConvertor().replaceArNumber('0'),
+                                  style: TextStyle(
+                                    color: AppTheme.black,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 18,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

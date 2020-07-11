@@ -35,31 +35,25 @@ class CharityItemCharitiesScreen extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       flex: 5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: FadeInImage(
-                              placeholder:
-                                  AssetImage('assets/images/circle.gif'),
-                              image: NetworkImage(
-                                  charity.featured_image.sizes.medium),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ],
+                      child: Container(
+                        height: constraints.maxHeight,
+                        child: FadeInImage(
+                          placeholder: AssetImage('assets/images/circle.gif'),
+                          image:
+                              NetworkImage(charity.featured_image.sizes.medium),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Expanded(
                       flex: 10,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
                               charity.charity_data.name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -71,24 +65,33 @@ class CharityItemCharitiesScreen extends StatelessWidget {
                                 fontSize: textScaleFactor * 16.0,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: Text(
-                              charity.charity_data.excerpt,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                color: AppTheme.grey,
-                                fontFamily: 'Iransans',
-//                                fontWeight: FontWeight.w500,
-                                fontSize: textScaleFactor * 13.0,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                alignment: WrapAlignment.start,
+                                children: charity.activities
+                                    .map((e) => ChangeNotifierProvider.value(
+                                          value: e,
+                                          child: Text(
+                                            charity.activities.indexOf(e) <
+                                                    (charity.activities.length -
+                                                        1)
+                                                ? (e.name + '، ')
+                                                : e.name,
+                                            style: TextStyle(
+                                              fontFamily: 'Iransans',
+                                              color: Colors.grey,
+                                              fontSize: textScaleFactor * 14.0,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ))
+                                    .toList(),
                               ),
-                            ),
-                          ),
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -7,6 +7,7 @@ class Charity with ChangeNotifier {
   final int id;
   final Status type;
   final Status status;
+  final List<Status> activities;
   final CharityData charity_data;
   final String summary;
   final String description;
@@ -20,6 +21,7 @@ class Charity with ChangeNotifier {
     this.id,
     this.type,
     this.status,
+    this.activities,
     this.charity_data,
     this.summary,
     this.description,
@@ -35,6 +37,10 @@ class Charity with ChangeNotifier {
     List<FeaturedImage> galleryRaw =
         galleryList.map((i) => FeaturedImage.fromJson(i)).toList();
 
+    List<Status> activitiesRaw = [];
+    var activitiesList = parsedJson['activities'] as List;
+    activitiesRaw = activitiesList.map((i) => Status.fromJson(i)).toList();
+
     return Charity(
       id: parsedJson['id'],
       type: parsedJson['type'] != null
@@ -43,13 +49,16 @@ class Charity with ChangeNotifier {
       status: parsedJson['status'] != null
           ? Status.fromJson(parsedJson['status'])
           : Status(term_id: 0, name: '', slug: ''),
+      activities: activitiesRaw,
       charity_data: CharityData.fromJson(parsedJson['charity_data']),
       summary: parsedJson['summary'] != null ? parsedJson['summary'] : '',
       description:
           parsedJson['description'] != null ? parsedJson['description'] : '',
       featured_image: FeaturedImage.fromJson(parsedJson['featured_image']),
       gallery: galleryRaw,
-      money: parsedJson['money'] != null||parsedJson['money'] != '' ? parsedJson['money'] : '0',
+      money: parsedJson['money'] != null || parsedJson['money'] != ''
+          ? parsedJson['money']
+          : '0',
       sum_of_helps:
           parsedJson['sum_of_helps'] != null ? parsedJson['sum_of_helps'] : '0',
       sum_of_helps_months: parsedJson['sum_of_helps_months'] != null

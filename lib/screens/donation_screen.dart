@@ -55,6 +55,8 @@ class _DonationScreenState extends State<DonationScreen>
   void didChangeDependencies() async {
     if (_isInit) {
       getCustomerInfo();
+      customer=Provider.of<CustomerInfo>(context, listen: false).customer;
+
       loadedCharity = ModalRoute.of(context).settings.arguments as Charity;
     }
     _isInit = false;
@@ -398,7 +400,9 @@ class _DonationScreenState extends State<DonationScreen>
                                 left: 0,
                                 right: 0,
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: ()async {
+
+
                                     SnackBar addToCartSnackBar = SnackBar(
                                       content: Text(
                                         'شماره شبا را وارد نمایید',
@@ -416,16 +420,40 @@ class _DonationScreenState extends State<DonationScreen>
                                       ),
                                     );
 
-                                    donateToCharityFromDialogBox(int.parse(
-                                            removeSemicolon(
-                                                donationController.text)))
-                                        .then((value) {
-                                      Navigator.of(context)
-                                          .pushNamedAndRemoveUntil(
-                                              NavigationBottomScreen.routeName,
-                                              (Route<dynamic> route) => false);
-                                      _showSenddialog();
-                                    });
+                                    if (double.parse(removeSemicolon(donationController.text) )>double
+                                        .parse(customer
+                                        .money) ) {
+                                      SnackBar addToCartSnackBar = SnackBar(
+                                        content: Text(
+                                          'مقدار درخواستی از امتیاز شما بیشتر است',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 14.0,
+                                          ),
+                                        ),
+                                        action: SnackBarAction(
+                                          label: 'متوجه شدم',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      );
+                                      Scaffold.of(ctx)
+                                          .showSnackBar(addToCartSnackBar);
+                                    } else {
+                                      await donateToCharityFromDialogBox(int.parse(
+                                          removeSemicolon(
+                                              donationController.text)))
+                                          .then((value) {
+                                        Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                            NavigationBottomScreen.routeName,
+                                                (Route<dynamic> route) => false);
+                                        _showSenddialog();
+                                      });
+                                    }
+
                                   },
                                   child: ButtonBottom(
                                     width: deviceWidth * 0.9,

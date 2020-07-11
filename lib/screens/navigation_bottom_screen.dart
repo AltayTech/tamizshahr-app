@@ -18,6 +18,8 @@ class NavigationBottomScreen extends StatefulWidget {
 
 class _NavigationBottomScreenState extends State<NavigationBottomScreen>
     with SingleTickerProviderStateMixin {
+  GlobalKey<ScaffoldState> _key = new GlobalKey<ScaffoldState>();
+
   bool isLogin;
   int _selectedPageIndex = 0;
 
@@ -61,65 +63,83 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
     );
   }
 
-  Future<bool> _onBackPressed() {
-    return showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            contentTextStyle: TextStyle(
+  Future<bool> _onBackPressed()async {
+    if (_key.currentState.isDrawerOpen) {
+      Navigator.pop(context);
+      return false;
+    } else{
+      return showDialog(
+        context: context,
+        builder: (context) =>
+        new AlertDialog(
+          contentTextStyle: TextStyle(
+              color: AppTheme.grey,
+              fontFamily: 'Iransans',
+              fontSize: MediaQuery
+                  .of(context)
+                  .textScaleFactor * 15.0),
+          title: Text(
+            'خروج از اپلیکیشن',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: AppTheme.black,
+                fontFamily: 'Iransans',
+                fontSize: MediaQuery
+                    .of(context)
+                    .textScaleFactor * 15.0),
+          ),
+          content: Text(
+            'آیا میخواهید از اپلیکیشن خارج شوید؟',
+            style: TextStyle(
                 color: AppTheme.grey,
                 fontFamily: 'Iransans',
-                fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
-            title: Text(
-              'خروج از اپلیکیشن',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: AppTheme.black,
-                  fontFamily: 'Iransans',
-                  fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
-            ),
-            content: Text(
-              'آیا میخواهید از اپلیکیشن خارج شوید؟',
-              style: TextStyle(
-                  color: AppTheme.grey,
-                  fontFamily: 'Iransans',
-                  fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
-            ),
-            actionsPadding: EdgeInsets.all(10),
-            actions: <Widget>[
-              GestureDetector(
-                onTap: () => Navigator.of(context).pop(false),
-                child: Text(
-                  "نه",
-                  style: TextStyle(
-                      color: AppTheme.black,
-                      fontFamily: 'Iransans',
-                      fontSize:
-                          MediaQuery.of(context).textScaleFactor * 18.0),
-                ),
-              ),
-              SizedBox(
-                height: 16,
-                width: MediaQuery.of(context).size.width * 0.3,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: Text("بلی"),
-              ),
-            ],
+                fontSize: MediaQuery
+                    .of(context)
+                    .textScaleFactor * 15.0),
           ),
-        ) ??
-        false;
+          actionsPadding: EdgeInsets.all(10),
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(false),
+              child: Text(
+                "نه",
+                style: TextStyle(
+                    color: AppTheme.black,
+                    fontFamily: 'Iransans',
+                    fontSize: MediaQuery
+                        .of(context)
+                        .textScaleFactor * 18.0),
+              ),
+            ),
+            SizedBox(
+              height: 16,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.3,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text("بلی"),
+            ),
+          ],
+        ),
+      ) ??
+          false;
+  }
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
+
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          key: _key,
           appBar: AppBar(
 //            bottom: PreferredSize(
 //              child: Container(),
@@ -149,6 +169,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
             child: MainDrawer(),
           ),
           body: _pages[_selectedPageIndex]['page'],
+
 //          bottomNavigationBar: BottomNavigationBar(
 //            elevation: 8,
 //            selectedLabelStyle: TextStyle(

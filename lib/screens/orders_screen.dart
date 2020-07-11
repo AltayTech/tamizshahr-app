@@ -16,7 +16,8 @@ import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import 'customer_info/login_screen.dart';
 
-class OrdersScreen extends StatefulWidget {
+class
+OrdersScreen extends StatefulWidget {
   static const routeName = '/ordersScreen';
 
   @override
@@ -130,7 +131,7 @@ class _OrdersScreenState extends State<OrdersScreen>
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
+                vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.0),
             child: !isLogin
                 ? Container(
                     child: Center(
@@ -164,139 +165,131 @@ class _OrdersScreenState extends State<OrdersScreen>
                       ),
                     ),
                   )
-                : Stack(
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
+                : Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Stack(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top:8.0,bottom: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Image.asset(
                                     'assets/images/orders_list.png',
                                     fit: BoxFit.contain,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'سفارش ها',
-                                    style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 14.0,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'سفارش ها',
+                                      style: TextStyle(
+                                        color: Colors.blueGrey,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 14.0,
+                                      ),
+                                      textAlign: TextAlign.right,
                                     ),
-                                    textAlign: TextAlign.right,
                                   ),
-                                ),
-                                Spacer(),
-                                Consumer<CustomerInfo>(
-                                    builder: (_, Wastes, ch) {
-                                  return Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: deviceHeight * 0.0,
-                                          horizontal: 3),
-                                      child: Wrap(
-                                          alignment: WrapAlignment.start,
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.center,
-                                          direction: Axis.horizontal,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 3,
-                                                      vertical: 5),
-                                              child: Text(
-                                                'تعداد:',
-                                                style: TextStyle(
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 12.0,
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 4.0, left: 6),
-                                              child: Text(
-                                                productsDetail != null
-                                                    ? EnArConvertor()
-                                                        .replaceArNumber(
-                                                            loadedProductstolist.length
-                                                                .toString())
-                                                    : EnArConvertor()
-                                                        .replaceArNumber('0'),
-                                                style: TextStyle(
-                                                  fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 13.0,
-                                                ),
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
-                          Divider(thickness: 0.5, color: AppTheme.grey),
-                          Container(
-                            width: double.infinity,
-                            height: deviceHeight * 0.75,
-                            child: ListView.builder(
-                              controller: _scrollController,
-                              scrollDirection: Axis.vertical,
-                              itemCount: loadedProductstolist.length,
-                              itemBuilder: (ctx, i) =>
-                                  ChangeNotifierProvider.value(
-                                value: loadedProductstolist[i],
-                                child: OrderItemOrdersScreen(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                          top: 0,
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: _isLoading
-                                  ? SpinKitFadingCircle(
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return DecoratedBox(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: index.isEven
-                                                ? Colors.grey
-                                                : Colors.grey,
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  : Container(
-                                      child: loadedProductstolist.isEmpty
-                                          ? Center(
-                                              child: Text(
-                                              'سفارشی وجود ندارد',
+                                  Spacer(),
+                                  Consumer<CustomerInfo>(
+                                      builder: (_, Wastes, ch) {
+                                    return Wrap(
+                                        alignment: WrapAlignment.start,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.center,
+                                        direction: Axis.horizontal,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 3,
+                                                    vertical: 5),
+                                            child: Text(
+                                              'تعداد:',
                                               style: TextStyle(
                                                 fontFamily: 'Iransans',
                                                 fontSize:
-                                                    textScaleFactor * 15.0,
+                                                    textScaleFactor * 12.0,
                                               ),
-                                            ))
-                                          : Container())))
-                    ],
-                  ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 4.0, ),
+                                            child: Text(
+                                              productsDetail != null
+                                                  ? EnArConvertor()
+                                                      .replaceArNumber(
+                                                          loadedProductstolist.length
+                                                              .toString())
+                                                  : EnArConvertor()
+                                                      .replaceArNumber('0'),
+                                              style: TextStyle(
+                                                fontFamily: 'Iransans',
+                                                fontSize:
+                                                    textScaleFactor * 13.0,
+                                              ),
+                                            ),
+                                          ),
+                                        ]);
+                                  }),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: deviceHeight * 0.75,
+                              child: ListView.builder(
+                                controller: _scrollController,
+                                scrollDirection: Axis.vertical,
+                                itemCount: loadedProductstolist.length,
+                                itemBuilder: (ctx, i) =>
+                                    ChangeNotifierProvider.value(
+                                  value: loadedProductstolist[i],
+                                  child: OrderItemOrdersScreen(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                            top: 0,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: _isLoading
+                                    ? SpinKitFadingCircle(
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return DecoratedBox(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: index.isEven
+                                                  ? Colors.grey
+                                                  : Colors.grey,
+                                            ),
+                                          );
+                                        },
+                                      )
+                                    : Container(
+                                        child: loadedProductstolist.isEmpty
+                                            ? Center(
+                                                child: Text(
+                                                'سفارشی وجود ندارد',
+                                                style: TextStyle(
+                                                  fontFamily: 'Iransans',
+                                                  fontSize:
+                                                      textScaleFactor * 15.0,
+                                                ),
+                                              ))
+                                            : Container())))
+                      ],
+                    ),
+                ),
           ),
         ),
       ),

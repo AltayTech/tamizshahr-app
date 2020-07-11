@@ -55,7 +55,8 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
     return Container(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        padding:
+            const EdgeInsets.only(bottom: 16, left: 16, right: 16, top: 16),
         child: _isLoading
             ? Align(
                 alignment: Alignment.center,
@@ -76,27 +77,29 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(
+                        top: 8,
+                        bottom: 8,
+                      ),
                       child: Row(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(
+                              left: 8,
+                            ),
                             child: Image.asset(
                               'assets/images/user_Icon.png',
                               fit: BoxFit.contain,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'اطلاعات شخصی',
-                              style: TextStyle(
-                                color: AppTheme.h1,
-                                fontFamily: 'Iransans',
-                                fontSize: textScaleFactor * 18.0,
-                              ),
-                              textAlign: TextAlign.right,
+                          Text(
+                            'اطلاعات شخصی',
+                            style: TextStyle(
+                              color: AppTheme.h1,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 18.0,
                             ),
+                            textAlign: TextAlign.right,
                           ),
                         ],
                       ),
@@ -172,7 +175,6 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                         Divider(
                           color: Colors.white,
                         ),
-
                         Container(
                           child: ListView(
                             physics: NeverScrollableScrollPhysics(),
@@ -244,16 +246,19 @@ class InfoItem extends StatelessWidget {
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     return Padding(
-      padding: const EdgeInsets.all(3.0),
+      padding: const EdgeInsets.only(top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            '$title : ',
-            style: TextStyle(
-              color: AppTheme.grey,
-              fontFamily: 'Iransans',
-              fontSize: textScaleFactor * 14.0,
+          Padding(
+            padding: const EdgeInsets.only(top: 4, bottom: 6),
+            child: Text(
+              '$title : ',
+              style: TextStyle(
+                color: AppTheme.grey,
+                fontFamily: 'Iransans',
+                fontSize: textScaleFactor * 14.0,
+              ),
             ),
           ),
           Container(

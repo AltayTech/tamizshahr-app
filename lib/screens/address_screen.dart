@@ -32,7 +32,7 @@ class _AddressScreenState extends State<AddressScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه باید وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید',
       ),
     );
   }
@@ -103,56 +103,53 @@ class _AddressScreenState extends State<AddressScreen> {
                         ),
                       ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: addressList.length != 0
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  color: AppTheme.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Consumer<Auth>(
-                                    builder: (_, products, ch) =>
-                                        ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: products.addressItems.length,
-                                      itemBuilder: (ctx, i) => InkWell(
-                                        onTap: () async {
-                                          await Provider.of<Auth>(context,
-                                                  listen: false)
-                                              .selectAddress(
-                                                  products.addressItems[i]);
-                                          setState(() {});
-                                        },
-                                        child: AddressItem(
-                                          addressItem: products.addressItems[i],
-                                          isSelected: Provider.of<Auth>(context,
-                                                          listen: false)
-                                                      .selectedAddress !=
-                                                  null
-                                              ? products.addressItems[i].name ==
-                                                  Provider.of<Auth>(context,
-                                                          listen: false)
-                                                      .selectedAddress
-                                                      .name
-                                              : false,
-                                        ),
+                      addressList.length != 0
+                          ? Container(
+                              decoration: BoxDecoration(
+                                color: AppTheme.bg,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Consumer<Auth>(
+                                  builder: (_, products, ch) =>
+                                      ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: products.addressItems.length,
+                                    itemBuilder: (ctx, i) => InkWell(
+                                      onTap: () async {
+                                        await Provider.of<Auth>(context,
+                                                listen: false)
+                                            .selectAddress(
+                                                products.addressItems[i]);
+                                        setState(() {});
+                                      },
+                                      child: AddressItem(
+                                        addressItem: products.addressItems[i],
+                                        isSelected: Provider.of<Auth>(context,
+                                                        listen: false)
+                                                    .selectedAddress !=
+                                                null
+                                            ? products.addressItems[i].name ==
+                                                Provider.of<Auth>(context,
+                                                        listen: false)
+                                                    .selectedAddress
+                                                    .name
+                                            : false,
                                       ),
                                     ),
                                   ),
                                 ),
-                              )
-                            : Container(
-                                height: deviceHeight * 0.45,
-                                child: Center(
-                                  child: Text('آدرسی اضافه نشده است'),
-                                ),
                               ),
-                      ),
+                            )
+                          : Container(
+                              height: deviceHeight * 0.45,
+                              child: Center(
+                                child: Text('آدرسی اضافه نشده است'),
+                              ),
+                            ),
                       SizedBox(
                         height: 50,
                       )
@@ -162,7 +159,6 @@ class _AddressScreenState extends State<AddressScreen> {
                 Positioned(
                   bottom: 0,
                   left: 0,
-                  right: 0,
                   child: InkWell(
                     onTap: () {
                       SnackBar addToCartSnackBar = SnackBar(
@@ -195,7 +191,7 @@ class _AddressScreenState extends State<AddressScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: ButtonBottom(
-                        width: deviceWidth * 0.9,
+                        width: deviceWidth * 0.75,
                         height: deviceWidth * 0.14,
                         text: 'ادامه',
                         isActive: Provider.of<Auth>(context, listen: false)
@@ -239,19 +235,16 @@ class _AddressScreenState extends State<AddressScreen> {
         ),
         child: MainDrawer(),
       ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: deviceWidth * 0.13 + 10),
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              MapScreen.routeName,
-            );
-          },
-          backgroundColor: AppTheme.primary,
-          child: Icon(
-            Icons.add,
-            color: AppTheme.white,
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            MapScreen.routeName,
+          );
+        },
+        backgroundColor: AppTheme.primary,
+        child: Icon(
+          Icons.add,
+          color: AppTheme.white,
         ),
       ),
     );

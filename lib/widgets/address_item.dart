@@ -66,11 +66,11 @@ class _AddressItemState extends State<AddressItem> {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Container(
-          height: deviceWidth * 0.24,
+          height: deviceWidth * 0.28,
           width: deviceWidth,
           decoration: BoxDecoration(
             color: widget.isSelected ? AppTheme.primary.withOpacity(0.1) : AppTheme.white,
-              border: Border.all(color: AppTheme.grey, width: 0.3),
+              border: Border.all(color: AppTheme.white, width: 0.3),
             borderRadius: BorderRadius.circular(5),
           ),
           child: LayoutBuilder(
@@ -83,13 +83,10 @@ class _AddressItemState extends State<AddressItem> {
                     children: <Widget>[
                       Expanded(
                           flex: 1,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top:8.0),
-                            child: Icon(
-                              Icons.place,
-                              color: Colors.indigo,
-                              size: 30,
-                            ),
+                          child: Icon(
+                            Icons.place,
+                            color: Colors.indigo,
+                            size: 30,
                           )),
                       Expanded(
                         flex: 6,
@@ -114,6 +111,20 @@ class _AddressItemState extends State<AddressItem> {
                                       fontFamily: 'Iransans',
                                       fontSize: textScaleFactor * 18,
                                     ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                  widget.addressItem.region.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    color: AppTheme.grey,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 15,
                                   ),
                                 ),
                               ),

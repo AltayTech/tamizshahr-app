@@ -27,8 +27,8 @@ class ProductItemProductScreen extends StatelessWidget {
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
             fontFamily: 'Iransans',
-            color: AppTheme.primary,
-            fontWeight: FontWeight.bold,
+            color: AppTheme.black,
+            fontWeight: FontWeight.w500,
             fontSize: textScaleFactor * 17.0,
           ),
         );
@@ -40,8 +40,8 @@ class ProductItemProductScreen extends StatelessWidget {
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
             fontFamily: 'Iransans',
-            color: AppTheme.primary,
-            fontWeight: FontWeight.bold,
+            color: AppTheme.black,
+            fontWeight: FontWeight.w500,
             fontSize: textScaleFactor * 17.0,
           ),
         );
@@ -53,8 +53,8 @@ class ProductItemProductScreen extends StatelessWidget {
               : EnArConvertor().replaceArNumber('0'),
           style: TextStyle(
             fontFamily: 'Iransans',
-            color: AppTheme.primary,
-            fontWeight: FontWeight.bold,
+            color: AppTheme.black,
+            fontWeight: FontWeight.w500,
             fontSize: textScaleFactor * 17.0,
           ),
         );
@@ -83,8 +83,8 @@ class ProductItemProductScreen extends StatelessWidget {
                   : EnArConvertor().replaceArNumber('0'),
               style: TextStyle(
                 fontFamily: 'Iransans',
-                fontWeight: FontWeight.bold,
-                color: AppTheme.primary,
+                fontWeight: FontWeight.w500,
+                color: AppTheme.black,
                 fontSize: textScaleFactor * 17.0,
               ),
             )
@@ -107,7 +107,7 @@ class ProductItemProductScreen extends StatelessWidget {
               );
             },
             child: Card(
-              elevation: 0.4,
+              elevation: 0.0,
               child: Container(
                 height: constraints.maxHeight,
                 child: Row(
@@ -158,26 +158,7 @@ class ProductItemProductScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-//                              Padding(
-//                                padding: const EdgeInsets.only(
-//                                  bottom: 12,
-//                                  right: 10,
-//                                ),
-//                                child:
-//
-//                                Text(
-//                                  product.brand[0].title,
-//                                  maxLines: 1,
-//                                  overflow: TextOverflow.ellipsis,
-//                                  textAlign: TextAlign.right,
-//                                  style: TextStyle(
-//                                    color: AppTheme.grey,
-//                                    fontFamily: 'Iransans',
-//                                    fontSize: textScaleFactor * 14.0,
-//                                  ),
-//                                ),
-//
-//                              ),
+
                               Spacer(),
                               Padding(
                                 padding: const EdgeInsets.only(

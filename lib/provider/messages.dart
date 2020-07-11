@@ -64,7 +64,7 @@ class Messages with ChangeNotifier {
             ? Urls.rootUrl + Urls.messageEndPoint
             : Urls.rootUrl +
                 Urls.messageEndPoint +
-                '?comment_post_ID=$commentPostId';
+                '/$commentPostId';
         print(url);
 
         final response = await get(url, headers: {

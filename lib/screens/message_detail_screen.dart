@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import 'package:shamsi_date/shamsi_date.dart';
+import 'package:tamizshahr/widgets/en_to_ar_number_convertor.dart';
+
 import '../models/customer.dart';
 import '../models/message.dart';
+import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/customer_info.dart';
 import '../provider/messages.dart';
-import '../widgets/message_reply_item.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/app_theme.dart';
 import '../widgets/main_drawer.dart';
+import '../widgets/message_reply_item.dart';
 import 'messages_create_reply_screen.dart';
 
 class MessageDetailScreen extends StatefulWidget {
@@ -50,7 +52,6 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
     });
 
     bool isLogin = Provider.of<Auth>(context).isAuth;
-
     await Provider.of<Messages>(context, listen: false)
         .getMessages(message.comment_post_ID, isLogin);
     messages = Provider.of<Messages>(context, listen: false).allMessagesDetail;
@@ -70,7 +71,7 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'جوابها',
+          '',
           style: TextStyle(
             color: AppTheme.bg,
             fontFamily: 'Iransans',
@@ -85,27 +86,90 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(20.0),
           child: Stack(
             children: <Widget>[
               SingleChildScrollView(
-                child: Container(
-                  height: deviceHeight * 0.8,
-                  width: deviceWidth,
-                  child: ListView.builder(
-
-                    reverse: true,
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return MessageReplyItem(
-                        message: messages[index],
-                        isReply: customer.id !=
-                            int.parse(
-                              messages[index].user_id,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'عنوان سوال:',
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 15.0,
                             ),
-                      );
-                    },
-                  ),
+                            textAlign: TextAlign.right,
+                          ),
+                          Spacer(),
+                          Text(
+                            EnArConvertor().replaceArNumber(
+                                '${(DateTime.parse(message.comment_date)).hour}:${(DateTime.parse(message.comment_date)).minute}:${(DateTime.parse(message.comment_date)).second}'),
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontFamily: 'Iransans',
+                              fontSize: textScaleFactor * 15.0,
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text(
+                              EnArConvertor()
+                                  .replaceArNumber('${Jalali.fromDateTime(
+                                DateTime.parse(message.comment_date),
+                              ).year}/${Jalali.fromDateTime(
+                                DateTime.parse(message.comment_date),
+                              ).month}/${Jalali.fromDateTime(
+                                DateTime.parse(message.comment_date),
+                              ).day}'),
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 15.0,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: Container(
+                        width: deviceWidth,
+                        child: Text(
+                          message.subject,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Iransans',
+                            fontSize: textScaleFactor * 15.0,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                    ),
+                    Divider(),
+                    Container(
+                      height: deviceHeight * 0.8,
+                      width: deviceWidth,
+                      child: ListView.builder(
+                        reverse: false,
+                        itemCount: messages.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return MessageReplyItem(
+                            message: messages[index],
+                            isReply: messages[index].comment_agent != 'mobile',
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Positioned(

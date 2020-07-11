@@ -51,6 +51,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
 
     return icon;
   }
+
   @override
   Widget build(BuildContext context) {
     var heightDevice = MediaQuery.of(context).size.height;
@@ -94,9 +95,11 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top:6,right:4),
+                                      padding: const EdgeInsets.only(
+                                          top: 6, right: 4),
                                       child: Text(
-                                        collect.collect_date.day,
+                                        EnArConvertor().replaceArNumber(
+                                            collect.collect_date.day),
                                         maxLines: 1,
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
@@ -119,9 +122,9 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                     color: AppTheme.primary,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top:4),
+                                    padding: const EdgeInsets.only(top: 4),
                                     child: Text(
-                                      collect.collect_date.time,
+                                   EnArConvertor().replaceArNumber( collect.collect_date.time)  ,
                                       maxLines: 1,
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
@@ -134,9 +137,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: getStatusIcon(collect.status.slug)
-                            ),
+                            Expanded(child: getStatusIcon(collect.status.slug)),
                           ],
                         ),
                       ),
@@ -148,7 +149,8 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.only(right:25,left:4),
+                                    padding: const EdgeInsets.only(
+                                        right: 25, left: 4),
                                     child: Text(
                                       EnArConvertor().replaceArNumber(collect
                                           .total_collects_weight.estimated),

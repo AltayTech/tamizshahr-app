@@ -117,8 +117,8 @@ class _WastesScreenState extends State<WastesScreen>
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         childAspectRatio: 1,
-                        crossAxisSpacing: 4,
-                        mainAxisSpacing: 4,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
                       ),
                     ),
                   ),

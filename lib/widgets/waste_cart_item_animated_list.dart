@@ -122,7 +122,7 @@ class _WasteCartItemAnimatedListState extends State<WasteCartItemAnimatedList>
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FadeInImage(
-                          placeholder: AssetImage('assets/images/logo.jpg'),
+                          placeholder: AssetImage('assets/images/circle.gif'),
                           image: NetworkImage(
                               widget.wasteItem.featured_image != null
                                   ? widget.wasteItem.featured_image.sizes.medium

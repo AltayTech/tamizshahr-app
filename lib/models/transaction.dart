@@ -20,8 +20,8 @@ class Transaction with ChangeNotifier {
   factory Transaction.fromJson(Map<String, dynamic> parsedJson) {
     return Transaction(
       id: parsedJson['id'],
-      money: parsedJson['money'],
-      operation: parsedJson['operation'],
+      money: parsedJson['money'] != null ? parsedJson['money'] : '0',
+      operation: parsedJson['operation'] != null ? parsedJson['operation'] : '',
       transaction_type: parsedJson['transaction_type'] != null
           ? Status.fromJson(parsedJson['transaction_type'])
           : Status(name: '', term_id: 0, slug: ''),

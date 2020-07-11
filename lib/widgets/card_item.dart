@@ -69,13 +69,10 @@ class _CardItemState extends State<CardItem> {
     isLogin = Provider.of<Auth>(context).isAuth;
 
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.only(top:10),
       child: LayoutBuilder(
         builder: (_, constraints) => Container(
-          decoration: BoxDecoration(
-            color: AppTheme.white,
-             border: Border.all(color: AppTheme.grey, width: 0.3)
-          ),
+          decoration: AppTheme.listItemBox,
           height: deviceWidth * 0.35,
           child: InkWell(
             onTap: () {
@@ -101,7 +98,7 @@ class _CardItemState extends State<CardItem> {
                             child: Container(
                               height: double.infinity,
                               child: FadeInImage(
-                                placeholder: AssetImage('assets/images/logo.jpg'),
+                                placeholder: AssetImage('assets/images/circle.gif'),
                                 image: NetworkImage(
                                     widget.shoppItem.featured_media_url != null
                                         ? widget.shoppItem.featured_media_url

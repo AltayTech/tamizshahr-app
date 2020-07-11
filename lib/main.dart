@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/charities.dart';
+import 'package:tamizshahr/provider/clearings.dart';
 import 'package:tamizshahr/provider/orders.dart';
 import 'package:tamizshahr/screens/charity_detail_screen.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
@@ -81,6 +82,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => Orders(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Clearings(),
         ),
       ],
       child: MaterialApp(

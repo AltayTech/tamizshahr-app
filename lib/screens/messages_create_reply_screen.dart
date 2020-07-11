@@ -72,7 +72,7 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
     )
         .then((value) async {
       await Provider.of<Messages>(context, listen: false).getMessages(
-        message.comment_post_ID,
+        message.comment_ID,
         isLogin,
       );
       Navigator.of(context).pop();
@@ -116,52 +116,63 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
                 Container(
                   color: Colors.transparent,
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 30,
-                              bottom: 8.0,
+                              bottom: 16.0,
                             ),
-                            child: MessageReplyItem(
-                              message: message,
-                              isReply: customer.id !=
-                                  int.parse(
-                                    message.user_id,
-                                  ),
+                            child: Container(
+                              width: deviceWidth,
+                              child:
+                              Text(
+                                'پاسخ: ',
+                                style: TextStyle(
+                                  color: AppTheme.grey,
+                                  fontFamily: 'Iransans',
+                                  fontSize: textScaleFactor * 18.0,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+
+//                              MessageReplyItem(
+//                                message: message,
+//                                isReply: customer.id !=
+//                                    int.parse(
+//                                      message.user_id,
+//                                    ),
+//                              ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: deviceHeight * 0.6,
-                              child: TextFormField(
-                                maxLines: 10,
-                                controller: contentTextController,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
-                                      color: AppTheme.bg,
-                                    ),
+                          Container(
+                            height: deviceHeight * 0.6,
+                            child: TextFormField(
+                              maxLines: 10,
+                              controller: contentTextController,
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.bg,
                                   ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    borderSide: BorderSide(
-                                      color: AppTheme.bg,
-                                    ),
-                                  ),
-                                  labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontFamily: 'Iransans',
-                                    fontSize: textScaleFactor * 15.0,
-                                  ),
-                                  labelText: 'جواب خود را در اینجا بنویسید',
                                 ),
+                                alignLabelWithHint: true,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.bg,
+                                  ),
+                                ),
+                                labelStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'Iransans',
+                                  fontSize: textScaleFactor * 15.0,
+                                ),
+                                labelText: 'جواب خود را در اینجا بنویسید',
                               ),
                             ),
                           ),

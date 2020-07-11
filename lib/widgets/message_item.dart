@@ -26,7 +26,7 @@ class MessageItem extends StatelessWidget {
       child: Card(
         child: Container(
           height: deviceHeight * 0.25,
-          color:AppTheme.white,
+          color: AppTheme.white,
           child: LayoutBuilder(
             builder: (ctx, constraints) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,23 +34,39 @@ class MessageItem extends StatelessWidget {
                 Container(
                   height: constraints.maxHeight * 0.20,
                   width: double.infinity,
-                  color: AppTheme.bg,
+                  color: AppTheme.primary,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      EnArConvertor().replaceArNumber('${Jalali.fromDateTime(
-                        DateTime.parse(message.comment_date),
-                      ).year}/${Jalali.fromDateTime(
-                        DateTime.parse(message.comment_date),
-                      ).month}/${Jalali.fromDateTime(
-                        DateTime.parse(message.comment_date),
-                      ).day}'),
-                      style: TextStyle(
-                        color: AppTheme.grey,
-                        fontFamily: 'Iransans',
-                        fontSize: textScaleFactor * 15.0,
-                      ),
-                      textAlign: TextAlign.right,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          EnArConvertor()
+                              .replaceArNumber('${Jalali.fromDateTime(
+                            DateTime.parse(message.comment_date),
+                          ).year}/${Jalali.fromDateTime(
+                            DateTime.parse(message.comment_date),
+                          ).month}/${Jalali.fromDateTime(
+                            DateTime.parse(message.comment_date),
+                          ).day}'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Iransans',
+                            fontSize: textScaleFactor * 15.0,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                        Text(
+                          EnArConvertor().replaceArNumber(
+                              '${(DateTime.parse(message.comment_date)).hour}:${(DateTime.parse(message.comment_date)).minute}:${(DateTime.parse(message.comment_date)).second}'),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Iransans',
+                            fontSize: textScaleFactor * 15.0,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -68,18 +84,17 @@ class MessageItem extends StatelessWidget {
                             child: Text(
                               message.subject,
                               maxLines: 2,
-                              overflow:TextOverflow.ellipsis,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: AppTheme.black,
                                 fontFamily: 'Iransans',
-                                fontSize: textScaleFactor * 17.0,
+                                fontSize: textScaleFactor * 16.0,
                               ),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(

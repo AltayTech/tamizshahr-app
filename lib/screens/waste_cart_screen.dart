@@ -40,7 +40,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه باید وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید',
       ),
     );
   }
@@ -184,7 +184,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                     child: Column(
                       children: <Widget>[
                         Container(
-                          height: deviceHeight * 0.15,
+                          height: deviceWidth * 0.35,
                           decoration: BoxDecoration(
                               color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
@@ -198,69 +198,77 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Expanded(
-                                        child: Icon(
-                                          Icons.restore_from_trash,
-                                          color: Colors.red,
-                                          size: 40,
+                                      Spacer(),
+                                      Image.asset(
+                                        'assets/images/main_page_request_ic.png',
+                                        height: deviceWidth * 0.09,
+                                        width: deviceWidth * 0.09,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 4, bottom: 4),
+                                        child: Text(
+                                          EnArConvertor()
+                                              .replaceArNumber(wasteCartItems
+                                                  .length
+                                                  .toString())
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: AppTheme.h1,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 18,
+                                          ),
                                         ),
                                       ),
                                       Text(
-                                        EnArConvertor()
-                                            .replaceArNumber(wasteCartItems
-                                                .length
-                                                .toString())
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 18,
-                                        ),
-                                      ),
-                                      Text(
-                                        'تعداد ',
+                                        'تعداد',
                                         style: TextStyle(
                                           color: AppTheme.grey,
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 12,
                                         ),
                                       ),
+                                      Spacer(),
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Expanded(
-                                        child: Icon(
-                                          Icons.monetization_on,
-                                          color: AppTheme.primary,
-                                          size: 40,
-                                        ),
+                                      Spacer(),
+                                      Image.asset(
+                                        'assets/images/waste_cart_price_ic.png',
+                                        height: deviceWidth * 0.09,
+                                        width: deviceWidth * 0.09,
+                                        color: Colors.yellow[600],
                                       ),
                                       AnimatedBuilder(
                                         animation: _totalPriceAnimation,
                                         builder: (BuildContext context,
                                             Widget child) {
-                                          return new Text(
-                                            totalPrice.toString().isNotEmpty
-                                                ? EnArConvertor()
-                                                    .replaceArNumber(
-                                                        currencyFormat
-                                                            .format(
-                                                                double.parse(
-                                                              _totalPriceAnimation
-                                                                  .value
-                                                                  .toStringAsFixed(
-                                                                      0),
-                                                            ))
-                                                            .toString())
-                                                : EnArConvertor()
-                                                    .replaceArNumber('0'),
-                                            style: TextStyle(
-                                              color: AppTheme.h1,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 18,
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 4, bottom: 4),
+                                            child: Text(
+                                              totalPrice.toString().isNotEmpty
+                                                  ? EnArConvertor()
+                                                      .replaceArNumber(
+                                                          currencyFormat
+                                                              .format(
+                                                                  double.parse(
+                                                                _totalPriceAnimation
+                                                                    .value
+                                                                    .toStringAsFixed(
+                                                                        0),
+                                                              ))
+                                                              .toString())
+                                                  : EnArConvertor()
+                                                      .replaceArNumber('0'),
+                                              style: TextStyle(
+                                                color: AppTheme.h1,
+                                                fontFamily: 'Iransans',
+                                                fontSize: textScaleFactor * 18,
+                                              ),
                                             ),
                                           );
                                         },
@@ -273,38 +281,52 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                                           fontSize: textScaleFactor * 12,
                                         ),
                                       ),
+                                      Spacer(),
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Expanded(
-                                        child: Icon(
-                                          Icons.av_timer,
-                                          color: Colors.blue,
-                                          size: 40,
+                                      Spacer(),
+                                      Image.asset(
+                                        'assets/images/waste_cart_weight_ic.png',
+                                        height: deviceWidth * 0.09,
+                                        width: deviceWidth * 0.09,
+                                      ),
+//                                      Icon(
+//                                        Icons.av_timer,
+//                                        color: Colors.blue,
+//                                        size: 40,
+//                                      ),
+                                      FittedBox(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 4, bottom: 4),
+                                          child: Text(
+                                            EnArConvertor()
+                                                .replaceArNumber(
+                                                    totalWeight.toString())
+                                                .toString(),
+                                            style: TextStyle(
+                                              color: AppTheme.h1,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 18,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        EnArConvertor()
-                                            .replaceArNumber(
-                                                totalWeight.toString())
-                                            .toString(),
-                                        style: TextStyle(
-                                          color: AppTheme.h1,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 18,
+                                      FittedBox(
+                                        child: Text(
+                                          'کیلوگرم ',
+                                          style: TextStyle(
+                                            color: AppTheme.grey,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 12,
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        'کیلوگرم ',
-                                        style: TextStyle(
-                                          color: AppTheme.grey,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12,
-                                        ),
-                                      ),
+                                      Spacer(),
                                     ],
                                   ),
                                 ),
@@ -320,9 +342,9 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                                     0
                                 ? Container(
                                     decoration: BoxDecoration(
-                                        color: AppTheme.white,
-                                        borderRadius: BorderRadius.circular(2),
-                                     ),
+                                      color: AppTheme.white,
+                                      borderRadius: BorderRadius.circular(2),
+                                    ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: ListView.builder(
@@ -340,7 +362,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                                 : Container(
                                     height: deviceHeight * 0.6,
                                     child: Center(
-                                      child: Text('پسماندی اضافه نشده است'),
+                                      child: Text('لطفا پسماندی اضافه کنید'),
                                     ),
                                   ),
                           ),
@@ -354,12 +376,12 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                   Positioned(
                     bottom: 0,
                     left: 0,
-                    right: 0,
+//                    right: 0,
                     child: InkWell(
                       onTap: () {
                         SnackBar addToCartSnackBar = SnackBar(
                           content: Text(
-                            'پسماندی اضافه نشده است!',
+                            'لطفا پسماندی اضافه کنید',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Iransans',
@@ -387,7 +409,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                         }
                       },
                       child: ButtonBottom(
-                        width: deviceWidth * 0.9,
+                        width: deviceWidth * 0.75,
                         height: deviceWidth * 0.14,
                         text: 'ادامه',
                         isActive: wasteCartItems.isNotEmpty,
@@ -431,19 +453,16 @@ class _WasteCartScreenState extends State<WasteCartScreen>
         ),
         child: MainDrawer(),
       ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: deviceWidth * 0.13 + 10),
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(
-              WastesScreen.routeName,
-            );
-          },
-          backgroundColor: AppTheme.primary,
-          child: Icon(
-            Icons.add,
-            color: AppTheme.white,
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            WastesScreen.routeName,
+          );
+        },
+        backgroundColor: AppTheme.primary,
+        child: Icon(
+          Icons.add,
+          color: AppTheme.white,
         ),
       ),
     );
