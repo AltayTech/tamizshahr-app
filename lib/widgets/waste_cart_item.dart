@@ -145,7 +145,8 @@ class _WasteCartItemState extends State<WasteCartItem>
         width: deviceWidth,
         child: LayoutBuilder(
           builder: (_, constraints) => Container(
-            decoration: AppTheme.listItemBox.copyWith(border: Border.all(color: AppTheme.grey,width: 0.3)),
+            decoration: AppTheme.listItemBox
+                .copyWith(border: Border.all(color: AppTheme.grey, width: 0.3)),
             child: Stack(
               children: <Widget>[
                 Padding(
@@ -455,18 +456,14 @@ class _WasteCartItemState extends State<WasteCartItem>
                 Positioned(
                   top: 0,
                   left: 0,
-                  child: Container(
-                    height: deviceWidth * 0.95,
-                    width: deviceWidth * 0.1,
-                    child: InkWell(
-                      onTap: () {
-                        return removeItem();
-                      },
-                      child: Icon(
-                        Icons.close,
-                        size: 20,
-                        color: Colors.black54,
-                      ),
+                  child: InkWell(
+                    onTap: () {
+                      return removeItem();
+                    },
+                    child: Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.black,
                     ),
                   ),
                 ),

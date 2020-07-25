@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../classes/strings.dart';
 import '../provider/app_theme.dart';
@@ -22,6 +23,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
 
   bool isLogin;
   int _selectedPageIndex = 0;
+  DateTime currentBackPressTime;
 
   void selectBNBItem(int index) {
     setState(
@@ -63,79 +65,101 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
     );
   }
 
-  Future<bool> _onBackPressed()async {
+  Future<bool> _onBackPressed() async {
     if (_key.currentState.isDrawerOpen) {
       Navigator.pop(context);
       return false;
-    } else{
+    } else {
       return showDialog(
-        context: context,
-        builder: (context) =>
-        new AlertDialog(
-          contentTextStyle: TextStyle(
-              color: AppTheme.grey,
-              fontFamily: 'Iransans',
-              fontSize: MediaQuery
-                  .of(context)
-                  .textScaleFactor * 15.0),
-          title: Text(
-            'خروج از اپلیکیشن',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: AppTheme.black,
-                fontFamily: 'Iransans',
-                fontSize: MediaQuery
-                    .of(context)
-                    .textScaleFactor * 15.0),
-          ),
-          content: Text(
-            'آیا میخواهید از اپلیکیشن خارج شوید؟',
-            style: TextStyle(
-                color: AppTheme.grey,
-                fontFamily: 'Iransans',
-                fontSize: MediaQuery
-                    .of(context)
-                    .textScaleFactor * 15.0),
-          ),
-          actionsPadding: EdgeInsets.all(10),
-          actions: <Widget>[
-            GestureDetector(
-              onTap: () => Navigator.of(context).pop(false),
-              child: Text(
-                "نه",
+            context: context,
+            builder: (context) => new AlertDialog(
+              contentTextStyle: TextStyle(
+                  color: AppTheme.grey,
+                  fontFamily: 'Iransans',
+                  fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+              title: Text(
+                'خروج از اپلیکیشن',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     color: AppTheme.black,
                     fontFamily: 'Iransans',
-                    fontSize: MediaQuery
-                        .of(context)
-                        .textScaleFactor * 18.0),
+                    fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+              ),
+              content: Text(
+                'آیا میخواهید از اپلیکیشن خارج شوید؟',
+                style: TextStyle(
+                    color: AppTheme.grey,
+                    fontFamily: 'Iransans',
+                    fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+              ),
+              actionsPadding: EdgeInsets.all(10),
+              actions: <Widget>[
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pop(false),
+                  child: Text(
+                    "نه",
+                    style: TextStyle(
+                        color: AppTheme.black,
+                        fontFamily: 'Iransans',
+                        fontSize:
+                            MediaQuery.of(context).textScaleFactor * 18.0),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: Text("بلی"),
+                ),
+              ],
+            ),
+          ) ??
+          false;
+    }
+  }
+
+  Future<bool> onWillPop() async {
+    if (_key.currentState.isDrawerOpen) {
+      Navigator.pop(context);
+      return false;
+    } else {
+      DateTime now = DateTime.now();
+      if (currentBackPressTime == null ||
+          now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+        currentBackPressTime = now;
+        FlutterToast(context).showToast(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black26,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "برای خروج دوباره فشار دهید",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: AppTheme.black,
+                    fontFamily: 'Iransans',
+                    fontSize: MediaQuery.of(context).textScaleFactor * 13.0),
               ),
             ),
-            SizedBox(
-              height: 16,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width * 0.3,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop(true);
-              },
-              child: Text("بلی"),
-            ),
-          ],
-        ),
-      ) ??
-          false;
-  }
+          ),
+        );
+        return Future.value(false);
+      }
+      return Future.value(true);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBackPressed,
-
+      onWillPop: onWillPop,
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(

@@ -145,7 +145,7 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                       fit: BoxFit.fill,
                                       image: new NetworkImage(
                                         loadedCollect
-                                            .driver.driver_data.driver_image,
+                                            .driver.driver_data.driver_image.sizes.medium,
                                       ),
                                     ),
                                   ),

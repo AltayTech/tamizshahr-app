@@ -34,7 +34,7 @@ class _SplashScreensState extends State<SplashScreens> {
         style: new TextStyle(
           fontFamily: 'BFarnaz',
           fontSize: MediaQuery.of(context).textScaleFactor * 30,
-          color: Colors.black,
+          color: Color(0xff06623B),
           shadows: <Shadow>[
             Shadow(
               offset: Offset(0.0, 0.0),

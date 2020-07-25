@@ -17,7 +17,7 @@ class CharityItemCharitiesScreen extends StatelessWidget {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Container(
-      height: widthDevice * 0.32,
+      height: widthDevice * 0.35,
       child: LayoutBuilder(
         builder: (ctx, constraints) {
           return InkWell(

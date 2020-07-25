@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/app_theme.dart';
+import 'package:tamizshahr/provider/customer_info.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
 import 'package:tamizshahr/screens/messages_screen.dart';
 
@@ -16,6 +17,7 @@ import '../screens/customer_info/profile_screen.dart';
 import '../screens/guide_screen.dart';
 import '../screens/navigation_bottom_screen.dart';
 import '../screens/product_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildListTile(String title, IconData icon, Function tapHandler) {
@@ -308,6 +310,40 @@ class MainDrawer extends StatelessWidget {
 
                               Navigator.of(context)
                                   .pushNamed(AboutUsScreen.routeName);
+                            },
+                          ),
+                          ListTile(
+                            title: Text(
+                              'خروج از حساب کاربری',
+                              style: TextStyle(
+                                fontFamily: "Iransans",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: textColor,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                            trailing: Icon(
+                              FontAwesomeIcons.signOutAlt,
+                              color: iconColor,
+                            ),
+                            onTap: ()async {
+                              Provider.of<CustomerInfo>(context,
+                                  listen: false)
+                                  .customer = Provider.of<CustomerInfo>(
+                                  context,
+                                  listen: false)
+                                  .customer_zero;
+                              await Provider.of<Auth>(context,
+                                  listen: false)
+                                  .removeToken();
+                              Provider.of<Auth>(context, listen: false)
+                                  .isFirstLogout = true;
+                              Navigator.of(context).pop();
+                              Navigator.of(context)
+                                  .pushNamedAndRemoveUntil(
+                                  NavigationBottomScreen.routeName,
+                                      (Route<dynamic> route) => false);
                             },
                           ),
                         ],

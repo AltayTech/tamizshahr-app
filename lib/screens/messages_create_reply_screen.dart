@@ -72,7 +72,7 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
     )
         .then((value) async {
       await Provider.of<Messages>(context, listen: false).getMessages(
-        message.comment_ID,
+        message.comment_post_ID,
         isLogin,
       );
       Navigator.of(context).pop();

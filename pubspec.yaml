@@ -27,6 +27,7 @@ dependencies:
   google_map_location_picker: ^3.3.2
   google_maps_flutter: ^0.5.28+1
   #  font_awesome_flutter: ^8.8.1
+  fluttertoast: ^6.0.1
 
   cupertino_icons: ^0.1.3
 

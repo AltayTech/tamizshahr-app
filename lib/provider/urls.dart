@@ -1,5 +1,5 @@
 class Urls {
-  static const rootUrl = 'http://pasmand.ealda.ir/rest/pasmands/v1';
+  static const rootUrl = 'https://mapmaa.com//rest/pasmands/v1';
   static const pasmandsEndPoint = '/pasmands';
   static const productsEndPoint = '/products';
   static const categoriesEndPoint = '/products/category';

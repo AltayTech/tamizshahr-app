@@ -104,7 +104,10 @@ class CustomerInfo with ChangeNotifier {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: jsonEncode(customer),
+        body: jsonEncode({
+          'customer_type':customer.customer_type.term_id,
+          'customer_data':customer.personalData,
+        }),
       );
 
       final extractedData = json.decode(response.body);

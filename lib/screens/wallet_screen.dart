@@ -220,7 +220,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                             .format(double
                                                                 .parse(data
                                                                     .customer
-                                                                    .money))
+                                                                    .money).round())
                                                             .toString())
                                                 : EnArConvertor()
                                                     .replaceArNumber(

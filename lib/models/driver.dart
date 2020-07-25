@@ -30,7 +30,9 @@ class Driver with ChangeNotifier {
           : Status(term_id: 0, name: '', slug: ''),
       car_number:
       parsedJson['car_number'] != null ? parsedJson['car_number'] : '',
-      driver_data: DriverData.fromJson(parsedJson['driver_data']),
+      driver_data: parsedJson['driver_data'] != null
+          ? DriverData.fromJson(parsedJson['driver_data'])
+          : DriverData(),
     );
   }
 

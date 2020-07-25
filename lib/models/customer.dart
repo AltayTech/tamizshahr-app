@@ -24,7 +24,7 @@ class Customer with ChangeNotifier {
       status: parsedJson['status']!=null?Status.fromJson(parsedJson['status']):Status(term_id: 0,name:'',slug: ''),
       customer_type: parsedJson['customer_type']!=null?Status.fromJson(parsedJson['customer_type']):Status(term_id: 0,name:'',slug: ''),
       personalData: PersonalData.fromJson(parsedJson['customer_data']),
-      money: parsedJson['money'] != null ? parsedJson['money'] : '0',
+      money: parsedJson['money'] != null &&parsedJson['money'] != ''? parsedJson['money'] : '0.0',
     );
   }
 

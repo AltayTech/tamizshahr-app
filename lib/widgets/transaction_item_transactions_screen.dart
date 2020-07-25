@@ -72,13 +72,13 @@ class TransactionItemTransactionsScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         EnArConvertor().replaceArNumber(currencyFormat
-                            .format(double.parse(transaction.money))
+                            .format(double.parse(transaction.money).round())
                             .toString()),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color:transaction.operation=='برداشت'? Colors.red:AppTheme.primary,
                           fontFamily: 'Iransans',
-                          fontSize: textScaleFactor * 17.0,
+                          fontSize: textScaleFactor * 14.0,
                         ),
                       ),
                     ),

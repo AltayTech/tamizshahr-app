@@ -321,7 +321,8 @@ class _CustomerDetailInfoEditScreenState
                     city: cityController.text,
                     ostan: ostanController.text,
                     postcode: postCodeController.text,
-                  ));
+                  ),
+              );
 
               Provider.of<CustomerInfo>(context, listen: false)
                   .sendCustomer(customerSend)

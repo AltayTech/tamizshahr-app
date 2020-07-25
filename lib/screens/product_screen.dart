@@ -520,10 +520,9 @@ class _ProductsScreenState extends State<ProductsScreen>
                             }),
                           ],
                         ),
-
                         Container(
                           width: double.infinity,
-                          height: deviceHeight * 0.75,
+                          height: deviceHeight * 0.70,
                           child: ListView.builder(
                             controller: _scrollController,
                             scrollDirection: Axis.vertical,

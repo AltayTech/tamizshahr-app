@@ -116,48 +116,48 @@ class _ProfileViewState extends State<ProfileView> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                InkWell(
-                                  onTap: () async {
-                                    Provider.of<CustomerInfo>(context,
-                                            listen: false)
-                                        .customer = Provider.of<CustomerInfo>(
-                                            context,
-                                            listen: false)
-                                        .customer_zero;
-                                    await Provider.of<Auth>(context,
-                                            listen: false)
-                                        .removeToken();
-                                    Provider.of<Auth>(context, listen: false)
-                                        .isFirstLogout = true;
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            NavigationBottomScreen.routeName,
-                                            (Route<dynamic> route) => false);
-                                  },
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-//                                Padding(
-//                                  padding: const EdgeInsets.all(8),
-//                                  child: Icon(FontAwesomeIcons.signOutAlt,color: AppTheme.white,),
+//                                InkWell(
+//                                  onTap: () async {
+//                                    Provider.of<CustomerInfo>(context,
+//                                            listen: false)
+//                                        .customer = Provider.of<CustomerInfo>(
+//                                            context,
+//                                            listen: false)
+//                                        .customer_zero;
+//                                    await Provider.of<Auth>(context,
+//                                            listen: false)
+//                                        .removeToken();
+//                                    Provider.of<Auth>(context, listen: false)
+//                                        .isFirstLogout = true;
+//                                    Navigator.of(context).pop();
+//                                    Navigator.of(context)
+//                                        .pushNamedAndRemoveUntil(
+//                                            NavigationBottomScreen.routeName,
+//                                            (Route<dynamic> route) => false);
+//                                  },
+//                                  child: Row(
+//                                    crossAxisAlignment:
+//                                        CrossAxisAlignment.center,
+//                                    children: <Widget>[
+////                                Padding(
+////                                  padding: const EdgeInsets.all(8),
+////                                  child: Icon(FontAwesomeIcons.signOutAlt,color: AppTheme.white,),
+////                                ),
+//                                      Padding(
+//                                        padding: const EdgeInsets.only(top: 4),
+//                                        child: Text(
+//                                          'خروج از حساب کاربری',
+//                                          textAlign: TextAlign.left,
+//                                          style: TextStyle(
+//                                              color: AppTheme.bg,
+//                                              fontFamily: 'Iransans',
+//                                              fontSize: textScaleFactor * 14,
+//                                              fontWeight: FontWeight.w600),
+//                                        ),
+//                                      ),
+//                                    ],
+//                                  ),
 //                                ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'خروج از حساب کاربری',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              color: AppTheme.bg,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 14,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                                 Spacer(),
                                 Text(
                                   'پروفایل کاربری',

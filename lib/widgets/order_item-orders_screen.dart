@@ -87,13 +87,13 @@ class OrderItemOrdersScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(right: 5, top: 5),
                                   child: Text(
-                                    order.send_date,
+                                    EnArConvertor().replaceArNumber( order.send_date),
                                     maxLines: 1,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                       color: AppTheme.black,
                                       fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 15.0,
+                                      fontSize: textScaleFactor * 14.0,
                                     ),
                                   ),
                                 ),
@@ -112,14 +112,14 @@ class OrderItemOrdersScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(right: 5, top: 5),
                                   child: Text(
-                                    order.send_date,
+                                   EnArConvertor().replaceArNumber(order.send_date) ,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                       color: AppTheme.black,
                                       fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 15.0,
+                                      fontSize: textScaleFactor * 14.0,
                                     ),
                                   ),
                                 ),

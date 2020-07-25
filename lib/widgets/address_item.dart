@@ -85,7 +85,7 @@ class _AddressItemState extends State<AddressItem> {
                           flex: 1,
                           child: Icon(
                             Icons.place,
-                            color: Colors.indigo,
+                            color: AppTheme.primary,
                             size: 30,
                           )),
                       Expanded(
