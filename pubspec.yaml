@@ -35,6 +35,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   font_awesome_flutter: ^8.8.1
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/tamizshahr_600.png"
 #  material_design_icons_flutter: 4.0.5345
 
 # For information on the generic Dart part of this file, see the
@@ -54,7 +60,6 @@ flutter:
     - assets/images/main_page_wallet_ic.png
     - assets/images/address_page_header.png
     - assets/images/login_bg.png
-    - assets/images/logo.jpg
     - assets/images/phone_icon.png
     - assets/images/instagram.png
     - assets/images/telegram.png
@@ -71,6 +76,7 @@ flutter:
     - assets/images/send_popup_tick.png
     - assets/images/waste_cart_weight_ic.png
     - assets/images/waste_cart_price_ic.png
+    - assets/images/tamizshahr_600.png
 
   fonts:
     #   - family: Schyler

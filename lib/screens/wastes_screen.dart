@@ -62,105 +62,109 @@ class _WastesScreenState extends State<WastesScreen>
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: TextDirection.ltr,
       child: Scaffold(
         backgroundColor: AppTheme.bg,
         appBar: AppBar(
           backgroundColor: AppTheme.appBarColor,
           iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-            color: AppTheme.white,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: deviceHeight * 0.03, horizontal: deviceWidth * 0.03),
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    width: double.infinity,
-                    height: deviceHeight * 0.9,
-                    child: GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: loadedWastes.length,
-                      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                        value: loadedWastes[i],
-                        child: InkWell(
-                            onTap: () {
-                              wasteCartItems =
-                                  Provider.of<Wastes>(context, listen: false)
-                                      .wasteCartItems;
-                              wasteCartItemsId =
-                                  Provider.of<Wastes>(context, listen: false)
-                                      .wasteCartItemsId;
+        body: Directionality(
+          textDirection: TextDirection.rtl,
 
-                              if (wasteCartItemsId.contains(loadedWastes[i].id)) {
-                                Provider.of<Wastes>(context, listen: false)
-                                    .removeWasteCart(loadedWastes[i].id);
-                              } else {
-                                Provider.of<Wastes>(context, listen: false)
-                                    .addWasteCart(loadedWastes[i], 1);
-                              }
-                              wasteCartItemsId =
-                                  Provider.of<Wastes>(context, listen: false)
-                                      .wasteCartItemsId;
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Container(
+              color: AppTheme.white,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: deviceHeight * 0.03, horizontal: deviceWidth * 0.03),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      width: double.infinity,
+                      height: deviceHeight * 0.9,
+                      child: GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: loadedWastes.length,
+                        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                          value: loadedWastes[i],
+                          child: InkWell(
+                              onTap: () {
+                                wasteCartItems =
+                                    Provider.of<Wastes>(context, listen: false)
+                                        .wasteCartItems;
+                                wasteCartItemsId =
+                                    Provider.of<Wastes>(context, listen: false)
+                                        .wasteCartItemsId;
 
-                              setState(() {});
-                            },
-                            child: WasteItemWastesScreen(
-                              waste: loadedWastes[i],
-                              isSelected:
-                                  wasteCartItemsId.contains(loadedWastes[i].id),
-                            )),
-                      ),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 1,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: _isLoading
-                          ? SpinKitFadingCircle(
-                              itemBuilder: (BuildContext context, int index) {
-                                return DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color:
-                                        index.isEven ? Colors.grey : Colors.grey,
-                                  ),
-                                );
+                                if (wasteCartItemsId.contains(loadedWastes[i].id)) {
+                                  Provider.of<Wastes>(context, listen: false)
+                                      .removeWasteCart(loadedWastes[i].id);
+                                } else {
+                                  Provider.of<Wastes>(context, listen: false)
+                                      .addWasteCart(loadedWastes[i], 1);
+                                }
+                                wasteCartItemsId =
+                                    Provider.of<Wastes>(context, listen: false)
+                                        .wasteCartItemsId;
+
+                                setState(() {});
                               },
-                            )
-                          : Container(
-                              child: loadedWastes.isEmpty
-                                  ? Center(
-                                      child: Text(
-                                      'پسماندی در دسترس نیست',
-                                      style: TextStyle(
-                                        fontFamily: 'Iransans',
-                                        fontSize: textScaleFactor * 15.0,
-                                      ),
-                                    ))
-                                  : Container(),
-                            ),
+                              child: WasteItemWastesScreen(
+                                waste: loadedWastes[i],
+                                isSelected:
+                                    wasteCartItemsId.contains(loadedWastes[i].id),
+                              )),
+                        ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 1,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                        ),
+                      ),
                     ),
-                  )
-                ],
+                    Positioned(
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: _isLoading
+                            ? SpinKitFadingCircle(
+                                itemBuilder: (BuildContext context, int index) {
+                                  return DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          index.isEven ? Colors.grey : Colors.grey,
+                                    ),
+                                  );
+                                },
+                              )
+                            : Container(
+                                child: loadedWastes.isEmpty
+                                    ? Center(
+                                        child: Text(
+                                        'پسماندی در دسترس نیست',
+                                        style: TextStyle(
+                                          fontFamily: 'Iransans',
+                                          fontSize: textScaleFactor * 15.0,
+                                        ),
+                                      ))
+                                    : Container(),
+                              ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        drawer: Theme(
+        endDrawer: Theme(
           data: Theme.of(context).copyWith(
             // Set the transparency here
             canvasColor: Colors
