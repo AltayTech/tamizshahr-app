@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/app_theme.dart';
 import 'package:tamizshahr/provider/customer_info.dart';
+import 'package:tamizshahr/screens/article_screen.dart';
 import 'package:tamizshahr/screens/charity_screen.dart';
 import 'package:tamizshahr/screens/messages_screen.dart';
 
@@ -221,7 +222,7 @@ class MainDrawer extends StatelessWidget {
                               Navigator.of(context).pop();
 
                               Navigator.of(context)
-                                  .pushNamed(MessageScreen.routeName);
+                                  .pushNamed(ArticlesScreen.routeName);
                             },
                           ),
                           ListTile(

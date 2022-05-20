@@ -286,7 +286,7 @@ class _CharityScreenState extends State<CharityScreen>
                             child: loadedProductstolist.isEmpty
                                 ? Center(
                                     child: Text(
-                                    'محصولی وجود ندارد',
+                                    'موردی وجود ندارد',
                                     style: TextStyle(
                                       fontFamily: 'Iransans',
                                       fontSize: textScaleFactor * 15.0,

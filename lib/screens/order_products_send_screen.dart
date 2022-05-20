@@ -104,6 +104,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
 
     await Provider.of<Products>(context, listen: false)
         .sendRequest(orderRequest);
+    await Provider.of<CustomerInfo>(context, listen: false).getCustomer();
 
     setState(() {
       _isLoading = false;

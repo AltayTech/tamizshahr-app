@@ -6,6 +6,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/models/clearing.dart';
 import 'package:tamizshahr/models/customer.dart';
+import 'package:tamizshahr/models/shop.dart';
 import 'package:tamizshahr/provider/auth.dart';
 import 'package:tamizshahr/provider/clearings.dart';
 import 'package:tamizshahr/provider/customer_info.dart';
@@ -14,6 +15,7 @@ import 'package:tamizshahr/widgets/clearing_item_clear_screen.dart';
 import 'package:tamizshahr/widgets/currency_input_formatter.dart';
 import 'package:tamizshahr/widgets/custom_dialog_send_request.dart';
 
+import '../classes/my_filtter.dart';
 import '../models/search_detail.dart';
 import '../provider/app_theme.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
@@ -28,8 +30,7 @@ class ClearScreen extends StatefulWidget {
   _ClearScreenState createState() => _ClearScreenState();
 }
 
-class _ClearScreenState extends State<ClearScreen>
-    with SingleTickerProviderStateMixin {
+class _ClearScreenState extends State<ClearScreen> with SingleTickerProviderStateMixin {
   bool _isInit = true;
   var _isLoading = false;
   int page = 1;
@@ -41,14 +42,16 @@ class _ClearScreenState extends State<ClearScreen>
   final shabaController = TextEditingController();
   final donationController = TextEditingController();
 
+  Shop shopData;
+
   @override
   void initState() {
     Provider.of<CustomerInfo>(context, listen: false).sPage = 1;
+    shopData = Provider.of<CustomerInfo>(context, listen: false).shop;
 
     Provider.of<Clearings>(context, listen: false).searchBuilder();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         if (page < productsDetail.max_page) {
           page = page + 1;
           Provider.of<Clearings>(context, listen: false).sPage = page;
@@ -58,7 +61,7 @@ class _ClearScreenState extends State<ClearScreen>
       }
     });
 
-    shabaController.text = 'IR';
+    shabaController.text = '';
     donationController.text = '0';
     super.initState();
   }
@@ -106,8 +109,7 @@ class _ClearScreenState extends State<ClearScreen>
       _isLoading = true;
     });
 
-    await Provider.of<CustomerInfo>(context, listen: false)
-        .sendClearingRequest(money.toString(), shaba);
+    await Provider.of<CustomerInfo>(context, listen: false).sendClearingRequest(money.toString(), shaba);
     setState(() {
       _isLoading = false;
     });
@@ -123,12 +125,10 @@ class _ClearScreenState extends State<ClearScreen>
 
     Provider.of<Clearings>(context, listen: false).searchBuilder();
     await Provider.of<Clearings>(context, listen: false).searchCleaingsItems();
-    productsDetail =
-        Provider.of<Clearings>(context, listen: false).searchDetails;
+    productsDetail = Provider.of<Clearings>(context, listen: false).searchDetails;
 
     loadedProducts.clear();
-    loadedProducts =
-        await Provider.of<Clearings>(context, listen: false).deliveriesItems;
+    loadedProducts = await Provider.of<Clearings>(context, listen: false).deliveriesItems;
     loadedProductstolist.addAll(loadedProducts);
 
     setState(() {
@@ -150,6 +150,7 @@ class _ClearScreenState extends State<ClearScreen>
     double deviceWidth = MediaQuery.of(context).size.width;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     bool isLogin = Provider.of<Auth>(context).isAuth;
+    shopData = Provider.of<CustomerInfo>(context, ).shop;
 
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
@@ -194,8 +195,7 @@ class _ClearScreenState extends State<ClearScreen>
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(LoginScreen.routeName);
+                                  Navigator.of(context).pushNamed(LoginScreen.routeName);
                                 },
                                 child: Container(
                                   child: Padding(
@@ -205,9 +205,8 @@ class _ClearScreenState extends State<ClearScreen>
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
-                                  decoration: BoxDecoration(
-                                      color: AppTheme.primary,
-                                      borderRadius: BorderRadius.circular(5)),
+                                  decoration:
+                                      BoxDecoration(color: AppTheme.primary, borderRadius: BorderRadius.circular(5)),
                                 ),
                               )
                             ],
@@ -314,15 +313,13 @@ class _ClearScreenState extends State<ClearScreen>
 //                                      ),
 //                                    ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10, bottom: 8),
+                                      padding: const EdgeInsets.only(top: 10, bottom: 8),
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             boxShadow: [
                                               BoxShadow(
-                                                color: AppTheme.primary
-                                                    .withOpacity(0.08),
+                                                color: AppTheme.primary.withOpacity(0.08),
                                                 blurRadius: 10,
                                                 spreadRadius: 5,
                                                 offset: Offset(
@@ -331,57 +328,37 @@ class _ClearScreenState extends State<ClearScreen>
                                                 ),
                                               )
                                             ],
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
+                                            borderRadius: BorderRadius.circular(10)),
                                         child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 4,
-                                              bottom: 4,
-                                              left: 6,
-                                              right: 6),
+                                          padding: const EdgeInsets.only(top: 4, bottom: 4, left: 6, right: 6),
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
                                                 'امتیاز(تومان)',
                                                 style: TextStyle(
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 13.0,
+                                                  fontSize: textScaleFactor * 13.0,
                                                 ),
                                                 textAlign: TextAlign.center,
                                               ),
                                               Spacer(),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
+                                                padding: const EdgeInsets.all(8.0),
                                                 child: Consumer<CustomerInfo>(
-                                                  builder: (_, data, ch) =>
-                                                      Text(
+                                                  builder: (_, data, ch) => Text(
                                                     data.customer != null
-                                                        ? EnArConvertor().replaceArNumber(
-                                                            currencyFormat
-                                                                .format(double
-                                                                    .parse(data
-                                                                        .customer
-                                                                        .money))
-                                                                .toString())
+                                                        ? EnArConvertor().replaceArNumber(currencyFormat
+                                                            .format(double.parse(data.customer.money))
+                                                            .toString())
                                                         : EnArConvertor()
-                                                            .replaceArNumber(
-                                                                currencyFormat
-                                                                    .format(double
-                                                                        .parse(
-                                                                            '0'))),
+                                                            .replaceArNumber(currencyFormat.format(double.parse('0'))),
                                                     style: TextStyle(
                                                       color: AppTheme.black,
                                                       fontFamily: 'Iransans',
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize:
-                                                          textScaleFactor *
-                                                              18.0,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontSize: textScaleFactor * 18.0,
                                                     ),
                                                     textAlign: TextAlign.center,
                                                   ),
@@ -393,10 +370,9 @@ class _ClearScreenState extends State<ClearScreen>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, bottom: 8),
+                                      padding: const EdgeInsets.only(top: 16, bottom: 8),
                                       child: Text(
-                                        'شماره شبا',
+                                        'شماره کارت',
                                         style: TextStyle(
                                           color: AppTheme.h1,
                                           fontFamily: 'Iransans',
@@ -412,23 +388,18 @@ class _ClearScreenState extends State<ClearScreen>
                                         fontSize: textScaleFactor * 16.0,
                                       ),
                                       textDirection: TextDirection.ltr,
-                                      textAlignVertical:
-                                          TextAlignVertical.bottom,
+                                      textAlignVertical: TextAlignVertical.bottom,
                                       textInputAction: TextInputAction.go,
                                       keyboardType: TextInputType.number,
                                       controller: shabaController,
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: const EdgeInsets.only(
-                                            left: 20.0,
-                                            right: 20,
-                                            top: 10,
-                                            bottom: 10),
+                                        contentPadding:
+                                            const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 10),
                                         border: OutlineInputBorder(
                                           gapPadding: 10,
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                                          borderRadius: BorderRadius.circular(30),
                                           borderSide: new BorderSide(
                                             color: Colors.white,
                                           ),
@@ -441,10 +412,11 @@ class _ClearScreenState extends State<ClearScreen>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, bottom: 8),
+                                      padding: const EdgeInsets.only(top: 16, bottom: 8),
                                       child: Text(
-                                        'مقدار درخواستی(تومان)',
+                                        EnArConvertor().replaceArNumber(
+                                          'مقدار درخواستی(تومان)( حداقل ${shopData.min_price_for_customer_clearing})',
+                                        ),
                                         style: TextStyle(
                                           color: AppTheme.h1,
                                           fontFamily: 'Iransans',
@@ -461,21 +433,16 @@ class _ClearScreenState extends State<ClearScreen>
                                       ),
                                       keyboardType: TextInputType.number,
                                       textAlign: TextAlign.center,
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
+                                      textAlignVertical: TextAlignVertical.center,
                                       textInputAction: TextInputAction.go,
                                       controller: donationController,
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor: Colors.white,
-                                        contentPadding: const EdgeInsets.only(
-                                            left: 20.0,
-                                            right: 20,
-                                            top: 0,
-                                            bottom: 10),
+                                        contentPadding:
+                                            const EdgeInsets.only(left: 20.0, right: 20, top: 0, bottom: 10),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                                          borderRadius: BorderRadius.circular(30),
                                           borderSide: BorderSide(
                                             width: 0,
                                             color: Colors.white,
@@ -488,8 +455,7 @@ class _ClearScreenState extends State<ClearScreen>
                                         ),
                                       ),
                                       inputFormatters: [
-                                        WhitelistingTextInputFormatter
-                                            .digitsOnly,
+                                        MyFilter(),
                                         new CurrencyInputFormatter(),
                                       ],
                                     ),
@@ -499,112 +465,71 @@ class _ClearScreenState extends State<ClearScreen>
                                     Padding(
                                       padding: const EdgeInsets.only(top: 16.0),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Text(
                                             'لیست درخواست های تسویه',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              color: AppTheme.black
-                                                  .withOpacity(0.5),
+                                              color: AppTheme.black.withOpacity(0.5),
                                               fontFamily: 'Iransans',
                                               fontSize: textScaleFactor * 14.0,
                                             ),
                                           ),
                                           Spacer(),
-                                          Consumer<CustomerInfo>(
-                                              builder: (_, Wastes, ch) {
+                                          Consumer<CustomerInfo>(builder: (_, Wastes, ch) {
                                             return Container(
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical:
-                                                        deviceHeight * 0.0,
-                                                    horizontal: 3),
+                                                padding:
+                                                    EdgeInsets.symmetric(vertical: deviceHeight * 0.0, horizontal: 3),
                                                 child: Wrap(
-                                                  alignment:
-                                                      WrapAlignment.start,
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.center,
+                                                  alignment: WrapAlignment.start,
+                                                  crossAxisAlignment: WrapCrossAlignment.center,
                                                   direction: Axis.horizontal,
                                                   children: <Widget>[
                                                     Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 3,
-                                                          vertical: 5),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
                                                       child: Text(
                                                         'تعداد:',
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Iransans',
-                                                          fontSize:
-                                                              textScaleFactor *
-                                                                  12.0,
+                                                          fontFamily: 'Iransans',
+                                                          fontSize: textScaleFactor * 12.0,
                                                         ),
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 4.0,
-                                                              left: 6),
+                                                      padding: const EdgeInsets.only(right: 4.0, left: 6),
                                                       child: Text(
                                                         productsDetail != null
                                                             ? EnArConvertor()
-                                                                .replaceArNumber(
-                                                                    loadedProductstolist
-                                                                        .length
-                                                                        .toString())
-                                                            : EnArConvertor()
-                                                                .replaceArNumber(
-                                                                    '0'),
+                                                                .replaceArNumber(loadedProductstolist.length.toString())
+                                                            : EnArConvertor().replaceArNumber('0'),
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Iransans',
-                                                          fontSize:
-                                                              textScaleFactor *
-                                                                  13.0,
+                                                          fontFamily: 'Iransans',
+                                                          fontSize: textScaleFactor * 13.0,
                                                         ),
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 3,
-                                                          vertical: 5),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
                                                       child: Text(
                                                         'از',
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Iransans',
-                                                          fontSize:
-                                                              textScaleFactor *
-                                                                  12.0,
+                                                          fontFamily: 'Iransans',
+                                                          fontSize: textScaleFactor * 12.0,
                                                         ),
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 4.0,
-                                                              left: 6),
+                                                      padding: const EdgeInsets.only(right: 4.0, left: 6),
                                                       child: Text(
                                                         productsDetail != null
                                                             ? EnArConvertor()
-                                                                .replaceArNumber(
-                                                                    productsDetail
-                                                                        .total
-                                                                        .toString())
-                                                            : EnArConvertor()
-                                                                .replaceArNumber(
-                                                                    '0'),
+                                                                .replaceArNumber(productsDetail.total.toString())
+                                                            : EnArConvertor().replaceArNumber('0'),
                                                         style: TextStyle(
-                                                          fontFamily:
-                                                              'Iransans',
-                                                          fontSize:
-                                                              textScaleFactor *
-                                                                  13.0,
+                                                          fontFamily: 'Iransans',
+                                                          fontSize: textScaleFactor * 13.0,
                                                         ),
                                                       ),
                                                     ),
@@ -619,53 +544,46 @@ class _ClearScreenState extends State<ClearScreen>
                                     Container(
                                       height: deviceWidth * 0.10,
                                       child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
                                           Expanded(
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Text(
                                                 'وضعیت',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 14.0,
+                                                  fontSize: textScaleFactor * 14.0,
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Text(
                                                 'تاریخ',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 14.0,
+                                                  fontSize: textScaleFactor * 14.0,
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: const EdgeInsets.all(8.0),
                                               child: Text(
                                                 'مبلغ(تومان)',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: AppTheme.grey,
                                                   fontFamily: 'Iransans',
-                                                  fontSize:
-                                                      textScaleFactor * 14.0,
+                                                  fontSize: textScaleFactor * 14.0,
                                                 ),
                                               ),
                                             ),
@@ -680,8 +598,7 @@ class _ClearScreenState extends State<ClearScreen>
                                         controller: _scrollController,
                                         scrollDirection: Axis.vertical,
                                         itemCount: loadedProductstolist.length,
-                                        itemBuilder: (ctx, i) =>
-                                            ChangeNotifierProvider.value(
+                                        itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
                                           value: loadedProductstolist[i],
                                           child: ClearingItemClearScreen(),
                                         ),
@@ -698,7 +615,7 @@ class _ClearScreenState extends State<ClearScreen>
                                   onTap: () async {
                                     SnackBar addToCartSnackBar = SnackBar(
                                       content: Text(
-                                        'شماره شبا را وارد نمایید',
+                                        'شماره کارت را وارد نمایید',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Iransans',
@@ -712,12 +629,9 @@ class _ClearScreenState extends State<ClearScreen>
                                         },
                                       ),
                                     );
-                                    if (shabaController.text == null ||
-                                        shabaController.text == 'IR') {
-                                      Scaffold.of(context)
-                                          .showSnackBar(addToCartSnackBar);
-                                    } else if (double.parse(removeSemicolon(
-                                            donationController.text)) >
+                                    if (shabaController.text == null || shabaController.text == '') {
+                                      Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                                    } else if (double.parse(removeSemicolon(donationController.text)) >
                                         double.parse(customer.money)) {
                                       SnackBar addToCartSnackBar = SnackBar(
                                         content: Text(
@@ -735,18 +649,33 @@ class _ClearScreenState extends State<ClearScreen>
                                           },
                                         ),
                                       );
-                                      Scaffold.of(context)
-                                          .showSnackBar(addToCartSnackBar);
+                                      Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                                    } else if (double.parse(removeSemicolon(donationController.text)) <
+                                        double.parse(shopData.min_price_for_customer_clearing)) {
+                                      debugPrint((double.parse(removeSemicolon(donationController.text)).toString()));
+                                      debugPrint(( double.parse(shopData.min_price_for_driver_clearing).toString()));
+                                      SnackBar addToCartSnackBar = SnackBar(
+                                        content: Text(
+                                          EnArConvertor().replaceArNumber(
+                                              'مقدار درخواستی کمتر از ${shopData.min_price_for_customer_clearing} است  '),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 14.0,
+                                          ),
+                                        ),
+                                        action: SnackBarAction(
+                                          label: 'متوجه شدم',
+                                          onPressed: () {
+                                            // Some code to undo the change.
+                                          },
+                                        ),
+                                      );
+                                      Scaffold.of(context).showSnackBar(addToCartSnackBar);
                                     } else {
-                                      await sendClearingRequest(
-                                              donationController.text,
-                                              shabaController.text)
-                                          .then((value) => Navigator.of(context)
-                                              .pushNamedAndRemoveUntil(
-                                                  NavigationBottomScreen
-                                                      .routeName,
-                                                  (Route<dynamic> route) =>
-                                                      false));
+                                      await sendClearingRequest(donationController.text, shabaController.text).then(
+                                          (value) => Navigator.of(context).pushNamedAndRemoveUntil(
+                                              NavigationBottomScreen.routeName, (Route<dynamic> route) => false));
                                       _showSenddialog();
                                     }
                                   },
@@ -767,15 +696,11 @@ class _ClearScreenState extends State<ClearScreen>
                                       alignment: Alignment.center,
                                       child: _isLoading
                                           ? SpinKitFadingCircle(
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
+                                              itemBuilder: (BuildContext context, int index) {
                                                 return DecoratedBox(
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.circle,
-                                                    color: index.isEven
-                                                        ? Colors.grey
-                                                        : Colors.grey,
+                                                    color: index.isEven ? Colors.grey : Colors.grey,
                                                   ),
                                                 );
                                               },
@@ -793,8 +718,7 @@ class _ClearScreenState extends State<ClearScreen>
       endDrawer: Theme(
         data: Theme.of(context).copyWith(
           // Set the transparency here
-          canvasColor: Colors
-              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
+          canvasColor: Colors.transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
         child: MainDrawer(),
       ),

@@ -394,6 +394,34 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             );
             if (selectedRegion == null) {
               Scaffold.of(context).showSnackBar(addToCartSnackBar);
+            }else if (nameController.text == '') {
+              var _snackBarMessage = 'نام آدرس را وارد نمایید';
+              final addToCartSnackBar = SnackBar(
+                content: Text(
+                  _snackBarMessage,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Iransans',
+                    fontSize: textScaleFactor * 14.0,
+                  ),
+                ),
+              );
+              Scaffold.of(context).showSnackBar(addToCartSnackBar);
+
+            }else if (addressController.text == '') {
+              var _snackBarMessage = 'آدرس را وارد نمایید';
+              final addToCartSnackBar = SnackBar(
+                content: Text(
+                  _snackBarMessage,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Iransans',
+                    fontSize: textScaleFactor * 14.0,
+                  ),
+                ),
+              );
+              Scaffold.of(context).showSnackBar(addToCartSnackBar);
+
             } else {
               await saveAddress().then((value) {
                 Navigator.of(context).pop();

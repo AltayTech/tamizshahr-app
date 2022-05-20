@@ -26,7 +26,7 @@ class CollectItemCollectsScreen extends StatelessWidget {
     } else if (statusSlug == 'cancel') {
       icon = Icon(
         Icons.cancel,
-        color: AppTheme.grey,
+        color: Colors.red,
 //        size: 35,
       );
     } else if (statusSlug == 'collected') {

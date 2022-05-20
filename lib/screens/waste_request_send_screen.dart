@@ -245,7 +245,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         collect_date: CollectTime(
             time: selectedHours,
             day:
-                '${weekDays[selectedDay.weekDay - 1]}  ${selectedDay.day} ${months[selectedDay.month]}'),
+                '${weekDays[selectedDay.weekDay - 1]}  ${selectedDay.day} ${months[selectedDay.month-1]}'),
         address_data: RequestAddress(
           name: selectedAddress.name,
           address: selectedAddress.address,
@@ -505,7 +505,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                           style: TextStyle(
                                             color: AppTheme.grey,
                                             fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 15.0,
+                                            fontSize: textScaleFactor * 12.0,
                                           ),
                                         ),
                                       ),
@@ -530,7 +530,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                         style: TextStyle(
                                           color: AppTheme.black,
                                           fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 18.0,
+                                          fontSize: textScaleFactor * 13.0,
                                         ),
                                         textAlign: TextAlign.center,
                                       ),
@@ -564,7 +564,8 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                                       Spacer(),
                                       Center(
                                         child: Text(
-                                          selectedHours,
+                                          EnArConvertor()
+                                              .replaceArNumber( selectedHours),
                                           style: TextStyle(
                                             color: AppTheme.black,
                                             fontFamily: 'Iransans',

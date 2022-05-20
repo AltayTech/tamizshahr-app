@@ -13,6 +13,7 @@ import 'package:tamizshahr/widgets/buton_bottom.dart';
 import 'package:tamizshahr/widgets/currency_input_formatter.dart';
 import 'package:tamizshahr/widgets/custom_dialog_send_request.dart';
 
+import '../classes/my_filtter.dart';
 import '../provider/app_theme.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
@@ -110,7 +111,7 @@ class _DonationScreenState extends State<DonationScreen>
       ),
     );
 
-    Scaffold.of(buildContex).showSnackBar(addToCartSnackBar);
+    ScaffoldMessenger.of(buildContex).showSnackBar(addToCartSnackBar);
     getCustomerInfo();
     setState(() {
       _isLoading = false;
@@ -385,8 +386,7 @@ class _DonationScreenState extends State<DonationScreen>
                                             ),
                                           ),
                                           inputFormatters: [
-                                            WhitelistingTextInputFormatter
-                                                .digitsOnly,
+                                            MyFilter(),
                                             new CurrencyInputFormatter(),
                                           ],
                                         ),

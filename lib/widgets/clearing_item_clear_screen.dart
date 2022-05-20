@@ -23,7 +23,7 @@ class ClearingItemClearScreen extends StatelessWidget {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     final transaction = Provider.of<Clearing>(context, listen: false);
     var currencyFormat = intl.NumberFormat.decimalPattern();
-
+debugPrint( 'saasdas'+ transaction.paid_date.toString());
     return Padding(
       padding: const EdgeInsets.only(top:5.0,bottom: 5),
       child: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/provider/customer_info.dart';
 import 'package:tamizshahr/screens/wallet_screen.dart';
 import 'package:tamizshahr/widgets/buton_bottom.dart';
 import 'package:tamizshahr/widgets/main_item_button.dart';
@@ -43,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _showLoginDialogExit(context);
         Provider.of<Auth>(context, listen: false).isFirstLogout = false;
       }
+      await Provider.of<CustomerInfo>(context, listen: false).fetchShopData();
 
       Provider.of<Auth>(context, listen: false).isFirstLogin = false;
     }
@@ -163,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .pushNamed(ArticlesScreen.routeName);
                         },
                         child: MainItemButton(
-                            title: 'مقالات آموزشی',
+                            title: 'اخبار و مقالات',
                             itemPaddingF: itemPaddingF,
                             imageSizeFactor: 0.33,
                             isMonoColor: true,

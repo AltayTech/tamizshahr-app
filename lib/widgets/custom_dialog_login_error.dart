@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tamizshahr/screens/customer_info/customer_user_info_screen.dart';
+
 import '../provider/app_theme.dart';
+import '../screens/customer_info/login_screen.dart';
 
-import '../screens/customer_info/profile_screen.dart';
-
-class CustomDialogProfile extends StatelessWidget {
+class CustomDialogLoginError extends StatelessWidget {
   final String title, description, buttonText;
   final Image image;
 
-  CustomDialogProfile({
+  CustomDialogLoginError({
     @required this.title,
     @required this.description,
     @required this.buttonText,
@@ -56,8 +55,9 @@ class CustomDialogProfile extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: Color(0xff0197F6),
+                  color: Colors.red,
                   fontSize: MediaQuery.of(context).textScaleFactor * 16,
+                  fontFamily: 'Iransans',
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -67,6 +67,7 @@ class CustomDialogProfile extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.blueGrey,
+                  fontFamily: 'Iransans',
                   fontSize: MediaQuery.of(context).textScaleFactor * 14,
                 ),
               ),
@@ -77,13 +78,14 @@ class CustomDialogProfile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   child: InkWell(
                     onTap: () {
-                      return Navigator.of(context).popAndPushNamed(CustomerUserInfoScreen.routeName);
+                      return Navigator.of(context)
+                          .pop();
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.06,
                       width: MediaQuery.of(context).size.width * 0.4,
                       decoration: BoxDecoration(
-                        color:AppTheme.primary,
+                        color: AppTheme.primary,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: Center(
@@ -112,6 +114,6 @@ class CustomDialogProfile extends StatelessWidget {
 class Consts {
   Consts._();
 
-  static const double padding = 16.0;
+  static const double padding = 20.0;
   static const double avatarRadius = 10;
 }

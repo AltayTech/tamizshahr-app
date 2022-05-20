@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/models/city.dart';
+import 'package:tamizshahr/models/province.dart';
 import 'package:tamizshahr/models/status.dart';
+import 'package:tamizshahr/provider/auth.dart';
 
 import '../../models/customer.dart';
 import '../../models/personal_data.dart';
@@ -15,12 +18,10 @@ class CustomerDetailInfoEditScreen extends StatefulWidget {
   static const routeName = '/customerDetailInfoEditScreen';
 
   @override
-  _CustomerDetailInfoEditScreenState createState() =>
-      _CustomerDetailInfoEditScreenState();
+  _CustomerDetailInfoEditScreenState createState() => _CustomerDetailInfoEditScreenState();
 }
 
-class _CustomerDetailInfoEditScreenState
-    extends State<CustomerDetailInfoEditScreen> {
+class _CustomerDetailInfoEditScreenState extends State<CustomerDetailInfoEditScreen> {
   final nameController = TextEditingController();
   final familyController = TextEditingController();
 
@@ -38,10 +39,23 @@ class _CustomerDetailInfoEditScreenState
 
   Status selectedType;
 
+  List<Province> provinceList= [];
+
+  List<String> provinceValueList = [];
+
+  List<City> citiesList= [];
+
+  List<String> citiesValueList = [];
+
+  String selectedProvince;
+  String selectedCity;
+
+  String provinceValue;
+  String cityValue;
+
   @override
   void initState() {
-    Customer customer =
-        Provider.of<CustomerInfo>(context, listen: false).customer;
+    Customer customer = Provider.of<CustomerInfo>(context, listen: false).customer;
     nameController.text = customer.personalData.first_name;
     familyController.text = customer.personalData.last_name;
 
@@ -50,6 +64,8 @@ class _CustomerDetailInfoEditScreenState
     cityController.text = customer.personalData.city;
     postCodeController.text = customer.personalData.postcode;
     selectedType = customer.customer_type;
+    selectedProvince = customer.personalData.ostan;
+    selectedCity = customer.personalData.city;
 
     super.initState();
   }
@@ -84,9 +100,46 @@ class _CustomerDetailInfoEditScreenState
     });
   }
 
+  Future<void> retrieveProvince() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Provider.of<CustomerInfo>(context, listen: false).getProvinces();
+    provinceList.clear();
+    provinceValueList.clear();
+    provinceList = Provider.of<CustomerInfo>(context, listen: false).provincesItems;
+    for (int i = 0; i < provinceList.length; i++) {
+      provinceValueList.add(provinceList[i].name);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> retrieveCities( int provinceId) async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Provider.of<CustomerInfo>(context, listen: false).getCities(provinceId);
+    citiesList.clear();
+    citiesValueList.clear();
+
+    citiesList = Provider.of<CustomerInfo>(context, listen: false).citiesItems;
+    for (int i = 0; i < citiesList.length; i++) {
+      citiesValueList.add(citiesList[i].name);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+
   @override
   void didChangeDependencies() async {
     await retrieveTypes();
+    await retrieveProvince();
     super.didChangeDependencies();
   }
 
@@ -95,8 +148,7 @@ class _CustomerDetailInfoEditScreenState
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    Customer customerInfo =
-        Provider.of<CustomerInfo>(context, listen: false).customer;
+    Customer customerInfo = Provider.of<CustomerInfo>(context, listen: false).customer;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -176,14 +228,11 @@ class _CustomerDetailInfoEditScreenState
                                       height: deviceHeight * 0.05,
                                       alignment: Alignment.centerRight,
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
+                                          borderRadius: BorderRadius.circular(5),
                                           color: AppTheme.white,
-                                          border: Border.all(
-                                              color: AppTheme.h1, width: 0.6)),
+                                          border: Border.all(color: AppTheme.h1, width: 0.6)),
                                       child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 8.0, left: 8, top: 6),
+                                        padding: const EdgeInsets.only(right: 8.0, left: 8, top: 6),
                                         child: DropdownButton<String>(
                                           hint: Text(
                                             'نوع کاربر',
@@ -195,8 +244,7 @@ class _CustomerDetailInfoEditScreenState
                                           ),
                                           value: typeValue,
                                           icon: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10.0),
+                                            padding: const EdgeInsets.only(bottom: 10.0),
                                             child: Icon(
                                               Icons.arrow_drop_down,
                                               color: AppTheme.black,
@@ -213,26 +261,20 @@ class _CustomerDetailInfoEditScreenState
                                           onChanged: (newValue) {
                                             setState(() {
                                               typeValue = newValue;
-                                              selectedType = typesList[
-                                                  typeValueList
-                                                      .lastIndexOf(newValue)];
+                                              selectedType = typesList[typeValueList.lastIndexOf(newValue)];
                                             });
                                           },
-                                          items: typeValueList
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
+                                          items: typeValueList.map<DropdownMenuItem<String>>((String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
                                               child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 3.0),
+                                                padding: const EdgeInsets.only(right: 3.0),
                                                 child: Text(
                                                   value,
                                                   style: TextStyle(
                                                     color: AppTheme.black,
                                                     fontFamily: 'Iransans',
-                                                    fontSize:
-                                                        textScaleFactor * 13.0,
+                                                    fontSize: textScaleFactor * 13.0,
                                                   ),
                                                 ),
                                               ),
@@ -255,22 +297,167 @@ class _CustomerDetailInfoEditScreenState
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               children: <Widget>[
-                                InfoEditItem(
-                                  title: 'استان',
-                                  controller: ostanController,
-                                  bgColor: AppTheme.bg,
-                                  iconColor: Color(0xff4392F1),
-                                  keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight * 0.05,
+
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    'استان',
+                                    style: TextStyle(
+                                      color: AppTheme.black,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 13.0,
+                                    ),
+                                  ),
                                 ),
-                                InfoEditItem(
-                                  title: 'شهر',
-                                  controller: cityController,
-                                  bgColor: AppTheme.bg,
-                                  iconColor: Color(0xff4392F1),
-                                  keybordType: TextInputType.text,
-                                  fieldHeight: deviceHeight * 0.05,
+                                Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Container(
+                                      width: deviceWidth * 0.78,
+                                      height: deviceHeight * 0.05,
+                                      alignment: Alignment.centerRight,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                          color: AppTheme.white,
+                                          border: Border.all(color: AppTheme.h1, width: 0.6)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 8.0, left: 8, top: 6),
+                                        child: DropdownButton<String>(
+                                          hint: Text(
+                                            'استان',
+                                            textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                              color: AppTheme.grey,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 13.0,
+                                            ),
+                                          ),
+
+                                          value: provinceValue,
+                                          icon: Padding(
+                                            padding: const EdgeInsets.only(bottom: 10.0),
+                                            child: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: AppTheme.black,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          dropdownColor: AppTheme.white,
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 13.0,
+                                          ),
+                                          isDense: true,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              provinceValue = newValue;
+                                              selectedProvince = provinceList[provinceValueList.lastIndexOf(newValue)].name;
+                                               retrieveCities(provinceList[provinceValueList.lastIndexOf(newValue)].id);
+                                              ostanController.text=selectedProvince;
+                                            });
+                                          },
+                                          items: provinceValueList.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 3.0),
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                    color: AppTheme.black,
+                                                    fontFamily: 'Iransans',
+                                                    fontSize: textScaleFactor * 13.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    'شهر',
+                                    style: TextStyle(
+                                      color: AppTheme.black,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 13.0,
+                                    ),
+                                  ),
+                                ),
+                                Directionality(
+                                  textDirection: TextDirection.ltr,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Container(
+                                      width: deviceWidth * 0.78,
+                                      height: deviceHeight * 0.05,
+                                      alignment: Alignment.centerRight,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                          color: AppTheme.white,
+                                          border: Border.all(color: AppTheme.h1, width: 0.6)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 8.0, left: 8, top: 6),
+                                        child: DropdownButton<String>(
+                                          hint: Text(
+                                            'شهر',
+                                            style: TextStyle(
+                                              color: AppTheme.grey,
+                                              fontFamily: 'Iransans',
+                                              fontSize: textScaleFactor * 13.0,
+                                            ),
+                                          ),
+                                          value: cityValue,
+                                          icon: Padding(
+                                            padding: const EdgeInsets.only(bottom: 10.0),
+                                            child: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: AppTheme.black,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          dropdownColor: AppTheme.white,
+                                          style: TextStyle(
+                                            color: AppTheme.black,
+                                            fontFamily: 'Iransans',
+                                            fontSize: textScaleFactor * 13.0,
+                                          ),
+                                          isDense: true,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              cityValue = newValue;
+                                              selectedCity = citiesList[citiesValueList.lastIndexOf(newValue)].name;
+                                              cityController.text=selectedCity;
+                                            });
+                                          },
+                                          items: citiesValueList.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 3.0),
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                    color: AppTheme.black,
+                                                    fontFamily: 'Iransans',
+                                                    fontSize: textScaleFactor * 13.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
                                 InfoEditItem(
                                   title: 'کدپستی',
                                   controller: postCodeController,
@@ -313,7 +500,78 @@ class _CustomerDetailInfoEditScreenState
                 ),
               );
 
-              Customer customerSend = Customer(
+
+              if (nameController.text == '') {
+                var _snackBarMessage = 'نام وارد نشده است';
+                final addToCartSnackBar = SnackBar(
+                  content: Text(
+                    _snackBarMessage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(addToCartSnackBar);
+              } else if (familyController.text == '') {
+                var _snackBarMessage = 'نام خانوادگی را وارد نمایید';
+                final addToCartSnackBar = SnackBar(
+                  content: Text(
+                    _snackBarMessage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(addToCartSnackBar);
+
+              } else if (cityController.text == '') {
+                var _snackBarMessage = 'شهر را وارد نمایید';
+                final addToCartSnackBar = SnackBar(
+                  content: Text(
+                    _snackBarMessage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(addToCartSnackBar);
+
+              } else if (ostanController.text == '') {
+                var _snackBarMessage = 'استان را وارد نمایید';
+                final addToCartSnackBar = SnackBar(
+                  content: Text(
+                    _snackBarMessage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(addToCartSnackBar);
+
+              } else if (postCodeController.text == '') {
+                var _snackBarMessage = 'کد پستی را وارد نمایید';
+                final addToCartSnackBar = SnackBar(
+                  content: Text(
+                    _snackBarMessage,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Iransans',
+                      fontSize: textScaleFactor * 14.0,
+                    ),
+                  ),
+                );
+                Scaffold.of(context).showSnackBar(addToCartSnackBar);
+
+              } else {
+                Customer customerSend = Customer(
                   customer_type: selectedType,
                   personalData: PersonalData(
                     first_name: nameController.text,
@@ -322,15 +580,14 @@ class _CustomerDetailInfoEditScreenState
                     ostan: ostanController.text,
                     postcode: postCodeController.text,
                   ),
-              );
+                );
+                Provider.of<CustomerInfo>(context, listen: false).sendCustomer(customerSend).then((v) {
+                  Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                  Provider.of<Auth>(context, listen: false).checkCompleted();
 
-              Provider.of<CustomerInfo>(context, listen: false)
-                  .sendCustomer(customerSend)
-                  .then((v) {
-                Scaffold.of(context).showSnackBar(addToCartSnackBar);
-                Navigator.of(context)
-                    .popAndPushNamed(CustomerUserInfoScreen.routeName);
-              });
+                  Navigator.of(context).popAndPushNamed(CustomerUserInfoScreen.routeName);
+                });
+              }
             },
             backgroundColor: AppTheme.primary,
             child: Icon(

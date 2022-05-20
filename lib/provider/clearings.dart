@@ -67,7 +67,7 @@ class Clearings with ChangeNotifier {
   Future<void> searchCleaingsItems() async {
     print('searchCleaingsItems');
 
-    final url = Urls.rootUrl + Urls.clearingEndPoint + '$searchEndPoint';
+    final url = Uri.parse(Urls.rootUrl + Urls.clearingEndPoint + '$searchEndPoint');
     print(url);
 
     try {

@@ -370,7 +370,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           padding: const EdgeInsets.all(5.0),
                                           child: priceWidget(context),
                                         ),
-
+Spacer(),
+                                        loadedProduct.status.slug=='not-available'? Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: textScaleFactor * 15.0),
+                                          child: Text(
+                                            'ناموجود',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                              fontFamily: 'Iransans',
+                                              fontSize:
+                                              textScaleFactor * 15.0,
+                                            ),
+                                          ),
+                                        ):Container(),
                                       ],
                                     ),
                                   ),
@@ -425,7 +439,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             ),
                           );
                           Scaffold.of(context).showSnackBar(addToCartSnackBar);
-                        } else if (isExist) {
+                        } else if (loadedProduct.status.slug=='not-available') {
+                          _snackBarMessage = 'محصول موجود نمیباشد';
+                          SnackBar addToCartSnackBar = SnackBar(
+                            content: Text(
+                              _snackBarMessage,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 14.0,
+                              ),
+                            ),
+                            action: SnackBarAction(
+                              label: 'متوجه شدم',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        }else if (isExist) {
                           _snackBarMessage = 'محصول در سبد خرید موجود میباشد';
                           SnackBar addToCartSnackBar = SnackBar(
                             content: Text(

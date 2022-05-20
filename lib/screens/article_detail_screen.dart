@@ -167,7 +167,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(16),
                             child: HtmlWidget(
                               loadedArticle.content,
                               onTapUrl: (url) => showDialog(

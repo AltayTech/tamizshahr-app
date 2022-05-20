@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/models/shop.dart';
+import 'package:tamizshahr/provider/customer_info.dart';
 import 'package:tamizshahr/widgets/buton_bottom.dart';
 
 import '../models/request/price_weight.dart';
@@ -34,6 +36,8 @@ class _WasteCartScreenState extends State<WasteCartScreen>
   int totalWeight = 0;
   int totalPricePure = 0;
 
+  Shop shopData;
+
   void _showLogindialog() {
     showDialog(
       context: context,
@@ -60,6 +64,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
   void didChangeDependencies() async {
     if (_isInit) {
       await Provider.of<Auth>(context, listen: false).checkCompleted();
+      shopData = Provider.of<CustomerInfo>(context, listen: false).shop;
 
       await getWasteItems();
 
@@ -374,9 +379,9 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                     ),
                   ),
                   Positioned(
-                    bottom: 0,
+                    bottom: 5,
                     left: 0,
-//                    right: 0,
+                    right: 75,
                     child: InkWell(
                       onTap: () {
                         SnackBar addToCartSnackBar = SnackBar(
@@ -399,6 +404,26 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                           Scaffold.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
+                        }else if (double.parse(totalPrice.toString()) <
+                            double.parse(shopData.min_price_accepting_collect_req)) {
+                          SnackBar addToCartSnackBar = SnackBar(
+                            content: Text(
+                              EnArConvertor().replaceArNumber(
+                                  'حداقل درخواست جمع آوری باید بیشتر از ${shopData.min_price_accepting_collect_req} باشد  '),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 14.0,
+                              ),
+                            ),
+                            action: SnackBarAction(
+                              label: 'متوجه شدم',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
                         } else {
                           if (isCompleted) {
                             Navigator.of(context)
@@ -409,8 +434,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                         }
                       },
                       child: ButtonBottom(
-                        width: deviceWidth * 0.75,
-                        height: deviceWidth * 0.14,
+                        height: 55,
                         text: 'ادامه',
                         isActive: wasteCartItems.isNotEmpty,
                       ),

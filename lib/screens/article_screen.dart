@@ -172,7 +172,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                vertical: deviceHeight * 0.0, horizontal: deviceWidth * 0.03),
+                vertical: deviceHeight * 0.0, horizontal: 16),
             child: Stack(
               children: <Widget>[
                 Column(
@@ -325,32 +325,32 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 4.0, left: 6),
-                                      child: Text(
-                                        productsDetail != null
-                                            ? EnArConvertor().replaceArNumber(
-                                                productsDetail.total.toString())
-                                            : EnArConvertor()
-                                                .replaceArNumber('0'),
-                                        style: TextStyle(
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 13.0,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 3, vertical: 5),
-                                      child: Text(
-                                        'از',
-                                        style: TextStyle(
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 12.0,
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //       right: 4.0, left: 6),
+                                    //   child: Text(
+                                    //     productsDetail != null
+                                    //         ? EnArConvertor().replaceArNumber(
+                                    //             productsDetail.total.toString())
+                                    //         : EnArConvertor()
+                                    //             .replaceArNumber('0'),
+                                    //     style: TextStyle(
+                                    //       fontFamily: 'Iransans',
+                                    //       fontSize: textScaleFactor * 13.0,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.symmetric(
+                                    //       horizontal: 3, vertical: 5),
+                                    //   child: Text(
+                                    //     'از',
+                                    //     style: TextStyle(
+                                    //       fontFamily: 'Iransans',
+                                    //       fontSize: textScaleFactor * 12.0,
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           right: 4.0, left: 6),
@@ -411,7 +411,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                 child: loadedProductstolist.isEmpty
                                     ? Center(
                                         child: Text(
-                                        'محصولی وجود ندارد',
+                                        'موردی وجود ندارد',
                                         style: TextStyle(
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 15.0,

@@ -55,7 +55,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> getCustomer() async {
     print('getCustomer');
 
-    final url = Urls.rootUrl + Urls.customerEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.customerEndPoint);
     print(url);
 
     final prefs = await SharedPreferences.getInstance();
@@ -89,7 +89,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> sendCustomer(Customer customer) async {
     print('sendCustomer');
 
-    final url = Urls.rootUrl + Urls.customerEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.customerEndPoint);
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -133,7 +133,7 @@ class CustomerInfo with ChangeNotifier {
 
     _currentOrderId = orderId;
 
-    final url = Urls.rootUrl + Urls.orderInfoEndPoint + '?order_id=$orderId';
+    final url = Uri.parse(Urls.rootUrl + Urls.orderInfoEndPoint + '?order_id=$orderId');
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -164,7 +164,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> payCashOrder(int orderId) async {
     print('payCashOrder');
 
-    final url = Urls.rootUrl + Urls.payEndPoint + '?order_id=$orderId';
+    final url = Uri.parse(Urls.rootUrl + Urls.payEndPoint + '?order_id=$orderId');
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -193,7 +193,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> sendNaghdOrder() async {
     print('sendNaghdOrder');
 
-    final url = Urls.rootUrl + Urls.orderInfoEndPoint + '?paytype=naghd';
+    final url = Uri.parse(Urls.rootUrl + Urls.orderInfoEndPoint + '?paytype=naghd');
 
     final prefs = await SharedPreferences.getInstance();
 
@@ -222,7 +222,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> fetchShopData() async {
     print('fetchShopData');
 
-    final url = Urls.rootUrl + Urls.shopEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.shopEndPoint);
     print(url);
 
     try {
@@ -294,7 +294,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> searchTransactionItems() async {
     print('searchTransactionItems');
 
-    final url = Urls.rootUrl + Urls.transactionsEndPoint + '$searchEndPoint';
+    final url = Uri.parse(Urls.rootUrl + Urls.transactionsEndPoint + '$searchEndPoint');
     print(url);
     final prefs = await SharedPreferences.getInstance();
 
@@ -330,7 +330,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> retrieveItem(int collectId) async {
     print('retrieveItem');
 
-    final url = Urls.rootUrl + Urls.collectsEndPoint + "/$collectId";
+    final url = Uri.parse(Urls.rootUrl + Urls.collectsEndPoint + "/$collectId");
     print(url);
 
     try {
@@ -386,7 +386,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> getProvinces() async {
     print('getProvinces');
 
-    final url = Urls.rootUrl + Urls.provincesEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.provincesEndPoint);
     print(url);
 
     try {
@@ -420,7 +420,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> getCities(int provinceId) async {
     print('getCities');
 
-    final url = Urls.rootUrl + Urls.provincesEndPoint + '$provinceId';
+    final url = Uri.parse(Urls.rootUrl + Urls.provincesEndPoint + '/$provinceId');
     print(url);
 
     try {
@@ -453,7 +453,7 @@ class CustomerInfo with ChangeNotifier {
   Future<void> getTypes() async {
     print('getTypes');
 
-    final url = Urls.rootUrl + Urls.typesEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.typesEndPoint);
     print(url);
 
     try {
@@ -492,7 +492,7 @@ class CustomerInfo with ChangeNotifier {
       _token = prefs.getString('token');
       print('tooookkkeeennnnnn  $_token');
 
-      final url = Urls.rootUrl + Urls.clearingEndPoint;
+      final url = Uri.parse(Urls.rootUrl + Urls.clearingEndPoint);
       print('url  $url');
       print(jsonEncode({
         "money": money,
@@ -520,6 +520,9 @@ class CustomerInfo with ChangeNotifier {
       throw (error);
     }
   }
+
+
+
 }
 
 

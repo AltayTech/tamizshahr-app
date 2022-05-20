@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/models/error.dart';
+import 'package:tamizshahr/widgets/custom_dialog_login_error.dart';
 
 import '../../classes/http_exception.dart';
 import '../../provider/Products.dart';
@@ -172,6 +174,17 @@ class _AuthCardState extends State<AuthCard>
       ),
     );
   }
+  void _showLogindialog(LoginError loginError) {
+    showDialog(
+      context: context,
+      builder: (ctx) => CustomDialogLoginError(
+        title: loginError.code,
+        buttonText: 'خب',
+        description: loginError.message,
+      ),
+    );
+  }
+
 
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
@@ -201,7 +214,7 @@ class _AuthCardState extends State<AuthCard>
           _authData['verificationCode'],
           _authData['phoneNumber'],
         );
-        if (response) {
+        if (response.code == 'true') {
 //          try {
 //            Provider.of<Products>(context, listen: false)
 //                .addShopCartAfterLogin(true);
@@ -212,7 +225,7 @@ class _AuthCardState extends State<AuthCard>
           Navigator.of(context)
               .pushReplacementNamed(NavigationBottomScreen.routeName);
         } else {
-          _showErrorDialog('کد وارد شده صحیح نمیباشد');
+          _showLogindialog(response);
         }
       }
     } on HttpException catch (error) {

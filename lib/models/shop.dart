@@ -25,6 +25,10 @@ class Shop with ChangeNotifier {
   final FeaturedImage featured_image;
   final List<FeaturedImage> gallery;
   final String policy;
+  final String min_price_for_customer_clearing;
+  final String min_price_for_driver_clearing;
+  final String min_price_accepting_collect_req;
+
 
   Shop({
     this.support_phone,
@@ -47,16 +51,19 @@ class Shop with ChangeNotifier {
     this.featured_image,
     this.gallery,
     this.policy,
+    this.min_price_accepting_collect_req,
+    this.min_price_for_customer_clearing,
+    this.min_price_for_driver_clearing,
   });
 
   factory Shop.fromJson(Map<String, dynamic> parsedJson) {
     var galleryList = parsedJson['gallery'] as List;
     List<FeaturedImage> galleryRaw =
-        galleryList.map((i) => FeaturedImage.fromJson(i)).toList();
+    galleryList.map((i) => FeaturedImage.fromJson(i)).toList();
 
     var featureList = parsedJson['features_list'] as List;
     List<Feature> featureRaw =
-        featureList.map((i) => Feature.fromJson(i)).toList();
+    featureList.map((i) => Feature.fromJson(i)).toList();
 
     return Shop(
       support_phone: parsedJson['support_phone'],
@@ -79,6 +86,10 @@ class Shop with ChangeNotifier {
       featured_image: FeaturedImage.fromJson(parsedJson['featured_image']),
       gallery: galleryRaw,
       policy: parsedJson['policy'],
+      min_price_accepting_collect_req: parsedJson['min_price_accepting_collect_req'],
+      min_price_for_customer_clearing: parsedJson['min_price_for_customer_clearing'],
+      min_price_for_driver_clearing: parsedJson['min_price_for_driver_clearing'],
+
     );
   }
 }

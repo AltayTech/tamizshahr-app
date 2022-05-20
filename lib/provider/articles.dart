@@ -53,7 +53,7 @@ class Articles with ChangeNotifier {
   Future<void> searchItem() async {
     print('searchItem');
 
-    final url = Urls.rootUrl + Urls.articlesEndPoint+searchEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.articlesEndPoint+searchEndPoint);
     print(url);
 
     try {
@@ -82,7 +82,7 @@ class Articles with ChangeNotifier {
   Future<void> retrieveCategory() async {
     print('retrieveCategory');
 
-    final url = Urls.rootUrl + Urls.articlesCatEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.articlesCatEndPoint);
     print(url);
 
     try {
@@ -108,7 +108,7 @@ class Articles with ChangeNotifier {
   Future<void> retrieveItem(int articleId) async {
     print('retrieveItem');
 
-    final url = Urls.rootUrl + Urls.articlesEndPoint + "/$articleId";
+    final url = Uri.parse(Urls.rootUrl + Urls.articlesEndPoint + "/$articleId");
     print(url);
 
     try {

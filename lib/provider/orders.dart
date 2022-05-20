@@ -48,7 +48,7 @@ class Orders with ChangeNotifier {
   Future<void> searchOrderItems() async {
     print('searchOrderItems');
 
-    final url = Urls.rootUrl + Urls.orderEndPoint + '$searchEndPoint';
+    final url = Uri.parse(Urls.rootUrl + Urls.orderEndPoint + '$searchEndPoint');
     print(url);
     final prefs = await SharedPreferences.getInstance();
 
@@ -83,7 +83,7 @@ class Orders with ChangeNotifier {
   Future<void> retrieveOrderItem(int ordrId) async {
     print('retrieveOrderItem');
 
-    final url = Urls.rootUrl + Urls.orderEndPoint + "/$ordrId";
+    final url = Uri.parse(Urls.rootUrl + Urls.orderEndPoint + "/$ordrId");
     print(url);
 
     try {

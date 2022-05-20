@@ -28,7 +28,7 @@ class Wastes with ChangeNotifier {
   Future<void> searchWastesItem() async {
     print('searchItem');
 
-    final url = Urls.rootUrl + Urls.pasmandsEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.pasmandsEndPoint);
     print(url);
 
     try {
@@ -113,7 +113,7 @@ class Wastes with ChangeNotifier {
         _token = prefs.getString('token');
         print('tooookkkeeennnnnn  $_token');
 
-        final url = Urls.rootUrl + Urls.collectsEndPoint;
+        final url = Uri.parse(Urls.rootUrl + Urls.collectsEndPoint);
         print('url  $url');
         print(jsonEncode(request));
 
@@ -184,7 +184,7 @@ class Wastes with ChangeNotifier {
   Future<void> searchCollectItems() async {
     print('searchCollectItems');
 
-    final url = Urls.rootUrl + Urls.collectsEndPoint + '$searchEndPoint';
+    final url = Uri.parse(Urls.rootUrl + Urls.collectsEndPoint + '$searchEndPoint');
     print(url);
 
     try {
@@ -221,7 +221,7 @@ class Wastes with ChangeNotifier {
   Future<void> retrieveCollectItem(int collectId) async {
     print('retrieveCollectItem');
 
-    final url = Urls.rootUrl + Urls.collectsEndPoint + "/$collectId";
+    final url = Uri.parse(Urls.rootUrl + Urls.collectsEndPoint + "/$collectId");
     print(url);
 
     try {
@@ -283,5 +283,36 @@ class Wastes with ChangeNotifier {
 
   set sPage(value) {
     _sPage = value;
+  }
+
+  Future<void> cancelRequest(int collectId) async {
+    print('cancelRequest');
+
+    final url = Uri.parse(Urls.rootUrl + Urls.collectsEndPoint + "/$collectId");
+    print(url);
+
+    final prefs = await SharedPreferences.getInstance();
+    _token = prefs.getString('token');
+    print('tooookkkeeennnnnn  $_token');
+    try {
+      final response = await put(url, headers: {
+        'Authorization': 'Bearer $_token',
+
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+
+      },
+          body: jsonEncode({
+            "cancel": true
+          },),);
+      final extractedData = json.decode(response.body) as dynamic;
+      print(extractedData);
+
+
+    } catch (error) {
+      print(error.toString());
+      throw (error);
+    }
+    notifyListeners();
   }
 }

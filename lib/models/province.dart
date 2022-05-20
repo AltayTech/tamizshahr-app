@@ -7,7 +7,7 @@ class Province {
   factory Province.fromJson(Map<String, dynamic> parsedJson) {
 
       return Province(
-        id: parsedJson['id'],
+        id: int.parse(parsedJson['id']),
         name: parsedJson['name'],
       );
   }

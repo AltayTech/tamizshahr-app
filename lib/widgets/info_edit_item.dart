@@ -82,6 +82,7 @@ class InfoEditItem extends StatelessWidget {
                     focusNode: thisFocusNode,
                     textInputAction: TextInputAction.go,
                     controller: controller,
+
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -89,7 +90,7 @@ class InfoEditItem extends StatelessWidget {
                           width: 0,
                           color: Colors.white,
                         ),
-                      ),
+                      ),hintText: title=='نام آدرس'?'منزل، شرکت':'',
                       labelStyle: TextStyle(
                         color: Colors.blue,
                         fontFamily: 'Iransans',

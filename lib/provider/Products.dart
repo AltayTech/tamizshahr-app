@@ -149,7 +149,7 @@ class Products with ChangeNotifier {
   Future<void> retrieveCategory() async {
     print('fetchAndSetHomeData');
 
-    final url = Urls.rootUrl + Urls.categoriesEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.categoriesEndPoint);
     print(url);
 
     try {
@@ -176,7 +176,7 @@ class Products with ChangeNotifier {
   Future<void> searchItem() async {
     print('searchItem');
 
-    final url = Urls.rootUrl + Urls.productsEndPoint + '$searchEndPoint';
+    final url = Uri.parse(Urls.rootUrl + Urls.productsEndPoint + '$searchEndPoint');
     print(url);
 
     try {
@@ -207,7 +207,7 @@ class Products with ChangeNotifier {
   Future<void> retrieveItem(int productId) async {
     print('retrieveItem');
 
-    final url = Urls.rootUrl + Urls.productsEndPoint + "/$productId";
+    final url = Uri.parse(Urls.rootUrl + Urls.productsEndPoint + "/$productId");
     print(url);
 
     try {
@@ -267,7 +267,7 @@ class Products with ChangeNotifier {
       _token = prefs.getString('token');
       print('tooookkkeeennnnnn  $_token');
 
-      final url = Urls.rootUrl + Urls.orderEndPoint;
+      final url = Uri.parse(Urls.rootUrl + Urls.orderEndPoint);
       print('url  $url');
       print(jsonEncode(request));
 

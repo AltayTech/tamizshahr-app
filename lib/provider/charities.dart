@@ -41,7 +41,7 @@ class Charities with ChangeNotifier {
   Future<void> searchCharitiesItem() async {
     print('searchCharityItem');
 
-    final url = Urls.rootUrl + Urls.charitiesEndPoint + searchEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.charitiesEndPoint + searchEndPoint);
     print(url);
 
     try {
@@ -70,7 +70,7 @@ class Charities with ChangeNotifier {
   Future<void> retrieveCharityItem(int charityId) async {
     print('retrieveCharityItemvvvvv');
 
-    final url = Urls.rootUrl + Urls.charitiesEndPoint + "/$charityId";
+    final url = Uri.parse(Urls.rootUrl + Urls.charitiesEndPoint + "/$charityId");
     print(url);
 
     try {
@@ -117,7 +117,7 @@ class Charities with ChangeNotifier {
       _token = prefs.getString('token');
       print('tooookkkeeennnnnn  $_token');
 
-      final url = Urls.rootUrl + Urls.charitiesEndPoint;
+      final url = Uri.parse(Urls.rootUrl + Urls.charitiesEndPoint);
       print('url  $url');
       print(jsonEncode({
         "charity_id": charityId,

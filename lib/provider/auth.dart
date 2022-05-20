@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tamizshahr/models/error.dart';
 
 import '../models/region.dart';
 import '../models/request/address.dart';
@@ -48,19 +49,21 @@ class Auth with ChangeNotifier {
   String get token => _token;
   Map<String, String> headers = {};
 
-  Future<bool> _authenticate(String urlSegment) async {
+  Future<LoginError> _authenticate(String urlSegment) async {
     print('_authenticate');
+    LoginError message;
 
-    final url = Urls.rootUrl + Urls.loginEndPoint + urlSegment;
+    final url = Uri.parse(Urls.rootUrl + Urls.loginEndPoint + urlSegment);
     print(url);
 
     try {
       final response = await http.post(url, headers: headers);
       updateCookie(response);
+      print(response.toString());
 
       final responseData = json.decode(response.body);
       print(responseData);
-
+      if (response.statusCode == 200) {
       if (responseData != 'false') {
         try {
           _token = responseData['token'];
@@ -77,27 +80,47 @@ class Auth with ChangeNotifier {
           print(_token);
           prefs.setString('isLogin', 'true');
           _isLoggedin = true;
+          message = LoginError(code: 'true', message: '');
+
         } catch (error) {
           _isLoggedin = false;
+          message = LoginError(code: 'false', message: '');
 
           _token = '';
+
         }
       } else {
         final prefs = await SharedPreferences.getInstance();
         _isLoggedin = false;
+        message = LoginError(code: 'false', message: '');
 
         _token = '';
         prefs.setString('token', _token);
         print(_token);
         print('noooo token');
-        prefs.setString('isLogin', 'true');
+        prefs.setString('isLogin', 'false');
+      }}else {
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          _isLoggedin = false;
+          message = LoginError(
+              code: responseData['code'], message: responseData['message']);
+
+          _token = '';
+          prefs.setString('token', _token);
+          prefs.setString('isLogin', 'false');
+        } catch (error) {
+          _isLoggedin = false;
+
+          _token = '';
+        }
       }
       notifyListeners();
     } catch (error) {
       print(error.toString());
       throw error;
     }
-    return _isLoggedin;
+    return message;
   }
 
   void updateCookie(http.Response response) {
@@ -113,7 +136,7 @@ class Auth with ChangeNotifier {
     return _authenticate('/send_sms?mobile=$phoneNumber');
   }
 
-  Future<bool> getVerCode(String verificationCode, String phoneNumber) async {
+  Future<LoginError> getVerCode(String verificationCode, String phoneNumber) async {
     return _authenticate('/verify?type=customer&mobile=$phoneNumber&sms=$verificationCode');
   }
 
@@ -126,12 +149,17 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> checkCompleted() async {
+    debugPrint('checkCompleted');
+
     try {
+      debugPrint(isAuth.toString());
+
       if (isAuth) {
         final prefs = await SharedPreferences.getInstance();
+
         _token = prefs.getString('token');
 
-        final url = Urls.rootUrl + Urls.checkCompletedEndPoint;
+        final url = Uri.parse(Urls.rootUrl + Urls.checkCompletedEndPoint);
 
         final response = await get(
           url,
@@ -141,15 +169,18 @@ class Auth with ChangeNotifier {
             'Accept': 'application/json'
           },
         );
+        debugPrint(response.toString());
 
         final extractedData = json.decode(response.body) as dynamic;
 
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
         bool isCompleted = extractedData['complete'];
 
         _isCompleted = isCompleted;
       } else {
         _isCompleted = false;
+        debugPrint('_isCompleted = false');
+
       }
       notifyListeners();
     } catch (error) {
@@ -184,7 +215,7 @@ class Auth with ChangeNotifier {
         final prefs = await SharedPreferences.getInstance();
         _token = prefs.getString('token');
 
-        final url = Urls.rootUrl + Urls.addressEndPoint;
+        final url =Uri.parse( Urls.rootUrl + Urls.addressEndPoint);
 
         final response = await get(
           url,
@@ -223,7 +254,7 @@ class Auth with ChangeNotifier {
         _token = prefs.getString('token');
         print('tooookkkkeeennnn    $_token');
 
-        final url = Urls.rootUrl + Urls.addressEndPoint;
+        final url = Uri.parse(Urls.rootUrl + Urls.addressEndPoint);
         print('url  $url');
         print(jsonEncode(AddressMain(
           addressData: addressList,
@@ -269,7 +300,7 @@ class Auth with ChangeNotifier {
         final prefs = await SharedPreferences.getInstance();
         _token = prefs.getString('token');
 
-        final url = Urls.rootUrl + Urls.addressEndPoint;
+        final url = Uri.parse(Urls.rootUrl + Urls.addressEndPoint);
         final response = await post(url,
             headers: {
               'Authorization': 'Bearer $_token',
@@ -312,7 +343,7 @@ class Auth with ChangeNotifier {
   Future<void> retrieveRegionList() async {
     print('retrieveRegionList');
 
-    final url = Urls.rootUrl + Urls.regionEndPoint;
+    final url = Uri.parse(Urls.rootUrl + Urls.regionEndPoint);
 
     try {
       final response = await get(url, headers: {
@@ -342,7 +373,7 @@ class Auth with ChangeNotifier {
   Future<void> retrieveRegion(int regionId) async {
     print('retrieveRegion');
 
-    final url = Urls.rootUrl + Urls.regionEndPoint + '/$regionId';
+    final url = Uri.parse(Urls.rootUrl + Urls.regionEndPoint + '/$regionId');
     print(url);
 
     try {

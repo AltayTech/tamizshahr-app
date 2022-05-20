@@ -84,12 +84,11 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
     });
     selectedAddress = Provider.of<Auth>(context, listen: false).selectedAddress;
 
-    await Provider.of<Auth>(context, listen: false)
-        .retrieveRegion(selectedAddress.region.term_id);
+    await Provider.of<Auth>(context, listen: false).retrieveRegion(selectedAddress.region.term_id);
 
     selectedRegion = Provider.of<Auth>(context, listen: false).regionData;
-
-    getDate(3);
+    debugPrint(selectedRegion.day_num_forward);
+    getDate(int.parse(selectedRegion.day_num_forward));
     getMonthAndWeek();
 
     wasteCartItems = Provider.of<Wastes>(context, listen: false).wasteCartItems;
@@ -102,9 +101,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
         print(wasteCartItems[i].featured_image.sizes.medium);
         wasteCartItems[i].prices.length > 0
             ? totalPrice = totalPrice +
-                int.parse(getPrice(
-                        wasteCartItems[i].prices, wasteCartItems[i].weight)) *
-                    wasteCartItems[i].weight
+                int.parse(getPrice(wasteCartItems[i].prices, wasteCartItems[i].weight)) * wasteCartItems[i].weight
             : totalPrice = totalPrice;
         wasteCartItems[i].prices.length > 0
             ? totalWeight = totalWeight + wasteCartItems[i].weight
@@ -243,8 +240,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                           decoration: BoxDecoration(
                               color: AppTheme.white,
                               borderRadius: BorderRadius.circular(5),
-                              border:
-                                  Border.all(color: Colors.grey, width: 0.2)),
+                              border: Border.all(color: Colors.grey, width: 0.2)),
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Column(
@@ -256,8 +252,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, bottom: 8.0),
+                                        padding: const EdgeInsets.only(left: 8, bottom: 8.0),
                                         child: Image.asset(
                                           'assets/images/main_page_request_ic.png',
                                           height: deviceWidth * 0.06,
@@ -277,11 +272,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          EnArConvertor()
-                                              .replaceArNumber(wasteCartItems
-                                                  .length
-                                                  .toString())
-                                              .toString(),
+                                          EnArConvertor().replaceArNumber(wasteCartItems.length.toString()).toString(),
                                           style: TextStyle(
                                             color: AppTheme.h1,
                                             fontFamily: 'Iransans',
@@ -297,8 +288,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left:8, bottom: 2.0),
+                                        padding: const EdgeInsets.only(left: 8, bottom: 2.0),
                                         child: Image.asset(
                                           'assets/images/waste_cart_price_ic.png',
                                           height: deviceWidth * 0.06,
@@ -327,12 +317,9 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
                                           totalPrice.toString().isNotEmpty
-                                              ? EnArConvertor().replaceArNumber(
-                                                  currencyFormat
-                                                      .format(totalPrice)
-                                                      .toString())
-                                              : EnArConvertor()
-                                                  .replaceArNumber('0'),
+                                              ? EnArConvertor()
+                                                  .replaceArNumber(currencyFormat.format(totalPrice).toString())
+                                              : EnArConvertor().replaceArNumber('0'),
                                           style: TextStyle(
                                             color: AppTheme.h1,
                                             fontFamily: 'Iransans',
@@ -348,8 +335,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, bottom: 2.0),
+                                        padding: const EdgeInsets.only(left: 8, bottom: 2.0),
                                         child: Image.asset(
                                           'assets/images/waste_cart_weight_ic.png',
                                           height: deviceWidth * 0.06,
@@ -377,10 +363,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          EnArConvertor()
-                                              .replaceArNumber(
-                                                  totalWeight.toString())
-                                              .toString(),
+                                          EnArConvertor().replaceArNumber(totalWeight.toString()).toString(),
                                           style: TextStyle(
                                             color: AppTheme.h1,
                                             fontFamily: 'Iransans',
@@ -404,10 +387,10 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.only(left:8.0),
+                                              padding: const EdgeInsets.only(left: 8.0),
                                               child: Icon(
                                                 Icons.date_range,
                                                 color: AppTheme.grey,
@@ -419,8 +402,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                               style: TextStyle(
                                                 color: AppTheme.grey,
                                                 fontFamily: 'Iransans',
-                                                fontSize:
-                                                    textScaleFactor * 15.0,
+                                                fontSize: textScaleFactor * 15.0,
                                               ),
                                             ),
                                           ],
@@ -433,8 +415,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                           scrollDirection: Axis.horizontal,
                                           itemCount: dateList.length,
                                           shrinkWrap: true,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
+                                          itemBuilder: (BuildContext context, int index) {
                                             return InkWell(
                                               onTap: () {
                                                 _selectedDay = dateList[index];
@@ -442,28 +423,18 @@ mainAxisAlignment: MainAxisAlignment.center,
                                                 changeCat(context);
                                               },
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
+                                                padding: const EdgeInsets.all(5.0),
                                                 child: Container(
-                                                  height: constraint.maxHeight *
-                                                      0.55,
-                                                  width: constraint.maxWidth *
-                                                      0.31,
-                                                  decoration: _selectedDay ==
-                                                          dateList[index]
+                                                  height: constraint.maxHeight * 0.55,
+                                                  width: constraint.maxWidth * 0.31,
+                                                  decoration: _selectedDay == dateList[index]
                                                       ? BoxDecoration(
-                                                          color:
-                                                              AppTheme.primary,
+                                                          color: AppTheme.primary,
                                                           boxShadow: [
                                                             BoxShadow(
-                                                                color:
-                                                                    AppTheme.bg,
-                                                                blurRadius: 4,
-                                                                spreadRadius: 4)
+                                                                color: AppTheme.bg, blurRadius: 4, spreadRadius: 4)
                                                           ],
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
+                                                          borderRadius: BorderRadius.circular(
                                                             15,
                                                           ),
                                                         )
@@ -471,68 +442,41 @@ mainAxisAlignment: MainAxisAlignment.center,
                                                           color: AppTheme.white,
                                                           boxShadow: [
                                                             BoxShadow(
-                                                                color:
-                                                                    AppTheme.bg,
-                                                                blurRadius: 4,
-                                                                spreadRadius: 4)
+                                                                color: AppTheme.bg, blurRadius: 4, spreadRadius: 4)
                                                           ],
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
+                                                          borderRadius: BorderRadius.circular(
                                                             15,
                                                           ),
                                                         ),
                                                   child: Center(
                                                     child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       children: <Widget>[
                                                         Text(
-                                                          EnArConvertor().replaceArNumber(
-                                                              weekDays[dateList[
-                                                                          index]
-                                                                      .weekDay -
-                                                                  1]),
+                                                          EnArConvertor()
+                                                              .replaceArNumber(weekDays[dateList[index].weekDay - 1]),
                                                           style: TextStyle(
-                                                            color: _selectedDay ==
-                                                                    dateList[
-                                                                        index]
+                                                            color: _selectedDay == dateList[index]
                                                                 ? AppTheme.white
                                                                 : AppTheme.h1,
-                                                            fontFamily:
-                                                                'Iransans',
-                                                            fontSize:
-                                                                textScaleFactor *
-                                                                    18.0,
+                                                            fontFamily: 'Iransans',
+                                                            fontSize: textScaleFactor * 18.0,
                                                           ),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          textAlign: TextAlign.center,
                                                         ),
                                                         Text(
-                                                          EnArConvertor().replaceArNumber(dateList[
-                                                                      index]
-                                                                  .day
-                                                                  .toString() +
-                                                              ' ' +
-                                                              months[dateList[
-                                                                          index]
-                                                                      .month -
-                                                                  1]),
+                                                          EnArConvertor().replaceArNumber(
+                                                              dateList[index].day.toString() +
+                                                                  ' ' +
+                                                                  months[dateList[index].month - 1]),
                                                           style: TextStyle(
-                                                            color: _selectedDay ==
-                                                                    dateList[
-                                                                        index]
+                                                            color: _selectedDay == dateList[index]
                                                                 ? AppTheme.white
                                                                 : AppTheme.h1,
-                                                            fontFamily:
-                                                                'Iransans',
-                                                            fontSize:
-                                                                textScaleFactor *
-                                                                    15.0,
+                                                            fontFamily: 'Iransans',
+                                                            fontSize: textScaleFactor * 15.0,
                                                           ),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                          textAlign: TextAlign.center,
                                                         ),
                                                       ],
                                                     ),
@@ -557,10 +501,9 @@ mainAxisAlignment: MainAxisAlignment.center,
                                       Expanded(
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
-
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.only(left:8.0),
+                                              padding: const EdgeInsets.only(left: 8.0),
                                               child: Icon(
                                                 Icons.access_time,
                                                 color: AppTheme.grey,
@@ -572,8 +515,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                               style: TextStyle(
                                                 color: AppTheme.grey,
                                                 fontFamily: 'Iransans',
-                                                fontSize:
-                                                    textScaleFactor * 15.0,
+                                                fontSize: textScaleFactor * 15.0,
                                               ),
                                             ),
                                           ],
@@ -585,123 +527,65 @@ mainAxisAlignment: MainAxisAlignment.center,
                                         child: _isLoading
                                             ? Container()
                                             : Consumer<Auth>(
-                                                builder: (_, data, ch) =>
-                                                    ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: data.regionData
-                                                      .collect_hour.length,
+                                                builder: (_, data, ch) => ListView.builder(
+                                                  scrollDirection: Axis.horizontal,
+                                                  itemCount: data.regionData.collect_hour.length,
                                                   shrinkWrap: true,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
+                                                  itemBuilder: (BuildContext context, int index) {
                                                     return InkWell(
                                                       onTap: () {
-                                                        _selectedHourStart =
-                                                            data
-                                                                .regionData
-                                                                .collect_hour[
-                                                                    index]
-                                                                .start;
-                                                        _selectedHourend = data
-                                                            .regionData
-                                                            .collect_hour[index]
-                                                            .end;
+                                                        _selectedHourStart = data.regionData.collect_hour[index].start;
+                                                        _selectedHourend = data.regionData.collect_hour[index].end;
 
                                                         changeCat(context);
                                                       },
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5.0),
+                                                        padding: const EdgeInsets.all(5.0),
                                                         child: Container(
-                                                          height: constraint
-                                                                  .maxHeight *
-                                                              0.55,
-                                                          width: constraint
-                                                                  .maxWidth *
-                                                              0.31,
+                                                          height: constraint.maxHeight * 0.55,
+                                                          width: constraint.maxWidth * 0.31,
                                                           decoration: _selectedHourStart ==
-                                                                  data
-                                                                      .regionData
-                                                                      .collect_hour[
-                                                                          index]
-                                                                      .start
+                                                                  data.regionData.collect_hour[index].start
                                                               ? BoxDecoration(
-                                                                  color: AppTheme
-                                                                      .primary,
+                                                                  color: AppTheme.primary,
                                                                   boxShadow: [
                                                                     BoxShadow(
-                                                                        color: AppTheme
-                                                                            .bg,
-                                                                        blurRadius:
-                                                                            4,
-                                                                        spreadRadius:
-                                                                            4)
+                                                                        color: AppTheme.bg,
+                                                                        blurRadius: 4,
+                                                                        spreadRadius: 4)
                                                                   ],
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
+                                                                  borderRadius: BorderRadius.circular(
                                                                     15,
                                                                   ),
                                                                 )
                                                               : BoxDecoration(
-                                                                  color: AppTheme
-                                                                      .white,
+                                                                  color: AppTheme.white,
                                                                   boxShadow: [
                                                                     BoxShadow(
-                                                                        color: AppTheme
-                                                                            .bg,
-                                                                        blurRadius:
-                                                                            4,
-                                                                        spreadRadius:
-                                                                            4)
+                                                                        color: AppTheme.bg,
+                                                                        blurRadius: 4,
+                                                                        spreadRadius: 4)
                                                                   ],
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
+                                                                  borderRadius: BorderRadius.circular(
                                                                     15,
                                                                   ),
                                                                 ),
                                                           child: Center(
                                                             child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 8.0),
+                                                              padding: const EdgeInsets.only(top: 8.0),
                                                               child: Text(
-                                                                getHours(
-                                                                    data
-                                                                        .regionData
-                                                                        .collect_hour[
-                                                                            index]
-                                                                        .start,
-                                                                    data
-                                                                        .regionData
-                                                                        .collect_hour[
-                                                                            index]
-                                                                        .end),
-                                                                style:
-                                                                    TextStyle(
+                                                                EnArConvertor().replaceArNumber(getHours(
+                                                                    data.regionData.collect_hour[index].start,
+                                                                    data.regionData.collect_hour[index].end)),
+                                                                style: TextStyle(
                                                                   color: _selectedHourStart ==
-                                                                          data
-                                                                              .regionData
-                                                                              .collect_hour[
-                                                                                  index]
-                                                                              .start
-                                                                      ? AppTheme
-                                                                          .white
-                                                                      : AppTheme
-                                                                          .h1,
-                                                                  fontFamily:
-                                                                      'Iransans',
-                                                                  fontSize:
-                                                                      textScaleFactor *
-                                                                          22.0,
+                                                                          data.regionData.collect_hour[index].start
+                                                                      ? AppTheme.white
+                                                                      : AppTheme.h1,
+                                                                  fontFamily: 'Iransans',
+                                                                  fontSize: textScaleFactor * 22.0,
                                                                 ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
+                                                                textAlign: TextAlign.center,
                                                               ),
                                                             ),
                                                           ),
@@ -743,23 +627,20 @@ mainAxisAlignment: MainAxisAlignment.center,
                             },
                           ),
                         );
-                        if (_selectedHourStart == null ||
-                            _selectedDay == null) {
+                        if (_selectedHourStart == null || _selectedDay == null) {
                           Scaffold.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {
                           sendDate();
-                          Navigator.of(context)
-                              .pushNamed(WasteRequestSendScreen.routeName);
+                          Navigator.of(context).pushNamed(WasteRequestSendScreen.routeName);
                         }
                       },
                       child: ButtonBottom(
                         width: deviceWidth * 0.9,
                         height: deviceWidth * 0.14,
                         text: 'ادامه',
-                        isActive:
-                            _selectedHourStart != null && _selectedDay != null,
+                        isActive: _selectedHourStart != null && _selectedDay != null,
                       ),
                     ),
                   ),
@@ -776,9 +657,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                 return DecoratedBox(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: index.isEven
-                                        ? Colors.grey
-                                        : Colors.grey,
+                                    color: index.isEven ? Colors.grey : Colors.grey,
                                   ),
                                 );
                               },
@@ -795,8 +674,7 @@ mainAxisAlignment: MainAxisAlignment.center,
       endDrawer: Theme(
         data: Theme.of(context).copyWith(
           // Set the transparency here
-          canvasColor: Colors
-              .transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
+          canvasColor: Colors.transparent, //or any other color you want. e.g Colors.blue.withOpacity(0.5)
         ),
         child: MainDrawer(),
       ),

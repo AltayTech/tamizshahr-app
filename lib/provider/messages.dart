@@ -26,12 +26,12 @@ class Messages with ChangeNotifier {
         _token = prefs.getString('token');
 
         final url = comment_post_ID == '0'
-            ? Urls.rootUrl +
+            ? Uri.parse(Urls.rootUrl +
                 Urls.messageEndPoint +
-                '?subject=$subject&content=$content'
-            : Urls.rootUrl +
+                '?subject=$subject&content=$content')
+            : Uri.parse(Urls.rootUrl +
                 Urls.messageEndPoint +
-                '?subject=$subject&content=$content&comment_post_ID=$comment_post_ID&parent_id=$parent_id';
+                '?subject=$subject&content=$content&comment_post_ID=$comment_post_ID&parent_id=$parent_id');
 
         final response = await post(url, headers: {
           'Authorization': 'Bearer $_token',
@@ -61,10 +61,10 @@ class Messages with ChangeNotifier {
         _token = prefs.getString('token');
 
         final url = commentPostId == '0'
-            ? Urls.rootUrl + Urls.messageEndPoint
-            : Urls.rootUrl +
+            ? Uri.parse(Urls.rootUrl + Urls.messageEndPoint)
+            : Uri.parse(Urls.rootUrl +
                 Urls.messageEndPoint +
-                '/$commentPostId';
+                '/$commentPostId');
         print(url);
 
         final response = await get(url, headers: {

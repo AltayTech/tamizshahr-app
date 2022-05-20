@@ -101,6 +101,8 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
     Provider.of<Charities>(context, listen: false)
         .sendCharityRequest(loadedCharity.id, totalDonation.toString())
         .then((_) {
+       Provider.of<CustomerInfo>(context, listen: false).getCustomer();
+
       setState(() {
         _isLoading = false;
       });
