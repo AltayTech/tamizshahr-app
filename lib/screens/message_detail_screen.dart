@@ -27,16 +27,16 @@ class _MessageDetailScreenState extends State<MessageDetailScreen> {
 
   List<Message> messages = [];
 
-  Message message;
+  late Message message;
 
-  Customer customer;
+  late Customer customer;
 
   @override
   void didChangeDependencies() async {
     messages = Provider.of<Messages>(context, listen: false).allMessagesDetail;
 
     if (_isInit) {
-      message = ModalRoute.of(context).settings.arguments as Message;
+      message = ModalRoute.of(context)?.settings.arguments as Message;
       customer = Provider.of<CustomerInfo>(context, listen: false).customer;
 
       loadMessages();

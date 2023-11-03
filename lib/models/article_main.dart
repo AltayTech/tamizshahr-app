@@ -9,11 +9,11 @@ class ArticleMain with ChangeNotifier {
 
   final List<Article> articles;
 
-  ArticleMain({this.articlesDetail, this.articles});
+  ArticleMain({required this.articlesDetail, required this.articles});
 
   factory ArticleMain.fromJson(Map<String, dynamic> parsedJson) {
     var articlesList = parsedJson['data'] as List;
-    List<Article> articlesRaw = new List<Article>();
+    List<Article> articlesRaw = [];
 
     articlesRaw = articlesList.map((i) => Article.fromJson(i)).toList();
 

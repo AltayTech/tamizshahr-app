@@ -30,19 +30,21 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
 
   bool _isInit = true;
 
-  Charity loadedCharity;
+  late Charity loadedCharity;
 
-  Customer customer;
+  late Customer customer;
 
   String _snackBarMessage = '';
 
-  BuildContext buildContex;
+  late BuildContext buildContex;
 
   @override
   void didChangeDependencies() async {
     if (_isInit) {
       await searchItems();
-      loadedCharity = Provider.of<Charities>(context, listen: false).item;
+      loadedCharity = Provider
+          .of<Charities>(context, listen: false)
+          .item;
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -52,7 +54,10 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
     setState(() {
       _isLoading = true;
     });
-    final charityId = ModalRoute.of(context).settings.arguments as int;
+    final charityId = ModalRoute
+        .of(context)
+        ?.settings
+        .arguments as int;
     await Provider.of<Charities>(context, listen: false).retrieveCharityItem(
       charityId,
     );
@@ -66,28 +71,28 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
   void _showLogindialog() {
     showDialog(
       context: context,
-      builder: (ctx) => CustomDialogEnter(
-        title: 'ورود',
-        buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید',
-      ),
+      builder: (ctx) =>
+          CustomDialogEnter(
+            title: 'ورود',
+            buttonText: 'صفحه ورود ',
+            description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
+          ),
     );
   }
 
   void _showPayCharitydialog(Charity charity, int totalPrice) {
     showDialog(
       context: context,
-      builder: (ctx) => CustomDialogPayCharity(
-        charity: charity,
-        totalWallet: totalPrice,
-        function: donateToCharityFromDialogBox,
-      ),
+      builder: (ctx) =>
+          CustomDialogPayCharity(
+            charity: charity,
+            totalWallet: totalPrice,
+            function: donateToCharityFromDialogBox,
+          ),
     );
   }
 
-  Future<void> donateToCharityFromDialogBox(
-    int totalDonation,
-  ) async {
+  Future<void> donateToCharityFromDialogBox(int totalDonation,) async {
     setState(() {
       _isLoading = true;
     });
@@ -111,7 +116,9 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
         style: TextStyle(
           color: Colors.white,
           fontFamily: 'Iransans',
-          fontSize: MediaQuery.of(context).textScaleFactor * 14.0,
+          fontSize: MediaQuery
+              .of(context)
+              .textScaleFactor * 14.0,
         ),
       ),
       action: SnackBarAction(
@@ -122,7 +129,7 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
       ),
     );
 
-    Scaffold.of(buildContex).showSnackBar(addToCartSnackBar);
+    ScaffoldMessenger.of(buildContex).showSnackBar(addToCartSnackBar);
     getCustomerInfo();
     setState(() {
       _isLoading = false;
@@ -131,7 +138,9 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
   }
 
   Future<void> getCustomerInfo() async {
-    bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
+    bool isLogin = Provider
+        .of<Auth>(context, listen: false)
+        .isAuth;
     if (isLogin) {
       await Provider.of<CustomerInfo>(context, listen: false).getCustomer();
     }
@@ -139,14 +148,26 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double deviceWidth = MediaQuery.of(context).size.width;
-    var textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    double deviceHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double deviceWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var textScaleFactor = MediaQuery
+        .of(context)
+        .textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
-    bool isLogin = Provider.of<Auth>(context, listen: false).isAuth;
+    bool isLogin = Provider
+        .of<Auth>(context, listen: false)
+        .isAuth;
     if (isLogin) {
-      customer = Provider.of<CustomerInfo>(context).customer;
+      customer = Provider
+          .of<CustomerInfo>(context)
+          .customer;
     }
     return Scaffold(
       appBar: AppBar(
@@ -171,109 +192,110 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
           textDirection: TextDirection.rtl,
           child: _isLoading
               ? Align(
-                  alignment: Alignment.center,
-                  child: SpinKitFadingCircle(
-                    itemBuilder: (BuildContext context, int index) {
-                      return DecoratedBox(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: index.isEven ? Colors.grey : Colors.grey,
-                        ),
-                      );
-                    },
+            alignment: Alignment.center,
+            child: SpinKitFadingCircle(
+              itemBuilder: (BuildContext context, int index) {
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index.isEven ? Colors.grey : Colors.grey,
                   ),
-                )
+                );
+              },
+            ),
+          )
               : Container(
-                  height: deviceHeight * 0.9,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
+            height: deviceHeight * 0.9,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: deviceHeight * 0.3,
+                          child: FadeInImage(
+                            placeholder:
+                            AssetImage('assets/images/circle.gif'),
+                            image: NetworkImage(loadedCharity
+                                .featured_image.sizes.medium),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            loadedCharity.charity_data.name,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                height: 2,
+                                color: AppTheme.black,
+                                fontFamily: 'Iransans',
+                                fontSize: textScaleFactor * 17.0,
+                                fontWeight: FontWeight.w700),
+                            textAlign: TextAlign.right,
+                            textDirection: TextDirection.rtl,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
                             children: <Widget>[
-                              Container(
-                                width: double.infinity,
-                                height: deviceHeight * 0.3,
-                                child: FadeInImage(
-                                  placeholder:
-                                      AssetImage('assets/images/circle.gif'),
-                                  image: NetworkImage(loadedCharity
-                                      .featured_image.sizes.medium),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 8),
+                                padding: const EdgeInsets.only(left: 4.0),
                                 child: Text(
-                                  loadedCharity.charity_data.name,
+                                  EnArConvertor().replaceArNumber(
+                                      ' کمک در ${loadedCharity
+                                          .sum_of_helps_months} ماه: '),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       height: 2,
-                                      color: AppTheme.black,
+                                      color: AppTheme.grey,
                                       fontFamily: 'Iransans',
-                                      fontSize: textScaleFactor * 17.0,
+                                      fontSize: textScaleFactor * 13.0,
                                       fontWeight: FontWeight.w700),
                                   textAlign: TextAlign.right,
                                   textDirection: TextDirection.rtl,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4.0),
-                                      child: Text(
-                                        EnArConvertor().replaceArNumber(
-                                            ' کمک در ${loadedCharity.sum_of_helps_months} ماه: '),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 13.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Text(
-                                      EnArConvertor().replaceArNumber(
-                                          currencyFormat
-                                              .format(double.parse(
-                                                  loadedCharity.sum_of_helps))
-                                              .toString()),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          height: 2,
-                                          color: AppTheme.black,
-                                          fontFamily: 'Iransans',
-                                          fontSize: textScaleFactor * 14.0,
-                                          fontWeight: FontWeight.w700),
-                                      textAlign: TextAlign.right,
-                                      textDirection: TextDirection.rtl,
-                                    ),
-                                    Spacer(),
-                                    InkWell(
-                                      onTap: () async {
-                                        if (!isLogin) {
-                                          _showLogindialog();
-                                        } else {
-                                          Navigator.of(context).pushNamed(
-                                            DonationScreen.routeName,
-                                            arguments: loadedCharity,
-                                          );
+                              Text(
+                                EnArConvertor().replaceArNumber(
+                                    currencyFormat
+                                        .format(double.parse(
+                                        loadedCharity.sum_of_helps))
+                                        .toString()),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    height: 2,
+                                    color: AppTheme.black,
+                                    fontFamily: 'Iransans',
+                                    fontSize: textScaleFactor * 14.0,
+                                    fontWeight: FontWeight.w700),
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                              ),
+                              Spacer(),
+                              InkWell(
+                                onTap: () async {
+                                  if (!isLogin) {
+                                    _showLogindialog();
+                                  } else {
+                                    Navigator.of(context).pushNamed(
+                                      DonationScreen.routeName,
+                                      arguments: loadedCharity,
+                                    );
 //                                          _showPayCharitydialog(loadedCharity,
 //                                              int.parse(customer.money));
-                                        }
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
 //                                          boxShadow: [
 //                                            BoxShadow(
 //                                              color: Colors.grey,
@@ -287,271 +309,274 @@ class _CharityDetailScreenState extends State<CharityDetailScreen> {
 //                                              ),
 //                                            )
 //                                          ],
-                                          color: AppTheme.primary,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'کمک میکنم',
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              height: 2,
-                                              color: AppTheme.white,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 14.0,
-                                            ),
-                                            textAlign: TextAlign.right,
-                                            textDirection: TextDirection.rtl,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          'زمینه های فعالیت: ',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              height: 2,
-                                              color: AppTheme.grey,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 13.0,
-                                              fontWeight: FontWeight.w700),
-                                          textAlign: TextAlign.right,
-                                          textDirection: TextDirection.rtl,
-                                        ),
-                                      ),
-                                      Wrap(
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.start,
-                                        alignment: WrapAlignment.start,
-                                        children: loadedCharity.activities
-                                            .map((e) =>
-                                                ChangeNotifierProvider.value(
-                                                  value: e,
-                                                  child: Text(
-                                                    loadedCharity.activities
-                                                                .indexOf(e) <
-                                                            (loadedCharity
-                                                                    .activities
-                                                                    .length -
-                                                                1)
-                                                        ? (e.name + '، ')
-                                                        : e.name,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Iransans',
-                                                      color: Colors.black87,
-                                                      fontSize:
-                                                          textScaleFactor *
-                                                              14.0,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ))
-                                            .toList(),
-                                      ),
-                                    ],
+                                    color: AppTheme.primary,
+                                    borderRadius:
+                                    BorderRadius.circular(5),
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: HtmlWidget(
-                                  loadedCharity.description,
-                                  onTapUrl: (url) => showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                      title: Text('onTapUrl'),
-                                      content: Text(url),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'کمک میکنم',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        height: 2,
+                                        color: AppTheme.white,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 14.0,
+                                      ),
+                                      textAlign: TextAlign.right,
+                                      textDirection: TextDirection.rtl,
                                     ),
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        'شماره تلفن: ',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 13.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        loadedCharity.charity_data.phone,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.black,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 14.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        'استان:',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 13.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        loadedCharity.charity_data.ostan,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.black,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 14.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        'شهر:',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 13.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        loadedCharity.charity_data.city,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.black,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 14.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        'آدرس:',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            height: 2,
-                                            color: AppTheme.grey,
-                                            fontFamily: 'Iransans',
-                                            fontSize: textScaleFactor * 13.0,
-                                            fontWeight: FontWeight.w700),
-                                        textAlign: TextAlign.right,
-                                        textDirection: TextDirection.rtl,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          loadedCharity.charity_data.address,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              height: 2,
-                                              color: AppTheme.black,
-                                              fontFamily: 'Iransans',
-                                              fontSize: textScaleFactor * 14.0,
-                                              fontWeight: FontWeight.w700),
-                                          textAlign: TextAlign.right,
-                                          textDirection: TextDirection.rtl,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: deviceWidth * 0.1,
-                              )
                             ],
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Row(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'زمینه های فعالیت: ',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        height: 2,
+                                        color: AppTheme.grey,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 13.0,
+                                        fontWeight: FontWeight.w700),
+                                    textAlign: TextAlign.right,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                                Wrap(
+                                  crossAxisAlignment:
+                                  WrapCrossAlignment.start,
+                                  alignment: WrapAlignment.start,
+                                  children: loadedCharity.activities
+                                      .map((e) =>
+                                      ChangeNotifierProvider.value(
+                                        value: e,
+                                        child: Text(
+                                          loadedCharity.activities
+                                              .indexOf(e) <
+                                              (loadedCharity
+                                                  .activities
+                                                  .length -
+                                                  1)
+                                              ? (e.name + '، ')
+                                              : e.name,
+                                          style: TextStyle(
+                                            fontFamily: 'Iransans',
+                                            color: Colors.black87,
+                                            fontSize:
+                                            textScaleFactor *
+                                                14.0,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ))
+                                      .toList(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: HtmlWidget(
+                            loadedCharity.description,
+                            onTapUrl: (url) async {
+                              return await showDialog(
+                                context: context,
+                                builder: (_) =>
+                                    AlertDialog(
+                                      title: Text('onTapUrl'),
+                                      content: Text(url),
+                                    ),
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'شماره تلفن: ',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.grey,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 13.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  loadedCharity.charity_data.phone,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.black,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 14.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'استان:',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.grey,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 13.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  loadedCharity.charity_data.ostan,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.black,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 14.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'شهر:',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.grey,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 13.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  loadedCharity.charity_data.city,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.black,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 14.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'آدرس:',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      height: 2,
+                                      color: AppTheme.grey,
+                                      fontFamily: 'Iransans',
+                                      fontSize: textScaleFactor * 13.0,
+                                      fontWeight: FontWeight.w700),
+                                  textAlign: TextAlign.right,
+                                  textDirection: TextDirection.rtl,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    loadedCharity.charity_data.address,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        height: 2,
+                                        color: AppTheme.black,
+                                        fontFamily: 'Iransans',
+                                        fontSize: textScaleFactor * 14.0,
+                                        fontWeight: FontWeight.w700),
+                                    textAlign: TextAlign.right,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: deviceWidth * 0.1,
+                        )
+                      ],
                     ),
                   ),
                 ),
+              ),
+            ),
+          ),
         );
       }),
       endDrawer: Theme(

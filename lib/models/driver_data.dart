@@ -14,17 +14,17 @@ class DriverData with ChangeNotifier {
   final String email;
 
   DriverData({
-    this.driver_image,
-    this.phone,
-    this.fname,
-    this.lname,
-    this.email,
-    this.ostan,
-    this.city,
-    this.mobile,
-    this.address,
-    this.postcode,
-  });
+    driver_image,
+    this.phone='',
+    this.fname='',
+    this.lname='',
+    this.email='',
+    this.ostan='',
+    this.city='',
+    this.mobile='',
+    this.address='',
+    this.postcode='',
+  }): this.driver_image=FeaturedImage(sizes: Sizes());
 
   factory DriverData.fromJson(Map<String, dynamic> parsedJson) {
     return DriverData(

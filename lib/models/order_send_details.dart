@@ -7,14 +7,14 @@ class OrderSendDetails with ChangeNotifier {
   final List<ProductOrderSend> products;
 
   OrderSendDetails({
-    this.total_price,
-    this.total_number,
-    this.products,
+    required this.total_price,
+    required this.total_number,
+    required this.products,
   });
 
   factory OrderSendDetails.fromJson(Map<String, dynamic> parsedJson) {
     var productList = parsedJson['products'] as List;
-    List<ProductOrderSend> productRaw = new List<ProductOrderSend>();
+    List<ProductOrderSend> productRaw = [];
 
     productRaw = productList.map((i) => ProductOrderSend.fromJson(i)).toList();
 
@@ -26,7 +26,7 @@ class OrderSendDetails with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    List<Map> products = this.products != null
+    List<Map>? products = this.products != null
         ? this.products.map((i) => i.toJson()).toList()
         : null;
 

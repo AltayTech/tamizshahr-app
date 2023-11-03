@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
+import '../../provider/app_theme.dart';
 import '../../screens/customer_info/customer_detail_order_screen.dart';
 import '../../widgets/main_drawer.dart';
 
@@ -10,7 +9,9 @@ class CustomerOrdersScreen extends StatefulWidget {
   static const routeName = '/customer_order_screen';
   final Customer customer;
 
-  CustomerOrdersScreen({this.customer});
+  CustomerOrdersScreen({
+    customer,
+  }) : this.customer = Customer();
 
   @override
   _CustomerOrdersScreenState createState() => _CustomerOrdersScreenState();
@@ -34,7 +35,9 @@ class _CustomerOrdersScreenState extends State<CustomerOrdersScreen> {
         ),
         child: MainDrawer(),
       ), // resizeToAvoidBottomInset: false,
-      body: CustomerDetailOrderScreen(),
+      body: CustomerDetailOrderScreen(
+        customer: Customer(),
+      ),
     );
   }
 }

@@ -10,13 +10,14 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="تمیزشهر"
         android:icon="@drawable/tamizshahr_ic">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCRlaVGOEihxi7V69rWNNF_37i6z4wRZDM"/>
         <activity
-            android:name=".MainActivity"
+            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

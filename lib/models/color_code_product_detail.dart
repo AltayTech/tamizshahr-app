@@ -6,11 +6,11 @@ class ColorCodeProductDetail {
   final bool available;
 
   ColorCodeProductDetail({
-    this.id,
-    this.title,
-    this.colorCode,
-    this.price,
-    this.available,
+    required this.id,
+    required this.title,
+    required this.colorCode,
+    required this.price,
+    required this.available,
   });
 
   factory ColorCodeProductDetail.fromJson(Map<String, dynamic> parsedJson) {

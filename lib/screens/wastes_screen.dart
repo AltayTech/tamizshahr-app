@@ -21,7 +21,7 @@ class _WastesScreenState extends State<WastesScreen>
     with SingleTickerProviderStateMixin {
   bool _isInit = true;
   var _isLoading;
-  Function callBack = () {};
+  Function? callBack = () {};
 
   List<WasteCart> wasteCartItems = [];
   List<int> wasteCartItemsId = [];
@@ -29,7 +29,7 @@ class _WastesScreenState extends State<WastesScreen>
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      callBack = ModalRoute.of(context).settings.arguments;
+      callBack = ModalRoute.of(context)?.settings.arguments as Function?;
 
       searchItems();
     }

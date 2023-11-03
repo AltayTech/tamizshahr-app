@@ -1,7 +1,6 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:intl/intl.dart' as intl;
@@ -11,7 +10,6 @@ import 'package:tamizshahr/widgets/buton_bottom.dart';
 import '../models/product.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
-import '../widgets/badge.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import 'cart_screen.dart';
@@ -29,7 +27,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   bool _isInit = true;
 
-  Product loadedProduct;
+  late Product loadedProduct;
   String _snackBarMessage = '';
 
   @override
@@ -45,7 +43,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     setState(() {
       _isLoading = true;
     });
-    final productId = ModalRoute.of(context).settings.arguments as int;
+    final productId = ModalRoute.of(context)?.settings.arguments as int;
     await Provider.of<Products>(context, listen: false).retrieveItem(productId);
     loadedProduct = Provider.of<Products>(context, listen: false).findById();
 
@@ -89,7 +87,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return isExist;
   }
 
-  Widget priceWidget(BuildContext context) {
+  Widget? priceWidget(BuildContext context) {
     var textScaleFactor = MediaQuery.of(context).textScaleFactor;
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
@@ -200,13 +198,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           centerTitle: true,
           actions: <Widget>[
             Consumer<Products>(
-              builder: (_, products, ch) => products.cartItemsCount != 0
-                  ? Badge(
-                      color: Color(0xff06623B),
-                      value: products.cartItemsCount.toString(),
-                      child: ch,
-                    )
-                  : ch,
+              builder: (_, products, ch) {
+                if (products.cartItemsCount != 0) {
+                  return badges.Badge(
+                    badgeContent: ch,
+                    badgeStyle: badges.BadgeStyle(
+                      badgeColor: Color(0xff06623B),
+                    ),
+                    child: Text(products.cartItemsCount.toString()),
+                  );
+                } else {
+                  return ch!;
+                }
+              },
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartScreen.routeName);
@@ -351,7 +355,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: <Widget>[
-
                                         Padding(
                                           padding: EdgeInsets.only(
                                               bottom: textScaleFactor * 15.0),
@@ -361,8 +364,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             style: TextStyle(
                                               color: Colors.grey,
                                               fontFamily: 'Iransans',
-                                              fontSize:
-                                                  textScaleFactor * 15.0,
+                                              fontSize: textScaleFactor * 15.0,
                                             ),
                                           ),
                                         ),
@@ -370,7 +372,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           padding: const EdgeInsets.all(5.0),
                                           child: priceWidget(context),
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -378,13 +379,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     textDirection: TextDirection.rtl,
                                     child: HtmlWidget(
                                       loadedProduct.description,
-                                      onTapUrl: (url) => showDialog(
-                                        context: context,
-                                        builder: (_) => AlertDialog(
-                                          title: Text('onTapUrl'),
-                                          content: Text(url),
-                                        ),
-                                      ),
+                                      onTapUrl: (url) async {
+                                        return await showDialog(
+                                          context: context,
+                                          builder: (_) => AlertDialog(
+                                            title: Text('onTapUrl'),
+                                            content: Text(url),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
@@ -424,7 +427,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               },
                             ),
                           );
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else if (isExist) {
                           _snackBarMessage = 'محصول در سبد خرید موجود میباشد';
                           SnackBar addToCartSnackBar = SnackBar(
@@ -443,7 +447,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               },
                             ),
                           );
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else {
                           await addToShoppingCart(loadedProduct, null);
 
@@ -465,7 +470,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               },
                             ),
                           );
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         }
                       },
                       child: ButtonBottom(

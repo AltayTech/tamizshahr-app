@@ -21,9 +21,9 @@ import 'urls.dart';
 class CustomerInfo with ChangeNotifier {
   String _payUrl = '';
 
-  int _currentOrderId;
+  late int _currentOrderId;
 
-  Shop _shop;
+  late Shop _shop;
 
   String get payUrl => _payUrl;
   List<File> chequeImageList = [];
@@ -42,13 +42,13 @@ class CustomerInfo with ChangeNotifier {
     money: '0',
   );
   Customer _customer = _customer_zero;
-  String _token;
+  late String _token;
 
   Customer get customer => _customer;
 
   List<Order> _orders = [];
 
-  OrderDetails _order;
+  late OrderDetails _order;
 
   List<Order> get orders => _orders;
 
@@ -60,13 +60,13 @@ class CustomerInfo with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
 
     print(_token);
 
     Customer customers;
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -93,12 +93,12 @@ class CustomerInfo with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
     print(jsonEncode(customer));
 
     try {
       final response = await post(
-        url,
+        Uri.parse(url),
         headers: {
           'Authorization': 'Bearer $_token',
           'Content-Type': 'application/json',
@@ -137,11 +137,11 @@ class CustomerInfo with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
 
     OrderDetails orderDetails;
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -168,10 +168,10 @@ class CustomerInfo with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -197,10 +197,10 @@ class CustomerInfo with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
 
     try {
-      final response = await post(url, headers: {
+      final response = await post(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -226,7 +226,7 @@ class CustomerInfo with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -267,8 +267,8 @@ class CustomerInfo with ChangeNotifier {
 
   List<Transaction> _transactionItems = [];
 
-  SearchDetail _searchDetails;
-  Transaction _transactionItem;
+  late SearchDetail _searchDetails;
+  late Transaction _transactionItem;
 
   void searchBuilder() {
     if (!(searchKey == '')) {
@@ -298,10 +298,10 @@ class CustomerInfo with ChangeNotifier {
     print(url);
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -334,7 +334,7 @@ class CustomerInfo with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -390,7 +390,7 @@ class CustomerInfo with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -424,7 +424,7 @@ class CustomerInfo with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -457,7 +457,7 @@ class CustomerInfo with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -489,7 +489,7 @@ class CustomerInfo with ChangeNotifier {
     print('sendCharityRequest');
     try {
       final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('token');
+      _token = prefs.getString('token')!;
       print('tooookkkeeennnnnn  $_token');
 
       final url = Urls.rootUrl + Urls.clearingEndPoint;
@@ -498,7 +498,7 @@ class CustomerInfo with ChangeNotifier {
         "money": money,
       }));
 
-      final response = await post(url,
+      final response = await post(Uri.parse(url),
           headers: {
             'Authorization': 'Bearer $_token',
             'Content-Type': 'application/json',

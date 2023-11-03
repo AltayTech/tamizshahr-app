@@ -18,18 +18,18 @@ class Charity with ChangeNotifier {
   final String sum_of_helps_months;
 
   Charity({
-    this.id,
-    this.type,
-    this.status,
-    this.activities,
-    this.charity_data,
-    this.summary,
-    this.description,
-    this.featured_image,
-    this.gallery,
-    this.money,
-    this.sum_of_helps,
-    this.sum_of_helps_months,
+    required this.id,
+    required this.type,
+    required this.status,
+    required  this.activities,
+    required  this.charity_data,
+    required  this.summary,
+    required  this.description,
+    required  this.featured_image,
+    required  this.gallery,
+    required  this.money,
+    required  this.sum_of_helps,
+    required  this.sum_of_helps_months,
   });
 
   factory Charity.fromJson(Map<String, dynamic> parsedJson) {

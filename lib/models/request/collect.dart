@@ -10,11 +10,11 @@ class Collect with ChangeNotifier {
   final String exact_price;
 
   Collect({
-    this.pasmand,
-    this.estimated_weight,
-    this.exact_weight,
-    this.estimated_price,
-    this.exact_price,
+    required this.pasmand,
+    required this.estimated_weight,
+    required this.exact_weight,
+    required this.estimated_price,
+    required this.exact_price,
   });
 
   factory Collect.fromJson(Map<String, dynamic> parsedJson) {
@@ -40,7 +40,7 @@ class Collect with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map pasmand = this.pasmand != null ? this.pasmand.toJson() : null;
+    Map? pasmand = this.pasmand != null ? this.pasmand.toJson() : null;
 
     return {
       'pasmand': pasmand,

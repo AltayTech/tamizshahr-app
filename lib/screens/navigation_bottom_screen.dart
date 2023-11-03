@@ -21,9 +21,9 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> _key = new GlobalKey<ScaffoldState>();
 
-  bool isLogin;
+  late bool isLogin;
   int _selectedPageIndex = 0;
-  DateTime currentBackPressTime;
+  late DateTime currentBackPressTime;
 
   void selectBNBItem(int index) {
     setState(
@@ -65,8 +65,8 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
     );
   }
 
-  Future<bool> _onBackPressed() async {
-    if (_key.currentState.isDrawerOpen) {
+  Future<bool?> _onBackPressed() async {
+    if (_key.currentState!.isDrawerOpen) {
       Navigator.pop(context);
       return false;
     } else {
@@ -117,13 +117,12 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
                 ),
               ],
             ),
-          ) ??
-          false;
+          ) ;
     }
   }
 
   Future<bool> onWillPop() async {
-    if (_key.currentState.isDrawerOpen) {
+    if (_key.currentState!.isDrawerOpen) {
       Navigator.pop(context);
       return false;
     } else {
@@ -131,7 +130,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
       if (currentBackPressTime == null ||
           now.difference(currentBackPressTime) > Duration(seconds: 2)) {
         currentBackPressTime = now;
-        FlutterToast(context).showToast(
+        FToast().showToast(
           child: Container(
             decoration: BoxDecoration(
               color: Colors.black26,
@@ -192,7 +191,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
             ),
             child: MainDrawer(),
           ),
-          body: _pages[_selectedPageIndex]['page'],
+          body: _pages[_selectedPageIndex]['page'] as Widget,
 
 //          bottomNavigationBar: BottomNavigationBar(
 //            elevation: 8,

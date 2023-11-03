@@ -30,19 +30,19 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
   bool _isInit = true;
 
   var _isLoading = true;
-  Customer customer;
-  int totalPrice = 0;
-  int totalWeight = 0;
+  late Customer customer;
+  late  int totalPrice = 0;
+  late  int totalWeight = 0;
 
-  int totalPricePure;
+  late  int totalPricePure;
 
-  Address selectedAddress;
+  late  Address selectedAddress;
 
-  Region selectedRegion;
+  late  Region selectedRegion;
 
-  String _selectedHourStart;
+    String _selectedHourStart='';
 
-  String _selectedHourend;
+  late  String _selectedHourend;
 
   List<String> months = [];
 
@@ -50,7 +50,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
   List<Jalali> dateList = [];
 
-  Jalali _selectedDay;
+    Jalali _selectedDay=Jalali.now();
 
   void _showLogindialog() {
     showDialog(
@@ -58,7 +58,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
       ),
     );
   }
@@ -164,7 +164,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
     ];
   }
 
-  Future<void> getDate(int numberFutureDate) {
+  Future<void> getDate(int numberFutureDate) async {
     Jalali dateTime = Jalali.now();
     dateList.clear();
 
@@ -183,7 +183,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
     });
   }
 
-  Future<void> sendDate() {
+  Future<void> sendDate() async {
     String _selectedHours = getHours(_selectedHourStart, _selectedHourend);
     Provider.of<Wastes>(context, listen: false).selectedHours = _selectedHours;
     Provider.of<Wastes>(context, listen: false).selectedDay = _selectedDay;
@@ -745,7 +745,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                         );
                         if (_selectedHourStart == null ||
                             _selectedDay == null) {
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

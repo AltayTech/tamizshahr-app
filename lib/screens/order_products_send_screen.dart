@@ -28,9 +28,9 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
   var _isLoading = false;
   var _isInit = true;
 
-  OrderSendDetails orderRequest;
+  late OrderSendDetails orderRequest;
 
-  List<ProductCart> shoppItems;
+  late List<ProductCart> shoppItems;
 
   int totalNumber = 0;
 
@@ -116,7 +116,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
       builder: (ctx) => CustomDialogSendRequest(
         title: '',
         buttonText: 'خب',
-        description: 'سفارش شما با موفقیت ثبت شد',
+        description: 'سفارش شما با موفقیت ثبت شد', image: Image.asset(''),
       ),
     );
   }
@@ -398,7 +398,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                           },
                         ),
                       );
-                      Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                     } else if (totalPrice > double.parse(customer.money)) {
                       var _snackBarMessage = 'هزینه کل از میزان امتیاز کمتر میباشد';
                       final addToCartSnackBar = SnackBar(
@@ -417,7 +417,7 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                           },
                         ),
                       );
-                      Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                     } else {
                       await createRequest(context).then(
                         (value) => sendRequest(context).then(

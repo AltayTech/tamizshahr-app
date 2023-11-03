@@ -13,7 +13,7 @@ class Charities with ChangeNotifier {
   List<Charity> _charitiesItems = [];
   SearchDetail _searchDetails = SearchDetail(max_page: 1, total: 10);
 
-  Charity _item;
+  late Charity _item;
 
   String searchEndPoint = '';
 
@@ -45,7 +45,7 @@ class Charities with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -74,7 +74,7 @@ class Charities with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -114,7 +114,7 @@ class Charities with ChangeNotifier {
     print('sendCharityRequest');
     try {
       final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('token');
+      _token = prefs.getString('token')!;
       print('tooookkkeeennnnnn  $_token');
 
       final url = Urls.rootUrl + Urls.charitiesEndPoint;
@@ -124,7 +124,7 @@ class Charities with ChangeNotifier {
         "total_price": totalPrice,
       }));
 
-      final response = await post(url,
+      final response = await post(Uri.parse(url),
           headers: {
             'Authorization': 'Bearer $_token',
             'Content-Type': 'application/json',

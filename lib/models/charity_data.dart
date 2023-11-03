@@ -12,15 +12,15 @@ class CharityData with ChangeNotifier {
   final String email;
 
   CharityData({
-    this.name,
-    this.excerpt,
-    this.ostan,
-    this.city,
-    this.phone,
-    this.mobile,
-    this.address,
-    this.postcode,
-    this.email,
+    required  this.name,
+    required  this.excerpt,
+    required  this.ostan,
+    required  this.city,
+    required  this.phone,
+    required  this.mobile,
+    required  this.address,
+    required this.postcode,
+    required  this.email,
   });
 
   factory CharityData.fromJson(Map<String, dynamic> parsedJson) {

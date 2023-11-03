@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +27,7 @@ class _CharityScreenState extends State<CharityScreen>
   var _isLoading;
   int page = 1;
 
-  SearchDetail productsDetail;
+  SearchDetail productsDetail = SearchDetail();
 
   @override
   void initState() {
@@ -152,7 +151,6 @@ class _CharityScreenState extends State<CharityScreen>
       ),
       body: Directionality(
         textDirection: TextDirection.rtl,
-
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -203,11 +201,12 @@ class _CharityScreenState extends State<CharityScreen>
                                       padding: const EdgeInsets.only(
                                           right: 4.0, left: 6),
                                       child: Text(
-                                        productsDetail != null
+                                        productsDetail.total != -1
                                             ? EnArConvertor().replaceArNumber(
-                                            loadedProductstolist.length.toString())
+                                                loadedProductstolist.length
+                                                    .toString())
                                             : EnArConvertor()
-                                            .replaceArNumber('0'),
+                                                .replaceArNumber('0'),
                                         style: TextStyle(
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,
@@ -229,11 +228,11 @@ class _CharityScreenState extends State<CharityScreen>
                                       padding: const EdgeInsets.only(
                                           right: 4.0, left: 6),
                                       child: Text(
-                                        productsDetail != null
+                                        productsDetail.total != -1
                                             ? EnArConvertor().replaceArNumber(
-                                            productsDetail.total.toString())
+                                                productsDetail.total.toString())
                                             : EnArConvertor()
-                                            .replaceArNumber('0'),
+                                                .replaceArNumber('0'),
                                         style: TextStyle(
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,

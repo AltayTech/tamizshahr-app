@@ -5,7 +5,11 @@ class Status with ChangeNotifier {
   final String name;
   final String slug;
 
-  Status({this.term_id, this.name, this.slug});
+  Status({
+     this.term_id=0,
+     this.name='',
+     this.slug='',
+  });
 
   factory Status.fromJson(Map<String, dynamic> parsedJson) {
     return Status(

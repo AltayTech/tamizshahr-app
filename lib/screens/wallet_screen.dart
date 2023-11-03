@@ -31,9 +31,9 @@ class _WalletScreenState extends State<WalletScreen>
   ScrollController _scrollController = new ScrollController();
   var _isLoading;
   int page = 1;
-  SearchDetail productsDetail;
+   SearchDetail productsDetail=SearchDetail();
 
-  Customer customer;
+  late Customer customer;
 
   @override
   void initState() {
@@ -445,7 +445,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                               right: 4.0,
                                                               left: 6),
                                                       child: Text(
-                                                        productsDetail != null
+                                                        productsDetail.total != -1
                                                             ? EnArConvertor()
                                                                 .replaceArNumber(
                                                                     loadedProductstolist
@@ -485,7 +485,7 @@ class _WalletScreenState extends State<WalletScreen>
                                                           right: 4.0,
                                                           left: 6),
                                                       child: Text(
-                                                        productsDetail != null
+                                                        productsDetail.total != -1
                                                             ? EnArConvertor()
                                                             .replaceArNumber(
                                                             productsDetail.total

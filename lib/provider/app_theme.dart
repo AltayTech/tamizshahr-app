@@ -17,8 +17,8 @@ class AppTheme {
 
   // Other colors
   static Color colorOne = Colors.red;
-  static Color colorTwo = Colors.red[300];
-  static Color colorThree = Colors.red[100];
+  static Color? colorTwo = Colors.red[300];
+  static Color? colorThree = Colors.red[100];
   static BoxDecoration listItemBox = BoxDecoration(
     borderRadius: BorderRadius.circular(5),
     border: Border.all(color: AppTheme.white),

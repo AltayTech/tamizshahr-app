@@ -18,7 +18,7 @@ class GuideScreen extends StatefulWidget {
 class _GuideScreenState extends State<GuideScreen> {
   bool _isInit = true;
 
-  Shop shopData;
+  late Shop shopData;
 
   List<String> aboutInfotitle = [];
 

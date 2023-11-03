@@ -12,7 +12,7 @@ import '../order_view_screen.dart';
 class CustomerDetailOrderScreen extends StatefulWidget {
   final Customer customer;
 
-  CustomerDetailOrderScreen({this.customer});
+  CustomerDetailOrderScreen({required this.customer});
 
   @override
   _CustomerDetailOrderScreenState createState() =>
@@ -25,8 +25,6 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
   final double rateLineWidth = 4.0;
 
   final int rateAnimDuration = 1200;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +104,11 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
                             arguments: orderList[index].id);
                       },
                       child: OrderItem(
-//                        number: orderList[index].shenaseh.toString(),
-//                        date: orderList[index].order_register_date.toString(),
-//                        totalPrice: orderList[index].total_cost.toString(),
-//                        status: orderList[index].pay_status.toString(),
-//                        totalNumber: orderList[index].total_num.toString(),
+                        number: orderList[index].id.toString(),
+                        date: orderList[index].send_date.toString(),
+                        totalPrice: orderList[index].total_price.toString(),
+                        status: orderList[index].pay_status.toString(),
+                        totalNumber: orderList[index].total_number.toString(),
                       ),
                     );
                   },
@@ -129,13 +127,12 @@ class _CustomerDetailOrderScreenState extends State<CustomerDetailOrderScreen> {
 
 class OrderItem extends StatelessWidget {
   const OrderItem({
-    Key key,
-    @required this.number,
-    @required this.date,
-    @required this.totalPrice,
-    @required this.status,
-    @required this.totalNumber,
-  }) : super(key: key);
+    required this.number,
+    required this.date,
+    required this.totalPrice,
+    required this.status,
+    required this.totalNumber,
+  });
 
   final String number;
   final String date;

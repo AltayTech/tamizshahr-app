@@ -31,11 +31,11 @@ class _DonationScreenState extends State<DonationScreen>
   bool _isInit = true;
   var _isLoading = false;
 
-  Customer customer;
+  late Customer customer;
 
   final donationController = TextEditingController();
 
-  Charity loadedCharity;
+  late Charity loadedCharity;
 
   String _snackBarMessage = '';
 
@@ -57,7 +57,7 @@ class _DonationScreenState extends State<DonationScreen>
       getCustomerInfo();
       customer=Provider.of<CustomerInfo>(context, listen: false).customer;
 
-      loadedCharity = ModalRoute.of(context).settings.arguments as Charity;
+      loadedCharity = ModalRoute.of(context)?.settings.arguments as Charity;
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -70,7 +70,7 @@ class _DonationScreenState extends State<DonationScreen>
     }
   }
 
-  BuildContext buildContex;
+  late BuildContext buildContex;
 
   Future<void> donateToCharityFromDialogBox(
     int totalDonation,
@@ -110,7 +110,7 @@ class _DonationScreenState extends State<DonationScreen>
       ),
     );
 
-    Scaffold.of(buildContex).showSnackBar(addToCartSnackBar);
+    ScaffoldMessenger.of(buildContex).showSnackBar(addToCartSnackBar);
     getCustomerInfo();
     setState(() {
       _isLoading = false;
@@ -133,7 +133,7 @@ class _DonationScreenState extends State<DonationScreen>
       builder: (ctx) => CustomDialogSendRequest(
         title: '',
         buttonText: 'خب',
-        description: 'کمک شما با موفقیت ثبت شد',
+        description: 'کمک شما با موفقیت ثبت شد', image: Image.asset(''),
       ),
     );
   }
@@ -385,7 +385,7 @@ class _DonationScreenState extends State<DonationScreen>
                                             ),
                                           ),
                                           inputFormatters: [
-                                            WhitelistingTextInputFormatter
+                                            FilteringTextInputFormatter
                                                 .digitsOnly,
                                             new CurrencyInputFormatter(),
                                           ],
@@ -439,7 +439,7 @@ class _DonationScreenState extends State<DonationScreen>
                                           },
                                         ),
                                       );
-                                      Scaffold.of(ctx)
+                                      ScaffoldMessenger.of(ctx)
                                           .showSnackBar(addToCartSnackBar);
                                     } else {
                                       await donateToCharityFromDialogBox(int.parse(

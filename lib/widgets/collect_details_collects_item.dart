@@ -12,7 +12,7 @@ class CollectDetailsCollectItem extends StatefulWidget {
   final Collect collectItem;
 
   CollectDetailsCollectItem({
-    this.collectItem,
+    required this.collectItem,
   });
 
   @override

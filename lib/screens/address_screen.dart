@@ -32,7 +32,7 @@ class _AddressScreenState extends State<AddressScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
       ),
     );
   }
@@ -180,7 +180,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       if (Provider.of<Auth>(context, listen: false)
                               .selectedAddress ==
                           null) {
-                        Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                       } else if (!isLogin) {
                         _showLogindialog();
                       } else {

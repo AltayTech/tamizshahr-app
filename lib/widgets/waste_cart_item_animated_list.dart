@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -16,11 +15,11 @@ class WasteCartItemAnimatedList extends StatefulWidget {
   final VoidCallback onRemove;
 
   WasteCartItemAnimatedList({
-    Key key,
-    this.wasteItem,
-    this.function,
-    this.onRemove,
-  }) : super(key: key);
+    required this.wasteItem,
+    required this.function,
+    required this.onRemove,
+    required Key key,
+  });
 
   @override
   _WasteCartItemAnimatedListState createState() =>
@@ -67,8 +66,8 @@ class _WasteCartItemAnimatedListState extends State<WasteCartItemAnimatedList>
     return price;
   }
 
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
   @override
   initState() {
@@ -328,7 +327,7 @@ class _WasteCartItemAnimatedListState extends State<WasteCartItemAnimatedList>
                                       AnimatedBuilder(
                                         animation: _animation,
                                         builder: (BuildContext context,
-                                            Widget child) {
+                                            Widget? child) {
                                           return new Text(
                                             widget.wasteItem.prices.length != 0
                                                 ? EnArConvertor()
@@ -378,7 +377,7 @@ class _WasteCartItemAnimatedListState extends State<WasteCartItemAnimatedList>
                   height: deviceWidth * 0.10,
                   width: deviceWidth * 0.1,
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async {
                       return removeItem();
                     },
                     child: Icon(

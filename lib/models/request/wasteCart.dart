@@ -16,13 +16,13 @@ class WasteCart with ChangeNotifier {
    int weight;
 
   WasteCart({
-    this.id,
-    this.name,
-    this.excerpt,
-    this.prices,
-    this.status,
-    this.featured_image,
-    this.weight,
+    required this.id,
+    required this.name,
+    required  this.excerpt,
+    required  this.prices,
+    required   this.status,
+    required  this.featured_image,
+    required  this.weight,
   });
 
   factory WasteCart.fromJson(Map<String, dynamic> parsedJson) {

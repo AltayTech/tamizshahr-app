@@ -14,13 +14,15 @@ class ProductCart with ChangeNotifier {
   final ColorCodeCard color_selected;
 
   ProductCart(
-      {this.id,
-      this.title,
-      this.price,
-      this.featured_media_url,
-      this.brand,
-      this.productCount,
-      this.color_selected});
+      {required this.id,
+      required this.title,
+      required this.price,
+      required this.featured_media_url,
+      brand,
+      required this.productCount,
+      color_selected})
+      : this.brand = Brandc(id: id, title: title, img_url: ''),
+        this.color_selected = ColorCodeCard();
 
   factory ProductCart.fromJson(Map<String, dynamic> parsedJson) {
     return ProductCart(

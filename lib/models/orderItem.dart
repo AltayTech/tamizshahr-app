@@ -9,10 +9,10 @@ class OrderItem with ChangeNotifier {
   final ColorCode selected_color;
 
   OrderItem({
-    this.id,
-    this.title,
-    this.price_low,
-    this.selected_color,
+    required this.id,
+    required this.title,
+    required this.price_low,
+    required this.selected_color,
   });
 
   factory OrderItem.fromJson(Map<String, dynamic> parsedJson) {

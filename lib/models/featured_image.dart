@@ -5,7 +5,8 @@ class FeaturedImage {
   final String title;
   final Sizes sizes;
 
-  FeaturedImage({this.id, this.title, this.sizes});
+  FeaturedImage({this.id = 0, this.title = '',  required this.sizes})
+      ;
 
   factory FeaturedImage.fromJson(Map<String, dynamic> parsedJson) {
     return FeaturedImage(

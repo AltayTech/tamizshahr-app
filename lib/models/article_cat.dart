@@ -5,8 +5,11 @@ class ArticleCat with ChangeNotifier {
   final String name;
   final String slug;
 
-
-  ArticleCat({this.term_id, this.name, this.slug});
+  ArticleCat({
+    required this.term_id,
+    required  this.name,
+    required this.slug,
+  });
 
   factory ArticleCat.fromJson(Map<String, dynamic> parsedJson) {
     return ArticleCat(

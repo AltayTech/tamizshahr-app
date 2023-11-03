@@ -8,7 +8,10 @@ class WasteItemWastesScreen extends StatelessWidget {
   final Waste waste;
   final bool isSelected;
 
-  WasteItemWastesScreen({this.waste, this.isSelected = false});
+  WasteItemWastesScreen({
+    required this.waste,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +31,20 @@ class WasteItemWastesScreen extends StatelessWidget {
           ),
           height: constraints.maxHeight,
           child: Padding(
-            padding:  EdgeInsets.all(constraints.maxWidth*0.04),
+            padding: EdgeInsets.all(constraints.maxWidth * 0.04),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding:  EdgeInsets.only(bottom:constraints.maxWidth*0.06),
+                  padding: EdgeInsets.only(bottom: constraints.maxWidth * 0.06),
                   child: Container(
-                    width: constraints.maxWidth*0.55,
-                    height: constraints.maxHeight*0.50,
+                    width: constraints.maxWidth * 0.55,
+                    height: constraints.maxHeight * 0.50,
                     child: FadeInImage(
                       placeholder: AssetImage('assets/images/circle.gif'),
                       image: NetworkImage(waste.featured_image.sizes.medium),
                       fit: BoxFit.contain,
-
                     ),
                   ),
                 ),

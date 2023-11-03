@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/screens/wallet_screen.dart';
@@ -60,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           buttonText: 'تایید',
           description:
               'برای دریافت اطلاعات کاربری به قسمت پروفایل مراجعه فرمایید',
+          image: Image.asset(''),
         ),
       );
     });
@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'کاربر گرامی',
           buttonText: 'تایید',
           description: 'شما با موفقیت از اکانت کاربری خارج شدید',
+          image: Image.asset(''),
         ),
       );
     });

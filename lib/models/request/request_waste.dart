@@ -10,9 +10,9 @@ class RequestWaste with ChangeNotifier {
   final List<Collect> collect_list;
 
   RequestWaste({
-    this.collect_date,
-    this.address_data,
-    this.collect_list,
+    required this.collect_date,
+    required this.address_data,
+    required this.collect_list,
   });
 
   factory RequestWaste.fromJson(Map<String, dynamic> parsedJson) {
@@ -28,12 +28,12 @@ class RequestWaste with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map collect_date =
+    Map? collect_date =
         this.collect_date != null ? this.collect_date.toJson() : null;
-    Map address_data =
+    Map? address_data =
         this.address_data != null ? this.address_data.toJson() : null;
 
-    List<Map> collect_list = this.collect_list != null
+    List<Map>? collect_list = this.collect_list != null
         ? this.collect_list.map((i) => i.toJson()).toList()
         : null;
 

@@ -8,9 +8,9 @@ class Category with ChangeNotifier {
   final String slug;
 
   Category({
-    this.term_id,
-    this.name,
-    this.slug,
+    required this.term_id,
+    required  this.name,
+    required  this.slug,
   });
 
   factory Category.fromJson(Map<String, dynamic> parsedJson) {

@@ -4,7 +4,7 @@ class Sizes {
   final String large;
 
 
-  Sizes({this.thumbnail, this.medium, this.large,});
+  Sizes({ this.thumbnail='',  this.medium='',  this.large='',});
 
   factory Sizes.fromJson(Map<String, dynamic> parsedJson) {
     return Sizes(

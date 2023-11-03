@@ -13,8 +13,8 @@ class AddressItem extends StatefulWidget {
   final bool isSelected;
 
   AddressItem({
-    this.addressItem,
-    this.isSelected,
+    required this.addressItem,
+    this.isSelected=false,
   });
 
   @override
@@ -26,7 +26,7 @@ class _AddressItemState extends State<AddressItem> {
 
   var _isLoading = true;
 
-  bool isLogin;
+  late bool isLogin;
 
   List<Address> addressList = [];
 
@@ -157,7 +157,7 @@ class _AddressItemState extends State<AddressItem> {
                     width: deviceWidth * 0.1,
                     child: InkWell(
                       onTap: () {
-                        return removeItem();
+                         removeItem();
                       },
                       child: Icon(
                         Icons.close,

@@ -8,11 +8,11 @@ class ClearingMain with ChangeNotifier {
 
   final List<Clearing> clearings;
 
-  ClearingMain({this.searchDetail, this.clearings});
+  ClearingMain({required this.searchDetail, required this.clearings});
 
   factory ClearingMain.fromJson(Map<String, dynamic> parsedJson) {
     var clearingsList = parsedJson['data'] as List;
-    List<Clearing> clearingsRaw = new List<Clearing>();
+    List<Clearing> clearingsRaw = [];
 
     clearingsRaw = clearingsList.map((i) => Clearing.fromJson(i)).toList();
 

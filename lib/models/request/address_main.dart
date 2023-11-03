@@ -5,12 +5,12 @@ class AddressMain with ChangeNotifier {
   final List<Address> addressData;
 
   AddressMain({
-    this.addressData,
+    this.addressData=const [],
   });
 
   factory AddressMain.fromJson(Map<String, dynamic> parsedJson) {
     var addressList = parsedJson['address_data'] as List;
-    List<Address> addressRaw = new List<Address>();
+    List<Address> addressRaw = [];
     addressRaw = addressList.map((i) => Address.fromJson(i)).toList();
     return AddressMain(
       addressData: addressRaw,
@@ -18,7 +18,7 @@ class AddressMain with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    List<Map> addressData = this.addressData != null
+    List<Map>? addressData = this.addressData != null
         ? this.addressData.map((i) => i.toJson()).toList()
         : null;
     return {

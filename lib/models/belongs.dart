@@ -2,7 +2,7 @@ class Belongs {
   final int id;
   final String name;
 
-  Belongs({this.id, this.name});
+  Belongs({required this.id, required this.name});
 
   factory Belongs.fromJson(Map<String, dynamic> parsedJson) {
     return Belongs(

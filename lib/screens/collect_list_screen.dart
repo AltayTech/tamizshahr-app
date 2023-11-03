@@ -32,7 +32,7 @@ class _CollectListScreenState extends State<CollectListScreen>
   var scaffoldKey;
   int page = 1;
 
-  SearchDetail productsDetail;
+   SearchDetail productsDetail=SearchDetail();
 
   var sortValue = 'جدیدترین';
   List<String> sortValueList = ['جدیدترین', 'گرانترین', 'ارزانترین'];

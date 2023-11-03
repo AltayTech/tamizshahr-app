@@ -8,10 +8,10 @@ import '../widgets/en_to_ar_number_convertor.dart';
 
 class MessageItem extends StatelessWidget {
   const MessageItem({
-    Key key,
-    @required this.message,
-    @required this.bgColor,
-  }) : super(key: key);
+
+    required this.message,
+    required this.bgColor,
+  }) ;
 
   final Message message;
   final Color bgColor;

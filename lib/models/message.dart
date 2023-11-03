@@ -19,22 +19,22 @@ class Message with ChangeNotifier {
   final String subject;
 
   Message({
-    this.comment_ID,
-    this.comment_post_ID,
-    this.comment_author,
-    this.comment_author_email,
-    this.comment_author_url,
-    this.comment_author_IP,
-    this.comment_date,
-    this.comment_date_gmt,
-    this.comment_content,
-    this.comment_karma,
-    this.comment_approved,
-    this.comment_agent,
-    this.comment_type,
-    this.comment_parent,
-    this.user_id,
-    this.subject,
+    required   this.comment_ID,
+    required   this.comment_post_ID,
+    required   this.comment_author,
+    required  this.comment_author_email,
+    required   this.comment_author_url,
+    required   this.comment_author_IP,
+    required   this.comment_date,
+    required    this.comment_date_gmt,
+    required    this.comment_content,
+    required    this.comment_karma,
+    required    this.comment_approved,
+    required   this.comment_agent,
+    required   this.comment_type,
+    required   this.comment_parent,
+    required    this.user_id,
+    required    this.subject,
   });
 
   factory Message.fromJson(Map<String, dynamic> parsedJson) {

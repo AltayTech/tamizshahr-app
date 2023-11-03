@@ -8,11 +8,11 @@ class ProductMain with ChangeNotifier {
 
   final List<Product> products;
 
-  ProductMain({this.productsDetail, this.products});
+  ProductMain({required this.productsDetail, this.products=const []});
 
   factory ProductMain.fromJson(Map<String, dynamic> parsedJson) {
     var productsList = parsedJson['data'] as List;
-    List<Product> productsRaw = new List<Product>();
+    List<Product> productsRaw = [];
 
     productsRaw = productsList.map((i) => Product.fromJson(i)).toList();
 

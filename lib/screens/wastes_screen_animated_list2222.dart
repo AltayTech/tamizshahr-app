@@ -1,18 +1,19 @@
-
 import 'package:flutter/material.dart';
 
 class WastesScreenAnimatedList extends StatefulWidget {
   static const routeName = '/wastesScreenAnimatedList';
 
   @override
-  _WastesScreenAnimatedListState createState() => _WastesScreenAnimatedListState();
+  _WastesScreenAnimatedListState createState() =>
+      _WastesScreenAnimatedListState();
 }
 
 class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  ListModel<int> _list;
-  int _selectedItem;
-  int _nextItem; // The next item inserted when the user presses the '+' button.
+  late ListModel<int> _list;
+  late int _selectedItem;
+  late int
+      _nextItem; // The next item inserted when the user presses the '+' button.
 
   @override
   void initState() {
@@ -34,7 +35,8 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList> {
       selected: _selectedItem == _list[index],
       onTap: () {
         setState(() {
-          _selectedItem = _selectedItem == _list[index] ? null : _list[index];
+          _selectedItem =
+              (_selectedItem == _list[index] ? null : _list[index])!;
         });
       },
     );
@@ -50,7 +52,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList> {
     return CardItem(
       animation: animation,
       item: item,
-      selected: false,
+      selected: false, onTap: () {},
       // No gesture detector here: we don't want removed items to be interactive.
     );
   }
@@ -58,16 +60,16 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList> {
   // Insert the "next item" into the list model.
   void _insert() {
     final int index =
-    _selectedItem == null ? _list.length : _list.indexOf(_selectedItem);
+        _selectedItem == -1 ? _list.length : _list.indexOf(_selectedItem);
     _list.insert(index, _nextItem++);
   }
 
   // Remove the selected item from the list model.
   void _remove() {
-    if (_selectedItem != null) {
+    if (_selectedItem == -1) {
       _list.removeAt(_list.indexOf(_selectedItem));
       setState(() {
-        _selectedItem = null;
+        _selectedItem = -1;
       });
     }
   }
@@ -115,40 +117,43 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList> {
 /// [AnimatedListState.insertItem] and [AnimatedList.removeItem].
 class ListModel<E> {
   ListModel({
-    @required this.listKey,
-    @required this.removedItemBuilder,
-    Iterable<E> initialItems,
-  })  : assert(listKey != null),
-        assert(removedItemBuilder != null),
-        _items = List<E>.from(initialItems ?? <E>[]);
+    this.items = const [],
+    required this.listKey,
+    required this.removedItemBuilder,
+    required Iterable<E> initialItems,
+  })
+  // : assert(listKey != null),
+  //   assert(removedItemBuilder != null),
+  //   _items = List<E>.from(initialItems ?? <E>[])
+  ;
 
   final GlobalKey<AnimatedListState> listKey;
   final dynamic removedItemBuilder;
-  final List<E> _items;
+  final List<E> items;
 
-  AnimatedListState get _animatedList => listKey.currentState;
+  AnimatedListState? get _animatedList => listKey.currentState;
 
   void insert(int index, E item) {
-    _items.insert(index, item);
-    _animatedList.insertItem(index);
+    items.insert(index, item);
+    _animatedList?.insertItem(index);
   }
 
   E removeAt(int index) {
-    final E removedItem = _items.removeAt(index);
+    final E removedItem = items.removeAt(index);
     if (removedItem != null) {
-      _animatedList.removeItem(index,
-              (BuildContext context, Animation<double> animation) {
-            return removedItemBuilder(removedItem, context, animation);
-          });
+      _animatedList?.removeItem(index,
+          (BuildContext context, Animation<double> animation) {
+        return removedItemBuilder(removedItem, context, animation);
+      });
     }
     return removedItem;
   }
 
-  int get length => _items.length;
+  int get length => items.length;
 
-  E operator [](int index) => _items[index];
+  E operator [](int index) => items[index];
 
-  int indexOf(E item) => _items.indexOf(item);
+  int indexOf(E item) => items.indexOf(item);
 }
 
 /// Displays its integer item as 'item N' on a Card whose color is based on
@@ -157,15 +162,13 @@ class ListModel<E> {
 /// from 0 to 128 as the animation varies from 0.0 to 1.0.
 class CardItem extends StatelessWidget {
   const CardItem(
-      {Key key,
-        @required this.animation,
-        this.onTap,
-        @required this.item,
-        this.selected: false})
+      {required this.animation,
+      required this.onTap,
+      required this.item,
+      this.selected: false})
       : assert(animation != null),
         assert(item != null && item >= 0),
-        assert(selected != null),
-        super(key: key);
+        assert(selected != null);
 
   final Animation<double> animation;
   final VoidCallback onTap;
@@ -174,9 +177,9 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.headline4;
+    TextStyle? textStyle = Theme.of(context).textTheme.headline4;
     if (selected)
-      textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
+      textStyle = textStyle?.copyWith(color: Colors.lightGreenAccent[400]);
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: SizeTransition(

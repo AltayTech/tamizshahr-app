@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tamizshahr/models/sizes.dart';
 
 import 'category.dart';
 import 'featured_image.dart';
@@ -22,27 +23,28 @@ class Product with ChangeNotifier {
 //  final List<ColorCodeProductDetail> color;
 
   Product({
-    this.id,
-    this.name,
-    this.price,
-    this.price_without_discount,
-    this.show_in_shop,
-    this.excerpt,
-    this.description,
-    this.category,
-    this.featured_image,
-    this.gallery,
-    this.status,
+    this.id = 0,
+    this.name = '',
+    this.price = '0.0',
+    this.price_without_discount = '0.0',
+    this.show_in_shop = true,
+    this.excerpt = '',
+    this.description = '',
+    category,
+    featured_image,
+    this.gallery=const[],
+    status,
 //    this.brand,
 //    this.sellcase,
 //    this.color,
-  });
+  })  :     this.status=Status(term_id: 0, name: '', slug: ''),
+        this.featured_image = FeaturedImage(sizes: Sizes()),
+        this.category = Category(term_id: 0, name: '', slug: '');
 
   factory Product.fromJson(Map<String, dynamic> parsedJson) {
     var galleryList = parsedJson['gallery'] as List;
     List<FeaturedImage> galleryRaw =
         galleryList.map((i) => FeaturedImage.fromJson(i)).toList();
-
 
     return Product(
       id: parsedJson['id'],
@@ -50,7 +52,7 @@ class Product with ChangeNotifier {
       price: parsedJson['price'],
       price_without_discount: parsedJson['price_without_discount'],
       show_in_shop: parsedJson['show_in_shop'],
-      excerpt: parsedJson['excerpt']!=null?parsedJson['excerpt']:'',
+      excerpt: parsedJson['excerpt'] != null ? parsedJson['excerpt'] : '',
       description: parsedJson['description'],
       category: Category.fromJson(parsedJson['category']),
       featured_image: FeaturedImage.fromJson(parsedJson['featured_image']),

@@ -29,7 +29,7 @@ class _ContactWithUsState extends State<ContactWithUs> {
 
   bool _isInit = true;
 
-  Shop shopData;
+  late Shop shopData;
 
   List<String> aboutInfotitle = [];
 

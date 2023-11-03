@@ -7,11 +7,14 @@ class TransactionMain with ChangeNotifier {
 
   final List<Transaction> transactions;
 
-  TransactionMain({this.searchDetail, this.transactions});
+  TransactionMain({
+    required this.searchDetail,
+    required this.transactions,
+  });
 
   factory TransactionMain.fromJson(Map<String, dynamic> parsedJson) {
     var transactionsList = parsedJson['data'] as List;
-    List<Transaction> transactionsRaw = new List<Transaction>();
+    List<Transaction> transactionsRaw = [];
 
     transactionsRaw =
         transactionsList.map((i) => Transaction.fromJson(i)).toList();

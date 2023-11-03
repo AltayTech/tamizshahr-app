@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -9,7 +9,6 @@ import '../models/product.dart';
 import '../models/search_detail.dart';
 import '../provider/Products.dart';
 import '../provider/app_theme.dart';
-import '../widgets/badge.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/product_item_product_screeen.dart';
@@ -33,7 +32,7 @@ class _ProductsScreenState extends State<ProductsScreen>
   var scaffoldKey;
   int page = 1;
 
-  SearchDetail productsDetail;
+   SearchDetail productsDetail=SearchDetail();
 
   var sortValue = 'جدیدترین';
   List<String> sortValueList = ['جدیدترین', 'گرانترین', 'ارزانترین'];
@@ -183,14 +182,19 @@ class _ProductsScreenState extends State<ProductsScreen>
           centerTitle: true,
           actions: <Widget>[
             Consumer<Products>(
-              builder: (_, products, ch) => products.cartItemsCount != 0
-                  ? Badge(
-                      color: Color(0xff06623B),
-                      value: products.cartItemsCount.toString(),
-                      child: ch,
-                      textColor: AppTheme.white,
-                    )
-                  : ch,
+              builder: (_, products, ch) {
+                if (products.cartItemsCount != 0) {
+                  return badges.Badge(
+                    badgeContent: ch,
+                    badgeStyle: badges.BadgeStyle(
+                      badgeColor: Color(0xff06623B),
+                    ),
+                    child: Text(products.cartItemsCount.toString()),
+                  );
+                } else {
+                  return ch!;
+                }
+              },
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartScreen.routeName);
@@ -372,7 +376,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                                       isDense: true,
                                       onChanged: (newValue) {
                                         setState(() {
-                                          sortValue = newValue;
+                                          sortValue = newValue!;
 
                                           if (sortValue == 'گرانترین') {
                                             Provider.of<Products>(context,
@@ -474,7 +478,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                                         padding: const EdgeInsets.only(
                                             right: 4.0, left: 6),
                                         child: Text(
-                                          productsDetail != null
+                                          productsDetail.total != -1
                                               ? EnArConvertor().replaceArNumber(
                                                   loadedProductstolist.length
                                                       .toString())
@@ -501,7 +505,7 @@ class _ProductsScreenState extends State<ProductsScreen>
                                         padding: const EdgeInsets.only(
                                             right: 4.0, left: 6),
                                         child: Text(
-                                          productsDetail != null
+                                          productsDetail.total != -1
                                               ? EnArConvertor().replaceArNumber(
                                                   productsDetail.total
                                                       .toString())

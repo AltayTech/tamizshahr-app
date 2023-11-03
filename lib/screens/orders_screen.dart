@@ -30,9 +30,9 @@ class _OrdersScreenState extends State<OrdersScreen>
   ScrollController _scrollController = new ScrollController();
   var _isLoading;
   int page = 1;
-  SearchDetail productsDetail;
+   SearchDetail productsDetail=SearchDetail();
 
-  Customer customer;
+  late Customer customer;
 
   @override
   void initState() {
@@ -219,7 +219,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                                             padding: const EdgeInsets.only(
                                                 right: 4.0, ),
                                             child: Text(
-                                              productsDetail != null
+                                              productsDetail.total != -1
                                                   ? EnArConvertor()
                                                       .replaceArNumber(
                                                           loadedProductstolist.length

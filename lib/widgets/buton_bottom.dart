@@ -3,12 +3,11 @@ import 'package:tamizshahr/provider/app_theme.dart';
 
 class ButtonBottom extends StatelessWidget {
   const ButtonBottom({
-    Key key,
-    @required this.width,
-    @required this.height,
-    @required this.text,
+    required this.width,
+    required this.height,
+    required this.text,
     this.isActive = false,
-  }) : super(key: key);
+  }) ;
 
   final double width;
   final double height;

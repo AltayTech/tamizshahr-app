@@ -11,7 +11,7 @@ import 'customer_detail_info_edit_screen.dart';
 class CustomerDetailInfoScreen extends StatefulWidget {
   final Customer customer;
 
-  CustomerDetailInfoScreen({this.customer});
+  CustomerDetailInfoScreen({required this.customer});
 
   @override
   _CustomerDetailInfoScreenState createState() =>
@@ -19,7 +19,7 @@ class CustomerDetailInfoScreen extends StatefulWidget {
 }
 
 class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
-  Customer customer;
+  late Customer customer;
   var _isLoading = false;
   bool _isInit = true;
 
@@ -119,8 +119,8 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
                               textAlign: TextAlign.right,
                             ),
                             FittedBox(
-                              child: FlatButton(
-                                color: AppTheme.primary,
+                              child: TextButton(
+                                // color: AppTheme.primary,
                                 onPressed: () {
                                   Navigator.of(context).pushReplacementNamed(
                                       CustomerDetailInfoEditScreen.routeName);
@@ -228,12 +228,11 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
 
 class InfoItem extends StatelessWidget {
   const InfoItem({
-    Key key,
-    @required this.title,
-    @required this.text,
-    @required this.bgColor,
-    @required this.iconColor,
-  }) : super(key: key);
+    required this.title,
+  required this.text,
+   required this.bgColor,
+   required this.iconColor,
+  }) ;
 
   final String title;
   final String text;

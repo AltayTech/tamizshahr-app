@@ -10,7 +10,7 @@ import 'package:tamizshahr/models/search_detail.dart';
 import 'urls.dart';
 
 class Orders with ChangeNotifier {
-  String _token;
+  late String _token;
 
   String searchEndPoint = '';
   String searchKey = '';
@@ -21,8 +21,8 @@ class Orders with ChangeNotifier {
 
   List<Order> _ordersItems = [];
 
-  SearchDetail _searchDetails;
-  Order _orderItem;
+  late SearchDetail _searchDetails;
+  late Order _orderItem;
 
   void searchBuilder() {
     if (!(searchKey == '')) {
@@ -52,10 +52,10 @@ class Orders with ChangeNotifier {
     print(url);
     final prefs = await SharedPreferences.getInstance();
 
-    _token = prefs.getString('token');
+    _token = prefs.getString('token')!;
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -87,7 +87,7 @@ class Orders with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(url as Uri, headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });

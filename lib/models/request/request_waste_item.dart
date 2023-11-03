@@ -20,16 +20,16 @@ class RequestWasteItem with ChangeNotifier {
   final Driver driver;
 
   RequestWasteItem(
-      {this.id,
-      this.status,
-      this.collect_type,
-      this.total_collects_price,
-      this.total_collects_weight,
-      this.total_collects_number,
-      this.collect_date,
-      this.address_data,
-      this.collect_list,
-      this.driver});
+      {required this.id,
+      required this.status,
+      required this.collect_type,
+        required this.total_collects_price,
+        required this.total_collects_weight,
+        required this.total_collects_number,
+        required this.collect_date,
+        required this.address_data,
+        required  this.collect_list,
+        required this.driver,});
 
   factory RequestWasteItem.fromJson(Map<String, dynamic> parsedJson) {
     var collectList = parsedJson['collect_list'] as List;
@@ -63,19 +63,19 @@ class RequestWasteItem with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map address = this.address_data != null ? this.address_data.toJson() : null;
-    Map status = this.status != null ? this.status.toJson() : null;
-    Map driver = this.driver != null ? this.driver.toJson() : null;
-    Map total_price =
+    Map? address = this.address_data != null ? this.address_data.toJson() : null;
+    Map? status = this.status != null ? this.status.toJson() : null;
+    Map? driver = this.driver != null ? this.driver.toJson() : null;
+    Map? total_price =
         this.total_collects_price != null ? this.total_collects_price.toJson() : null;
-    Map total_weight =
+    Map? total_weight =
         this.total_collects_weight != null ? this.total_collects_weight.toJson() : null;
-    Map total_number =
+    Map? total_number =
         this.total_collects_number != null ? this.total_collects_number.toJson() : null;
-    Map collect_time =
+    Map? collect_time =
         this.collect_date != null ? this.collect_date.toJson() : null;
 
-    List<Map> collect_list = this.collect_list != null
+    List<Map>? collect_list = this.collect_list != null
         ? this.collect_list.map((i) => i.toJson()).toList()
         : null;
 

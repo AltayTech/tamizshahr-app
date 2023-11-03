@@ -10,11 +10,11 @@ class Driver with ChangeNotifier {
   final DriverData driver_data;
 
   Driver({
-    this.status,
-    this.car,
-    this.car_color,
-    this.car_number,
-    this.driver_data,
+    required   this.status,
+    required   this.car,
+    required    this.car_color,
+    required  this.car_number,
+    required  this.driver_data,
   });
 
   factory Driver.fromJson(Map<String, dynamic> parsedJson) {

@@ -73,7 +73,7 @@ class Products with ChangeNotifier {
   static Product _itemZero = Product();
   Product _item = _itemZero;
 
-  String _token;
+  late String _token;
 
   List<Product> get items {
     return _items;
@@ -153,7 +153,7 @@ class Products with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -180,7 +180,7 @@ class Products with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -211,7 +211,7 @@ class Products with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -264,14 +264,14 @@ class Products with ChangeNotifier {
     print('sendRequestOrder');
     try {
       final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('token');
+      _token = prefs.getString('token')!;
       print('tooookkkeeennnnnn  $_token');
 
       final url = Urls.rootUrl + Urls.orderEndPoint;
       print('url  $url');
       print(jsonEncode(request));
 
-      final response = await post(url,
+      final response = await post(Uri.parse(url),
           headers: {
             'Authorization': 'Bearer $_token',
             'Content-Type': 'application/json',

@@ -101,11 +101,11 @@ class _AuthCardState extends State<AuthCard>
   };
 
   var _isLoading = false;
-  AnimationController _controller;
-  Animation<Offset> _slideAnimation;
-  Animation<double> _opacityAnimation;
-  Animation<Offset> _slideAnimation1;
-  Animation<double> _opacityAnimation1;
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+  late  Animation<double> _opacityAnimation;
+  late Animation<Offset> _slideAnimation1;
+  late Animation<double> _opacityAnimation1;
 
   @override
   void initState() {
@@ -162,7 +162,7 @@ class _AuthCardState extends State<AuthCard>
         title: Text('مشکل در ورود'),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text('تایید'),
             onPressed: () {
               Navigator.of(ctx).pop();
@@ -174,11 +174,11 @@ class _AuthCardState extends State<AuthCard>
   }
 
   Future<void> _submit() async {
-    if (!_formKey.currentState.validate()) {
+    if (!_formKey.currentState!.validate()) {
       // Invalid!
       return;
     }
-    _formKey.currentState.save();
+    _formKey.currentState?.save();
     setState(() {
       _isLoading = true;
     });
@@ -186,7 +186,7 @@ class _AuthCardState extends State<AuthCard>
       if (_authMode == AuthMode.VerificationCode) {
         // Log user in
         var response = await Provider.of<Auth>(context, listen: false).login(
-          _authData['phoneNumber'],
+          _authData['phoneNumber']!,
         );
 
         print('veriiiii');
@@ -198,8 +198,8 @@ class _AuthCardState extends State<AuthCard>
 
         var response =
             await Provider.of<Auth>(context, listen: false).getVerCode(
-          _authData['verificationCode'],
-          _authData['phoneNumber'],
+          _authData['verificationCode']!,
+          _authData['phoneNumber']!,
         );
         if (response) {
 //          try {
@@ -285,7 +285,7 @@ class _AuthCardState extends State<AuthCard>
               Stack(
                 children: <Widget>[
                   AnimatedContainer(
-                    duration: _controller.duration,
+                    duration: _controller.duration!,
                     curve: Curves.easeIn,
                     child: FadeTransition(
                       opacity: _opacityAnimation,
@@ -309,7 +309,7 @@ class _AuthCardState extends State<AuthCard>
                     ),
                   ),
                   AnimatedContainer(
-                    duration: _controller.duration,
+                    duration: _controller.duration!,
                     curve: Curves.easeIn,
                     child: FadeTransition(
                       opacity: _opacityAnimation1,
@@ -336,7 +336,7 @@ class _AuthCardState extends State<AuthCard>
               Stack(
                 children: <Widget>[
                   AnimatedContainer(
-                    duration: _controller.duration,
+                    duration: _controller.duration!,
                     curve: Curves.easeIn,
                     child: FadeTransition(
                       opacity: _opacityAnimation,
@@ -376,7 +376,7 @@ class _AuthCardState extends State<AuthCard>
                                               ? (value) {
                                                   _authData[
                                                           'verificationCode'] =
-                                                      value;
+                                                      value!;
                                                 }
                                               : null,
                                         ),
@@ -400,7 +400,7 @@ class _AuthCardState extends State<AuthCard>
                     ),
                   ),
                   AnimatedContainer(
-                    duration: _controller.duration,
+                    duration: _controller.duration!,
                     curve: Curves.easeIn,
                     child: FadeTransition(
                       opacity: _opacityAnimation1,
@@ -438,12 +438,12 @@ class _AuthCardState extends State<AuthCard>
                                         ),
                                         keyboardType: TextInputType.phone,
                                         validator: (value) {
-                                          if (value.isEmpty) {
+                                          if (value!.isEmpty) {
                                             return 'لطفا شماره تلفن را وارد نمایید';
                                           }
                                         },
                                         onSaved: (value) {
-                                          _authData['phoneNumber'] = value;
+                                          _authData['phoneNumber'] = value!;
                                         },
                                       ),
                                       Positioned(
@@ -483,7 +483,7 @@ class _AuthCardState extends State<AuthCard>
                   : Container(
                       height: deviceSize.height * 0.055,
                       width: deviceSize.width * 0.6,
-                      child: RaisedButton(
+                      child: ElevatedButton (
                         child: Text(
                           _authMode == AuthMode.Login
                               ? 'ورود'
@@ -498,23 +498,25 @@ class _AuthCardState extends State<AuthCard>
                           FocusScope.of(context).requestFocus(FocusNode());
                           _submit();
                         },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 8.0),
-                        color: AppTheme.primary,
-                        textColor: AppTheme.bg,
+
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.circular(5),
+                        // ),
+                        // padding: EdgeInsets.symmetric(
+                        //     horizontal: 30.0, vertical: 8.0),
+
+                        // color: AppTheme.primary,
+                        // textColor: AppTheme.bg,
                       ),
                     ),
               AnimatedContainer(
-                duration: _controller.duration,
+                duration: _controller.duration!,
                 curve: Curves.easeIn,
                 child: FadeTransition(
                   opacity: _opacityAnimation,
                   child: SlideTransition(
                     position: _slideAnimation,
-                    child: FlatButton(
+                    child: TextButton(
                       child: Text(
                         'اصلاح شماره تلفن',
                         style: TextStyle(
@@ -524,9 +526,10 @@ class _AuthCardState extends State<AuthCard>
                         ),
                       ),
                       onPressed: _switchPhoneCorrectMode,
-                      padding: EdgeInsets.only(right: 30.0, left: 30.0, top: 4),
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      textColor: Theme.of(context).primaryColor,
+
+                      // padding: EdgeInsets.only(right: 30.0, left: 30.0, top: 4),
+                      // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      // textColor: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),

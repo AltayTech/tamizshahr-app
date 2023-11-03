@@ -11,12 +11,12 @@ class Article with ChangeNotifier {
   final List<ArticleCat> category;
 
   Article({
-    this.id,
-    this.title,
-    this.content,
-    this.post_date_gmt,
-    this.category,
-    this.featured_image,
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.post_date_gmt,
+    required  this.category,
+    required this.featured_image,
   });
 
   factory Article.fromJson(Map<String, dynamic> parsedJson) {

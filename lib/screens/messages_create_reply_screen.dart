@@ -23,7 +23,7 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
   var _isLoading = false;
   var _isInit = true;
 
-  List<Message> messages;
+  List<Message> messages=[];
 
   List<String> aboutInfotitle = [];
 
@@ -31,16 +31,16 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
 
   final contentTextController = TextEditingController();
 
-  bool isLogin;
+  late bool isLogin;
 
-  Message message;
-  Customer customer;
+  late Message message;
+  late Customer customer;
 
   @override
   void didChangeDependencies() async {
     if (_isInit) {
       contentTextController.text = '';
-      message = ModalRoute.of(context).settings.arguments as Message;
+      message = ModalRoute.of(context)?.settings.arguments as Message;
       customer = Provider.of<CustomerInfo>(context, listen: false).customer;
 
       isLogin = Provider.of<Auth>(context, listen: false).isAuth;
