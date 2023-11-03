@@ -29,11 +29,11 @@ class _CartScreenState extends State<CartScreen> {
   bool _isInit = true;
 
   var _isLoading = true;
-  Customer customer;
+  late Customer customer;
   int totalPrice = 0;
   int transportCost = 10000;
 
-  int totalPricePure;
+  late int totalPricePure;
 
   void _showLogindialog() {
     showDialog(
@@ -41,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
       ),
     );
   }
@@ -52,7 +52,7 @@ class _CartScreenState extends State<CartScreen> {
       builder: (ctx) => CustomDialogProfile(
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید', image: Image.asset(''),
       ),
     );
   }
@@ -258,7 +258,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         );
                         if (shoppItems.isEmpty) {
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

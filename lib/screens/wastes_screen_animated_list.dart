@@ -15,7 +15,6 @@ import '../widgets/custom_dialog_enter.dart';
 import '../widgets/custom_dialog_profile.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
-import '../widgets/waste_cart_item.dart';
 import 'address_screen.dart';
 
 class WastesScreenAnimatedList extends StatefulWidget {
@@ -47,6 +46,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
         title: 'ورود',
         buttonText: 'صفحه ورود ',
         description: 'برای ادامه باید وارد شوید',
+        image: Image.asset(''),
       ),
     );
   }
@@ -58,6 +58,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
         description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        image: Image.asset(''),
       ),
     );
   }
@@ -123,8 +124,8 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
     return price;
   }
 
-  AnimationController _totalPriceController;
-  Animation<double> _totalPriceAnimation;
+  late AnimationController _totalPriceController;
+  late Animation<double> _totalPriceAnimation;
 
   @override
   initState() {
@@ -156,12 +157,12 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
   }
 
   void addUser() {
-    _listKey.currentState.insertItem(0, duration: Duration(milliseconds: 500));
+    _listKey.currentState?.insertItem(0, duration: Duration(milliseconds: 500));
   }
 
   void deleteUser(int index) {
     var user = wasteCartItems.removeAt(index);
-    _listKey.currentState.removeItem(
+    _listKey.currentState?.removeItem(
       index,
       (BuildContext context, Animation<double> animation) {
         return FadeTransition(
@@ -179,13 +180,15 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
     );
   }
 
-  Widget _buildItem(WasteCart user, [int index]) {
+  Widget _buildItem(WasteCart user, [int? index]) {
     return WasteCartItemAnimatedList(
       wasteItem: user,
       function: getWasteItems,
       key: ValueKey<WasteCart>(user),
+      onRemove: () {},
     );
   }
+
   Future<void> removeItem(int itemId) async {
     setState(() {
       _isLoading = true;
@@ -198,7 +201,6 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
       _isLoading = false;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -293,8 +295,8 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
                                       AnimatedBuilder(
                                         animation: _totalPriceAnimation,
                                         builder: (BuildContext context,
-                                            Widget child) {
-                                          return new Text(
+                                            Widget? child) {
+                                          return Text(
                                             totalPrice.toString().isNotEmpty
                                                 ? EnArConvertor()
                                                     .replaceArNumber(
@@ -382,6 +384,8 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
                                               wasteItem:
                                                   value.wasteCartItems[i],
                                               function: getWasteItems,
+                                              onRemove: () {},
+                                              key: Key(''),
                                             ),
                                           ),
                                         ),
@@ -423,7 +427,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
                           ),
                         );
                         if (wasteCartItems.isEmpty) {
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

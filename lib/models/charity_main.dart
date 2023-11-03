@@ -8,11 +8,11 @@ class CharityMain with ChangeNotifier {
 
   final List<Charity> charities;
 
-  CharityMain({this.charitiesDetail, this.charities});
+  CharityMain({required this.charitiesDetail, required this.charities});
 
   factory CharityMain.fromJson(Map<String, dynamic> parsedJson) {
     var charitiesList = parsedJson['data'] as List;
-    List<Charity> charitiesRaw = new List<Charity>();
+    List<Charity> charitiesRaw = [];
 
     charitiesRaw = charitiesList.map((i) => Charity.fromJson(i)).toList();
 

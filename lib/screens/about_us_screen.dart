@@ -17,7 +17,7 @@ class AboutUsScreen extends StatefulWidget {
 class _AboutUsScreenState extends State<AboutUsScreen> {
   bool _isInit = true;
 
-  Shop shopData;
+  late Shop shopData;
 
   bool _isLoading=false;
 

@@ -10,7 +10,9 @@ class CustomerNotificationScreen extends StatefulWidget {
   static const routeName = '/customer_notification_screen';
   final Customer customer;
 
-  CustomerNotificationScreen({this.customer});
+  CustomerNotificationScreen({
+    customer,
+  }) : this.customer = Customer();
 
   @override
   _CustomerNotificationScreenState createState() =>

@@ -25,7 +25,7 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
 
   bool _isInit = true;
 
-  RequestWasteItem loadedCollect;
+  late RequestWasteItem loadedCollect;
   String _snackBarMessage = '';
 
   @override
@@ -41,7 +41,7 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
     setState(() {
       _isLoading = true;
     });
-    final productId = ModalRoute.of(context).settings.arguments as int;
+    final productId = ModalRoute.of(context)?.settings.arguments as int;
     await Provider.of<Wastes>(context, listen: false)
         .retrieveCollectItem(productId);
     loadedCollect =

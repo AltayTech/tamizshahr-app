@@ -14,15 +14,15 @@ class Order with ChangeNotifier {
   final List<ProductOrderReceive> products;
 
   Order({
-    this.id,
-    this.status,
-    this.pay_status,
-    this.pay_date,
-    this.pay_transaction,
-    this.send_date,
-    this.total_price,
-    this.total_number,
-    this.products,
+    required  this.id,
+    required  this.status,
+    required  this.pay_status,
+    required  this.pay_date,
+    required  this.pay_transaction,
+    required  this.send_date,
+    required   this.total_price,
+    required  this.total_number,
+    required  this.products,
   });
 
   factory Order.fromJson(Map<String, dynamic> parsedJson) {

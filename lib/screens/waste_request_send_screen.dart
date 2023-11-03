@@ -37,19 +37,19 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
   bool _isInit = true;
 
   var _isLoading = true;
-  Customer customer;
+  late Customer customer;
   int totalPrice = 0;
   int totalWeight = 0;
 
-  int totalPricePure;
+  late int totalPricePure;
 
-  Address selectedAddress;
+  late Address selectedAddress;
 
-  Region selectedRegion;
+  late Region selectedRegion;
 
-  String _selectedHourStart;
+  late String _selectedHourStart;
 
-  String _selectedHourend;
+  late String _selectedHourend;
 
   List<String> months = [];
 
@@ -57,13 +57,13 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
 
   List<Jalali> dateList = [];
 
-  Jalali _selectedDay;
+  late Jalali _selectedDay;
 
-  String selectedHours;
+  late String selectedHours;
 
-  Jalali selectedDay;
+  late Jalali selectedDay;
 
-  RequestWaste requestWaste;
+  late RequestWaste requestWaste;
 
   void _showLogindialog() {
     showDialog(
@@ -72,6 +72,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         title: 'ورود',
         buttonText: 'صفحه ورود ',
         description: 'برای ادامه لطفا وارد شوید',
+        image: Image.asset(''),
       ),
     );
   }
@@ -83,6 +84,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
         description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        image: Image.asset(''),
       ),
     );
   }
@@ -94,6 +96,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         title: '',
         buttonText: 'خب',
         description: 'درخواست شما با موفقیت ثبت شد',
+        image: Image.asset(''),
       ),
     );
   }
@@ -204,7 +207,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
     ];
   }
 
-  Future<void> getDate(int numberFutureDate) {
+  Future<void> getDate(int numberFutureDate) async {
     Jalali dateTime = Jalali.now();
     dateList.clear();
 
@@ -237,6 +240,8 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
               getPrice(wasteCartItems[i].prices, wasteCartItems[i].weight),
           pasmand: Pasmand(
               id: wasteCartItems[i].id, post_title: wasteCartItems[i].name),
+          exact_weight: '',
+          exact_price: '',
         ),
       );
     }
@@ -648,7 +653,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                           ),
                         );
                         if (wasteCartItems.isEmpty) {
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' as intl;
 
 class CurrencyInputFormatter extends TextInputFormatter {
-  double totalPricevalue;
+  late double totalPricevalue;
 
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {

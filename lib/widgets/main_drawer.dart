@@ -20,7 +20,7 @@ import '../screens/product_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainDrawer extends StatelessWidget {
-  Widget buildListTile(String title, IconData icon, Function tapHandler) {
+  Widget buildListTile(String title, IconData icon, Function()? tapHandler) {
     return ListTile(
       leading: Icon(
         icon,

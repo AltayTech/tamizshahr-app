@@ -4,7 +4,12 @@ class ColorCode {
   final String color_code;
   final String price;
 
-  ColorCode({this.id, this.title, this.color_code,this.price,});
+  ColorCode({
+    required this.id,
+    required this.title,
+    required this.color_code,
+    required this.price,
+  });
 
   factory ColorCode.fromJson(Map<String, dynamic> parsedJson) {
     return ColorCode(

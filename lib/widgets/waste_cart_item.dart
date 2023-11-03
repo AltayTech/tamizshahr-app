@@ -15,10 +15,9 @@ class WasteCartItem extends StatefulWidget {
   final Function function;
 
   WasteCartItem({
-    Key key,
-    this.wasteItem,
-    this.function,
-  }) : super(key: key);
+    required this.wasteItem,
+    required this.function,
+  }) ;
 
   @override
   _WasteCartItemState createState() => _WasteCartItemState();
@@ -76,11 +75,11 @@ class _WasteCartItemState extends State<WasteCartItem>
     return price;
   }
 
-  AnimationController _totalPriceController;
-  Animation<double> _totalPriceAnimation;
+  late AnimationController _totalPriceController;
+  late Animation<double> _totalPriceAnimation;
 
-  AnimationController _unitPriceController;
-  Animation<double> _unitPriceAnimation;
+  late AnimationController _unitPriceController;
+  late Animation<double> _unitPriceAnimation;
 
   @override
   initState() {
@@ -210,7 +209,7 @@ class _WasteCartItemState extends State<WasteCartItem>
                                     AnimatedBuilder(
                                       animation: _unitPriceAnimation,
                                       builder:
-                                          (BuildContext context, Widget child) {
+                                          (BuildContext context, Widget? child) {
                                         return Text(
                                           widget.wasteItem.prices.length != 0
                                               ? EnArConvertor().replaceArNumber(
@@ -417,7 +416,7 @@ class _WasteCartItemState extends State<WasteCartItem>
                                 AnimatedBuilder(
                                   animation: _totalPriceAnimation,
                                   builder:
-                                      (BuildContext context, Widget child) {
+                                      (BuildContext context, Widget? child) {
                                     return new Text(
                                       widget.wasteItem.prices.length != 0
                                           ? EnArConvertor()
@@ -457,7 +456,7 @@ class _WasteCartItemState extends State<WasteCartItem>
                   top: 0,
                   left: 0,
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async{
                       return removeItem();
                     },
                     child: Icon(

@@ -11,12 +11,12 @@ class Clearing with ChangeNotifier {
   final String shaba;
 
   Clearing({
-    this.id,
-    this.status,
-    this.bank_transaction,
-    this.money,
-    this.paid_date,
-    this.shaba,
+    required this.id,
+    required this.status,
+    this.bank_transaction = '',
+    this.money = '',
+    this.paid_date = '',
+    this.shaba = '',
   });
 
   factory Clearing.fromJson(Map<String, dynamic> parsedJson) {
@@ -35,7 +35,7 @@ class Clearing with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map status = this.status != null ? this.status.toJson() : null;
+    Map? status = this.status != null ? this.status.toJson() : null;
 
     return {
       'id': id,

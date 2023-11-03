@@ -8,10 +8,9 @@ import '../widgets/en_to_ar_number_convertor.dart';
 
 class MessageReplyItem extends StatelessWidget {
   const MessageReplyItem({
-    Key key,
-    @required this.message,
-    @required this.isReply,
-  }) : super(key: key);
+    required this.message,
+    required this.isReply,
+  }) ;
 
   final Message message;
   final bool isReply;

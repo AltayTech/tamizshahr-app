@@ -19,16 +19,16 @@ class _MessageCreateScreenState extends State<MessageCreateScreen> {
   var _isLoading = false;
   var _isInit = true;
 
-  List<Message> messages;
+  List<Message> messages=[];
 
   List<String> aboutInfotitle = [];
 
   List<String> aboutInfoContent = [];
 
-  final contentTextController = TextEditingController();
-  final subjectTextController = TextEditingController();
+  final contentTextController = TextEditingController(text: '');
+  final subjectTextController = TextEditingController(text: '');
 
-  bool isLogin;
+  late bool isLogin;
 
   @override
   void didChangeDependencies() async {
@@ -55,6 +55,13 @@ class _MessageCreateScreenState extends State<MessageCreateScreen> {
     setState(() {
       _isLoading = true;
     });
+
+    debugPrint( 'subjectTextController.text');
+    debugPrint( subjectTextController.text);
+    debugPrint(' contentTextController.text');
+    debugPrint( contentTextController.text);
+
+
 
     await Provider.of<Messages>(context, listen: false)
         .createMessage(

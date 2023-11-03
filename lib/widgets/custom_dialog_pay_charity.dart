@@ -12,9 +12,9 @@ class CustomDialogPayCharity extends StatefulWidget {
   final Function function;
 
   CustomDialogPayCharity({
-    @required this.totalWallet,
-    @required this.charity,
-    @required this.function,
+    required this.totalWallet,
+    required this.charity,
+    required this.function,
   });
 
   @override

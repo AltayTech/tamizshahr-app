@@ -7,10 +7,10 @@ class CustomDialogSendRequest extends StatelessWidget {
   final Image image;
 
   CustomDialogSendRequest({
-    @required this.title,
-    @required this.description,
-    @required this.buttonText,
-    this.image,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.image,
   });
 
   @override

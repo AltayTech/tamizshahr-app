@@ -11,14 +11,14 @@ import '../models/search_detail.dart';
 import 'urls.dart';
 
 class Clearings with ChangeNotifier {
-  String _token;
+  late String _token;
 
   List<Clearing> _deliveriesItems = [];
 
-  SearchDetail _searchDetails;
+  late SearchDetail _searchDetails;
 
-  String _selectedHours;
-  Jalali _selectedDay;
+  late String _selectedHours;
+  late Jalali _selectedDay;
 
   String get selectedHours => _selectedHours;
 
@@ -72,10 +72,10 @@ class Clearings with ChangeNotifier {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('token');
+      _token = prefs.getString('token')!;
       print('tooookkkeeennnnnn  $_token');
 
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'

@@ -10,8 +10,8 @@ class CustomDialogSelectColor extends StatefulWidget {
   final Function function;
 
   CustomDialogSelectColor({
-    @required this.product,
-    @required this.function,
+    required this.product,
+    required this.function,
   });
 
   @override

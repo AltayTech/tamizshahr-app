@@ -33,10 +33,10 @@ class _ClearScreenState extends State<ClearScreen>
   bool _isInit = true;
   var _isLoading = false;
   int page = 1;
-  SearchDetail productsDetail;
+   SearchDetail productsDetail=SearchDetail();
   ScrollController _scrollController = new ScrollController();
 
-  Customer customer;
+  late Customer customer;
 
   final shabaController = TextEditingController();
   final donationController = TextEditingController();
@@ -96,7 +96,7 @@ class _ClearScreenState extends State<ClearScreen>
       builder: (ctx) => CustomDialogSendRequest(
         title: '',
         buttonText: 'خب',
-        description: 'درخواست شما با موفقیت ثبت شد',
+        description: 'درخواست شما با موفقیت ثبت شد', image: Image.asset(''),
       ),
     );
   }
@@ -488,7 +488,7 @@ class _ClearScreenState extends State<ClearScreen>
                                         ),
                                       ),
                                       inputFormatters: [
-                                        WhitelistingTextInputFormatter
+                                        FilteringTextInputFormatter
                                             .digitsOnly,
                                         new CurrencyInputFormatter(),
                                       ],
@@ -550,7 +550,7 @@ class _ClearScreenState extends State<ClearScreen>
                                                               right: 4.0,
                                                               left: 6),
                                                       child: Text(
-                                                        productsDetail != null
+                                                        productsDetail.total != -1
                                                             ? EnArConvertor()
                                                                 .replaceArNumber(
                                                                     loadedProductstolist
@@ -590,7 +590,7 @@ class _ClearScreenState extends State<ClearScreen>
                                                               right: 4.0,
                                                               left: 6),
                                                       child: Text(
-                                                        productsDetail != null
+                                                        productsDetail.total != -1
                                                             ? EnArConvertor()
                                                                 .replaceArNumber(
                                                                     productsDetail
@@ -714,7 +714,7 @@ class _ClearScreenState extends State<ClearScreen>
                                     );
                                     if (shabaController.text == null ||
                                         shabaController.text == 'IR') {
-                                      Scaffold.of(context)
+                                      ScaffoldMessenger.of(context)
                                           .showSnackBar(addToCartSnackBar);
                                     } else if (double.parse(removeSemicolon(
                                             donationController.text)) >
@@ -735,7 +735,7 @@ class _ClearScreenState extends State<ClearScreen>
                                           },
                                         ),
                                       );
-                                      Scaffold.of(context)
+                                      ScaffoldMessenger.of(context)
                                           .showSnackBar(addToCartSnackBar);
                                     } else {
                                       await sendClearingRequest(

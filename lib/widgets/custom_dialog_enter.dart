@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../provider/app_theme.dart';
 
+import '../provider/app_theme.dart';
 import '../screens/customer_info/login_screen.dart';
 
 class CustomDialogEnter extends StatelessWidget {
@@ -8,10 +8,10 @@ class CustomDialogEnter extends StatelessWidget {
   final Image image;
 
   CustomDialogEnter({
-    @required this.title,
-    @required this.description,
-    @required this.buttonText,
-    this.image,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.image,
   });
 
   @override
@@ -76,7 +76,7 @@ class CustomDialogEnter extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   child: InkWell(
                     onTap: () {
-                      return Navigator.of(context)
+                      Navigator.of(context)
                           .popAndPushNamed(LoginScreen.routeName);
                     },
                     child: Container(

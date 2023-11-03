@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +22,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
 
   bool _isInit = true;
 
-  Article loadedArticle;
+  late Article loadedArticle;
 
   @override
   void didChangeDependencies() async {
@@ -40,7 +38,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     setState(() {
       _isLoading = true;
     });
-    final articleId = ModalRoute.of(context).settings.arguments as int;
+    final articleId = ModalRoute.of(context)?.settings.arguments as int;
     await Provider.of<Articles>(context, listen: false).retrieveItem(articleId);
 
     setState(() {
@@ -160,8 +158,8 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               child: FadeInImage(
                                 placeholder:
                                     AssetImage('assets/images/circle.gif'),
-                                image: NetworkImage(
-                                    loadedArticle.featured_image),
+                                image:
+                                    NetworkImage(loadedArticle.featured_image),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -170,13 +168,15 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: HtmlWidget(
                               loadedArticle.content,
-                              onTapUrl: (url) => showDialog(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                  title: Text('onTapUrl'),
-                                  content: Text(url),
-                                ),
-                              ),
+                              onTapUrl: (url) async {
+                                return await showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: Text('onTapUrl'),
+                                    content: Text(url),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],

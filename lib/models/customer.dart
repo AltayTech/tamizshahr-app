@@ -11,27 +11,36 @@ class Customer with ChangeNotifier {
   final String money;
 
   Customer({
-    this.id,
-    this.status,
-    this.customer_type,
-    this.personalData,
-    this.money,
-  });
+    this.id = 1,
+    status,
+    customer_type,
+    personalData,
+    this.money = '',
+  })  : this.status = Status(),
+        this.customer_type = Status(),
+        this.personalData = PersonalData();
 
   factory Customer.fromJson(Map<String, dynamic> parsedJson) {
     return Customer(
-      id: parsedJson['id']!=null?parsedJson['id']:0,
-      status: parsedJson['status']!=null?Status.fromJson(parsedJson['status']):Status(term_id: 0,name:'',slug: ''),
-      customer_type: parsedJson['customer_type']!=null?Status.fromJson(parsedJson['customer_type']):Status(term_id: 0,name:'',slug: ''),
+      id: parsedJson['id'] != null ? parsedJson['id'] : 0,
+      status: parsedJson['status'] != null
+          ? Status.fromJson(parsedJson['status'])
+          : Status(term_id: 0, name: '', slug: ''),
+      customer_type: parsedJson['customer_type'] != null
+          ? Status.fromJson(parsedJson['customer_type'])
+          : Status(term_id: 0, name: '', slug: ''),
       personalData: PersonalData.fromJson(parsedJson['customer_data']),
-      money: parsedJson['money'] != null &&parsedJson['money'] != ''? parsedJson['money'] : '0.0',
+      money: parsedJson['money'] != null && parsedJson['money'] != ''
+          ? parsedJson['money']
+          : '0.0',
     );
   }
 
   Map<String, dynamic> toJson() {
-    Map personalData =
+    Map? personalData =
         this.personalData != null ? this.personalData.toJson() : null;
-    Map customer_type = this.customer_type != null ? this.customer_type.toJson() : null;
+    Map? customer_type =
+        this.customer_type != null ? this.customer_type.toJson() : null;
 
     return {
       'customer_data': personalData,

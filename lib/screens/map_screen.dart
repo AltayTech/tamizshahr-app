@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+// import 'package:geolocator/geolocator.dart';
 
 import '../models/region.dart';
 import '../models/request/address.dart';
@@ -23,7 +24,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   var _isLoading;
 
   Completer<GoogleMapController> _controller = Completer();
-  GoogleMapController myController;
+  late GoogleMapController myController;
   static const LatLng _center = const LatLng(38.074065, 46.312711);
 
   final Set<Marker> _markers = {};
@@ -42,11 +43,11 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   var regionValue;
   List<String> regionValueList = [];
   List<Region> regionList = [];
-  Region selectedRegion;
+  late Region selectedRegion;
 
-  FocusNode nameNode;
-  FocusNode regionNode;
-  FocusNode addressNode;
+  late FocusNode nameNode;
+  late FocusNode regionNode;
+  late FocusNode addressNode;
 
   @override
   void didChangeDependencies() async {
@@ -84,24 +85,24 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     _controller.complete(controller);
   }
 
-  Geolocator _geolocator;
-  Position _position;
+  late Geolocator _geolocator;
+  late Position _position;
 
   void checkPermission() {
-    _geolocator.checkGeolocationPermissionStatus().then((status) {
+    Geolocator.checkPermission().then((status) {
       print('status: $status');
     });
-    _geolocator
-        .checkGeolocationPermissionStatus(
-            locationPermission: GeolocationPermission.locationAlways)
-        .then((status) {
-      print('always status: $status');
-    });
-    _geolocator.checkGeolocationPermissionStatus(
-        locationPermission: GeolocationPermission.locationWhenInUse)
-      ..then((status) {
-        print('whenInUse status: $status');
-      });
+    // _geolocator
+    //     .checkGeolocationPermissionStatus(
+    //         locationPermission: GeolocationPermission.locationAlways)
+    //     .then((status) {
+    //   print('always status: $status');
+    // });
+    // _geolocator.checkGeolocationPermissionStatus(
+    //     locationPermission: GeolocationPermission.locationWhenInUse)
+    //   ..then((status) {
+    //     print('whenInUse status: $status');
+    //   });
   }
 
   @override
@@ -111,21 +112,25 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     nameNode = FocusNode();
     regionNode = FocusNode();
     addressNode = FocusNode();
-
     _geolocator = Geolocator();
-    LocationOptions locationOptions =
-        LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 1);
+    LocationSettings locationSettings =
+    LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 1);
 
     checkPermission();
 
-    _geolocator.getPositionStream(locationOptions).listen((Position position) {
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position position) {
       _position = position;
     });
+
+
+
+
   }
 
   void updateLocation() async {
     try {
-      Position newPosition = await Geolocator()
+      Position newPosition = await Geolocator
           .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
           .timeout(new Duration(seconds: 5));
 
@@ -323,7 +328,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                             setState(() {
                               regionValue = newValue;
                               selectedRegion = regionList[
-                                  regionValueList.lastIndexOf(newValue)];
+                                  regionValueList.lastIndexOf(newValue!)];
                               FocusScope.of(context).requestFocus(addressNode);
                             });
                           },
@@ -393,7 +398,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
               ),
             );
             if (selectedRegion == null) {
-              Scaffold.of(context).showSnackBar(addToCartSnackBar);
+              ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
             } else {
               await saveAddress().then((value) {
                 Navigator.of(context).pop();

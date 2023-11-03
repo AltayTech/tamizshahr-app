@@ -5,7 +5,7 @@ class Brand with ChangeNotifier {
   final String title;
   final String brand_img_url;
 
-  Brand({this.id, this.title, this.brand_img_url});
+  Brand({required this.id, required this.title, required this.brand_img_url});
 
   factory Brand.fromJson(Map<String, dynamic> parsedJson) {
     return Brand(

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:tamizshahr/models/sizes.dart';
 
 import '../models/social_media.dart';
 import 'feature.dart';
@@ -27,27 +28,29 @@ class Shop with ChangeNotifier {
   final String policy;
 
   Shop({
-    this.support_phone,
-    this.logo,
-    this.return_policy,
-    this.privacy,
-    this.how_to_order,
-    this.faq,
-    this.pay_methods_desc,
-    this.word_hours,
-    this.address,
-    this.social_media,
-    this.name,
-    this.subject,
-    this.slug,
-    this.phone,
-    this.mobile,
-    this.about,
-    this.features_list,
-    this.featured_image,
-    this.gallery,
-    this.policy,
-  });
+    this.support_phone = '',
+    logo,
+    this.return_policy = '',
+    this.privacy = '',
+    this.how_to_order = '',
+    this.faq = '',
+    this.pay_methods_desc = '',
+    this.word_hours = '',
+    this.address = '',
+    social_media = '',
+    this.name = '',
+    this.subject = '',
+    this.slug = '',
+    this.phone = '',
+    this.mobile = '',
+    this.about = '',
+    this.features_list = const [],
+    featured_image ,
+    this.gallery = const [],
+    this.policy = '',
+  }) : this.logo = FeaturedImage(sizes: Sizes()),
+        this.featured_image = FeaturedImage(sizes: Sizes()),
+        this.social_media =SocialMedia(telegram: '', instagram: '');
 
   factory Shop.fromJson(Map<String, dynamic> parsedJson) {
     var galleryList = parsedJson['gallery'] as List;

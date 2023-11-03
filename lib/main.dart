@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
         title: Strings.appTitle,
         theme: ThemeData(
           primarySwatch: Colors.green,
-          accentColor: Colors.amber,
+          // accentColor: Colors.amber,
           textTheme: ThemeData.light().textTheme.copyWith(
                 bodyText1: TextStyle(
                   fontFamily: 'Iransans',

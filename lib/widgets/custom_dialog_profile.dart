@@ -8,10 +8,10 @@ class CustomDialogProfile extends StatelessWidget {
   final Image image;
 
   CustomDialogProfile({
-    @required this.title,
-    @required this.description,
-    @required this.buttonText,
-    this.image,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.image,
   });
 
   @override
@@ -76,7 +76,7 @@ class CustomDialogProfile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   child: InkWell(
                     onTap: () {
-                      return Navigator.of(context).popAndPushNamed(ProfileScreen.routeName);
+                       Navigator.of(context).popAndPushNamed(ProfileScreen.routeName);
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height * 0.06,

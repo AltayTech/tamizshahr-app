@@ -40,7 +40,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید',
+        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
       ),
     );
   }
@@ -51,7 +51,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
       builder: (ctx) => CustomDialogProfile(
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید', image: Image.asset(''),
       ),
     );
   }
@@ -115,8 +115,8 @@ class _WasteCartScreenState extends State<WasteCartScreen>
     return price;
   }
 
-  AnimationController _totalPriceController;
-  Animation<double> _totalPriceAnimation;
+  late AnimationController _totalPriceController;
+  late Animation<double> _totalPriceAnimation;
 
   @override
   initState() {
@@ -245,7 +245,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                                       AnimatedBuilder(
                                         animation: _totalPriceAnimation,
                                         builder: (BuildContext context,
-                                            Widget child) {
+                                            Widget? child) {
                                           return Padding(
                                             padding: const EdgeInsets.only(
                                                 top: 4, bottom: 4),
@@ -396,7 +396,7 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                           ),
                         );
                         if (wasteCartItems.isEmpty) {
-                          Scaffold.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

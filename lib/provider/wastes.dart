@@ -17,13 +17,13 @@ class Wastes with ChangeNotifier {
   List<Waste> _wasteItems = [];
   List<WasteCart> _wasteCartItems = [];
   List<int> _wasteCartItemsId = [];
-  String _token;
+  late String _token;
 
   List<RequestWasteItem> _collectItems = [];
 
-  SearchDetail _searchDetails;
+  late SearchDetail _searchDetails;
 
-  RequestWasteItem _requestWasteItem;
+  late RequestWasteItem _requestWasteItem;
 
   Future<void> searchWastesItem() async {
     print('searchItem');
@@ -32,7 +32,7 @@ class Wastes with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -110,14 +110,14 @@ class Wastes with ChangeNotifier {
     try {
       if (isLogin) {
         final prefs = await SharedPreferences.getInstance();
-        _token = prefs.getString('token');
+        _token = prefs.getString('token')!;
         print('tooookkkeeennnnnn  $_token');
 
         final url = Urls.rootUrl + Urls.collectsEndPoint;
         print('url  $url');
         print(jsonEncode(request));
 
-        final response = await post(url,
+        final response = await post(Uri.parse(url),
             headers: {
               'Authorization': 'Bearer $_token',
               'Content-Type': 'application/json',
@@ -134,8 +134,8 @@ class Wastes with ChangeNotifier {
     }
   }
 
-  String _selectedHours;
-  Jalali _selectedDay;
+  late String _selectedHours;
+  late Jalali _selectedDay;
 
   String get selectedHours => _selectedHours;
 
@@ -189,10 +189,10 @@ class Wastes with ChangeNotifier {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('token');
+      _token = prefs.getString('token')!;
       print('tooookkkeeennnnnn  $_token');
 
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
 
         'Content-Type': 'application/json',
@@ -226,10 +226,10 @@ class Wastes with ChangeNotifier {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      _token = prefs.getString('token');
+      _token = prefs.getString('token')!;
       print('tooookkkeeennnnnn  $_token');
 
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'

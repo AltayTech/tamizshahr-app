@@ -19,23 +19,23 @@ class OrderDetails with ChangeNotifier {
 
 
   OrderDetails(
-      {this.id,
-      this.total_cost,
-        this.shenaseh,
-      this.order_register_date,
-      this.number_of_products,
-      this.products,
-      this.order_status,
-      this.order_status_slug,
-      this.pay_type,
-      this.pay_type_slug,
-      this.pish,
-      this.pay_status,
-      this.pay_status_slug,});
+      {required this.id,
+        required this.total_cost,
+        required this.shenaseh,
+        required  this.order_register_date,
+        required   this.number_of_products,
+        required   this.products,
+        required    this.order_status,
+        required   this.order_status_slug,
+        required   this.pay_type,
+        required   this.pay_type_slug,
+        required   this.pish,
+        required    this.pay_status,
+        required    this.pay_status_slug,});
 
   factory OrderDetails.fromJson(Map<String, dynamic> parsedJson) {
     var productList = parsedJson['products'] as List;
-    List<OrderItem> productRaw = new List<OrderItem>();
+    List<OrderItem> productRaw = [];
 
     productRaw = productList.map((i) => OrderItem.fromJson(i)).toList();
 

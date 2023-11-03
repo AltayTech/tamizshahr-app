@@ -5,10 +5,10 @@ class CustomDialog extends StatelessWidget {
   final Image image;
 
   CustomDialog({
-    @required this.title,
-    @required this.description,
-    @required this.buttonText,
-    this.image,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.image,
   });
 
   @override

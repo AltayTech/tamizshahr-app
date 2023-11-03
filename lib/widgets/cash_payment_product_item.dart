@@ -15,11 +15,11 @@ class CashPaymentProductItem extends StatelessWidget {
 
 
   CashPaymentProductItem({
-    this.id,
-    this.title,
-    this.color_selected,
-    this.price,
-    this.price_low,
+    this.id=0,
+    this.title='',
+    required this.color_selected,
+    this.price='0',
+    this.price_low='0',
 
   });
 

@@ -24,15 +24,15 @@ class _OrderViewScreenState extends State<OrderViewScreen> {
   var _isSelecGallary = false;
   var _isLoading;
 
-  bool _payIsActive;
+  late bool _payIsActive;
 
-  bool _uploadIsOk;
+  late bool _uploadIsOk;
   bool _isInit = true;
 
-  int orderId;
+  late int orderId;
   List<Gallery> _imageList = [];
 
-  OrderDetails orderDetails;
+  late OrderDetails orderDetails;
 
   _launchURL(String url) async {
     if (await canLaunch(url)) {
@@ -109,7 +109,7 @@ class _OrderViewScreenState extends State<OrderViewScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      orderId = ModalRoute.of(context).settings.arguments as int;
+      orderId = ModalRoute.of(context)?.settings.arguments as int;
 
       cashOrder();
     }
@@ -444,7 +444,7 @@ class _OrderViewScreenState extends State<OrderViewScreen> {
                                     },
                                   ),
                                 );
-                                Scaffold.of(context)
+                                ScaffoldMessenger.of(context)
                                     .showSnackBar(addToCartSnackBar);
                               }
                             },
@@ -523,13 +523,12 @@ class _OrderViewScreenState extends State<OrderViewScreen> {
 
 class OrderProductItem extends StatelessWidget {
   const OrderProductItem({
-    Key key,
-    @required this.id,
-    @required this.number,
-    @required this.price,
-    @required this.color,
-    @required this.title,
-  }) : super(key: key);
+    required this.id,
+    required this.number,
+    required this.price,
+    required this.color,
+    required this.title,
+  }) ;
 
   final int id;
   final String number;

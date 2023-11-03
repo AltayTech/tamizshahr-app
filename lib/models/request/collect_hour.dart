@@ -6,9 +6,9 @@ class CollectHour with ChangeNotifier {
   final bool collect_hour_status;
 
   CollectHour({
-    this.start,
-    this.end,
-    this.collect_hour_status,
+    required this.start,
+    required this.end,
+    required this.collect_hour_status,
   });
 
   factory CollectHour.fromJson(Map<String, dynamic> parsedJson) {

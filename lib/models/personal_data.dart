@@ -14,15 +14,15 @@ class PersonalData with ChangeNotifier {
   final String email;
 
   PersonalData({
-    this.phone,
-    this.first_name,
-    this.last_name,
-    this.email,
-    this.ostan,
-    this.city,
-    this.mobile,
-    this.addresses,
-    this.postcode,
+    this.phone='',
+    this.first_name='',
+    this.last_name='',
+    this.email='',
+    this.ostan='',
+    this.city='',
+    this.mobile='',
+    this.addresses=const [],
+    this.postcode='',
   });
 
   factory PersonalData.fromJson(Map<String, dynamic> parsedJson) {
@@ -48,7 +48,7 @@ class PersonalData with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    List<Map> addresses = this.addresses != null
+    List<Map>? addresses = this.addresses != null
         ? this.addresses.map((i) => i.toJson()).toList()
         : null;
 

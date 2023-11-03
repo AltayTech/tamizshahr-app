@@ -14,13 +14,13 @@ class OrderProducts with ChangeNotifier {
   final List<Collect> collect_list;
 
   OrderProducts({
-    this.total_price,
-    this.total_weight,
-    this.total_number,
-    this.collect_day,
-    this.collect_hours,
-    this.address_data,
-    this.collect_list,
+    required this.total_price,
+    required this.total_weight,
+    required  this.total_number,
+    required this.collect_day,
+    required this.collect_hours,
+    required this.address_data,
+    required this.collect_list,
   });
 
   factory OrderProducts.fromJson(Map<String, dynamic> parsedJson) {
@@ -40,10 +40,10 @@ class OrderProducts with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map address_data =
+    Map? address_data =
         this.address_data != null ? this.address_data.toJson() : null;
 
-    List<Map> collect_list = this.collect_list != null
+    List<Map>? collect_list = this.collect_list != null
         ? this.collect_list.map((i) => i.toJson()).toList()
         : null;
 

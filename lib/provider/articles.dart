@@ -14,7 +14,7 @@ class Articles with ChangeNotifier {
   List<int> _wasteCartItemsId = [];
   SearchDetail _searchDetails = SearchDetail(max_page: 1, total: 10);
 
-  Article _item;
+  late Article _item;
 
   String searchEndPoint = '';
 
@@ -57,7 +57,7 @@ class Articles with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -86,7 +86,7 @@ class Articles with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
@@ -112,7 +112,7 @@ class Articles with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(url, headers: {
+      final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });

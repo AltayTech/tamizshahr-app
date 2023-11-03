@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../provider/app_theme.dart';
 import '../../models/customer.dart';
+import '../../provider/app_theme.dart';
 import '../../widgets/main_drawer.dart';
 import '../../widgets/profile_view.dart';
 
@@ -10,7 +9,9 @@ class ProfileScreen extends StatefulWidget {
   static const routeName = '/profile';
   final Customer customer;
 
-  ProfileScreen({this.customer});
+  ProfileScreen({
+    customer,
+  }) : this.customer = Customer();
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();

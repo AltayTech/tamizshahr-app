@@ -29,7 +29,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
 
   int page = 1;
 
-  SearchDetail productsDetail;
+   SearchDetail productsDetail=SearchDetail();
 
   List<int> _selectedCategoryIndexes = [];
   int _selectedCategoryId = 0;
@@ -329,7 +329,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                       padding: const EdgeInsets.only(
                                           right: 4.0, left: 6),
                                       child: Text(
-                                        productsDetail != null
+                                        productsDetail.total != -1
                                             ? EnArConvertor().replaceArNumber(
                                                 productsDetail.total.toString())
                                             : EnArConvertor()
@@ -355,7 +355,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
                                       padding: const EdgeInsets.only(
                                           right: 4.0, left: 6),
                                       child: Text(
-                                        productsDetail != null
+                                        productsDetail.total != -1
                                             ? EnArConvertor().replaceArNumber(
                                                 productsDetail.total.toString())
                                             : EnArConvertor()

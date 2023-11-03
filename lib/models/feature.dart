@@ -4,7 +4,7 @@ class Feature with ChangeNotifier {
   final String feature;
 
   Feature({
-    this.feature,
+    required this.feature,
   });
 
   factory Feature.fromJson(Map<String, dynamic> parsedJson) {

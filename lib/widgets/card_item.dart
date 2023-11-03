@@ -16,8 +16,8 @@ class CardItem extends StatefulWidget {
   final Function callFunction;
 
   CardItem({
-    this.shoppItem,
-    this.callFunction,
+    required this.shoppItem,
+    required this.callFunction,
   });
 
   @override
@@ -29,7 +29,7 @@ class _CardItemState extends State<CardItem> {
 
   var _isLoading = true;
 
-  bool isLogin;
+  late bool isLogin;
 
   int productCount = 0;
 
@@ -293,7 +293,7 @@ class _CardItemState extends State<CardItem> {
                     width: deviceWidth * 0.1,
                     child: InkWell(
                       onTap: () {
-                        return removeItem();
+                         removeItem();
                       },
                       child: Icon(
                         Icons.close,
