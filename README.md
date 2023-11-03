@@ -1,16 +1,26 @@
-# tamizshahr
+# Tamizshahr
 
-Appliction of Tamiz Shahr
+Automatic recycler material gathering system app
 
-## Getting Started
+# Description
 
-This project is a starting point for a Flutter application.
+This application design and develop for providing facilites to automatic recycler material gathering.
+This app is user app. this system include other apps: driver app and storekeeper app.
 
-A few resources to get you started if this is your first Flutter project:
+![Mainpage.png](screenshots%2FMainpage.png)
+# Screanshots
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<img src="screenshots%2Fdevice-2019-07-01-115650.png" style="width: 200px;">    <img src="screenshots%2Fdevice-2019-07-01-115953.jpg" style="width: 200px; ">   <img src="screenshots%2Fdevice-2019-07-01-120055.jpg" style="width: 200px; ">
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+# Techincal information
+This app developed in flutter framework and dart programming.
+
+State management which is used in this app is provider.
+
+For location and map service we used google map api.
+
+
+# 
+
