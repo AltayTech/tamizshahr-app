@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart' as osm;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+
 // import 'package:geolocator/geolocator.dart';
 
 import '../models/region.dart';
@@ -48,6 +50,17 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
   late FocusNode nameNode;
   late FocusNode regionNode;
   late FocusNode addressNode;
+
+  // default constructor
+  osm.MapController controller = osm.MapController(
+    initPosition: osm.GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
+    areaLimit: osm.BoundingBox(
+      east: 10.4922941,
+      north: 47.8084648,
+      south: 45.817995,
+      west: 5.9559113,
+    ),
+  );
 
   @override
   void didChangeDependencies() async {
@@ -114,7 +127,7 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     addressNode = FocusNode();
     _geolocator = Geolocator();
     LocationSettings locationSettings =
-    LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 1);
+        LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 1);
 
     checkPermission();
 
@@ -122,16 +135,12 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
         .listen((Position position) {
       _position = position;
     });
-
-
-
-
   }
 
   void updateLocation() async {
     try {
-      Position newPosition = await Geolocator
-          .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+      Position newPosition = await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.high)
           .timeout(new Duration(seconds: 5));
 
       setState(() {
@@ -230,30 +239,112 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             textDirection: TextDirection.rtl,
             child: Column(
               children: <Widget>[
+
                 Container(
                   height: deviceHeight * 0.4,
                   child: Card(
-                    child: GoogleMap(
-                      onMapCreated: _onMapCreated,
-                      initialCameraPosition: CameraPosition(
-                        target: _lastMapPosition,
-                        zoom: 12.0,
-                      ),
-                      mapType: _currentMapType,
-                      markers: _markers,
-                      onCameraMove: _onCameraMove,
-                      myLocationEnabled: true,
-                      compassEnabled: true,
-                      scrollGesturesEnabled: true,
-                      mapToolbarEnabled: true,
-                      myLocationButtonEnabled: true,
-                      onTap: (location) {
-                        _onAddMarkerButtonPressed(location);
-                      },
-                      zoomGesturesEnabled: true,
-                      onLongPress: (location) =>
-                          _onAddMarkerButtonPressed(location),
+                    child: Stack(
+                      children: [
+
+                        osm.OSMFlutter(
+                            controller: controller,
+                            onGeoPointClicked: (location) {
+                              debugPrint(location.toString());
+                              _onAddMarkerButtonPressed(
+                                  LatLng(location.latitude, location.longitude));
+                            },
+                            osmOption: osm.OSMOption(
+                              userTrackingOption: osm.UserTrackingOption(
+                                enableTracking: true,
+                                unFollowUser: false,
+                              ),
+                              zoomOption: osm.ZoomOption(
+                                initZoom: 11,
+                                minZoomLevel: 3,
+                                maxZoomLevel: 19,
+                                stepZoom: 1.0,
+                              ),
+                              showZoomController: true,
+                              userLocationMarker: osm.UserLocationMaker(
+                                personMarker: osm.MarkerIcon(
+                                  icon: Icon(
+                                    Icons.location_history,
+                                    color: Colors.red,
+                                    size: 48,
+                                  ),
+                                ),
+                                directionArrowMarker: osm.MarkerIcon(
+                                  icon: Icon(
+                                    Icons.location_history,
+                                    size: 48,
+                                  ),
+                                ),
+                              ),
+                              roadConfiguration: osm.RoadOption(
+                                roadColor: Colors.yellowAccent,
+                              ),
+                              markerOption: osm.MarkerOption(
+                                  defaultMarker: osm.MarkerIcon(
+                                icon: Icon(
+                                  Icons.person_pin_circle,
+                                  color: Colors.blue,
+                                  size: 56,
+                                ),
+                              )),
+                            )),
+                        Positioned(
+                          right: 10,
+                          bottom: 10,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                osm.GeoPoint? p = await osm.showSimplePickerLocation(
+                                  context: context,
+                                  isDismissible: true,
+                                  title: "لطفا موقعیت مورد نظر  رو انتخاب کنید",
+                                  textConfirmPicker: "تایید",
+                                  textCancelPicker: "لغو",
+                                  zoomOption:osm.ZoomOption(
+                                    initZoom: 12,
+                                    minZoomLevel: 3,
+                                    maxZoomLevel: 19,
+                                    stepZoom: 1.0,
+                                  ) ,
+                                  initCurrentUserPosition:
+                                  osm.UserTrackingOption(enableTracking: true),
+                                );
+                                _onAddMarkerButtonPressed(
+                                    LatLng(p!.latitude, p.longitude));
+
+                                debugPrint(p.latitude.toString());
+                                debugPrint(p.longitude.toString());
+
+                              },
+                              child: Text('انتخاب')),
+                        ),
+                      ],
                     ),
+
+                    // GoogleMap(
+                    //   onMapCreated: _onMapCreated,
+                    //   initialCameraPosition: CameraPosition(
+                    //     target: _lastMapPosition,
+                    //     zoom: 12.0,
+                    //   ),
+                    //   mapType: _currentMapType,
+                    //   markers: _markers,
+                    //   onCameraMove: _onCameraMove,
+                    //   myLocationEnabled: true,
+                    //   compassEnabled: true,
+                    //   scrollGesturesEnabled: true,
+                    //   mapToolbarEnabled: true,
+                    //   myLocationButtonEnabled: true,
+                    //   onTap: (location) {
+                    //     _onAddMarkerButtonPressed(location);
+                    //   },
+                    //   zoomGesturesEnabled: true,
+                    //   onLongPress: (location) =>
+                    //       _onAddMarkerButtonPressed(location),
+                    // ),
                   ),
                 ),
                 InfoEditItem(
@@ -415,3 +506,13 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
     );
   }
 }
+// // default constructor
+// MapController controller = MapController(
+//   initPosition: GeoPoint(latitude: 47.4358055, longitude: 8.4737324),
+//   areaLimit: BoundingBox(
+//     east: 10.4922941,
+//     north: 47.8084648,
+//     south: 45.817995,
+//     west: 5.9559113,
+//   ),
+// );
