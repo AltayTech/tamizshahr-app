@@ -454,10 +454,14 @@ class _WasteCartScreenState extends State<WasteCartScreen>
         child: MainDrawer(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(
+        onPressed: ()async {
+          await Navigator.of(context).pushNamed(
             WastesScreen.routeName,
           );
+          getWasteItems();
+          setState(() {
+
+          });
         },
         backgroundColor: AppTheme.primary,
         child: Icon(
