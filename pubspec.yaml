@@ -26,7 +26,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   badges: ^3.1.2
-  geolocator:
+  geolocator: ^10.1.0
   flutter_osm_plugin: ^0.60.5
   dio: ^5.3.3
   dartz: ^0.10.1
@@ -36,42 +36,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   font_awesome_flutter: ^10.6.0
-#  material_design_icons_flutter: 4.0.5345
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
 
   uses-material-design: true
   assets:
-    - assets/images/splash_main.png
-    - assets/images/main_page_header.png
-    - assets/images/main_page_request_ic.png
-    - assets/images/main_page_article_ic.png
-    - assets/images/main_page_paper_ic.png
-    - assets/images/main_page_shop_ic.png
-    - assets/images/main_page_wallet_ic.png
-    - assets/images/address_page_header.png
-    - assets/images/login_bg.png
-    - assets/images/logo.jpg
-    - assets/images/phone_icon.png
-    - assets/images/instagram.png
-    - assets/images/telegram.png
-    - assets/images/circle.gif
-    - assets/images/circle2.gif
-    - assets/images/orders_list.png
-    - assets/images/message_icon.png
-    - assets/images/user_Icon.png
-    - assets/images/cash_pay_header.jpg
-    - assets/images/wallet_money_bg.png
-    - assets/images/collect_list_header.png
-    - assets/images/donation_ic.png
-    - assets/images/messages_screen_mail_ic.png
-    - assets/images/send_popup_tick.png
-    - assets/images/waste_cart_weight_ic.png
-    - assets/images/waste_cart_price_ic.png
+    - assets/images/
+
 
   fonts:
     #   - family: Schyler
