@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shamsi_date/shamsi_date.dart';
@@ -18,12 +19,12 @@ class Wastes with ChangeNotifier {
   List<WasteCart> _wasteCartItems = [];
   List<int> _wasteCartItemsId = [];
   late String _token;
-
   List<RequestWasteItem> _collectItems = [];
-
   late SearchDetail _searchDetails;
-
   late RequestWasteItem _requestWasteItem;
+
+  final Dio _dio = Dio();
+
 
   Future<void> searchWastesItem() async {
     print('searchItem');
@@ -32,13 +33,14 @@ class Wastes with ChangeNotifier {
     print(url);
 
     try {
-      final response = await get(Uri.parse(url), headers: {
+      final response = await _dio.get(url,
+          queryParameters: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
       print(response.statusCode);
       if (response.statusCode == 200) {
-        final extractedData = json.decode(response.body) as List<dynamic>;
+        final extractedData = response.data as List<dynamic>;
         print(extractedData);
 
         List<Waste> wastes =
