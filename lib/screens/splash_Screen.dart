@@ -11,18 +11,6 @@ class SplashScreens extends StatefulWidget {
 }
 
 class _SplashScreensState extends State<SplashScreens> {
-  bool _isInit = true;
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-//      Provider.of<Products>(context, listen: false).fetchAndSetHomeData();
-    }
-    _isInit = false;
-
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
