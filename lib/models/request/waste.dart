@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import '../featured_image.dart';
-import 'price_weight.dart';
 
+import '../featured_image.dart';
 import '../status.dart';
+import 'price_weight.dart';
 
 class Waste with ChangeNotifier {
   final int id;

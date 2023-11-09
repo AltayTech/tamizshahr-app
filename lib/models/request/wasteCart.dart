@@ -4,8 +4,6 @@ import '../featured_image.dart';
 import '../status.dart';
 import 'price_weight.dart';
 
-
-
 class WasteCart with ChangeNotifier {
   final int id;
   final String name;
@@ -13,16 +11,16 @@ class WasteCart with ChangeNotifier {
   final List<PriceWeight> prices;
   final Status status;
   final FeaturedImage featured_image;
-   int weight;
+  int weight;
 
   WasteCart({
     required this.id,
     required this.name,
-    required  this.excerpt,
-    required  this.prices,
-    required   this.status,
-    required  this.featured_image,
-    required  this.weight,
+    required this.excerpt,
+    required this.prices,
+    required this.status,
+    required this.featured_image,
+    required this.weight,
   });
 
   factory WasteCart.fromJson(Map<String, dynamic> parsedJson) {
@@ -37,7 +35,7 @@ class WasteCart with ChangeNotifier {
       prices: priceWeightRaw,
       status: Status.fromJson(parsedJson['Status']),
       featured_image: FeaturedImage.fromJson(parsedJson['featured_image']),
-      weight:  parsedJson['weight'],
+      weight: parsedJson['weight'],
     );
   }
 }

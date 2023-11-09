@@ -8,11 +8,11 @@ class RequestAddress with ChangeNotifier {
   final String longitude;
 
   RequestAddress({
-    this.name='',
-    this.address='',
-    this.region='',
-    this.latitude='',
-    this.longitude='',
+    this.name = '',
+    this.address = '',
+    this.region = '',
+    this.latitude = '',
+    this.longitude = '',
   });
 
   factory RequestAddress.fromJson(Map<String, dynamic> parsedJson) {
