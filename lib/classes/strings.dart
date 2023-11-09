@@ -4,7 +4,7 @@ class Strings {
   // NavigationBotton title
   static const navHome = 'خانه';
   static const navShop = 'فروشگاه';
-  static const navRequest= 'درخواست ها';
+  static const navRequest = 'درخواست ها';
   static const navProfile = 'پروفایل';
   static const navReservse = 'رزروها';
 

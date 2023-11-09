@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../models/request/address.dart';
 
 class AddressMain with ChangeNotifier {
   final List<Address> addressData;
 
   AddressMain({
-    this.addressData=const [],
+    this.addressData = const [],
   });
 
   factory AddressMain.fromJson(Map<String, dynamic> parsedJson) {

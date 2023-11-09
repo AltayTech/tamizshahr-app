@@ -4,9 +4,9 @@ class CollectTime {
   final String collect_done_time;
 
   CollectTime({
-    this.time='',
-    this.day='',
-    this.collect_done_time='',
+    this.time = '',
+    this.day = '',
+    this.collect_done_time = '',
   });
 
   factory CollectTime.fromJson(Map<String, dynamic> parsedJson) {

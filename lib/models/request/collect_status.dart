@@ -3,8 +3,8 @@ class CollectStatus {
   final String exact;
 
   CollectStatus({
-    this.estimated='',
-    this.exact='',
+    this.estimated = '',
+    this.exact = '',
   });
 
   factory CollectStatus.fromJson(Map<String, dynamic> parsedJson) {
