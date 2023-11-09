@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/category.dart';
-import '../models/order_send_details.dart';
 
+import '../models/category.dart';
 import '../models/color_code_card.dart';
 import '../models/color_code_product_detail.dart';
+import '../models/order_send_details.dart';
 import '../models/product.dart';
 import '../models/product_cart.dart';
 import '../models/product_main.dart';
@@ -67,7 +67,7 @@ class Products with ChangeNotifier {
     if (!(_sCategory == '' || _sCategory == null)) {
       searchEndPoint = searchEndPoint + '&category=$_sCategory';
     }
-    print(searchEndPoint);
+    debugPrint(searchEndPoint);
   }
 
   static Product _itemZero = Product();
@@ -102,7 +102,7 @@ class Products with ChangeNotifier {
     ColorCodeProductDetail colorId,
     int quantity,
   ) async {
-    print('addShopCart');
+    debugPrint('addShopCart');
     try {
       _cartItems.add(ProductCart(
           id: product.id,
@@ -112,32 +112,32 @@ class Products with ChangeNotifier {
           productCount: quantity));
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> updateShopCart(ProductCart product, ColorCodeCard colorId,
       int quantity, bool isLogin) async {
-    print('updateShopCart');
+    debugPrint('updateShopCart');
     try {
       _cartItems.firstWhere((prod) => prod.id == product.id).productCount =
           quantity;
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> removeShopCart(int productId) async {
-    print('removeShopCart');
+    debugPrint('removeShopCart');
 
     try {
       _cartItems.remove(_cartItems.firstWhere((prod) => prod.id == productId));
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
@@ -147,10 +147,10 @@ class Products with ChangeNotifier {
   }
 
   Future<void> retrieveCategory() async {
-    print('fetchAndSetHomeData');
+    debugPrint('fetchAndSetHomeData');
 
     final url = Urls.rootUrl + Urls.categoriesEndPoint;
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
@@ -159,38 +159,38 @@ class Products with ChangeNotifier {
       });
 
       final extractedData = json.decode(response.body) as List<dynamic>;
-      print(extractedData);
+      debugPrint(extractedData.toString());
 
       List<Category> categories =
           extractedData.map((i) => Category.fromJson(i)).toList();
-      print(categories[0].name);
+      debugPrint(categories[0].name);
 
       _categoryItems = categories;
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> searchItem() async {
-    print('searchItem');
+    debugPrint('searchItem');
 
     final url = Urls.rootUrl + Urls.productsEndPoint + '$searchEndPoint';
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         ProductMain productMain = ProductMain.fromJson(extractedData);
-        print(productMain.productsDetail.max_page.toString());
+        debugPrint(productMain.productsDetail.max_page.toString());
 
         _items = productMain.products;
         _searchDetails = productMain.productsDetail;
@@ -199,16 +199,16 @@ class Products with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> retrieveItem(int productId) async {
-    print('retrieveItem');
+    debugPrint('retrieveItem');
 
     final url = Urls.rootUrl + Urls.productsEndPoint + "/$productId";
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
@@ -216,15 +216,15 @@ class Products with ChangeNotifier {
         'Accept': 'application/json'
       });
       final extractedData = json.decode(response.body) as dynamic;
-      print(extractedData);
+      debugPrint(extractedData);
 
       Product product = Product.fromJson(extractedData);
-      print(product.id.toString());
-      print(product.description.toString());
+      debugPrint(product.id.toString());
+      debugPrint(product.description.toString());
 
       _item = product;
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
     notifyListeners();
@@ -261,15 +261,15 @@ class Products with ChangeNotifier {
   Future<void> sendRequest(
     OrderSendDetails request,
   ) async {
-    print('sendRequestOrder');
+    debugPrint('sendRequestOrder');
     try {
       final prefs = await SharedPreferences.getInstance();
       _token = prefs.getString('token')!;
-      print('tooookkkeeennnnnn  $_token');
+      debugPrint('tooookkkeeennnnnn  $_token');
 
       final url = Urls.rootUrl + Urls.orderEndPoint;
-      print('url  $url');
-      print(jsonEncode(request));
+      debugPrint('url  $url');
+      debugPrint(jsonEncode(request));
 
       final response = await post(Uri.parse(url),
           headers: {
@@ -280,13 +280,13 @@ class Products with ChangeNotifier {
           body: jsonEncode(request));
 
       final extractedData = json.decode(response.body);
-      print(extractedData);
+      debugPrint(extractedData);
 
-      print('qqqqqqqqqqqqqqggggggggq11111111111');
+      debugPrint('qqqqqqqqqqqqqqggggggggq11111111111');
 
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }

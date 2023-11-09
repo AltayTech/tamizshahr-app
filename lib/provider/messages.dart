@@ -18,7 +18,7 @@ class Messages with ChangeNotifier {
 
   Future<void> createMessage(String subject, String content,
       String comment_post_ID, String parent_id, bool isLogin) async {
-    print('createMessage');
+    debugPrint('createMessage');
     try {
       if (isLogin) {
         final prefs = await SharedPreferences.getInstance();
@@ -41,18 +41,18 @@ class Messages with ChangeNotifier {
 
         final extractedData = json.decode(response.body);
 
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> getMessages(String commentPostId, bool isLogin) async {
-    print('getMessages');
-    print(commentPostId);
+    debugPrint('getMessages');
+    debugPrint(commentPostId);
 
     try {
       if (isLogin) {
@@ -65,7 +65,7 @@ class Messages with ChangeNotifier {
             : Urls.rootUrl +
                 Urls.messageEndPoint +
                 '/$commentPostId';
-        print(url);
+        debugPrint(url);
 
         final response = await get(Uri.parse(url), headers: {
           'Authorization': 'Bearer $_token',
@@ -74,11 +74,11 @@ class Messages with ChangeNotifier {
         });
 
         final extractedData = json.decode(response.body) as List<dynamic>;
-        print(extractedData);
+        debugPrint(extractedData.toString());
 
         List<Message> messageList =
             extractedData.map((i) => Message.fromJson(i)).toList();
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         commentPostId == '0'
             ? _allMessages = messageList
@@ -86,7 +86,7 @@ class Messages with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
