@@ -6,9 +6,9 @@ class TypePost with ChangeNotifier {
   final String slug;
 
   TypePost({
-    this.term_id=0,
-    this.name='',
-    this.slug='',
+    this.term_id = 0,
+    this.name = '',
+    this.slug = '',
   });
 
   factory TypePost.fromJson(Map<String, dynamic> parsedJson) {

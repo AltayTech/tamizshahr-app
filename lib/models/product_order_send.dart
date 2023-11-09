@@ -5,10 +5,10 @@ class ProductOrderSend {
   final String price;
 
   ProductOrderSend({
-    this.product=1,
-    this.number='',
-    this.total_price='0.0',
-    this.price='0.0',
+    this.product = 1,
+    this.number = '',
+    this.total_price = '0.0',
+    this.price = '0.0',
   });
 
   factory ProductOrderSend.fromJson(Map<String, dynamic> parsedJson) {

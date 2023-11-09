@@ -14,15 +14,15 @@ class Order with ChangeNotifier {
   final List<ProductOrderReceive> products;
 
   Order({
-    required  this.id,
-    required  this.status,
-    required  this.pay_status,
-    required  this.pay_date,
-    required  this.pay_transaction,
-    required  this.send_date,
-    required   this.total_price,
-    required  this.total_number,
-    required  this.products,
+    required this.id,
+    required this.status,
+    required this.pay_status,
+    required this.pay_date,
+    required this.pay_transaction,
+    required this.send_date,
+    required this.total_price,
+    required this.total_number,
+    required this.products,
   });
 
   factory Order.fromJson(Map<String, dynamic> parsedJson) {
@@ -33,10 +33,13 @@ class Order with ChangeNotifier {
     return Order(
       id: parsedJson['id'],
       status: Status.fromJson(parsedJson['status']),
-      pay_status: parsedJson['pay_status']!=null?parsedJson['pay_status']:'',
-      pay_date: parsedJson['pay_date']!=null?parsedJson['pay_date']:'',
-      pay_transaction: parsedJson['pay_transaction']!=null?parsedJson['pay_transaction']:'',
-      send_date: parsedJson['send_date']!=null?parsedJson['send_date']:'',
+      pay_status:
+          parsedJson['pay_status'] != null ? parsedJson['pay_status'] : '',
+      pay_date: parsedJson['pay_date'] != null ? parsedJson['pay_date'] : '',
+      pay_transaction: parsedJson['pay_transaction'] != null
+          ? parsedJson['pay_transaction']
+          : '',
+      send_date: parsedJson['send_date'] != null ? parsedJson['send_date'] : '',
       total_price: parsedJson['total_price'],
       total_number: parsedJson['total_number'],
       products: productRaw,

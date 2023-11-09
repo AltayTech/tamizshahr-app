@@ -8,10 +8,10 @@ class ProductOrderReceive {
 
   ProductOrderReceive({
     product,
-    this.number='1',
-    this.total_price='0.0',
-    this.price='0.0',
-  }):this.product=Pasmand(id: 0, post_title: '');
+    this.number = '1',
+    this.total_price = '0.0',
+    this.price = '0.0',
+  }) : this.product = Pasmand(id: 0, post_title: '');
 
   factory ProductOrderReceive.fromJson(Map<String, dynamic> parsedJson) {
     return ProductOrderReceive(

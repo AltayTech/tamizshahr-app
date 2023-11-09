@@ -10,11 +10,11 @@ class Transaction with ChangeNotifier {
   final String operation;
 
   Transaction({
-    this.id=1,
+    this.id = 1,
     required this.transaction_type,
     required this.belongs,
-    this.money='0.0',
-    this.operation='',
+    this.money = '0.0',
+    this.operation = '',
   });
 
   factory Transaction.fromJson(Map<String, dynamic> parsedJson) {
@@ -32,9 +32,8 @@ class Transaction with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map? transaction_type =
-        this.transaction_type != null ? this.transaction_type.toJson() : null;
-    Map? belongs = this.belongs != null ? this.belongs.toJson() : null;
+    Map? transaction_type = this.transaction_type.toJson();
+    Map? belongs = this.belongs.toJson();
 
     return {
       'id': id,
