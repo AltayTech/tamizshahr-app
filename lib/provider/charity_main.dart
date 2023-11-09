@@ -1,14 +1,17 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/search_detail.dart';
 import '../models/charity.dart';
+import '../models/search_detail.dart';
 
 class CharityMain with ChangeNotifier {
   final SearchDetail charitiesDetail;
 
   final List<Charity> charities;
 
-  CharityMain({required this.charitiesDetail, required this.charities});
+  CharityMain({
+    required this.charitiesDetail,
+    required this.charities,
+  });
 
   factory CharityMain.fromJson(Map<String, dynamic> parsedJson) {
     var charitiesList = parsedJson['data'] as List;
