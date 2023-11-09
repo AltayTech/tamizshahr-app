@@ -19,17 +19,18 @@ class RequestWasteItem with ChangeNotifier {
   final List<Collect> collect_list;
   final Driver driver;
 
-  RequestWasteItem(
-      {required this.id,
-      required this.status,
-      required this.collect_type,
-        required this.total_collects_price,
-        required this.total_collects_weight,
-        required this.total_collects_number,
-        required this.collect_date,
-        required this.address_data,
-        required  this.collect_list,
-        required this.driver,});
+  RequestWasteItem({
+    required this.id,
+    required this.status,
+    required this.collect_type,
+    required this.total_collects_price,
+    required this.total_collects_weight,
+    required this.total_collects_number,
+    required this.collect_date,
+    required this.address_data,
+    required this.collect_list,
+    required this.driver,
+  });
 
   factory RequestWasteItem.fromJson(Map<String, dynamic> parsedJson) {
     var collectList = parsedJson['collect_list'] as List;
@@ -63,21 +64,15 @@ class RequestWasteItem with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map? address = this.address_data != null ? this.address_data.toJson() : null;
-    Map? status = this.status != null ? this.status.toJson() : null;
-    Map? driver = this.driver != null ? this.driver.toJson() : null;
-    Map? total_price =
-        this.total_collects_price != null ? this.total_collects_price.toJson() : null;
-    Map? total_weight =
-        this.total_collects_weight != null ? this.total_collects_weight.toJson() : null;
-    Map? total_number =
-        this.total_collects_number != null ? this.total_collects_number.toJson() : null;
-    Map? collect_time =
-        this.collect_date != null ? this.collect_date.toJson() : null;
+    Map? address = this.address_data.toJson();
+    Map? status = this.status.toJson();
+    Map? driver = this.driver.toJson();
+    Map? total_price = this.total_collects_price.toJson();
+    Map? total_weight = this.total_collects_weight.toJson();
+    Map? total_number = this.total_collects_number.toJson();
+    Map? collect_time = this.collect_date.toJson();
 
-    List<Map>? collect_list = this.collect_list != null
-        ? this.collect_list.map((i) => i.toJson()).toList()
-        : null;
+    List<Map>? collect_list = this.collect_list.map((i) => i.toJson()).toList();
 
     return {
       'id': id,
