@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:tamizshahr/models/article/article_main.dart';
+
 import '../models/article/article.dart';
 import '../models/category.dart';
 import '../models/search_detail.dart';
-
 import 'urls.dart';
 
 class Articles with ChangeNotifier {
@@ -53,7 +53,7 @@ class Articles with ChangeNotifier {
   Future<void> searchItem() async {
     print('searchItem');
 
-    final url = Urls.rootUrl + Urls.articlesEndPoint+searchEndPoint;
+    final url = Urls.rootUrl + Urls.articlesEndPoint + searchEndPoint;
     print(url);
 
     try {

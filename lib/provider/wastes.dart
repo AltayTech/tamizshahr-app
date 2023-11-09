@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../models/request/collect_main.dart';
 import '../models/request/request_waste.dart';
 import '../models/request/request_waste_item.dart';
+import '../models/request/waste.dart';
 import '../models/request/wasteCart.dart';
 import '../models/search_detail.dart';
-
-import '../models/request/waste.dart';
 import 'urls.dart';
 
 class Wastes with ChangeNotifier {
@@ -26,20 +26,20 @@ class Wastes with ChangeNotifier {
   late RequestWasteItem _requestWasteItem;
 
   Future<void> searchWastesItem() async {
-    print('searchItem');
+    debugPrint('searchItem');
 
     final url = Urls.rootUrl + Urls.pasmandsEndPoint;
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body) as List<dynamic>;
-        print(extractedData);
+        debugPrint(extractedData.toString());
 
         List<Waste> wastes =
             extractedData.map((i) => Waste.fromJson(i)).toList();
@@ -50,13 +50,13 @@ class Wastes with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> addWasteCart(Waste waste, int weight) async {
-    print('addWasteCart');
+    debugPrint('addWasteCart');
     try {
       _wasteCartItems.add(WasteCart(
           id: waste.id,
@@ -69,25 +69,25 @@ class Wastes with ChangeNotifier {
       _wasteCartItemsId.add(waste.id);
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> updateWasteCart(WasteCart waste, int quantity) async {
-    print('updateShopCart');
+    debugPrint('updateShopCart');
     try {
       _wasteCartItems.firstWhere((prod) => prod.id == waste.id).weight =
           quantity;
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> removeWasteCart(int wasteId) async {
-    print('removeShopCart');
+    debugPrint('removeShopCart');
 
     _wasteCartItems
         .remove(_wasteCartItems.firstWhere((prod) => prod.id == wasteId));
@@ -106,16 +106,16 @@ class Wastes with ChangeNotifier {
   List<int> get wasteCartItemsId => _wasteCartItemsId;
 
   Future<void> sendRequest(RequestWaste request, bool isLogin) async {
-    print('sendRequest');
+    debugPrint('sendRequest');
     try {
       if (isLogin) {
         final prefs = await SharedPreferences.getInstance();
         _token = prefs.getString('token')!;
-        print('tooookkkeeennnnnn  $_token');
+        debugPrint('tooookkkeeennnnnn  $_token');
 
         final url = Urls.rootUrl + Urls.collectsEndPoint;
-        print('url  $url');
-        print(jsonEncode(request));
+        debugPrint('url  $url');
+        debugPrint(jsonEncode(request));
 
         final response = await post(Uri.parse(url),
             headers: {
@@ -129,7 +129,7 @@ class Wastes with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
@@ -178,33 +178,32 @@ class Wastes with ChangeNotifier {
     if (!(_sCategory == '' || _sCategory == null)) {
       searchEndPoint = searchEndPoint + '&category=$_sCategory';
     }
-    print(searchEndPoint);
+    debugPrint(searchEndPoint);
   }
 
   Future<void> searchCollectItems() async {
-    print('searchCollectItems');
+    debugPrint('searchCollectItems');
 
     final url = Urls.rootUrl + Urls.collectsEndPoint + '$searchEndPoint';
-    print(url);
+    debugPrint(url);
 
     try {
       final prefs = await SharedPreferences.getInstance();
       _token = prefs.getString('token')!;
-      print('tooookkkeeennnnnn  $_token');
+      debugPrint('tooookkkeeennnnnn  $_token');
 
       final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
-
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         CollectMain collectMain = CollectMain.fromJson(extractedData);
-        print(collectMain.searchDetail.max_page.toString());
+        debugPrint(collectMain.searchDetail.max_page.toString());
 
         _collectItems = collectMain.requestWasteItem;
         _searchDetails = collectMain.searchDetail;
@@ -213,21 +212,21 @@ class Wastes with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> retrieveCollectItem(int collectId) async {
-    print('retrieveCollectItem');
+    debugPrint('retrieveCollectItem');
 
     final url = Urls.rootUrl + Urls.collectsEndPoint + "/$collectId";
-    print(url);
+    debugPrint(url);
 
     try {
       final prefs = await SharedPreferences.getInstance();
       _token = prefs.getString('token')!;
-      print('tooookkkeeennnnnn  $_token');
+      debugPrint('tooookkkeeennnnnn  $_token');
 
       final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
@@ -235,15 +234,15 @@ class Wastes with ChangeNotifier {
         'Accept': 'application/json'
       });
       final extractedData = json.decode(response.body) as dynamic;
-      print(extractedData);
+      debugPrint(extractedData);
 
       RequestWasteItem requestWasteItem =
           RequestWasteItem.fromJson(extractedData);
-      print(requestWasteItem.id.toString());
+      debugPrint(requestWasteItem.id.toString());
 
       _requestWasteItem = requestWasteItem;
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
     notifyListeners();

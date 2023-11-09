@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:tamizshahr/models/sizes.dart';
+
 import '../models/featured_image.dart';
+
 class DriverData with ChangeNotifier {
   final FeaturedImage driver_image;
   final String fname;
@@ -15,29 +17,29 @@ class DriverData with ChangeNotifier {
 
   DriverData({
     driver_image,
-    this.phone='',
-    this.fname='',
-    this.lname='',
-    this.email='',
-    this.ostan='',
-    this.city='',
-    this.mobile='',
-    this.address='',
-    this.postcode='',
-  }): this.driver_image=FeaturedImage(sizes: Sizes());
+    this.phone = '',
+    this.fname = '',
+    this.lname = '',
+    this.email = '',
+    this.ostan = '',
+    this.city = '',
+    this.mobile = '',
+    this.address = '',
+    this.postcode = '',
+  }) : this.driver_image = FeaturedImage(sizes: Sizes());
 
   factory DriverData.fromJson(Map<String, dynamic> parsedJson) {
     return DriverData(
       driver_image: parsedJson['driver_image'] != null
           ? FeaturedImage.fromJson(parsedJson['driver_image'])
           : FeaturedImage(
-          id: 0,
-          title: '',
-          sizes: Sizes(
-            large: '',
-            medium: '',
-            thumbnail: '',
-          )),
+              id: 0,
+              title: '',
+              sizes: Sizes(
+                large: '',
+                medium: '',
+                thumbnail: '',
+              )),
       phone: parsedJson['phone'] != null ? parsedJson['phone'] : '',
       fname: parsedJson['fname'] != null ? parsedJson['fname'] : '',
       lname: parsedJson['lname'] != null ? parsedJson['lname'] : '',

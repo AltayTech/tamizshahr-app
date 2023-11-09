@@ -61,32 +61,32 @@ class Clearings with ChangeNotifier {
     if (!(_sCategory == '' || _sCategory == null)) {
       searchEndPoint = searchEndPoint + '&category=$_sCategory';
     }
-    print(searchEndPoint);
+    debugPrint(searchEndPoint);
   }
 
   Future<void> searchCleaingsItems() async {
-    print('searchCleaingsItems');
+    debugPrint('searchCleaingsItems');
 
     final url = Urls.rootUrl + Urls.clearingEndPoint + '$searchEndPoint';
-    print(url);
+    debugPrint(url);
 
     try {
       final prefs = await SharedPreferences.getInstance();
       _token = prefs.getString('token')!;
-      print('tooookkkeeennnnnn  $_token');
+      debugPrint('tooookkkeeennnnnn  $_token');
 
       final response = await get(Uri.parse(url), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         ClearingMain deliveryMain = ClearingMain.fromJson(extractedData);
-        print(deliveryMain.searchDetail.max_page.toString());
+        debugPrint(deliveryMain.searchDetail.max_page.toString());
 
         _deliveriesItems = deliveryMain.clearings;
         _searchDetails = deliveryMain.searchDetail;
@@ -95,7 +95,7 @@ class Clearings with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }

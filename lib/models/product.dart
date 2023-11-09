@@ -18,10 +18,6 @@ class Product with ChangeNotifier {
   final List<FeaturedImage> gallery;
   final Status status;
 
-//  final List<Brand> brand;
-//  final List<MetaData> sellcase;
-//  final List<ColorCodeProductDetail> color;
-
   Product({
     this.id = 0,
     this.name = '',
@@ -32,12 +28,9 @@ class Product with ChangeNotifier {
     this.description = '',
     category,
     featured_image,
-    this.gallery=const[],
+    this.gallery = const [],
     status,
-//    this.brand,
-//    this.sellcase,
-//    this.color,
-  })  :     this.status=Status(term_id: 0, name: '', slug: ''),
+  })  : this.status = Status(term_id: 0, name: '', slug: ''),
         this.featured_image = FeaturedImage(sizes: Sizes()),
         this.category = Category(term_id: 0, name: '', slug: '');
 

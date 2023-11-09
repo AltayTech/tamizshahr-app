@@ -14,25 +14,24 @@ class PersonalData with ChangeNotifier {
   final String email;
 
   PersonalData({
-    this.phone='',
-    this.first_name='',
-    this.last_name='',
-    this.email='',
-    this.ostan='',
-    this.city='',
-    this.mobile='',
-    this.addresses=const [],
-    this.postcode='',
+    this.phone = '',
+    this.first_name = '',
+    this.last_name = '',
+    this.email = '',
+    this.ostan = '',
+    this.city = '',
+    this.mobile = '',
+    this.addresses = const [],
+    this.postcode = '',
   });
 
   factory PersonalData.fromJson(Map<String, dynamic> parsedJson) {
-    List<Address> addressRaw=[];
-    if( parsedJson['address_data']!=null) {
+    List<Address> addressRaw = [];
+    if (parsedJson['address_data'] != null) {
       var addressList = parsedJson['address_data'] as List;
-      addressRaw=
-      addressList.map((i) => Address.fromJson(i)).toList();
-    }else{
-      addressRaw=[];
+      addressRaw = addressList.map((i) => Address.fromJson(i)).toList();
+    } else {
+      addressRaw = [];
     }
     return PersonalData(
       phone: parsedJson['phone'] != null ? parsedJson['phone'] : '',
@@ -48,9 +47,7 @@ class PersonalData with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    List<Map>? addresses = this.addresses != null
-        ? this.addresses.map((i) => i.toJson()).toList()
-        : null;
+    List<Map>? addresses = this.addresses.map((i) => i.toJson()).toList();
 
     return {
       'phone': phone,

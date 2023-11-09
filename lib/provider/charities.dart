@@ -35,24 +35,24 @@ class Charities with ChangeNotifier {
       searchEndPoint = searchEndPoint + '?page=$_sPage&per_page=$_sPerPage';
     }
 
-    print(searchEndPoint);
+    debugPrint(searchEndPoint);
   }
 
   Future<void> searchCharitiesItem() async {
-    print('searchCharityItem');
+    debugPrint('searchCharityItem');
 
     final url = Urls.rootUrl + Urls.charitiesEndPoint + searchEndPoint;
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-        print(extractedData);
+        debugPrint(extractedData);
         CharityMain charityMain = CharityMain.fromJson(extractedData);
 
         _charitiesItems = charityMain.charities;
@@ -62,16 +62,16 @@ class Charities with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> retrieveCharityItem(int charityId) async {
-    print('retrieveCharityItemvvvvv');
+    debugPrint('retrieveCharityItemvvvvv');
 
     final url = Urls.rootUrl + Urls.charitiesEndPoint + "/$charityId";
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
@@ -79,14 +79,14 @@ class Charities with ChangeNotifier {
         'Accept': 'application/json'
       });
       final extractedData = json.decode(response.body) as dynamic;
-      print(extractedData);
+      debugPrint(extractedData);
 
       Charity charity = Charity.fromJson(extractedData);
-      print(charity.id.toString());
+      debugPrint(charity.id.toString());
 
       _item = charity;
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
     notifyListeners();
@@ -111,15 +111,15 @@ class Charities with ChangeNotifier {
   Charity get item => _item;
 
   Future<void> sendCharityRequest(int charityId, String totalPrice) async {
-    print('sendCharityRequest');
+    debugPrint('sendCharityRequest');
     try {
       final prefs = await SharedPreferences.getInstance();
       _token = prefs.getString('token')!;
-      print('tooookkkeeennnnnn  $_token');
+      debugPrint('tooookkkeeennnnnn  $_token');
 
       final url = Urls.rootUrl + Urls.charitiesEndPoint;
-      print('url  $url');
-      print(jsonEncode({
+      debugPrint('url  $url');
+      debugPrint(jsonEncode({
         "charity_id": charityId,
         "total_price": totalPrice,
       }));
@@ -136,13 +136,13 @@ class Charities with ChangeNotifier {
           }));
 
       final extractedData = json.decode(response.body);
-      print(extractedData);
+      debugPrint(extractedData);
 
-      print('qqqqqqqqqqqqqqggggggggq11111111111');
+      debugPrint('qqqqqqqqqqqqqqggggggggq11111111111');
 
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }

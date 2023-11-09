@@ -15,9 +15,7 @@ class Urls {
   static const charitiesEndPoint = '/charities';
   static const provincesEndPoint = '/provinces';
   static const typesEndPoint = '/customer/types';
-  static const clearingEndPoint='/clearings';
-
-
+  static const clearingEndPoint = '/clearings';
 
   static const shopEndPoint = '/info';
   static const messageEndPoint = '/messages';

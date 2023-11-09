@@ -2,7 +2,10 @@ class SocialMedia {
   final String telegram;
   final String instagram;
 
-  SocialMedia({required this.telegram, required this.instagram});
+  SocialMedia({
+    required this.telegram,
+    required this.instagram,
+  });
 
   factory SocialMedia.fromJson(Map<String, dynamic> parsedJson) {
     return SocialMedia(

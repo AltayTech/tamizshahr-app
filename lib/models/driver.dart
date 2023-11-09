@@ -10,11 +10,11 @@ class Driver with ChangeNotifier {
   final DriverData driver_data;
 
   Driver({
-    required   this.status,
-    required   this.car,
-    required    this.car_color,
-    required  this.car_number,
-    required  this.driver_data,
+    required this.status,
+    required this.car,
+    required this.car_color,
+    required this.car_number,
+    required this.driver_data,
   });
 
   factory Driver.fromJson(Map<String, dynamic> parsedJson) {
@@ -29,7 +29,7 @@ class Driver with ChangeNotifier {
           ? Status.fromJson(parsedJson['car_color'])
           : Status(term_id: 0, name: '', slug: ''),
       car_number:
-      parsedJson['car_number'] != null ? parsedJson['car_number'] : '',
+          parsedJson['car_number'] != null ? parsedJson['car_number'] : '',
       driver_data: parsedJson['driver_data'] != null
           ? DriverData.fromJson(parsedJson['driver_data'])
           : DriverData(),

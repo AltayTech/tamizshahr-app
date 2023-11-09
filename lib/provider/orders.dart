@@ -42,14 +42,14 @@ class Orders with ChangeNotifier {
       searchEndPoint = searchEndPoint + '&orderby=$_sOrderBy';
     }
 
-    print(searchEndPoint);
+    debugPrint(searchEndPoint);
   }
 
   Future<void> searchOrderItems() async {
-    print('searchOrderItems');
+    debugPrint('searchOrderItems');
 
     final url = Urls.rootUrl + Urls.orderEndPoint + '$searchEndPoint';
-    print(url);
+    debugPrint(url);
     final prefs = await SharedPreferences.getInstance();
 
     _token = prefs.getString('token')!;
@@ -60,13 +60,13 @@ class Orders with ChangeNotifier {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       });
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         OrdersMain ordersMain = OrdersMain.fromJson(extractedData);
-        print(ordersMain.searchDetail.max_page.toString());
+        debugPrint(ordersMain.searchDetail.max_page.toString());
 
         _ordersItems = ordersMain.transactions;
         _searchDetails = ordersMain.searchDetail;
@@ -75,16 +75,16 @@ class Orders with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> retrieveOrderItem(int ordrId) async {
-    print('retrieveOrderItem');
+    debugPrint('retrieveOrderItem');
 
     final url = Urls.rootUrl + Urls.orderEndPoint + "/$ordrId";
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(url as Uri, headers: {
@@ -92,13 +92,13 @@ class Orders with ChangeNotifier {
         'Accept': 'application/json'
       });
       final extractedData = json.decode(response.body) as dynamic;
-      print(extractedData);
+      debugPrint(extractedData);
 
       Order order = Order.fromJson(extractedData);
 
       _orderItem = order;
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
     notifyListeners();

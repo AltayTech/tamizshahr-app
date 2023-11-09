@@ -42,24 +42,24 @@ class Auth with ChangeNotifier {
 
   bool get isAuth {
     getToken();
-    return _token != null && _token != '';
+    return _token != '';
   }
 
   String get token => _token;
   Map<String, String> headers = {};
 
   Future<bool> _authenticate(String urlSegment) async {
-    print('_authenticate');
+    debugPrint('_authenticate');
 
     final url = Urls.rootUrl + Urls.loginEndPoint + urlSegment;
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await http.post(Uri.parse(url), headers: headers);
       updateCookie(response);
 
       final responseData = json.decode(response.body);
-      print(responseData);
+      debugPrint(responseData);
 
       if (responseData != 'false') {
         try {
@@ -74,7 +74,7 @@ class Auth with ChangeNotifier {
           );
           prefs.setString('userData', userData);
           prefs.setString('token', _token);
-          print(_token);
+          debugPrint(_token);
           prefs.setString('isLogin', 'true');
           _isLoggedin = true;
         } catch (error) {
@@ -88,13 +88,13 @@ class Auth with ChangeNotifier {
 
         _token = '';
         prefs.setString('token', _token);
-        print(_token);
-        print('noooo token');
+        debugPrint(_token);
+        debugPrint('noooo token');
         prefs.setString('isLogin', 'true');
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw error;
     }
     return _isLoggedin;
@@ -145,7 +145,7 @@ class Auth with ChangeNotifier {
 
         final extractedData = json.decode(response.body) as dynamic;
 
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
         bool isCompleted = extractedData['complete'];
 
         _isCompleted = isCompleted;
@@ -154,7 +154,7 @@ class Auth with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
 
@@ -165,8 +165,8 @@ class Auth with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
     _token = '';
-    print('toookeeen');
-    print(prefs.getString('token'));
+    debugPrint('toookeeen');
+    debugPrint(prefs.getString('token'));
     notifyListeners();
   }
 
@@ -179,7 +179,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> getAddresses() async {
-    print('getAddresses');
+    debugPrint('getAddresses');
     try {
       if (isAuth) {
         final prefs = await SharedPreferences.getInstance();
@@ -198,12 +198,12 @@ class Auth with ChangeNotifier {
 
         final extractedData = json.decode(response.body);
 
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
         AddressMain addressMain = AddressMain.fromJson(extractedData);
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         List<Address> addresseList = addressMain.addressData;
-        print('sssssssssssssssssssssssssss ${addresseList.length}');
+        debugPrint('sssssssssssssssssssssssssss ${addresseList.length}');
 
         _addressItems = addresseList;
       } else {
@@ -211,22 +211,22 @@ class Auth with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> updateAddress(List<Address> addressList) async {
-    print('addAddress');
+    debugPrint('addAddress');
     try {
       if (isAuth) {
         final prefs = await SharedPreferences.getInstance();
         _token = prefs.getString('token')!;
-        print('tooookkkkeeennnn    $_token');
+        debugPrint('tooookkkkeeennnn    $_token');
 
         final url = Urls.rootUrl + Urls.addressEndPoint;
-        print('url  $url');
-        print(jsonEncode(AddressMain(
+        debugPrint('url  $url');
+        debugPrint(jsonEncode(AddressMain(
           addressData: addressList,
         )));
 
@@ -243,20 +243,20 @@ class Auth with ChangeNotifier {
         final extractedData = json.decode(response.body);
 
         AddressMain addressMain = AddressMain.fromJson(extractedData);
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         List<Address> addresses = addressMain.addressData;
-        print('ییییییییییییییییییی  ${addresses.length}');
+        debugPrint('ییییییییییییییییییی  ${addresses.length}');
 
         _addressItems = addresses;
       } else {
-        print('qqqqqqqqqqqqqqggggggggq');
+        debugPrint('qqqqqqqqqqqqqqggggggggq');
 
         _addressItems = addressList;
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
@@ -264,7 +264,7 @@ class Auth with ChangeNotifier {
   List<Address> get addressItems => _addressItems;
 
   Future<void> getOrder(List<Address> addressList) async {
-    print('addAddress');
+    debugPrint('addAddress');
     try {
       if (isAuth) {
         final prefs = await SharedPreferences.getInstance();
@@ -283,7 +283,7 @@ class Auth with ChangeNotifier {
 
         final extractedData = json.decode(response.body);
 
-        print(extractedData.toString());
+        debugPrint(extractedData.toString());
 
         _addressItems = addressList;
       } else {
@@ -291,19 +291,19 @@ class Auth with ChangeNotifier {
       }
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
 
   Future<void> selectAddress(Address address) async {
-    print('selectAddress');
+    debugPrint('selectAddress');
     try {
       _selectedAddress = address;
 
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
@@ -311,7 +311,7 @@ class Auth with ChangeNotifier {
   Address get selectedAddress => _selectedAddress;
 
   Future<void> retrieveRegionList() async {
-    print('retrieveRegionList');
+    debugPrint('retrieveRegionList');
 
     final url = Urls.rootUrl + Urls.regionEndPoint;
 
@@ -322,18 +322,18 @@ class Auth with ChangeNotifier {
       });
 
       final extractedData = json.decode(response.body) as List;
-      print(extractedData);
+      debugPrint(extractedData.toString());
 
       List<Region> regionList = [];
 
       regionList = extractedData.map((i) => Region.fromJson(i)).toList();
-      print(regionList.length);
+      debugPrint(regionList.length.toString());
 
       _regionItems = regionList;
 
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }
@@ -341,10 +341,10 @@ class Auth with ChangeNotifier {
   List<Region> get regionItems => _regionItems;
 
   Future<void> retrieveRegion(int regionId) async {
-    print('retrieveRegion');
+    debugPrint('retrieveRegion');
 
     final url = Urls.rootUrl + Urls.regionEndPoint + '/$regionId';
-    print(url);
+    debugPrint(url);
 
     try {
       final response = await get(Uri.parse(url), headers: {
@@ -353,13 +353,13 @@ class Auth with ChangeNotifier {
       });
 
       final extractedData = json.decode(response.body);
-      print(extractedData);
+      debugPrint(extractedData);
 
       _regionData = Region.fromJson(extractedData);
 
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      debugPrint(error.toString());
       throw (error);
     }
   }

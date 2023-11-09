@@ -45,12 +45,12 @@ class Shop with ChangeNotifier {
     this.mobile = '',
     this.about = '',
     this.features_list = const [],
-    featured_image ,
+    featured_image,
     this.gallery = const [],
     this.policy = '',
-  }) : this.logo = FeaturedImage(sizes: Sizes()),
+  })  : this.logo = FeaturedImage(sizes: Sizes()),
         this.featured_image = FeaturedImage(sizes: Sizes()),
-        this.social_media =SocialMedia(telegram: '', instagram: '');
+        this.social_media = SocialMedia(telegram: '', instagram: '');
 
   factory Shop.fromJson(Map<String, dynamic> parsedJson) {
     var galleryList = parsedJson['gallery'] as List;
