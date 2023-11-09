@@ -44,8 +44,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: widget.seconds), () {
       if (widget.navigateAfterSeconds is String) {
-        // It's fairly safe to assume this is using the in-built material
-        // named route component
         Navigator.of(context).pushReplacementNamed(widget.navigateAfterSeconds);
       } else if (widget.navigateAfterSeconds is Widget) {
         Navigator.of(context).pushReplacement(new MaterialPageRoute(
@@ -67,13 +65,11 @@ class _SplashScreenState extends State<SplashScreen> {
           children: <Widget>[
             new Container(
               height: MediaQuery.of(context).size.height,
-              decoration: new BoxDecoration(
-                image: widget.imageBackground == null
-                    ? null
-                    : new DecorationImage(
-                        fit: BoxFit.cover,
-                        image: widget.imageBackground,
-                      ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: widget.imageBackground,
+                ),
                 gradient: widget.gradientBackground,
                 color: widget.backgroundColor,
               ),
@@ -116,9 +112,6 @@ class _SplashScreenState extends State<SplashScreen> {
                           );
                         },
                       ),
-//                      CircularProgressIndicator(
-//                        valueColor: new AlwaysStoppedAnimation<Color>(widget.loaderColor),
-//                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                       ),
