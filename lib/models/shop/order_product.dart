@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../models/request/collect.dart';
 import '../../models/request/request_address.dart';
-
-
 
 class OrderProducts with ChangeNotifier {
   final String total_price;
@@ -16,7 +15,7 @@ class OrderProducts with ChangeNotifier {
   OrderProducts({
     required this.total_price,
     required this.total_weight,
-    required  this.total_number,
+    required this.total_number,
     required this.collect_day,
     required this.collect_hours,
     required this.address_data,
@@ -40,12 +39,9 @@ class OrderProducts with ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() {
-    Map? address_data =
-        this.address_data != null ? this.address_data.toJson() : null;
+    Map? address_data = this.address_data.toJson();
 
-    List<Map>? collect_list = this.collect_list != null
-        ? this.collect_list.map((i) => i.toJson()).toList()
-        : null;
+    List<Map>? collect_list = this.collect_list.map((i) => i.toJson()).toList();
 
     return {
       'total_price': total_price,

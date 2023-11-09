@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tamizshahr/models/article/article_cat.dart';
 
-import 'article_cat.dart';
 
 class Article with ChangeNotifier {
   final int id;
@@ -15,7 +15,7 @@ class Article with ChangeNotifier {
     required this.title,
     required this.content,
     required this.post_date_gmt,
-    required  this.category,
+    required this.category,
     required this.featured_image,
   });
 

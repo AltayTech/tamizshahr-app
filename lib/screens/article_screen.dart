@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-import '../models/article.dart';
+import '../models/article/article.dart';
 import '../models/category.dart';
 import '../models/search_detail.dart';
 import '../provider/app_theme.dart';

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
-import '../models/article.dart';
+import '../models/article/article.dart';
 import '../provider/app_theme.dart';
 import '../screens/article_detail_screen.dart';
 import 'en_to_ar_number_convertor.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tamizshahr/models/charity.dart';
-import 'package:tamizshahr/models/charity_main.dart';
+import 'package:tamizshahr/provider/charity_main.dart';
 
 import '../models/search_detail.dart';
 import 'urls.dart';
