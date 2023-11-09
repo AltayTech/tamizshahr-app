@@ -12,28 +12,28 @@ class CharityData with ChangeNotifier {
   final String email;
 
   CharityData({
-    required  this.name,
-    required  this.excerpt,
-    required  this.ostan,
-    required  this.city,
-    required  this.phone,
-    required  this.mobile,
-    required  this.address,
+    required this.name,
+    required this.excerpt,
+    required this.ostan,
+    required this.city,
+    required this.phone,
+    required this.mobile,
+    required this.address,
     required this.postcode,
-    required  this.email,
+    required this.email,
   });
 
   factory CharityData.fromJson(Map<String, dynamic> parsedJson) {
     return CharityData(
-      name: parsedJson['name']!=null?parsedJson['name']:'',
-      excerpt: parsedJson['excerpt']!=null?parsedJson['excerpt']:'',
-      ostan: parsedJson['ostan']!=null?parsedJson['ostan']:'',
-      city: parsedJson['city']!=null?parsedJson['city']:'',
-      phone: parsedJson['phone']!=null?parsedJson['phone']:'',
-      mobile: parsedJson['mobile']!=null?parsedJson['mobile']:'',
-      address: parsedJson['address']!=null?parsedJson['address']:'',
-      postcode: parsedJson['postcode']!=null?parsedJson['postcode']:'',
-      email: parsedJson['email']!=null?parsedJson['email']:'',
+      name: parsedJson['name'] != null ? parsedJson['name'] : '',
+      excerpt: parsedJson['excerpt'] != null ? parsedJson['excerpt'] : '',
+      ostan: parsedJson['ostan'] != null ? parsedJson['ostan'] : '',
+      city: parsedJson['city'] != null ? parsedJson['city'] : '',
+      phone: parsedJson['phone'] != null ? parsedJson['phone'] : '',
+      mobile: parsedJson['mobile'] != null ? parsedJson['mobile'] : '',
+      address: parsedJson['address'] != null ? parsedJson['address'] : '',
+      postcode: parsedJson['postcode'] != null ? parsedJson['postcode'] : '',
+      email: parsedJson['email'] != null ? parsedJson['email'] : '',
     );
   }
 
