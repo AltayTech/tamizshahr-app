@@ -1,15 +1,17 @@
 import 'package:flutter/foundation.dart';
-import '../models/article.dart';
 
-import '../models/product.dart';
-import '../models/search_detail.dart';
+import 'article.dart';
+import '../search_detail.dart';
 
 class ArticleMain with ChangeNotifier {
   final SearchDetail articlesDetail;
 
   final List<Article> articles;
 
-  ArticleMain({required this.articlesDetail, required this.articles});
+  ArticleMain({
+    required this.articlesDetail,
+    required this.articles,
+  });
 
   factory ArticleMain.fromJson(Map<String, dynamic> parsedJson) {
     var articlesList = parsedJson['data'] as List;

@@ -7,7 +7,7 @@ class ArticleCat with ChangeNotifier {
 
   ArticleCat({
     required this.term_id,
-    required  this.name,
+    required this.name,
     required this.slug,
   });
 

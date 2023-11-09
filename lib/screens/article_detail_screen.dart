@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:tamizshahr/widgets/en_to_ar_number_convertor.dart';
 
-import '../models/article.dart';
+import '../models/article/article.dart';
 import '../provider/app_theme.dart';
 import '../provider/articles.dart';
 import '../widgets/main_drawer.dart';

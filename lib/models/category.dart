@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/featured_image.dart';
-import '../models/sizes.dart';
 
 class Category with ChangeNotifier {
   final int term_id;
@@ -9,8 +7,8 @@ class Category with ChangeNotifier {
 
   Category({
     required this.term_id,
-    required  this.name,
-    required  this.slug,
+    required this.name,
+    required this.slug,
   });
 
   factory Category.fromJson(Map<String, dynamic> parsedJson) {
@@ -18,7 +16,6 @@ class Category with ChangeNotifier {
       term_id: parsedJson['term_id'],
       name: parsedJson['name'],
       slug: parsedJson['slug'],
-
     );
   }
 }
