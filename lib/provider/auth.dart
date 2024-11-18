@@ -79,7 +79,12 @@ class Auth with ChangeNotifier {
           _isLoggedin = true;
         } catch (error) {
           _isLoggedin = false;
-
+          final prefs = await SharedPreferences.getInstance();
+          final userData = json.encode(
+            {
+              'token': '',
+            },
+          );
           _token = '';
         }
       } else {
@@ -119,8 +124,11 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    _token = prefs.getString("token")!;
+    final prefs = await SharedPreferences.getInstance().then(
+      (value) {
+        _token = value.getString("token") ?? "";
+      },
+    );
 
     notifyListeners();
   }
