@@ -93,15 +93,16 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green,
           // accentColor: Colors.amber,
           textTheme: ThemeData.light().textTheme.copyWith(
-                bodyText1: TextStyle(
+
+                bodyLarge: TextStyle(
                   fontFamily: 'Iransans',
                   color: Color.fromRGBO(20, 51, 51, 1),
                 ),
-                bodyText2: TextStyle(
+                bodyMedium: TextStyle(
                   fontFamily: 'Iransans',
                   color: Color.fromRGBO(20, 51, 51, 1),
                 ),
-                headline1: TextStyle(
+                displayLarge: TextStyle(
                   fontSize: 20,
                   fontFamily: 'Iransans',
                   fontWeight: FontWeight.bold,
