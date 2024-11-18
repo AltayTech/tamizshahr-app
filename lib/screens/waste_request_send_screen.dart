@@ -72,7 +72,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         title: 'ورود',
         buttonText: 'صفحه ورود ',
         description: 'برای ادامه لطفا وارد شوید',
-        image: Image.asset(''),
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -84,7 +84,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
         description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
-        image: Image.asset(''),
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -96,7 +96,7 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
         title: '',
         buttonText: 'خب',
         description: 'درخواست شما با موفقیت ثبت شد',
-        image: Image.asset(''),
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -653,7 +653,8 @@ class _WasteRequestSendScreenState extends State<WasteRequestSendScreen> {
                           ),
                         );
                         if (wasteCartItems.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

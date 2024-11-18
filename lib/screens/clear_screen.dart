@@ -33,7 +33,7 @@ class _ClearScreenState extends State<ClearScreen>
   bool _isInit = true;
   var _isLoading = false;
   int page = 1;
-   SearchDetail productsDetail=SearchDetail();
+  SearchDetail productsDetail = SearchDetail();
   ScrollController _scrollController = new ScrollController();
 
   late Customer customer;
@@ -96,7 +96,8 @@ class _ClearScreenState extends State<ClearScreen>
       builder: (ctx) => CustomDialogSendRequest(
         title: '',
         buttonText: 'خب',
-        description: 'درخواست شما با موفقیت ثبت شد', image: Image.asset(''),
+        description: 'درخواست شما با موفقیت ثبت شد',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -488,8 +489,7 @@ class _ClearScreenState extends State<ClearScreen>
                                         ),
                                       ),
                                       inputFormatters: [
-                                        FilteringTextInputFormatter
-                                            .digitsOnly,
+                                        FilteringTextInputFormatter.digitsOnly,
                                         new CurrencyInputFormatter(),
                                       ],
                                     ),
@@ -530,7 +530,7 @@ class _ClearScreenState extends State<ClearScreen>
                                                   children: <Widget>[
                                                     Padding(
                                                       padding: const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           horizontal: 3,
                                                           vertical: 5),
                                                       child: Text(
@@ -550,7 +550,8 @@ class _ClearScreenState extends State<ClearScreen>
                                                               right: 4.0,
                                                               left: 6),
                                                       child: Text(
-                                                        productsDetail.total != -1
+                                                        productsDetail.total !=
+                                                                -1
                                                             ? EnArConvertor()
                                                                 .replaceArNumber(
                                                                     loadedProductstolist
@@ -570,7 +571,7 @@ class _ClearScreenState extends State<ClearScreen>
                                                     ),
                                                     Padding(
                                                       padding: const EdgeInsets
-                                                              .symmetric(
+                                                          .symmetric(
                                                           horizontal: 3,
                                                           vertical: 5),
                                                       child: Text(
@@ -590,7 +591,8 @@ class _ClearScreenState extends State<ClearScreen>
                                                               right: 4.0,
                                                               left: 6),
                                                       child: Text(
-                                                        productsDetail.total != -1
+                                                        productsDetail.total !=
+                                                                -1
                                                             ? EnArConvertor()
                                                                 .replaceArNumber(
                                                                     productsDetail

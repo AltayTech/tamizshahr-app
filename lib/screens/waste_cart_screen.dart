@@ -40,7 +40,8 @@ class _WasteCartScreenState extends State<WasteCartScreen>
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
+        description: 'برای ادامه لطفا وارد شوید',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -51,7 +52,8 @@ class _WasteCartScreenState extends State<WasteCartScreen>
       builder: (ctx) => CustomDialogProfile(
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید', image: Image.asset(''),
+        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -396,7 +398,8 @@ class _WasteCartScreenState extends State<WasteCartScreen>
                           ),
                         );
                         if (wasteCartItems.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {
@@ -454,14 +457,12 @@ class _WasteCartScreenState extends State<WasteCartScreen>
         child: MainDrawer(),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()async {
+        onPressed: () async {
           await Navigator.of(context).pushNamed(
             WastesScreen.routeName,
           );
           getWasteItems();
-          setState(() {
-
-          });
+          setState(() {});
         },
         backgroundColor: AppTheme.primary,
         child: Icon(

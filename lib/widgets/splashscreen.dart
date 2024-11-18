@@ -30,7 +30,8 @@ class SplashScreen extends StatefulWidget {
           fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
       required this.image,
       this.loadingText = const Text(""),
-      this.imageBackground = const AssetImage(''),
+      this.imageBackground =
+          const AssetImage('assets/images/main_page_request_ic.png'),
       this.gradientBackground =
           const LinearGradient(colors: [Colors.white, Colors.grey])});
 
