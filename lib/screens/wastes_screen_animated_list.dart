@@ -46,7 +46,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
         title: 'ورود',
         buttonText: 'صفحه ورود ',
         description: 'برای ادامه باید وارد شوید',
-        image: Image.asset(''),
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -58,7 +58,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
         description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
-        image: Image.asset(''),
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -427,7 +427,8 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
                           ),
                         );
                         if (wasteCartItems.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

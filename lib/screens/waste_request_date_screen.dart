@@ -31,18 +31,18 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
   var _isLoading = true;
   late Customer customer;
-  late  int totalPrice = 0;
-  late  int totalWeight = 0;
+  late int totalPrice = 0;
+  late int totalWeight = 0;
 
-  late  int totalPricePure;
+  late int totalPricePure;
 
-  late  Address selectedAddress;
+  late Address selectedAddress;
 
-  late  Region selectedRegion;
+  late Region selectedRegion;
 
-    String _selectedHourStart='';
+  String _selectedHourStart = '';
 
-  late  String _selectedHourend;
+  late String _selectedHourend;
 
   List<String> months = [];
 
@@ -50,7 +50,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
 
   List<Jalali> dateList = [];
 
-    Jalali _selectedDay=Jalali.now();
+  Jalali _selectedDay = Jalali.now();
 
   void _showLogindialog() {
     showDialog(
@@ -58,7 +58,8 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
+        description: 'برای ادامه لطفا وارد شوید',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -298,7 +299,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            left:8, bottom: 2.0),
+                                            left: 8, bottom: 2.0),
                                         child: Image.asset(
                                           'assets/images/waste_cart_price_ic.png',
                                           height: deviceWidth * 0.06,
@@ -404,10 +405,12 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Row(
-mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.only(left:8.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
                                               child: Icon(
                                                 Icons.date_range,
                                                 color: AppTheme.grey,
@@ -556,11 +559,12 @@ mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Expanded(
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.only(left:8.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 8.0),
                                               child: Icon(
                                                 Icons.access_time,
                                                 color: AppTheme.grey,
@@ -667,7 +671,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                                                             child: Padding(
                                                               padding:
                                                                   const EdgeInsets
-                                                                          .only(
+                                                                      .only(
                                                                       top: 8.0),
                                                               child: Text(
                                                                 getHours(
@@ -745,7 +749,8 @@ mainAxisAlignment: MainAxisAlignment.center,
                         );
                         if (_selectedHourStart == null ||
                             _selectedDay == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {

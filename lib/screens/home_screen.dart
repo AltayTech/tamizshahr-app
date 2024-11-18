@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
           buttonText: 'تایید',
           description:
               'برای دریافت اطلاعات کاربری به قسمت پروفایل مراجعه فرمایید',
-          image: Image.asset(''),
+          image: Image.asset('assets/images/main_page_request_ic.png'),
         ),
       );
     });
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: 'کاربر گرامی',
           buttonText: 'تایید',
           description: 'شما با موفقیت از اکانت کاربری خارج شدید',
-          image: Image.asset(''),
+          image: Image.asset('assets/images/main_page_request_ic.png'),
         ),
       );
     });

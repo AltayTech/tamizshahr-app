@@ -116,7 +116,8 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
       builder: (ctx) => CustomDialogSendRequest(
         title: '',
         buttonText: 'خب',
-        description: 'سفارش شما با موفقیت ثبت شد', image: Image.asset(''),
+        description: 'سفارش شما با موفقیت ثبت شد',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -293,7 +294,8 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                                           ),
                                         ),
                                         Text(
-                                          EnArConvertor().replaceArNumber( customer.personalData.postcode),
+                                          EnArConvertor().replaceArNumber(
+                                              customer.personalData.postcode),
                                           style: TextStyle(
                                             color: AppTheme.black,
                                             fontFamily: 'Iransans',
@@ -398,9 +400,11 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                           },
                         ),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(addToCartSnackBar);
                     } else if (totalPrice > double.parse(customer.money)) {
-                      var _snackBarMessage = 'هزینه کل از میزان امتیاز کمتر میباشد';
+                      var _snackBarMessage =
+                          'هزینه کل از میزان امتیاز کمتر میباشد';
                       final addToCartSnackBar = SnackBar(
                         content: Text(
                           _snackBarMessage,
@@ -417,7 +421,8 @@ class _OrderProductsSendScreenState extends State<OrderProductsSendScreen> {
                           },
                         ),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(addToCartSnackBar);
                     } else {
                       await createRequest(context).then(
                         (value) => sendRequest(context).then(

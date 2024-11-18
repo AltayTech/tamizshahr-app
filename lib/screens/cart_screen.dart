@@ -41,7 +41,8 @@ class _CartScreenState extends State<CartScreen> {
       builder: (ctx) => CustomDialogEnter(
         title: 'ورود',
         buttonText: 'صفحه ورود ',
-        description: 'برای ادامه لطفا وارد شوید', image: Image.asset(''),
+        description: 'برای ادامه لطفا وارد شوید',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -52,7 +53,8 @@ class _CartScreenState extends State<CartScreen> {
       builder: (ctx) => CustomDialogProfile(
         title: 'اطلاعات کاربری',
         buttonText: 'صفحه پروفایل ',
-        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید', image: Image.asset(''),
+        description: 'برای ادامه باید اطلاعات کاربری تکمیل کنید',
+        image: Image.asset('assets/images/main_page_request_ic.png'),
       ),
     );
   }
@@ -71,7 +73,9 @@ class _CartScreenState extends State<CartScreen> {
 
       if (isLogin) {
         try {
-          await  Provider.of<CustomerInfo>(context, listen: false).getCustomer().then(
+          await Provider.of<CustomerInfo>(context, listen: false)
+              .getCustomer()
+              .then(
             (_) {
               customer =
                   Provider.of<CustomerInfo>(context, listen: false).customer;
@@ -213,9 +217,9 @@ class _CartScreenState extends State<CartScreen> {
                           child: shoppItems.length != 0
                               ? Container(
                                   decoration: BoxDecoration(
-                                      color: AppTheme.bg,
-                                      borderRadius: BorderRadius.circular(5),
-                                     ),
+                                    color: AppTheme.bg,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     physics:
@@ -258,7 +262,8 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         );
                         if (shoppItems.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
                           _showLogindialog();
                         } else {
