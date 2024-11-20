@@ -1,4 +1,4 @@
-import 'package:data_connection_checker_tv/data_connection_checker.dart';
+// import 'package:data_connection_checker_tv/data_connection_checker.dart';
 
 import 'package:dio/dio.dart';
 
@@ -24,34 +24,35 @@ class TemplateProvider extends ChangeNotifier {
   });
 
   void eitherFailureOrTemplate() async {
-    TemplateRepositoryImpl repository = TemplateRepositoryImpl(
-      remoteDataSource: TemplateRemoteDataSourceImpl(
-        dio: Dio(),
-      ),
-      localDataSource: TemplateLocalDataSourceImpl(
-        sharedPreferences: await SharedPreferences.getInstance(),
-      ),
-      networkInfo: NetworkInfoImpl(
-        DataConnectionChecker(),
-      ),
-    );
+    // TemplateRepositoryImpl repository = TemplateRepositoryImpl(
+    //   remoteDataSource: TemplateRemoteDataSourceImpl(
+    //     dio: Dio(),
+    //   ),
+    //   localDataSource: TemplateLocalDataSourceImpl(
+    //     sharedPreferences: await SharedPreferences.getInstance(),
+    //   ),
+    //   // networkInfo: NetworkInfoImpl(
+    //   //   DataConnectionChecker(),
+    //   // ),
+    // );
 
-    final failureOrTemplate =
-        await GetTemplate(templateRepository: repository).call(
-      templateParams: TemplateParams(),
-    );
+    // final failureOrTemplate =
+    //     await GetTemplate(templateRepository: repository).call(
+    //   templateParams: TemplateParams(),
+    // );
 
-    failureOrTemplate.fold(
-      (Failure newFailure) {
-        template = null;
-        failure = newFailure;
-        notifyListeners();
-      },
-      (TemplateEntity newTemplate) {
-        template = newTemplate;
-        failure = null;
-        notifyListeners();
-      },
-    );
+    // failureOrTemplate.fold(
+    //   (Failure newFailure) {
+    //     template = null;
+    //     failure = newFailure;
+    //     notifyListeners();
+    //   },
+    //   (TemplateEntity newTemplate) {
+    //     template = newTemplate;
+    //     failure = null;
+    //     notifyListeners();
+    //   },
+    // );
+    notifyListeners();
   }
 }
