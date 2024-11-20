@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/screens/collect_list_screen.dart';
-import 'package:tamizshahr/screens/navigation_bottom_screen.dart';
 import 'package:tamizshahr/screens/orders_screen.dart';
 
 import '../classes/top_bar.dart';

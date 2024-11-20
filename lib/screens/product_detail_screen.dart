@@ -172,6 +172,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         );
       }
     }
+    return null;
   }
 
   @override

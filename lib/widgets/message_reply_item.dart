@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 import '../models/message.dart';
@@ -10,7 +9,7 @@ class MessageReplyItem extends StatelessWidget {
   const MessageReplyItem({
     required this.message,
     required this.isReply,
-  }) ;
+  });
 
   final Message message;
   final bool isReply;

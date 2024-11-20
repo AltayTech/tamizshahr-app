@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
@@ -87,7 +86,8 @@ class OrderItemOrdersScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(right: 5, top: 5),
                                   child: Text(
-                                    EnArConvertor().replaceArNumber( order.send_date),
+                                    EnArConvertor()
+                                        .replaceArNumber(order.send_date),
                                     maxLines: 1,
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
@@ -112,7 +112,8 @@ class OrderItemOrdersScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(right: 5, top: 5),
                                   child: Text(
-                                   EnArConvertor().replaceArNumber(order.send_date) ,
+                                    EnArConvertor()
+                                        .replaceArNumber(order.send_date),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,

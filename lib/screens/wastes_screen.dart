@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +74,8 @@ class _WastesScreenState extends State<WastesScreen>
             color: AppTheme.white,
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: deviceHeight * 0.03, horizontal: deviceWidth * 0.03),
+                  vertical: deviceHeight * 0.03,
+                  horizontal: deviceWidth * 0.03),
               child: Stack(
                 children: <Widget>[
                   Container(
@@ -95,7 +95,8 @@ class _WastesScreenState extends State<WastesScreen>
                                   Provider.of<Wastes>(context, listen: false)
                                       .wasteCartItemsId;
 
-                              if (wasteCartItemsId.contains(loadedWastes[i].id)) {
+                              if (wasteCartItemsId
+                                  .contains(loadedWastes[i].id)) {
                                 Provider.of<Wastes>(context, listen: false)
                                     .removeWasteCart(loadedWastes[i].id);
                               } else {
@@ -135,8 +136,9 @@ class _WastesScreenState extends State<WastesScreen>
                                 return DecoratedBox(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color:
-                                        index.isEven ? Colors.grey : Colors.grey,
+                                    color: index.isEven
+                                        ? Colors.grey
+                                        : Colors.grey,
                                   ),
                                 );
                               },

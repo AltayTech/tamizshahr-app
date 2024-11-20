@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 import '../models/message.dart';
@@ -8,10 +7,9 @@ import '../widgets/en_to_ar_number_convertor.dart';
 
 class MessageItem extends StatelessWidget {
   const MessageItem({
-
     required this.message,
     required this.bgColor,
-  }) ;
+  });
 
   final Message message;
   final Color bgColor;

@@ -239,19 +239,17 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
             textDirection: TextDirection.rtl,
             child: Column(
               children: <Widget>[
-
                 Container(
                   height: deviceHeight * 0.4,
                   child: Card(
                     child: Stack(
                       children: [
-
                         osm.OSMFlutter(
                             controller: controller,
                             onGeoPointClicked: (location) {
                               debugPrint(location.toString());
-                              _onAddMarkerButtonPressed(
-                                  LatLng(location.latitude, location.longitude));
+                              _onAddMarkerButtonPressed(LatLng(
+                                  location.latitude, location.longitude));
                             },
                             osmOption: osm.OSMOption(
                               userTrackingOption: osm.UserTrackingOption(
@@ -283,41 +281,43 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                               roadConfiguration: osm.RoadOption(
                                 roadColor: Colors.yellowAccent,
                               ),
-                              markerOption: osm.MarkerOption(
-                                  defaultMarker: osm.MarkerIcon(
-                                icon: Icon(
-                                  Icons.person_pin_circle,
-                                  color: Colors.blue,
-                                  size: 56,
-                                ),
-                              )),
+                              // markerOption: osm.MarkerOption(
+                              //     defaultMarker: osm.MarkerIcon(
+                              //   icon: Icon(
+                              //     Icons.person_pin_circle,
+                              //     color: Colors.blue,
+                              //     size: 56,
+                              //   ),
+                              // ),
+                              // ),
                             )),
                         Positioned(
                           right: 10,
                           bottom: 10,
                           child: ElevatedButton(
                               onPressed: () async {
-                                osm.GeoPoint? p = await osm.showSimplePickerLocation(
+                                osm.GeoPoint? p =
+                                    await osm.showSimplePickerLocation(
                                   context: context,
                                   isDismissible: true,
                                   title: "لطفا موقعیت مورد نظر  رو انتخاب کنید",
                                   textConfirmPicker: "تایید",
                                   textCancelPicker: "لغو",
-                                  zoomOption:osm.ZoomOption(
+                                  zoomOption: osm.ZoomOption(
                                     initZoom: 12,
                                     minZoomLevel: 3,
                                     maxZoomLevel: 19,
                                     stepZoom: 1.0,
-                                  ) ,
+                                  ),
                                   initCurrentUserPosition:
-                                  osm.UserTrackingOption(enableTracking: true),
+                                      osm.UserTrackingOption(
+                                          enableTracking: true),
                                 );
                                 _onAddMarkerButtonPressed(
                                     LatLng(p!.latitude, p.longitude));
 
                                 debugPrint(p.latitude.toString());
                                 debugPrint(p.longitude.toString());
-
                               },
                               child: Text('انتخاب')),
                         ),
@@ -488,13 +488,9 @@ class _MapScreenState extends State<MapScreen> with TickerProviderStateMixin {
                 },
               ),
             );
-            if (selectedRegion == null) {
-              ScaffoldMessenger.of(context).showSnackBar(addToCartSnackBar);
-            } else {
-              await saveAddress().then((value) {
-                Navigator.of(context).pop();
-              });
-            }
+            await saveAddress().then((value) {
+              Navigator.of(context).pop();
+            });
           },
           backgroundColor: AppTheme.primary,
           child: Icon(

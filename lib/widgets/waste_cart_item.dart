@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -17,7 +16,7 @@ class WasteCartItem extends StatefulWidget {
   WasteCartItem({
     required this.wasteItem,
     required this.function,
-  }) ;
+  });
 
   @override
   _WasteCartItemState createState() => _WasteCartItemState();
@@ -208,8 +207,8 @@ class _WasteCartItemState extends State<WasteCartItem>
                                     ),
                                     AnimatedBuilder(
                                       animation: _unitPriceAnimation,
-                                      builder:
-                                          (BuildContext context, Widget? child) {
+                                      builder: (BuildContext context,
+                                          Widget? child) {
                                         return Text(
                                           widget.wasteItem.prices.length != 0
                                               ? EnArConvertor().replaceArNumber(
@@ -456,7 +455,7 @@ class _WasteCartItemState extends State<WasteCartItem>
                   top: 0,
                   left: 0,
                   child: InkWell(
-                    onTap: () async{
+                    onTap: () async {
                       return removeItem();
                     },
                     child: Icon(
