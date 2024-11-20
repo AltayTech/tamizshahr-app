@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/charities.dart';
 import 'package:tamizshahr/provider/clearings.dart';
@@ -49,6 +50,7 @@ import 'screens/order_view_screen.dart';
 import 'screens/product_detail_screen.dart';
 import 'screens/product_screen.dart';
 import 'screens/splash_Screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -93,7 +95,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.green,
           // accentColor: Colors.amber,
           textTheme: ThemeData.light().textTheme.copyWith(
-
                 bodyLarge: TextStyle(
                   fontFamily: 'Iransans',
                   color: Color.fromRGBO(20, 51, 51, 1),
@@ -109,10 +110,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
         ),
-        supportedLocales: const <Locale>[
-          Locale('en', ''),
-          Locale('ar', ''),
-        ],
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Directionality(
           child: SplashScreens(),
           textDirection: TextDirection.rtl, // setting rtl
