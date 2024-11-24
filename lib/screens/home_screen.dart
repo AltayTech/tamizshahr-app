@@ -12,6 +12,7 @@ import '../screens/collect_list_screen.dart';
 import '../screens/waste_cart_screen.dart';
 import '../widgets/custom_dialog.dart';
 import 'product_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -55,10 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await showDialog<String>(
         context: context,
         builder: (ctx) => CustomDialog(
-          title: 'خوش آمدید',
-          buttonText: 'تایید',
-          description:
-              'برای دریافت اطلاعات کاربری به قسمت پروفایل مراجعه فرمایید',
+          title: AppLocalizations.of(context)!.welcome,
+          buttonText: AppLocalizations.of(context)!.accept,
+          description: AppLocalizations.of(context)!.forarticles,
           image: Image.asset('assets/images/main_page_request_ic.png'),
         ),
       );
@@ -70,9 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await showDialog<String>(
         context: context,
         builder: (ctx) => CustomDialog(
-          title: 'کاربر گرامی',
-          buttonText: 'تایید',
-          description: 'شما با موفقیت از اکانت کاربری خارج شدید',
+          title: AppLocalizations.of(context)!.dearuser,
+          buttonText: AppLocalizations.of(context)!.accept,
+          description: AppLocalizations.of(context)!.logoutsuccess,
           image: Image.asset('assets/images/main_page_request_ic.png'),
         ),
       );
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ButtonBottom(
                   width: deviceWidth * 0.9,
                   height: deviceWidth * 0.14,
-                  text: 'درخواست جمع آوری',
+                  text: AppLocalizations.of(context)!.collectrequest,
                   isActive: true,
                 ),
               ),
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             .pushNamed(CollectListScreen.routeName);
                       },
                       child: MainItemButton(
-                        title: 'درخواست ها',
+                        title: AppLocalizations.of(context)!.request,
                         itemPaddingF: itemPaddingF,
                         imageUrl: 'assets/images/main_page_request_ic.png',
                         isMonoColor: false,
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).pushNamed(WalletScreen.routeName);
                       },
                       child: MainItemButton(
-                          title: 'کیف پول',
+                          title: AppLocalizations.of(context)!.wallet,
                           itemPaddingF: itemPaddingF,
                           imageUrl: 'assets/images/main_page_wallet_ic.png'),
                     ),
@@ -164,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .pushNamed(ArticlesScreen.routeName);
                         },
                         child: MainItemButton(
-                            title: 'مقالات آموزشی',
+                            title: AppLocalizations.of(context)!.articles,
                             itemPaddingF: itemPaddingF,
                             imageSizeFactor: 0.33,
                             isMonoColor: true,
@@ -175,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             .pushNamed(ProductsScreen.routeName);
                       },
                       child: MainItemButton(
-                          title: 'فروشگاه',
+                          title: AppLocalizations.of(context)!.store,
                           itemPaddingF: itemPaddingF,
                           imageUrl: 'assets/images/main_page_shop_ic.png'),
                     ),

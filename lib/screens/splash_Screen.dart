@@ -18,7 +18,7 @@ class _SplashScreensState extends State<SplashScreens> {
       seconds: 3,
       navigateAfterSeconds: new NavigationBottomScreen(),
       title: new Text(
-        'تمیزشهر',
+        AppLocalizations.of(context)!.recycleorigin,
         textAlign: TextAlign.center,
         style: new TextStyle(
           fontFamily: 'BFarnaz',
@@ -34,7 +34,8 @@ class _SplashScreensState extends State<SplashScreens> {
         ),
       ),
       loadingText: Text(
-        EnArConvertor().replaceArNumber('نسخه آزمایشی 1.0'),
+        EnArConvertor()
+            .replaceArNumber('${AppLocalizations.of(context)!.version} 1.0'),
         style: new TextStyle(
           fontFamily: 'Iransans',
           fontWeight: FontWeight.w400,

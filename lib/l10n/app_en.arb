@@ -1,8 +1,22 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-      "description": "The conventional newborn programmer greeting"
-    },
-    "helloWorld2": "Hello World!"
+  "cleancity": "Clean City",
+  "recycleorigin": "Recycle Origin",
+  "version": "Version",
+  "appexit":  "Exit from app",
+  "doyouwanttoexit":  "Do you want to exit from the app?",
+  "yes":  "Yes",
+  "no":  "No",
+  "forexit":  "Inorder to exit press exit again",
+  "welcome":  "Welcome",
+  "accept":  "accept",
+  "dearuser":  "Dear User",
+  "logoutsuccess":  "You Logout successfully",
+  "collectrequest":  "Request collect",
+  "request":  "Request",
+  "wallet":  "Wallet",
+  "articles":  "Articles",
+  "forarticles":"In order to get profile information go to profile section",
+  "store":  "Store"
+
 
   }
