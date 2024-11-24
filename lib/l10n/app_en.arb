@@ -16,7 +16,21 @@
   "wallet":  "Wallet",
   "articles":  "Articles",
   "forarticles":"In order to get profile information go to profile section",
-  "store":  "Store"
+  "store":  "Store",
+  "profile":"Profile",
+  "login":"Login",
+  "home":"Home",
+  "charities":"Charities",
+  "cards":"Cards",
+  "cources":"Cources",
+  "supports":"Supports",
+  "guids":"Guids",
+  "contactus":"Contact Us",
+  "aboutus":"About Us",
+  "logout":"Logout"
+
+
+
 
 
   }

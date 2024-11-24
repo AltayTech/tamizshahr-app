@@ -18,6 +18,7 @@ import '../screens/guide_screen.dart';
 import '../screens/navigation_bottom_screen.dart';
 import '../screens/product_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildListTile(String title, IconData icon, Function()? tapHandler) {
@@ -79,7 +80,9 @@ class MainDrawer extends StatelessWidget {
                   Consumer<Auth>(
                     builder: (_, auth, ch) => ListTile(
                       title: Text(
-                        auth.isAuth ? 'پروفایل' : 'ورود',
+                        auth.isAuth
+                            ? AppLocalizations.of(context)!.profile
+                            : AppLocalizations.of(context)!.login,
                         style: TextStyle(
                           fontFamily: "Iransans",
                           fontWeight: FontWeight.w600,
@@ -112,7 +115,7 @@ class MainDrawer extends StatelessWidget {
                         children: <Widget>[
                           ListTile(
                             title: Text(
-                              'خانه',
+                              AppLocalizations.of(context)!.home,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -134,7 +137,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'فروشگاه',
+                              AppLocalizations.of(context)!.store,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -157,7 +160,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'سبد خرید',
+                              AppLocalizations.of(context)!.cards,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -179,7 +182,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'خیریه ها',
+                              AppLocalizations.of(context)!.charities,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -204,7 +207,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'آموزشها',
+                              AppLocalizations.of(context)!.cources,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -226,7 +229,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'پشتیبانی',
+                              AppLocalizations.of(context)!.supports,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -248,7 +251,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'راهنما',
+                              AppLocalizations.of(context)!.guids,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -270,7 +273,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'تماس با ما',
+                              AppLocalizations.of(context)!.contactus,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -292,7 +295,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'درباره ما',
+                              AppLocalizations.of(context)!.aboutus,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -314,7 +317,7 @@ class MainDrawer extends StatelessWidget {
                           ),
                           ListTile(
                             title: Text(
-                              'خروج از حساب کاربری',
+                              AppLocalizations.of(context)!.logout,
                               style: TextStyle(
                                 fontFamily: "Iransans",
                                 fontWeight: FontWeight.w500,
@@ -327,23 +330,19 @@ class MainDrawer extends StatelessWidget {
                               FontAwesomeIcons.signOutAlt,
                               color: iconColor,
                             ),
-                            onTap: ()async {
-                              Provider.of<CustomerInfo>(context,
-                                  listen: false)
-                                  .customer = Provider.of<CustomerInfo>(
-                                  context,
-                                  listen: false)
+                            onTap: () async {
+                              Provider.of<CustomerInfo>(context, listen: false)
+                                  .customer = Provider.of<CustomerInfo>(context,
+                                      listen: false)
                                   .customer_zero;
-                              await Provider.of<Auth>(context,
-                                  listen: false)
+                              await Provider.of<Auth>(context, listen: false)
                                   .removeToken();
                               Provider.of<Auth>(context, listen: false)
                                   .isFirstLogout = true;
                               Navigator.of(context).pop();
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(
+                              Navigator.of(context).pushNamedAndRemoveUntil(
                                   NavigationBottomScreen.routeName,
-                                      (Route<dynamic> route) => false);
+                                  (Route<dynamic> route) => false);
                             },
                           ),
                         ],
