@@ -180,7 +180,7 @@ class _WastesScreenAnimatedListState extends State<WastesScreenAnimatedList>
     );
   }
 
-  Widget _buildItem(WasteCart user, [int? index]) {
+  Widget _buildItem(WasteCart user) {
     return WasteCartItemAnimatedList(
       wasteItem: user,
       function: getWasteItems,

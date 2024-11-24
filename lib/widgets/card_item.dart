@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -69,7 +68,7 @@ class _CardItemState extends State<CardItem> {
     isLogin = Provider.of<Auth>(context).isAuth;
 
     return Padding(
-      padding: const EdgeInsets.only(top:10),
+      padding: const EdgeInsets.only(top: 10),
       child: LayoutBuilder(
         builder: (_, constraints) => Container(
           decoration: AppTheme.listItemBox,
@@ -98,7 +97,8 @@ class _CardItemState extends State<CardItem> {
                             child: Container(
                               height: double.infinity,
                               child: FadeInImage(
-                                placeholder: AssetImage('assets/images/circle.gif'),
+                                placeholder:
+                                    AssetImage('assets/images/circle.gif'),
                                 image: NetworkImage(
                                     widget.shoppItem.featured_media_url != null
                                         ? widget.shoppItem.featured_media_url
@@ -134,13 +134,13 @@ class _CardItemState extends State<CardItem> {
                                     ),
                                   ),
                                 ),
-
                                 Expanded(
                                   flex: 3,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Container(
                                         height: constraints.maxHeight * 0.23,
@@ -169,14 +169,16 @@ class _CardItemState extends State<CardItem> {
                                                   widget.callFunction();
                                                   setState(() {
                                                     _isLoading = false;
-                                                    print(_isLoading.toString());
+                                                    print(
+                                                        _isLoading.toString());
                                                   });
                                                 });
                                               },
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(2),
+                                                        BorderRadius.circular(
+                                                            2),
                                                     color: AppTheme.accent,
                                                   ),
                                                   child: Icon(
@@ -194,7 +196,8 @@ class _CardItemState extends State<CardItem> {
                                                 style: TextStyle(
                                                   color: AppTheme.black,
                                                   fontFamily: 'Iransans',
-                                                  fontSize: textScaleFactor * 14,
+                                                  fontSize:
+                                                      textScaleFactor * 14,
                                                 ),
                                                 textAlign: TextAlign.center,
                                               ),
@@ -219,14 +222,16 @@ class _CardItemState extends State<CardItem> {
 
                                                   setState(() {
                                                     _isLoading = false;
-                                                    print(_isLoading.toString());
+                                                    print(
+                                                        _isLoading.toString());
                                                   });
                                                 });
                                               },
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(2),
+                                                        BorderRadius.circular(
+                                                            2),
                                                     color: AppTheme.accent,
                                                   ),
                                                   child: Icon(
@@ -293,7 +298,7 @@ class _CardItemState extends State<CardItem> {
                     width: deviceWidth * 0.1,
                     child: InkWell(
                       onTap: () {
-                         removeItem();
+                        removeItem();
                       },
                       child: Icon(
                         Icons.close,

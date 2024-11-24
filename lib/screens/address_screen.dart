@@ -177,12 +177,7 @@ class _AddressScreenState extends State<AddressScreen> {
                           },
                         ),
                       );
-                      if (Provider.of<Auth>(context, listen: false)
-                              .selectedAddress ==
-                          null) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(addToCartSnackBar);
-                      } else if (!isLogin) {
+                      if (!isLogin) {
                         _showLogindialog();
                       } else {
                         Navigator.of(context)

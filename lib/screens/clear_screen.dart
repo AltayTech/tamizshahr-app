@@ -714,8 +714,7 @@ class _ClearScreenState extends State<ClearScreen>
                                         },
                                       ),
                                     );
-                                    if (shabaController.text == null ||
-                                        shabaController.text == 'IR') {
+                                    if (shabaController.text == 'IR') {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(addToCartSnackBar);
                                     } else if (double.parse(removeSemicolon(

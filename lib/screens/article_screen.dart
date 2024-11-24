@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +28,7 @@ class _ArticlesScreenState extends State<ArticlesScreen>
 
   int page = 1;
 
-   SearchDetail productsDetail=SearchDetail();
+  SearchDetail productsDetail = SearchDetail();
 
   List<int> _selectedCategoryIndexes = [];
   int _selectedCategoryId = 0;

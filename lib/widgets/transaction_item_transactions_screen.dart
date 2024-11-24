@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
@@ -76,7 +75,9 @@ class TransactionItemTransactionsScreen extends StatelessWidget {
                             .toString()),
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color:transaction.operation=='برداشت'? Colors.red:AppTheme.primary,
+                          color: transaction.operation == 'برداشت'
+                              ? Colors.red
+                              : AppTheme.primary,
                           fontFamily: 'Iransans',
                           fontSize: textScaleFactor * 14.0,
                         ),

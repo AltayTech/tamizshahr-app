@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
@@ -144,8 +142,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                     image: new DecorationImage(
                                       fit: BoxFit.fill,
                                       image: new NetworkImage(
-                                        loadedCollect
-                                            .driver.driver_data.driver_image.sizes.medium,
+                                        loadedCollect.driver.driver_data
+                                            .driver_image.sizes.medium,
                                       ),
                                     ),
                                   ),
@@ -527,8 +525,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 10, ),
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                  ),
                                   child: Text(
                                     'مبلغ کل (تومان):',
                                     maxLines: 1,
@@ -543,13 +542,12 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                     textDirection: TextDirection.rtl,
                                   ),
                                 ),
-
                                 Row(
                                   children: <Widget>[
                                     Expanded(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'درخواست:',
@@ -570,9 +568,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                               EnArConvertor().replaceArNumber(
                                                   currencyFormat
                                                       .format(double.parse(
-                                                      loadedCollect
-                                                          .total_collects_price
-                                                          .estimated))
+                                                          loadedCollect
+                                                              .total_collects_price
+                                                              .estimated))
                                                       .toString()),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -580,7 +578,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 16.0,
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -591,8 +590,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                     ),
                                     Expanded(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'تحویل:',
@@ -613,9 +612,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                               EnArConvertor().replaceArNumber(
                                                   currencyFormat
                                                       .format(double.parse(
-                                                      loadedCollect
-                                                          .total_collects_price
-                                                          .exact))
+                                                          loadedCollect
+                                                              .total_collects_price
+                                                              .exact))
                                                       .toString()),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -623,7 +622,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 16.0,
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -638,8 +638,7 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                   thickness: 0.5,
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.only(top: 10),
                                   child: Text(
                                     'وزن کل (کیلوگرم):',
                                     maxLines: 1,
@@ -658,8 +657,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'درخواست:',
@@ -680,9 +679,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                               EnArConvertor().replaceArNumber(
                                                   currencyFormat
                                                       .format(double.parse(
-                                                      loadedCollect
-                                                          .total_collects_weight
-                                                          .estimated))
+                                                          loadedCollect
+                                                              .total_collects_weight
+                                                              .estimated))
                                                       .toString()),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -690,7 +689,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 16.0,
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -701,8 +701,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                     ),
                                     Expanded(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'تحویل:',
@@ -723,9 +723,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                               EnArConvertor().replaceArNumber(
                                                   currencyFormat
                                                       .format(double.parse(
-                                                      loadedCollect
-                                                          .total_collects_weight
-                                                          .exact))
+                                                          loadedCollect
+                                                              .total_collects_weight
+                                                              .exact))
                                                       .toString()),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -733,7 +733,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 16.0,
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -748,8 +749,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                   thickness: 0.5,
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 10, ),
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                  ),
                                   child: Text(
                                     'تعداد کل:',
                                     maxLines: 1,
@@ -768,8 +770,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                   children: <Widget>[
                                     Expanded(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
                                             'درخواست:',
@@ -790,9 +792,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                               EnArConvertor().replaceArNumber(
                                                   currencyFormat
                                                       .format(double.parse(
-                                                      loadedCollect
-                                                          .total_collects_number
-                                                          .estimated))
+                                                          loadedCollect
+                                                              .total_collects_number
+                                                              .estimated))
                                                       .toString()),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -800,7 +802,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 16.0,
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -811,7 +814,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                     ),
                                     Expanded(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.all(4.0),
@@ -823,7 +827,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.grey,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 12.0,
+                                                fontSize:
+                                                    textScaleFactor * 12.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -835,9 +840,9 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                               EnArConvertor().replaceArNumber(
                                                   currencyFormat
                                                       .format(double.parse(
-                                                      loadedCollect
-                                                          .total_collects_number
-                                                          .exact))
+                                                          loadedCollect
+                                                              .total_collects_number
+                                                              .exact))
                                                       .toString()),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -845,7 +850,8 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                                 height: 2,
                                                 color: AppTheme.black,
                                                 fontFamily: 'Iransans',
-                                                fontSize: textScaleFactor * 16.0,
+                                                fontSize:
+                                                    textScaleFactor * 16.0,
                                               ),
                                               textAlign: TextAlign.right,
                                               textDirection: TextDirection.rtl,
@@ -856,17 +862,13 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                                     ),
                                   ],
                                 ),
-
-
-
-
                               ],
                             ),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:15.0),
+                        padding: const EdgeInsets.only(top: 15.0),
                         child: Text(
                           'لیست پسماندها:',
                           maxLines: 1,
@@ -882,31 +884,27 @@ class _CollectDetailScreenState extends State<CollectDetailScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:6.0),
+                        padding: const EdgeInsets.only(top: 6.0),
                         child: Consumer<Wastes>(
-                          builder: (_, value, ch) => value
-                              .requestWasteItem
-                              .collect_list
-                              .length !=
-                              0
-                              ? Container(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics:
-                              const NeverScrollableScrollPhysics(),
-                              itemCount: value.requestWasteItem
-                                  .collect_list.length,
-                              itemBuilder: (ctx, i) =>
-                                  CollectDetailsCollectItem(
-                                    collectItem: value
-                                        .requestWasteItem
-                                        .collect_list[i],
-                                  ),
-                            ),
-                          )
-                              : Center(
-                            child: Text('پسماندی اضافه نشده است'),
-                          ),
+                          builder: (_, value, ch) =>
+                              value.requestWasteItem.collect_list.length != 0
+                                  ? Container(
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: value.requestWasteItem
+                                            .collect_list.length,
+                                        itemBuilder: (ctx, i) =>
+                                            CollectDetailsCollectItem(
+                                          collectItem: value
+                                              .requestWasteItem.collect_list[i],
+                                        ),
+                                      ),
+                                    )
+                                  : Center(
+                                      child: Text('پسماندی اضافه نشده است'),
+                                    ),
                         ),
                       ),
 //                        Spacer(),

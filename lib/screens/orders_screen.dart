@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -16,8 +15,7 @@ import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import 'customer_info/login_screen.dart';
 
-class
-OrdersScreen extends StatefulWidget {
+class OrdersScreen extends StatefulWidget {
   static const routeName = '/ordersScreen';
 
   @override
@@ -30,7 +28,7 @@ class _OrdersScreenState extends State<OrdersScreen>
   ScrollController _scrollController = new ScrollController();
   var _isLoading;
   int page = 1;
-   SearchDetail productsDetail=SearchDetail();
+  SearchDetail productsDetail = SearchDetail();
 
   late Customer customer;
 
@@ -166,15 +164,17 @@ class _OrdersScreenState extends State<OrdersScreen>
                     ),
                   )
                 : Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Stack(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Stack(
                       children: <Widget>[
                         Column(
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.only(top:8.0,bottom: 8),
+                              padding:
+                                  const EdgeInsets.only(top: 8.0, bottom: 8),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Image.asset(
                                     'assets/images/orders_list.png',
@@ -202,10 +202,8 @@ class _OrdersScreenState extends State<OrdersScreen>
                                         direction: Axis.horizontal,
                                         children: <Widget>[
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 3,
-                                                    vertical: 5),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 3, vertical: 5),
                                             child: Text(
                                               'تعداد:',
                                               style: TextStyle(
@@ -217,12 +215,14 @@ class _OrdersScreenState extends State<OrdersScreen>
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 4.0, ),
+                                              right: 4.0,
+                                            ),
                                             child: Text(
                                               productsDetail.total != -1
                                                   ? EnArConvertor()
                                                       .replaceArNumber(
-                                                          loadedProductstolist.length
+                                                          loadedProductstolist
+                                                              .length
                                                               .toString())
                                                   : EnArConvertor()
                                                       .replaceArNumber('0'),
@@ -289,7 +289,7 @@ class _OrdersScreenState extends State<OrdersScreen>
                                             : Container())))
                       ],
                     ),
-                ),
+                  ),
           ),
         ),
       ),
