@@ -71,53 +71,52 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
       return false;
     } else {
       return showDialog(
-            context: context,
-            builder: (context) => new AlertDialog(
-              contentTextStyle: TextStyle(
-                  color: AppTheme.grey,
-                  fontFamily: 'Iransans',
-                  fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
-              title: Text(
-                'خروج از اپلیکیشن',
-                textAlign: TextAlign.center,
+        context: context,
+        builder: (context) => new AlertDialog(
+          contentTextStyle: TextStyle(
+              color: AppTheme.grey,
+              fontFamily: 'Iransans',
+              fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+          title: Text(
+            'خروج از اپلیکیشن',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: AppTheme.black,
+                fontFamily: 'Iransans',
+                fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+          ),
+          content: Text(
+            'آیا میخواهید از اپلیکیشن خارج شوید؟',
+            style: TextStyle(
+                color: AppTheme.grey,
+                fontFamily: 'Iransans',
+                fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+          ),
+          actionsPadding: EdgeInsets.all(10),
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(false),
+              child: Text(
+                "نه",
                 style: TextStyle(
                     color: AppTheme.black,
                     fontFamily: 'Iransans',
-                    fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
+                    fontSize: MediaQuery.of(context).textScaleFactor * 18.0),
               ),
-              content: Text(
-                'آیا میخواهید از اپلیکیشن خارج شوید؟',
-                style: TextStyle(
-                    color: AppTheme.grey,
-                    fontFamily: 'Iransans',
-                    fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
-              ),
-              actionsPadding: EdgeInsets.all(10),
-              actions: <Widget>[
-                GestureDetector(
-                  onTap: () => Navigator.of(context).pop(false),
-                  child: Text(
-                    "نه",
-                    style: TextStyle(
-                        color: AppTheme.black,
-                        fontFamily: 'Iransans',
-                        fontSize:
-                            MediaQuery.of(context).textScaleFactor * 18.0),
-                  ),
-                ),
-                SizedBox(
-                  height: 16,
-                  width: MediaQuery.of(context).size.width * 0.3,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: Text("بلی"),
-                ),
-              ],
             ),
-          ) ;
+            SizedBox(
+              height: 16,
+              width: MediaQuery.of(context).size.width * 0.3,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text("بلی"),
+            ),
+          ],
+        ),
+      );
     }
   }
 
@@ -127,8 +126,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
       return false;
     } else {
       DateTime now = DateTime.now();
-      if (currentBackPressTime == null ||
-          now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      if (now.difference(currentBackPressTime) > Duration(seconds: 2)) {
         currentBackPressTime = now;
         FToast().showToast(
           child: Container(

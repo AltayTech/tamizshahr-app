@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -14,7 +13,7 @@ class AddressItem extends StatefulWidget {
 
   AddressItem({
     required this.addressItem,
-    this.isSelected=false,
+    this.isSelected = false,
   });
 
   @override
@@ -69,15 +68,17 @@ class _AddressItemState extends State<AddressItem> {
           height: deviceWidth * 0.28,
           width: deviceWidth,
           decoration: BoxDecoration(
-            color: widget.isSelected ? AppTheme.primary.withOpacity(0.1) : AppTheme.white,
-              border: Border.all(color: AppTheme.white, width: 0.3),
+            color: widget.isSelected
+                ? AppTheme.primary.withOpacity(0.1)
+                : AppTheme.white,
+            border: Border.all(color: AppTheme.white, width: 0.3),
             borderRadius: BorderRadius.circular(5),
           ),
           child: LayoutBuilder(
             builder: (_, constraints) => Stack(
               children: <Widget>[
                 Padding(
-                  padding:  EdgeInsets.only(top:deviceWidth * 0.05),
+                  padding: EdgeInsets.only(top: deviceWidth * 0.05),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -95,7 +96,6 @@ class _AddressItemState extends State<AddressItem> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-
                               Expanded(
                                 flex: 3,
                                 child: Align(
@@ -157,7 +157,7 @@ class _AddressItemState extends State<AddressItem> {
                     width: deviceWidth * 0.1,
                     child: InkWell(
                       onTap: () {
-                         removeItem();
+                        removeItem();
                       },
                       child: Icon(
                         Icons.close,

@@ -103,7 +103,7 @@ class _AuthCardState extends State<AuthCard>
   var _isLoading = false;
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
-  late  Animation<double> _opacityAnimation;
+  late Animation<double> _opacityAnimation;
   late Animation<Offset> _slideAnimation1;
   late Animation<double> _opacityAnimation1;
 
@@ -377,6 +377,7 @@ class _AuthCardState extends State<AuthCard>
                                                   _authData[
                                                           'verificationCode'] =
                                                       value!;
+                                                  return null;
                                                 }
                                               : null,
                                         ),
@@ -441,6 +442,7 @@ class _AuthCardState extends State<AuthCard>
                                           if (value!.isEmpty) {
                                             return 'لطفا شماره تلفن را وارد نمایید';
                                           }
+                                          return null;
                                         },
                                         onSaved: (value) {
                                           _authData['phoneNumber'] = value!;
@@ -483,7 +485,7 @@ class _AuthCardState extends State<AuthCard>
                   : Container(
                       height: deviceSize.height * 0.055,
                       width: deviceSize.width * 0.6,
-                      child: ElevatedButton (
+                      child: ElevatedButton(
                         child: Text(
                           _authMode == AuthMode.Login
                               ? 'ورود'

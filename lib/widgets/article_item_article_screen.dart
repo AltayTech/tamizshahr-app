@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
@@ -30,7 +29,7 @@ class ArticleItemArticlesScreen extends StatelessWidget {
               );
             },
             child: Padding(
-              padding: const EdgeInsets.only(top:8,bottom: 4),
+              padding: const EdgeInsets.only(top: 8, bottom: 4),
               child: Container(
                 decoration: AppTheme.listItemBox,
                 height: constraints.maxHeight,
@@ -72,7 +71,7 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left:4),
+                                  padding: const EdgeInsets.only(left: 4),
                                   child: Text(
                                     EnArConvertor().replaceArNumber(
                                       '${Jalali.fromDateTime(DateTime.parse(article.post_date_gmt)).year}/${Jalali.fromDateTime(DateTime.parse(article.post_date_gmt)).month}/${Jalali.fromDateTime(DateTime.parse(article.post_date_gmt)).day}',
@@ -91,17 +90,20 @@ class ArticleItemArticlesScreen extends StatelessWidget {
                                 ),
                                 Spacer(),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 10,),
+                                  padding: const EdgeInsets.only(
+                                    right: 10,
+                                  ),
                                   child: Wrap(
                                     direction: Axis.vertical,
-                                    crossAxisAlignment: WrapCrossAlignment.center,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
                                     children: <Widget>[
                                       Text(
                                         article.category[0].name,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          color: AppTheme.black.withOpacity(0.5),
+                                          color:
+                                              AppTheme.black.withOpacity(0.5),
                                           fontFamily: 'Iransans',
                                           fontSize: textScaleFactor * 13.0,
                                         ),

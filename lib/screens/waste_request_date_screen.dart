@@ -747,8 +747,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                             },
                           ),
                         );
-                        if (_selectedHourStart == null ||
-                            _selectedDay == null) {
+                        if (_selectedDay == null) {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(addToCartSnackBar);
                         } else if (!isLogin) {
@@ -763,8 +762,7 @@ class _WasteRequestDateScreenState extends State<WasteRequestDateScreen> {
                         width: deviceWidth * 0.9,
                         height: deviceWidth * 0.14,
                         text: 'ادامه',
-                        isActive:
-                            _selectedHourStart != null && _selectedDay != null,
+                        isActive: _selectedDay != null,
                       ),
                     ),
                   ),

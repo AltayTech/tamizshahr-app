@@ -9,7 +9,6 @@ import '../provider/auth.dart';
 import '../provider/customer_info.dart';
 import '../provider/messages.dart';
 import '../widgets/main_drawer.dart';
-import '../widgets/message_reply_item.dart';
 
 class MessageCreateReplyScreen extends StatefulWidget {
   static const routeName = '/messageCreateReplyScreen';
@@ -23,7 +22,7 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
   var _isLoading = false;
   var _isInit = true;
 
-  List<Message> messages=[];
+  List<Message> messages = [];
 
   List<String> aboutInfotitle = [];
 
@@ -126,8 +125,7 @@ class _MessageCreateReplyScreenState extends State<MessageCreateReplyScreen> {
                             ),
                             child: Container(
                               width: deviceWidth,
-                              child:
-                              Text(
+                              child: Text(
                                 'پاسخ: ',
                                 style: TextStyle(
                                   color: AppTheme.grey,

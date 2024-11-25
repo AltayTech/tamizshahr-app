@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -229,10 +228,10 @@ class _CustomerDetailInfoScreenState extends State<CustomerDetailInfoScreen> {
 class InfoItem extends StatelessWidget {
   const InfoItem({
     required this.title,
-  required this.text,
-   required this.bgColor,
-   required this.iconColor,
-  }) ;
+    required this.text,
+    required this.bgColor,
+    required this.iconColor,
+  });
 
   final String title;
   final String text;

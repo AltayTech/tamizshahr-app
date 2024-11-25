@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -13,14 +12,12 @@ class CashPaymentProductItem extends StatelessWidget {
   final String price;
   final String price_low;
 
-
   CashPaymentProductItem({
-    this.id=0,
-    this.title='',
+    this.id = 0,
+    this.title = '',
     required this.color_selected,
-    this.price='0',
-    this.price_low='0',
-
+    this.price = '0',
+    this.price_low = '0',
   });
 
   @override

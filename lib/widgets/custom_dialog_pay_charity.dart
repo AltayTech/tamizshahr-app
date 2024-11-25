@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:tamizshahr/models/charity.dart';
@@ -22,7 +21,6 @@ class CustomDialogPayCharity extends StatefulWidget {
 }
 
 class _CustomDialogPayCharityState extends State<CustomDialogPayCharity> {
-
   int moneyToCharity = 0;
 
   @override
@@ -131,31 +129,31 @@ class _CustomDialogPayCharityState extends State<CustomDialogPayCharity> {
                         children: <Widget>[
                           Expanded(
                               child: InkWell(
-                                onTap: () {
-                                  if (moneyToCharity > 1) {
-                                    moneyToCharity = moneyToCharity - 1000;
-                                    setState(() {});
-                                  }
-                                },
-                                child: Container(
-                                    height: constraints.maxHeight * 0.05,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: AppTheme.accent,
-                                    ),
-                                    child: Icon(
-                                      Icons.remove,
-                                      color: AppTheme.bg,
-                                    )),
-                              )),
+                            onTap: () {
+                              if (moneyToCharity > 1) {
+                                moneyToCharity = moneyToCharity - 1000;
+                                setState(() {});
+                              }
+                            },
+                            child: Container(
+                                height: constraints.maxHeight * 0.05,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppTheme.accent,
+                                ),
+                                child: Icon(
+                                  Icons.remove,
+                                  color: AppTheme.bg,
+                                )),
+                          )),
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.only(top: 3.0),
                               child: Text(
                                 EnArConvertor()
                                     .replaceArNumber(currencyFormat
-                                    .format(moneyToCharity)
-                                    .toString())
+                                        .format(moneyToCharity)
+                                        .toString())
                                     .toString(),
                                 style: TextStyle(
                                   color: AppTheme.black,

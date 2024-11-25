@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
@@ -32,7 +31,7 @@ class _CollectListScreenState extends State<CollectListScreen>
   var scaffoldKey;
   int page = 1;
 
-   SearchDetail productsDetail=SearchDetail();
+  SearchDetail productsDetail = SearchDetail();
 
   var sortValue = 'جدیدترین';
   List<String> sortValueList = ['جدیدترین', 'گرانترین', 'ارزانترین'];
@@ -154,7 +153,6 @@ class _CollectListScreenState extends State<CollectListScreen>
       ),
       body: Directionality(
         textDirection: TextDirection.rtl,
-
         child: SingleChildScrollView(
           child: !isLogin
               ? Container(
@@ -230,8 +228,7 @@ class _CollectListScreenState extends State<CollectListScreen>
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Spacer(),
-                                    Consumer<Wastes>(
-                                        builder: (_, Wastes, ch) {
+                                    Consumer<Wastes>(builder: (_, Wastes, ch) {
                                       return Container(
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
@@ -245,7 +242,7 @@ class _CollectListScreenState extends State<CollectListScreen>
                                               children: <Widget>[
                                                 Padding(
                                                   padding: const EdgeInsets
-                                                          .symmetric(
+                                                      .symmetric(
                                                       horizontal: 3,
                                                       vertical: 5),
                                                   child: Text(
@@ -261,8 +258,7 @@ class _CollectListScreenState extends State<CollectListScreen>
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                          right: 4.0,
-                                                          left: 6),
+                                                          right: 4.0, left: 6),
                                                   child: Text(
                                                     productsDetail != null
                                                         ? EnArConvertor()
@@ -291,30 +287,31 @@ class _CollectListScreenState extends State<CollectListScreen>
                                                     style: TextStyle(
                                                       fontFamily: 'Iransans',
                                                       fontSize:
-                                                      textScaleFactor *
-                                                          12.0,
+                                                          textScaleFactor *
+                                                              12.0,
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding:
-                                                  const EdgeInsets.only(
-                                                      right: 4.0,
-                                                      left: 6),
+                                                      const EdgeInsets.only(
+                                                          right: 4.0, left: 6),
                                                   child: Text(
                                                     productsDetail != null
                                                         ? EnArConvertor()
-                                                        .replaceArNumber(
-                                                       productsDetail.total.toString()
-                                                            .toString())
+                                                            .replaceArNumber(
+                                                                productsDetail
+                                                                    .total
+                                                                    .toString()
+                                                                    .toString())
                                                         : EnArConvertor()
-                                                        .replaceArNumber(
-                                                        '0'),
+                                                            .replaceArNumber(
+                                                                '0'),
                                                     style: TextStyle(
                                                       fontFamily: 'Iransans',
                                                       fontSize:
-                                                      textScaleFactor *
-                                                          13.0,
+                                                          textScaleFactor *
+                                                              13.0,
                                                     ),
                                                   ),
                                                 ),

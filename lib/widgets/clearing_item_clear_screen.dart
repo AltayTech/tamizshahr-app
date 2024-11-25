@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
@@ -25,7 +24,7 @@ class ClearingItemClearScreen extends StatelessWidget {
     var currencyFormat = intl.NumberFormat.decimalPattern();
 
     return Padding(
-      padding: const EdgeInsets.only(top:5.0,bottom: 5),
+      padding: const EdgeInsets.only(top: 5.0, bottom: 5),
       child: Container(
         height: widthDevice * 0.1,
         decoration: BoxDecoration(
@@ -71,7 +70,8 @@ class ClearingItemClearScreen extends StatelessWidget {
                   Expanded(
                     child: Text(
                       EnArConvertor().replaceArNumber(currencyFormat
-                          .format(double.parse(removeSemicolon(transaction.money)))
+                          .format(
+                              double.parse(removeSemicolon(transaction.money)))
                           .toString()),
                       textAlign: TextAlign.center,
                       style: TextStyle(

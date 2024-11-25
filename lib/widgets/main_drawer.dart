@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/provider/app_theme.dart';
@@ -327,23 +326,19 @@ class MainDrawer extends StatelessWidget {
                               FontAwesomeIcons.signOutAlt,
                               color: iconColor,
                             ),
-                            onTap: ()async {
-                              Provider.of<CustomerInfo>(context,
-                                  listen: false)
-                                  .customer = Provider.of<CustomerInfo>(
-                                  context,
-                                  listen: false)
+                            onTap: () async {
+                              Provider.of<CustomerInfo>(context, listen: false)
+                                  .customer = Provider.of<CustomerInfo>(context,
+                                      listen: false)
                                   .customer_zero;
-                              await Provider.of<Auth>(context,
-                                  listen: false)
+                              await Provider.of<Auth>(context, listen: false)
                                   .removeToken();
                               Provider.of<Auth>(context, listen: false)
                                   .isFirstLogout = true;
                               Navigator.of(context).pop();
-                              Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(
+                              Navigator.of(context).pushNamedAndRemoveUntil(
                                   NavigationBottomScreen.routeName,
-                                      (Route<dynamic> route) => false);
+                                  (Route<dynamic> route) => false);
                             },
                           ),
                         ],

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
@@ -124,7 +123,8 @@ class CollectItemCollectsScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 4),
                                     child: Text(
-                                   EnArConvertor().replaceArNumber( collect.collect_date.time)  ,
+                                      EnArConvertor().replaceArNumber(
+                                          collect.collect_date.time),
                                       maxLines: 1,
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
