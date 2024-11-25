@@ -9,6 +9,7 @@ import '../provider/app_theme.dart';
 import '../widgets/main_drawer.dart';
 import '../widgets/profile_view.dart';
 import 'home_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavigationBottomScreen extends StatefulWidget {
   static const routeName = '/NBS';
@@ -78,7 +79,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
               fontFamily: 'Iransans',
               fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
           title: Text(
-            'خروج از اپلیکیشن',
+            AppLocalizations.of(context)!.appexit,
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: AppTheme.black,
@@ -86,7 +87,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
                 fontSize: MediaQuery.of(context).textScaleFactor * 15.0),
           ),
           content: Text(
-            'آیا میخواهید از اپلیکیشن خارج شوید؟',
+            AppLocalizations.of(context)!.doyouwanttoexit,
             style: TextStyle(
                 color: AppTheme.grey,
                 fontFamily: 'Iransans',
@@ -97,7 +98,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
             GestureDetector(
               onTap: () => Navigator.of(context).pop(false),
               child: Text(
-                "نه",
+                AppLocalizations.of(context)!.no,
                 style: TextStyle(
                     color: AppTheme.black,
                     fontFamily: 'Iransans',
@@ -112,7 +113,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
               onTap: () {
                 Navigator.of(context).pop(true);
               },
-              child: Text("بلی"),
+              child: Text(AppLocalizations.of(context)!.yes),
             ),
           ],
         ),
@@ -137,7 +138,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "برای خروج دوباره فشار دهید",
+                AppLocalizations.of(context)!.forexit,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: AppTheme.black,
@@ -167,7 +168,7 @@ class _NavigationBottomScreenState extends State<NavigationBottomScreen>
 //              preferredSize: Size.fromHeight(15),
 //            ),
             title: Text(
-              'تمیز شهر',
+              AppLocalizations.of(context)!.cleancity,
               style: TextStyle(
                 fontFamily: 'Iransans',
               ),
