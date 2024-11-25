@@ -4,6 +4,7 @@ import '../provider/app_theme.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/splashscreen.dart';
 import 'navigation_bottom_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreens extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _SplashScreensState extends State<SplashScreens> {
       seconds: 3,
       navigateAfterSeconds: new NavigationBottomScreen(),
       title: new Text(
-        'تمیزشهر',
+        AppLocalizations.of(context)!.recycleorigin,
         textAlign: TextAlign.center,
         style: new TextStyle(
           fontFamily: 'BFarnaz',
@@ -33,7 +34,8 @@ class _SplashScreensState extends State<SplashScreens> {
         ),
       ),
       loadingText: Text(
-        EnArConvertor().replaceArNumber('نسخه آزمایشی 1.0'),
+        EnArConvertor()
+            .replaceArNumber('${AppLocalizations.of(context)!.version} 1.0'),
         style: new TextStyle(
           fontFamily: 'Iransans',
           fontWeight: FontWeight.w400,

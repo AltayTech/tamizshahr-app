@@ -75,7 +75,7 @@ class Articles with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print(error.toString());
-      throw (error);
+      // throw (error);
     }
   }
 
@@ -101,7 +101,7 @@ class Articles with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print(error.toString());
-      throw (error);
+      // throw (error);
     }
   }
 

@@ -105,8 +105,8 @@ class CustomerInfo with ChangeNotifier {
           'Accept': 'application/json'
         },
         body: jsonEncode({
-          'customer_type':customer.customer_type.term_id,
-          'customer_data':customer.personalData,
+          'customer_type': customer.customer_type.term_id,
+          'customer_data': customer.personalData,
         }),
       );
 
@@ -312,7 +312,7 @@ class CustomerInfo with ChangeNotifier {
         print(extractedData.toString());
 
         TransactionMain transactionMain =
-        TransactionMain.fromJson(extractedData);
+            TransactionMain.fromJson(extractedData);
         print(transactionMain.searchDetail.max_page.toString());
 
         _transactionItems = transactionMain.transactions;
@@ -400,7 +400,7 @@ class CustomerInfo with ChangeNotifier {
         print(extractedData);
 
         List<Province> wastes =
-        extractedData.map((i) => Province.fromJson(i)).toList();
+            extractedData.map((i) => Province.fromJson(i)).toList();
 
         _provincesItems = wastes;
       } else {
@@ -467,7 +467,7 @@ class CustomerInfo with ChangeNotifier {
         print(extractedData);
 
         List<Status> wastes =
-        extractedData.map((i) => Status.fromJson(i)).toList();
+            extractedData.map((i) => Status.fromJson(i)).toList();
 
         _typesItems = wastes;
       } else {
@@ -484,8 +484,7 @@ class CustomerInfo with ChangeNotifier {
 
   List<Status> get typesItems => _typesItems;
 
-
-  Future<void> sendClearingRequest(String money,String shaba) async {
+  Future<void> sendClearingRequest(String money, String shaba) async {
     print('sendCharityRequest');
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -504,10 +503,7 @@ class CustomerInfo with ChangeNotifier {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: jsonEncode({
-            "money": money,
-            'shaba':shaba
-          }));
+          body: jsonEncode({"money": money, 'shaba': shaba}));
 
       final extractedData = json.decode(response.body);
       print(extractedData);
@@ -521,5 +517,3 @@ class CustomerInfo with ChangeNotifier {
     }
   }
 }
-
-

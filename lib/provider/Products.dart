@@ -199,7 +199,7 @@ class Products with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       debugPrint(error.toString());
-      throw (error);
+      // throw (error);
     }
   }
 

@@ -1,0 +1,39 @@
+{
+  "cleancity": "شهر تمیز",
+  "recycleorigin": "Recycle Origin",
+  "version": "ورژن",
+  "appexit":  "خروج از اپلیکیشن",
+  "doyouwanttoexit":  "آیا میخواهید از اپلیکیشن خارج شوید؟",
+  "yes":  "بله",
+  "no":  "نه",
+  "forexit":  "برای خروج از اپلیکیشن دکمه خروج رو دوباره فشار دهید",
+  "welcome":  "خوش آمدید",
+  "accept":  "قبول",
+  "dearuser":  "کاربر عزیز",
+  "logoutsuccess":  "شما با موفقیت خارج شدید.",
+  "collectrequest":  "درخواست جمع اوری",
+  "request":  "ذرخواست",
+  "wallet":  "کیف پول",
+  "articles":  "مقالات",
+  "forarticles":  "برای دریافت اطلاعات کاربری به قسمت پروفایل مراجعه فرمایید",
+
+  "store":  "فروشگاه",
+  "profile":"پروفایل",
+  "login":"ورود",
+  "home":"خانه",
+  "charities":" خیریه ها",
+  "cards":"  سبد خرید",
+  "cources":"آموزشها",
+  "supports":"پشتیبانی",
+  "guids":"راهنما",
+  "contactus":" تماس با ما",
+  "aboutus":"  درباره ما",
+  "logout":"خروج"
+
+
+  
+  
+  
+
+
+}
