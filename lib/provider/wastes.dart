@@ -21,7 +21,7 @@ class Wastes with ChangeNotifier {
 
   List<RequestWasteItem> _collectItems = [];
 
-  late SearchDetail _searchDetails;
+  SearchDetail _searchDetails = SearchDetail();
 
   late RequestWasteItem _requestWasteItem;
 
@@ -213,7 +213,7 @@ class Wastes with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       debugPrint(error.toString());
-      throw (error);
+      // throw (error);
     }
   }
 
