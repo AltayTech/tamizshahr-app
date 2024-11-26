@@ -11,7 +11,7 @@ import '../provider/wastes.dart';
 import '../widgets/collect_item_collect_screen.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
-import 'customer_info/login_screen.dart';
+import '../features/customer_feature/presentation/screens/login_screen.dart';
 
 class CollectListScreen extends StatefulWidget {
   static const routeName = '/collectListScreen';

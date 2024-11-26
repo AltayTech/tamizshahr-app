@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../models/customer.dart';
-import '../../provider/app_theme.dart';
-import '../../screens/customer_info/customer_detail_info_screen.dart';
-import '../../widgets/main_drawer.dart';
+import '../../../../models/customer.dart';
+import '../../../../provider/app_theme.dart';
+import 'customer_detail_info_screen.dart';
+import '../../../../widgets/main_drawer.dart';
 
 class CustomerUserInfoScreen extends StatefulWidget {
   static const routeName = '/customer_user_info_screen';

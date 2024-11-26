@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-import '../../classes/http_exception.dart';
-import '../../provider/Products.dart';
-import '../../provider/app_theme.dart';
-import '../../provider/auth.dart';
-import '../../widgets/main_drawer.dart';
-import '../../core/screens/navigation_bottom_screen.dart';
+import '../../../../classes/http_exception.dart';
+import '../../../../provider/Products.dart';
+import '../../../../provider/app_theme.dart';
+import '../../../../provider/auth.dart';
+import '../../../../widgets/main_drawer.dart';
+import '../../../../core/screens/navigation_bottom_screen.dart';
 
 enum AuthMode { VerificationCode, Login }
 

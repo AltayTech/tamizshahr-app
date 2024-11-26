@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../../models/customer.dart';
-import '../../models/order.dart';
-import '../../provider/app_theme.dart';
-import '../../provider/customer_info.dart';
-import '../../widgets/en_to_ar_number_convertor.dart';
-import '../order_view_screen.dart';
+import '../../../../models/customer.dart';
+import '../../../../models/order.dart';
+import '../../../../provider/app_theme.dart';
+import '../../../../provider/customer_info.dart';
+import '../../../../widgets/en_to_ar_number_convertor.dart';
+import '../../../../screens/order_view_screen.dart';
 
 class CustomerDetailOrderScreen extends StatefulWidget {
   final Customer customer;

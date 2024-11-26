@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 
-import '../../models/customer.dart';
-import '../../provider/app_theme.dart';
-import '../../screens/customer_info/customer_detail_order_screen.dart';
-import '../../widgets/main_drawer.dart';
+import '../../../../models/customer.dart';
+import '../../../../provider/app_theme.dart';
+import '../../../../widgets/main_drawer.dart';
+import '../../../../widgets/profile_view.dart';
 
-class CustomerOrdersScreen extends StatefulWidget {
-  static const routeName = '/customer_order_screen';
+class ProfileScreen extends StatefulWidget {
+  static const routeName = '/profile';
   final Customer customer;
 
-  CustomerOrdersScreen({
+  ProfileScreen({
     customer,
   }) : this.customer = Customer();
 
   @override
-  _CustomerOrdersScreenState createState() => _CustomerOrdersScreenState();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _CustomerOrdersScreenState extends State<CustomerOrdersScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         backgroundColor: AppTheme.appBarColor,
         iconTheme: new IconThemeData(color: AppTheme.appBarIconColor),
@@ -35,9 +36,7 @@ class _CustomerOrdersScreenState extends State<CustomerOrdersScreen> {
         ),
         child: MainDrawer(),
       ), // resizeToAvoidBottomInset: false,
-      body: CustomerDetailOrderScreen(
-        customer: Customer(),
-      ),
+      body: ProfileView(),
     );
   }
 }

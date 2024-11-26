@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/customer.dart';
-import '../../provider/app_theme.dart';
-import '../../provider/customer_info.dart';
+import '../../../../models/customer.dart';
+import '../../../../provider/app_theme.dart';
+import '../../../../provider/customer_info.dart';
 import 'customer_detail_info_edit_screen.dart';
 
 class CustomerDetailInfoScreen extends StatefulWidget {

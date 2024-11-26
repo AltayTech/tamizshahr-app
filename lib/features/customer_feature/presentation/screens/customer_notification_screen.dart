@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../screens/messages_screen.dart';
+import '../../../../screens/messages_screen.dart';
 
-import '../../provider/app_theme.dart';
-import '../../models/customer.dart';
-import '../../widgets/main_drawer.dart';
+import '../../../../provider/app_theme.dart';
+import '../../../../models/customer.dart';
+import '../../../../widgets/main_drawer.dart';
 
 class CustomerNotificationScreen extends StatefulWidget {
   static const routeName = '/customer_notification_screen';
