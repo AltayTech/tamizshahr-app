@@ -26,7 +26,7 @@ import './screens/contact_with_us_screen.dart';
 import './screens/customer_info/customer_notification_screen.dart';
 import './screens/customer_info/customer_orders_screen.dart';
 import './screens/customer_info/customer_user_info_screen.dart';
-import './screens/home_screen.dart';
+import 'features/home_feature/presentation/home_screen.dart';
 import './screens/map_screen.dart';
 import './screens/messages_create_screen.dart';
 import './screens/navigation_bottom_screen.dart';
@@ -49,7 +49,7 @@ import 'screens/messages_screen.dart';
 import 'screens/order_view_screen.dart';
 import 'screens/product_detail_screen.dart';
 import 'screens/product_screen.dart';
-import 'screens/splash_Screen.dart';
+import 'core/screens/splash_Screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() => runApp(MyApp());

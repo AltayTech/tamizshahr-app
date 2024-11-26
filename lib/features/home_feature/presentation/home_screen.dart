@@ -4,14 +4,14 @@ import 'package:tamizshahr/screens/wallet_screen.dart';
 import 'package:tamizshahr/widgets/buton_bottom.dart';
 import 'package:tamizshahr/widgets/main_item_button.dart';
 
-import '../provider/Products.dart';
-import '../provider/app_theme.dart';
-import '../provider/auth.dart';
-import '../screens/article_screen.dart';
-import '../screens/collect_list_screen.dart';
-import '../screens/waste_cart_screen.dart';
-import '../widgets/custom_dialog.dart';
-import 'product_screen.dart';
+import '../../../provider/Products.dart';
+import '../../../provider/app_theme.dart';
+import '../../../provider/auth.dart';
+import '../../../screens/article_screen.dart';
+import '../../../screens/collect_list_screen.dart';
+import '../../../screens/waste_cart_screen.dart';
+import '../../../widgets/custom_dialog.dart';
+import '../../../screens/product_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
