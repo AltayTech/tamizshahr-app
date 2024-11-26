@@ -23,7 +23,7 @@ import '../widgets/custom_dialog_profile.dart';
 import '../widgets/custom_dialog_send_request.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
-import 'navigation_bottom_screen.dart';
+import '../core/screens/navigation_bottom_screen.dart';
 
 class WasteRequestSendScreen extends StatefulWidget {
   static const routeName = '/waste_request_send_screen';

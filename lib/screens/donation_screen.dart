@@ -16,7 +16,7 @@ import '../provider/app_theme.dart';
 import '../widgets/en_to_ar_number_convertor.dart';
 import '../widgets/main_drawer.dart';
 import 'customer_info/login_screen.dart';
-import 'navigation_bottom_screen.dart';
+import '../core/screens/navigation_bottom_screen.dart';
 
 class DonationScreen extends StatefulWidget {
   static const routeName = '/DonationScreen';

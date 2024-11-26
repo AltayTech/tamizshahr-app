@@ -9,7 +9,7 @@ import '../../provider/Products.dart';
 import '../../provider/app_theme.dart';
 import '../../provider/auth.dart';
 import '../../widgets/main_drawer.dart';
-import '../navigation_bottom_screen.dart';
+import '../../core/screens/navigation_bottom_screen.dart';
 
 enum AuthMode { VerificationCode, Login }
 

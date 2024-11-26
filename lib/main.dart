@@ -29,7 +29,7 @@ import './screens/customer_info/customer_user_info_screen.dart';
 import 'features/home_feature/presentation/home_screen.dart';
 import './screens/map_screen.dart';
 import './screens/messages_create_screen.dart';
-import './screens/navigation_bottom_screen.dart';
+import 'core/screens/navigation_bottom_screen.dart';
 import './screens/order_products_send_screen.dart';
 import './screens/waste_cart_screen.dart';
 import './screens/waste_request_date_screen.dart';

@@ -14,7 +14,7 @@ import '../screens/contact_with_us_screen.dart';
 import '../screens/customer_info/login_screen.dart';
 import '../screens/customer_info/profile_screen.dart';
 import '../screens/guide_screen.dart';
-import '../screens/navigation_bottom_screen.dart';
+import '../core/screens/navigation_bottom_screen.dart';
 import '../screens/product_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

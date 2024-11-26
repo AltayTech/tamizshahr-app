@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../provider/app_theme.dart';
 import '../../widgets/en_to_ar_number_convertor.dart';
 import '../../widgets/splashscreen.dart';
-import '../../screens/navigation_bottom_screen.dart';
+import 'navigation_bottom_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreens extends StatefulWidget {
