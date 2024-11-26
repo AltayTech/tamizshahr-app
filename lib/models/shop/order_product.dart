@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/collect.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/request_address.dart';
 
-import '../../models/request/collect.dart';
-import '../../models/request/request_address.dart';
 
 class OrderProducts with ChangeNotifier {
   final String total_price;

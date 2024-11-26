@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/price_weight.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/wasteCart.dart';
 import 'package:tamizshahr/widgets/buton_bottom.dart';
 
-import '../models/request/price_weight.dart';
-import '../models/request/wasteCart.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../provider/wastes.dart';
-import '../screens/wastes_screen.dart';
+import '../features/waste_feature/presentation/wastes_screen.dart';
 import '../widgets/custom_dialog_enter.dart';
 import '../widgets/custom_dialog_profile.dart';
 import '../widgets/en_to_ar_number_convertor.dart';

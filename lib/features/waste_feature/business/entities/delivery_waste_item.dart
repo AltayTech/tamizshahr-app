@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/collect.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/collect_status.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/pasmand.dart';
 
-import '../status.dart';
-import 'collect.dart';
-import 'collect_status.dart';
-import 'pasmand.dart';
+import '../../../../models/status.dart';
 
 class DeliveryWasteItem with ChangeNotifier {
   final int id;

@@ -7,8 +7,8 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/region.dart';
-import '../models/request/address.dart';
-import '../models/request/address_main.dart';
+import '../features/waste_feature/business/entities/address.dart';
+import '../features/waste_feature/business/entities/address_main.dart';
 import 'urls.dart';
 
 class Auth with ChangeNotifier {

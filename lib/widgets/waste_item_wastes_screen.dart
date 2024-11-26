@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/waste.dart';
 
-import '../models/request/waste.dart';
 import '../provider/app_theme.dart';
 
 class WasteItemWastesScreen extends StatelessWidget {

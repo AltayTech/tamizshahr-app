@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:tamizshahr/models/request/collect.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/collect.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/price_weight.dart';
 
-import '../models/request/price_weight.dart';
 import '../provider/app_theme.dart';
 import 'en_to_ar_number_convertor.dart';
 

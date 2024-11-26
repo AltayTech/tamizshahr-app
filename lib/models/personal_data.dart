@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'request/address.dart';
+import '../features/waste_feature/business/entities/address.dart';
 
 class PersonalData with ChangeNotifier {
   final String phone;

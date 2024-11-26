@@ -4,7 +4,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 import 'package:tamizshahr/widgets/buton_bottom.dart';
 
-import '../models/request/address.dart';
+import '../features/waste_feature/business/entities/address.dart';
 import '../provider/app_theme.dart';
 import '../provider/auth.dart';
 import '../screens/map_screen.dart';

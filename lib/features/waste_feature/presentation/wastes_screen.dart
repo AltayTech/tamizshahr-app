@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/waste.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/wasteCart.dart';
 
-import '../models/request/waste.dart';
-import '../models/request/wasteCart.dart';
-import '../provider/app_theme.dart';
-import '../provider/wastes.dart';
-import '../widgets/main_drawer.dart';
-import '../widgets/waste_item_wastes_screen.dart';
+
+import '../../../provider/app_theme.dart';
+import '../../../provider/wastes.dart';
+import '../../../widgets/main_drawer.dart';
+import '../../../widgets/waste_item_wastes_screen.dart';
 
 class WastesScreen extends StatefulWidget {
   static const routeName = '/wastesScreen';

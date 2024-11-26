@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/request/address.dart';
+import 'address.dart';
 
 class AddressMain with ChangeNotifier {
   final List<Address> addressData;

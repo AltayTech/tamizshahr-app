@@ -1,4 +1,5 @@
-import 'request/pasmand.dart';
+
+import 'package:tamizshahr/features/waste_feature/business/entities/pasmand.dart';
 
 class ProductOrderReceive {
   final Pasmand product;

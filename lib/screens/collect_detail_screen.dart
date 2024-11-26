@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tamizshahr/models/request/request_waste_item.dart';
+import 'package:tamizshahr/features/waste_feature/business/entities/request_waste_item.dart';
 import 'package:tamizshahr/provider/wastes.dart';
 import 'package:tamizshahr/widgets/collect_details_collects_item.dart';
 import 'package:tamizshahr/widgets/en_to_ar_number_convertor.dart';
